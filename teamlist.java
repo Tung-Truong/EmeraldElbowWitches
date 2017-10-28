@@ -9,6 +9,7 @@ public class teamlist {
 		System.out.print("Tung Truong");
 		System.out.print("Nikolay Uvarov");
 		System.out.print("Jonathan Berry");
+		System.out.print("Yianni Alexiou");
 	}
 
 }
