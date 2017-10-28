@@ -11,6 +11,5 @@ public class teamlist {
 		System.out.print("Jonathan Berry");
 		System.out.print("Yianni Alexiou");
 	}
-
 }
 
