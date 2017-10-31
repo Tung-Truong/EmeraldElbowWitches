@@ -10,6 +10,7 @@ public class teamlist {
 		System.out.print("Nikolay Uvarov");
 		System.out.print("Jonathan Berry");
 		System.out.print("Yianni Alexiou");
+		System.out.print("Mitchell Farren");
 		System.out.println("Krystal Grant");
 	}
 }
