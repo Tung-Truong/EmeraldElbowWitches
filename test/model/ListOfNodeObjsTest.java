@@ -1,4 +1,4 @@
-package sample;
+package EmeraldElbowWitches;
 
 import org.junit.Before;
 import org.junit.Test;
