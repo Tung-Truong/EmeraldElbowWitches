@@ -1,4 +1,4 @@
-package EmeraldElbowWitches;
+package controller;
 
 public class Controller {
 }

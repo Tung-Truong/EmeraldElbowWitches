@@ -1,4 +1,4 @@
-package EmeraldElbowWitches;
+package model;
 
 import java.util.ArrayList;
 

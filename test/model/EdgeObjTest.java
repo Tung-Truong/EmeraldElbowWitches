@@ -1,4 +1,4 @@
-package EmeraldElbowWitches;
+package model;
 
 import org.junit.After;
 import org.junit.Before;

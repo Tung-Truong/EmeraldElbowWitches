@@ -1,4 +1,4 @@
-package EmeraldElbowWitches;
+package model;
 
 import javax.xml.soap.Node;
 import java.util.ArrayList;

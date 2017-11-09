@@ -1,11 +1,11 @@
-package EmeraldElbowWitches;
+package model;
 
 import javax.xml.soap.Node;
 import java.util.*;
 
 public class astar {
 
-    protected boolean Pathfind(node start, node goal){
+    /*protected boolean Pathfind(node start, node goal){
         //open_queue contains all unexplored nodes, starts with just the start node
         //closed_queue contains all explored nodes, which starts empty
         PriorityQueue<node> open_queue = new PriorityQueue<node>();
@@ -42,6 +42,6 @@ public class astar {
         }
         return false; //No path exists
     }
-    private ArrayList<Nodes> GenPath;
+    private ArrayList<Nodes> GenPath;*/
 }
 
