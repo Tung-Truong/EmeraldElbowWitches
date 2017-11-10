@@ -12,8 +12,8 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("UI_v1.fxml"));
-        primaryStage.setTitle("Memes");
-        primaryStage.setScene(new Scene(root, 700, 400));
+        primaryStage.setTitle("Map");
+        primaryStage.setScene(new Scene(root, 1000, 750));
         primaryStage.show();
     }
 

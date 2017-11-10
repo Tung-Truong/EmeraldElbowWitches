@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ui.UI_v1">
    <children>
-       <SplitPane dividerPositions="0.9120603015075377" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="false" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+       <SplitPane dividerPositions="0.9120603015075377" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
                <SplitPane dividerPositions="0.21428571428571427" prefHeight="160.0" prefWidth="200.0">
                    <items>
@@ -130,10 +130,10 @@
                                                        <Image url="@../media/basicMap.png" />
                                                    </image>
                                                </ImageView>
-                                    <MenuButton fx:id="MapDropDown" layoutX="380.0" mnemonicParsing="false" text="Map">
+                                    <MenuButton fx:id="MapDropDown" layoutY="331.0" mnemonicParsing="false" text="Map">
                                       <items>
-                                        <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="Action 1" />
-                                        <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Action 2" />
+                                        <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
+                                        <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
                                       </items>
                                     </MenuButton>
                                            </children>

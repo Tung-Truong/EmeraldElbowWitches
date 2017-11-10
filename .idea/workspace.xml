@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="28e6640a-3fb3-4299-ac43-5048679f70d2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" afterPath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/Main.java" afterPath="$PROJECT_DIR$/src/view/ui/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" afterPath="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/UI_v1.java" afterPath="$PROJECT_DIR$/src/view/ui/UI_v1.java" />
     </list>
@@ -28,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/ui/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+            <state relative-caret-position="288">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -44,9 +43,12 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="324">
+              <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+              <folding>
+                <marker date="1510288828155" expanded="true" signature="11960:12081" ph="..." />
+                <marker date="1510288828155" expanded="true" signature="11988:12055" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UI_v1.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UI_v1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="33" column="58" lean-forward="false" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+            <state relative-caret-position="160">
+              <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -122,8 +124,9 @@
         <option value="$PROJECT_DIR$/test/model/EdgeObjTest.java" />
         <option value="$PROJECT_DIR$/src/model/ListOfNodeObjs.java" />
         <option value="$PROJECT_DIR$/src/model/NodeObj.java" />
-        <option value="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" />
         <option value="$PROJECT_DIR$/src/view/ui/UI_v1.java" />
+        <option value="$PROJECT_DIR$/src/view/ui/Main.java" />
+        <option value="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" />
       </list>
     </option>
   </component>
@@ -134,7 +137,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="684" />
+    <option name="x" value="471" />
     <option name="y" value="94" />
     <option name="width" value="1612" />
     <option name="height" value="876" />
@@ -525,15 +528,15 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11257000" />
+    <option name="totallyTimeSpent" value="11947000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="684" y="94" width="1612" height="876" extended-state="0" />
+    <frame x="471" y="94" width="1612" height="876" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32882884" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -851,25 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/ui/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="28" lean-forward="true" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/media/Shapiro.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -880,13 +864,35 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+          <folding>
+            <marker date="1510288828155" expanded="true" signature="11960:12081" ph="..." />
+            <marker date="1510288828155" expanded="true" signature="11988:12055" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="33" column="58" lean-forward="false" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+        <state relative-caret-position="160">
+          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/ui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
