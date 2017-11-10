@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class ReadCSV {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:testDB;create=true";
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main() throws ClassNotFoundException, SQLException {
         String fileName = "docs/MapENodes.csv";
         File file = new File(fileName);
         String[] currentRow = new String[9];
