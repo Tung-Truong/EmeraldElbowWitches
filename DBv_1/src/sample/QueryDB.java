@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class QueryDB {
     public static final String SQL_STATEMENT = "select * from testTable";
-    public static void main(String[] args) throws SQLException {
+    public static void main() throws SQLException {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL_STATEMENT);

@@ -7,14 +7,18 @@ import java.sql.Statement;
 
 public class Main {
 
-    public void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
-        CreateDB.main();
-        ReadCSV.main();
+        try {
+            CreateDB.main();
+            ReadCSV.main();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         String filename;
         filename = "docs/updated.csv";
         String tablename = "testTable";
-        Statement.executeQuery("SELECT * INTO OUTFILE \"" + filename + "\" FROM " + tablename);
+        statement.executeQuery("SELECT * FROM " + tablename);
     }
 }
