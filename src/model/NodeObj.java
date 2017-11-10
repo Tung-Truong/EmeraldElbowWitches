@@ -23,6 +23,10 @@ public class NodeObj {
         return edgeList;
     }
 
+    public double getDistToGoal(){
+        return 1;
+    }
+
     public EdgeObj getEdgeObj(NodeObj n){
         return new EdgeObj(this, new NodeObj(), 0);
     }

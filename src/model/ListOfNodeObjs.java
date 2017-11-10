@@ -25,6 +25,10 @@ public void setEdgeWeight(NodeObj nodeA, NodeObj nodeB, int edgeWeight){
 
 }
 
+public void setAllNodeObjToGoal(NodeObj goalNode){
+
+}
+
     // ---------------------General Functionality--------------
 public void addNodeObjToList(NodeObj node){
 
