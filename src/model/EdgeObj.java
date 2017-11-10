@@ -24,7 +24,7 @@ public class EdgeObj {
 
     //set the weight of the edge to a specific value
     public void setWeight(int edgeWeight){
-        edgeWeight = weight;
+        weight = edgeWeight;
     }
 
     public double genWeightFromDistance(){

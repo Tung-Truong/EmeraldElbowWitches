@@ -27,13 +27,13 @@ public class EdgeObjTest {
 
     @Test
     public void getWeight() throws Exception {
-        assertEquals(edge.getWeight(), 3);
+        assertEquals(3, edge.getWeight());
     }
 
     @Test
     public void setWeight() throws Exception {
         edge.setWeight(5);
-        assertEquals(edge.getWeight(), 5);
+        assertEquals(5, edge.getWeight());
     }
 
     @Test
