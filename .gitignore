@@ -2,6 +2,6 @@
 # the project's commits tidy, because people won't be constantly overwriting
 # their own intelij config files into the main repository.
 
-/.idea
+out
+.idea
 EmeraldElbowWitches.iml
-
