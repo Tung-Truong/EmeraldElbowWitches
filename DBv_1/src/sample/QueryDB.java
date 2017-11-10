@@ -15,11 +15,11 @@ public class QueryDB {
         for (int x = 1; x <= columnCount; x++) {
         }
         while (resultSet.next()) {
-            String[] tempVals = new String[9];
+            String[] tempVals = new String[10];
             for (int x = 1; x < columnCount; x++) {
                 tempVals[x] = resultSet.getString(x);
             }
-            nodeList.add(new Node(tempVals[0], tempVals[1], tempVals[2], tempVals[3], tempVals[4], tempVals[5], tempVals[6], tempVals[7], tempVals[8]));
+            nodeList.add(new Node(tempVals[2], tempVals[3], tempVals[4], tempVals[5], tempVals[6], tempVals[7], tempVals[8], tempVals[0], tempVals[1]));
 
 
         }

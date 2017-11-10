@@ -12,19 +12,19 @@ public class ReadCSV {
     public static void main() throws ClassNotFoundException, SQLException {
         String fileName = "docs/MapENodes.csv";
         File file = new File(fileName);
-        String[] currentRow = new String[9];
+        String[] currentRow = new String[10];
         Class.forName(DRIVER);
         Connection connection = DriverManager.getConnection(JDBC_URL);
         try {
             Scanner inputStream = new Scanner(file);
-            inputStream.useDelimiter(",");
+            inputStream.useDelimiter(",|\\n");
 
             for (int p = 0; p <= 8; p++) inputStream.next();
 
 
             for (int rowsAdded = 0; rowsAdded <= 57; rowsAdded++) {
                 int i = 0;
-                while (inputStream.hasNext() && (i <= 7)) {
+                while (inputStream.hasNext() && (i <= 8)) {
                     String data = inputStream.next();
                     currentRow[i] = data;
                     i++;
@@ -32,6 +32,7 @@ public class ReadCSV {
                 String SQL = "INSERT INTO testTable VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement pState = connection.prepareStatement(SQL);
                 pState.setString(1, currentRow[0]);
+                System.out.println(currentRow[1] + "id");
                 pState.setString(2, currentRow[1]);
                 pState.setString(3, currentRow[2]);
                 pState.setString(4, currentRow[3]);
@@ -40,6 +41,7 @@ public class ReadCSV {
                 pState.setString(7, currentRow[6]);
                 pState.setString(8, currentRow[7]);
                 pState.setString(9, currentRow[8]);
+                System.out.println(currentRow[8] + "team");
                 pState.executeUpdate();
                 pState.close();
                 currentRow = new String[9];
