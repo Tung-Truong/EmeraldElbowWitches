@@ -7,11 +7,17 @@ import java.sql.Statement;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException {
+    public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Class.forName(DRIVER);
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         try {
             CreateDB.main();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
             ReadCSV.main();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
