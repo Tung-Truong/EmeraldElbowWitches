@@ -4,44 +4,55 @@ import javax.xml.soap.Node;
 import java.util.*;
 
 public class astar {
+    private ArrayList<NodeObj> GenPath;
 
-    /*protected boolean Pathfind(node start, node goal){
-        //open_queue contains all unexplored nodes, starts with just the start node
-        //closed_queue contains all explored nodes, which starts empty
-        PriorityQueue<node> open_queue = new PriorityQueue<node>();
+    protected boolean Pathfind(NodeObj start, NodeObj goal) {
+        //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj
+        //closed_queue contains all explored NodeObjs, which starts empty
+        PriorityQueue<NodeObj> open_queue = new PriorityQueue<NodeObj>();
         open_queue.add(start);
-        PriorityQueue<node> closed_queue = new PriorityQueue<node>();
-
+        PriorityQueue<NodeObj> closed_queue = new PriorityQueue<NodeObj>();
         //G cost of going to start from start is zero
-        start.g = 0;
-        start.f = start.g + getDistance(start, goal);
+        double startG = 0;
+        start.setHeuristic(startG + start.getDistToGoal());
 
-        while (open_queue.size()>0){
-            node current = open_queue.peek();
-            if (current == goal){
-                return GenPath(goal);
+        while (open_queue.size() > 0) {
+            NodeObj current = open_queue.peek(); //gets the element with the lowest f cost
+            if (current == goal) {
+                //should create the found path with helper function
+                return true;
             }
             open_queue.remove(current);
             closed_queue.add(current);
-            List exploreList = node.getListOfNeighbors();
-            for (Object neighbor: exploreList){
-                if (closed_queue.contains(neighbor) && !closed_queue.contains(neighbor)){
-                    neighbor.f = neighbor.g + getDistance(neighbor, goal);
-                    if (open_queue.contains(neighbor) && !open_queue.contains(neighbor)){
+
+            ArrayList<NodeObj> exploreList = current.getListOfNeighbors();
+            for (NodeObj neighbor : exploreList) {
+                if (!closed_queue.contains(neighbor)) {
+                    neighbor.setHeuristic(neighbor.setgCost(neighbor.getDistance(neighbor,current)); + neighbor.getDistToGoal());
+                    if (!open_queue.contains(neighbor)) {
                         open_queue.add(neighbor);
+                        }
+                    else {
+                        NodeObj openNeighbor = open_queue.peek();
+                        if(neighbor.getgCost()< openNeighbor.setgCost(getDistance(neighbor, current))){
+                            openNeighbor.setgCost(neighbor.getgCost());
+                            openNeighbor.setParent(neighbor.getParent());
+                        }
                     }
-                    else{
-                        node nextNeighbor = neighbor in open_list;
-                                if (neighbor.g < nextNeighbor.g){
-                                    nextNeighbor.g = neighbor.g;
-                                    nextNeighbor.parent = neighbor.parent;
-                                }
-                    }
+
                 }
             }
         }
         return false; //No path exists
     }
-    private ArrayList<Nodes> GenPath;*/
-}
 
+    protected ArrayList<NodeObj> constructPath(NodeObj goal){
+        ArrayList<NodeObj> path = new ArrayList<NodeObj>();
+        path.add(goal);
+        while (!goal.getParent().equals(null)){
+            NodeObj nextNode = goal.getParent();
+            path.add(nextNode);
+        }
+        return path;
+    }
+}

@@ -1,9 +1,11 @@
 package model;
 
-import javax.xml.soap.Node;
 import java.util.ArrayList;
 
 public class NodeObj {
+    private double heuristic;
+    private NodeObj parent;
+    private double gCost;
 
    // private ArrayList<EdgeObj> listOfEdgeObjs;
 
@@ -21,6 +23,33 @@ public class NodeObj {
         ArrayList<EdgeObj> edgeList = new ArrayList<EdgeObj>();
         edgeList.add(new EdgeObj(this, new NodeObj(), 0));
         return edgeList;
+    }
+    public double getDistToGoal(){
+        return 1;
+    }
+
+    public double getHeuristic(){
+        return this.heuristic;
+    }
+
+    public void setHeuristic(double heuristic){
+        this.heuristic = heuristic;
+    }
+
+    public NodeObj getParent() {
+        return this.parent;
+    }
+
+    public void setParent(NodeObj parent) {
+        this.parent = parent;
+    }
+
+    public double getgCost() {
+        return this.gCost;
+    }
+
+    public void setgCost(double gCost) {
+        this.gCost = gCost;
     }
 
     public EdgeObj getEdgeObj(NodeObj n){
