@@ -3,14 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class NodeObj {
+    public Node node;
     private double heuristic;
     private NodeObj parent;
     private double gCost;
+    private ArrayList<EdgeObj> listOfEdgeObjs;
 
-   // private ArrayList<EdgeObj> listOfEdgeObjs;
-
-    public NodeObj(){
-        //listOfEdgeObjs.add(new EdgeObj(this, new NodeObj(), 0));
+    public NodeObj(Node myNode){
+        node = myNode;
+        listOfEdgeObjs = new ArrayList<EdgeObj>();
     }
 
     public ArrayList<NodeObj> getListOfNeighbors(){
@@ -21,9 +22,37 @@ public class NodeObj {
 
     public ArrayList<EdgeObj> getListOfEdgeObjs(){
         ArrayList<EdgeObj> edgeList = new ArrayList<EdgeObj>();
-        edgeList.add(new EdgeObj(this, new NodeObj(), 0));
+        edgeList.add(new EdgeObj(this, new NodeObj(node), 0));
         return edgeList;
     }
+
+    // ---------------------General Functionality----------------------------
+
+    // creates an edge to another node, adds edge to the list for the map
+    public void addEdge(NodeObj nodeB){
+        EdgeObj edge = new EdgeObj(this, nodeB);
+        listOfEdgeObjs.add(edge);
+    }
+
+    // creates an edge to another node, adds edge to the list for the map
+    public void addEdge(NodeObj nodeB, int edgeWeight){
+        EdgeObj edge = new EdgeObj(this, nodeB, edgeWeight);
+        listOfEdgeObjs.add(edge);
+    }
+
+    public void killEdge(NodeObj nodeB) throws InvalidNodeException {
+        for (EdgeObj e:listOfEdgeObjs) {
+            if (e.nodeA == this && e.nodeB == nodeB)
+                listOfEdgeObjs.remove(e);
+            else if (e.nodeB == this && e.nodeA == nodeB)
+                listOfEdgeObjs.remove(e);
+            else
+                throw new InvalidNodeException("no corresponding edge");
+        }
+    }
+
+    // ---------------------Getters----------------------------
+
     public double getDistToGoal(){
         return 1;
     }
@@ -52,47 +81,16 @@ public class NodeObj {
         this.gCost = gCost;
     }
 
-    public EdgeObj getEdgeObj(NodeObj n){
-        return new EdgeObj(this, new NodeObj(), 0);
-    }
-
-    // ---------------------Setters----------------------------
-
-    public void changeLoc(NodeObj node, int xLoc, int yLoc){
-
-    }
-
-    public void changeFloor(NodeObj node, String floor){
-
-    }
-
-    public void changeBuilding(NodeObj node, String building){
-
-    }
-
-    public void changeType(NodeObj node, String typeOfNode){
-
-    }
-
-    public void changeNameShort(NodeObj node, String shortName){
-
-    }
-
-    public void changeNameLong(NodeObj node, String longName){
-
-    }
-
-    public void changeTeamAssigned(NodeObj node, String team){
-
-    }
-
-    // ---------------------General Functionality----------------------------
-
-    public void addEdge(NodeObj nodeB, int edgeWeight){
-
-    }
-    public void killEdge(NodeObj nodeB){
-
+    public EdgeObj getEdgeObj(NodeObj nodeB) throws InvalidNodeException {
+        for (EdgeObj e:listOfEdgeObjs) {
+            if (e.nodeA == this && e.nodeB == nodeB)
+                return e;
+            else if (e.nodeB == this && e.nodeA == nodeB)
+                return e;
+            else
+                throw new InvalidNodeException("no corresponding edge");
+        }
+        return null; // this garbage...
     }
 
 }
