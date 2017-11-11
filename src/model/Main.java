@@ -23,15 +23,13 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String filename;
-        filename = "docs/updated.csv";
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
-        QueryDB qDB = new QueryDB();
+        QueryDB.getEdges();
 
         // creates and saves the list of nodes for a map
         ArrayList<Node> listOfNodes = new ArrayList<Node>();
-        listOfNodes = qDB.run();
+        listOfNodes = QueryDB.getNodes();
 
         // create a list of all the node objects for a map
         ArrayList<NodeObj> listOfNodeObj = new ArrayList<NodeObj>();
