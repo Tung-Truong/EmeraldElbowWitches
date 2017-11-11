@@ -27,6 +27,7 @@ public class Main {
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
         QueryDB qDB = new QueryDB();
-        qDB.run();
+        qDB.getNodes();
+        qDB.getEdges();
     }
 }
