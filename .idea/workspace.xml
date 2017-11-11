@@ -2,125 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e6640a-3fb3-4299-ac43-5048679f70d2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/DBv_1.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/CreateDB.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/Node.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/QueryDB.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/ReadCSV.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/Out/production/DBv_1/sample/sample.fxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/derby.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/docs/MapENodes.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derby.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derby.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derby.war" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_cs.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_de_DE.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_es.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_fr.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_hu.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_it.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_ja_JP.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_ko_KR.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_pl.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_pt_BR.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_ru.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_zh_CN.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyLocale_zh_TW.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyclient.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbynet.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyoptionaltools.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbyrun.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/lib/derbytools.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/CreateDB.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/Main.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/Node.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/QueryDB.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/ReadCSV.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/src/sample/sample.fxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/README_DO_NOT_TOUCH_FILES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/db.lck" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/dbex.lck" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/log/README_DO_NOT_TOUCH_FILES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/log/log.ctrl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/log/log1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/log/logmirror.ctrl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/README_DO_NOT_TOUCH_FILES.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c10.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c101.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c111.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c121.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c130.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c141.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c150.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c161.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c171.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c180.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c191.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1a1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1b1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1c0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1d1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1e0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c1f1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c20.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c200.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c211.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c221.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c230.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c241.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c251.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c260.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c271.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c281.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c290.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2a1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2b1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2c1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2d0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2e1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c2f0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c300.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c31.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c311.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c321.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c331.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c340.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c351.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c361.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c371.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c380.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c391.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3a1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3b1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3c0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3d1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3e1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c3f1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c400.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c41.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c411.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c421.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c430.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c441.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c451.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c461.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c470.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c481.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c490.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c51.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c60.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c71.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c81.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/c90.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/ca1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/cb1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/cc0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/cd1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/ce1.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/seg0/cf0.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DBv_1/testDB/service.properties" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/view/media/Shapiro.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/CreateDB.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/Main.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/Node.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/QueryDB.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/ReadCSV.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/docs/MapENodes.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ListOfNodeObjs.class" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ListOfNodeObjs.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/NodeObj.class" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/NodeObj.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/Main.class" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" afterPath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/ListOfNodeObjs.java" afterPath="$PROJECT_DIR$/src/model/ListOfNodeObjs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/NodeObj.java" afterPath="$PROJECT_DIR$/src/model/NodeObj.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/astar.java" afterPath="$PROJECT_DIR$/src/model/astar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/Main.java" afterPath="$PROJECT_DIR$/src/view/ui/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" afterPath="$PROJECT_DIR$/src/view/ui/UI_v1.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/view/ui/UI_v1.java" afterPath="$PROJECT_DIR$/src/view/ui/UI_v1.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -131,21 +33,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="astar.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="astar.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/astar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
+            <state relative-caret-position="-326">
               <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/ui/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
               <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListOfNodeObjs.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/ListOfNodeObjs.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -167,7 +79,7 @@
       <file leaf-file-name="EdgeObj.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/EdgeObj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
+            <state relative-caret-position="414">
               <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding>
                 <element signature="e#629#630#0" expanded="true" />
@@ -180,7 +92,7 @@
       <file leaf-file-name="UI_v1.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
+            <state relative-caret-position="450">
               <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -199,13 +111,9 @@
       <file leaf-file-name="NodeObj.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/NodeObj.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#658#659#0" expanded="true" />
-                <element signature="e#682#683#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="360">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -248,8 +156,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="80" />
-    <option name="y" value="47" />
+    <option name="x" value="471" />
+    <option name="y" value="94" />
     <option name="width" value="1612" />
     <option name="height" value="876" />
   </component>
@@ -271,7 +179,19 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="EmeraldElbowWitches" type="58d84e3e:PackageViewProjectNode" />
+              <item name="nodesAndEdges" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -294,25 +214,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="EmeraldElbowWitches" type="58d84e3e:PackageViewProjectNode" />
-              <item name="nodesAndEdges" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="AndroidView" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Packages/jdk1.8.0_151/db/lib" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -568,7 +476,7 @@
       <option name="presentableId" value="Default" />
       <updated>1510264318123</updated>
       <workItem from="1510264319438" duration="3615000" />
-      <workItem from="1510366205772" duration="148000" />
+      <workItem from="1510367066586" duration="23000" />
     </task>
     <servers />
   </component>
@@ -605,10 +513,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12160000" />
+    <option name="totallyTimeSpent" value="12035000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="80" y="47" width="1612" height="876" extended-state="0" />
+    <frame x="471" y="94" width="1612" height="876" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -622,7 +531,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17866005" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17866005" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -798,36 +707,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/astar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ListOfNodeObjs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/NodeObj.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="20" column="63" lean-forward="false" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#658#659#0" expanded="true" />
-            <element signature="e#682#683#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/EdgeObj.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
+        <state relative-caret-position="414">
           <caret line="27" column="5" lean-forward="false" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
           <folding>
             <element signature="e#629#630#0" expanded="true" />
@@ -859,7 +741,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/ui/UI_v1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
+        <state relative-caret-position="450">
           <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -871,6 +753,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ListOfNodeObjs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/NodeObj.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/astar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-326">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
