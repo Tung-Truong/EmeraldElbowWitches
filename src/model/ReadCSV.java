@@ -1,4 +1,4 @@
-package sample;
+package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ public class ReadCSV {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:testDB;create=true";
     public static void run() throws ClassNotFoundException, SQLException {
-        String fileName = "docs/MapENodes.csv";
+        String fileName = "src/model/docs/MapENodes.csv";
         File file = new File(fileName);
         String[] currentRow = new String[9];
         Class.forName(DRIVER);

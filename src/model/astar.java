@@ -4,7 +4,7 @@ import javax.xml.soap.Node;
 import java.util.*;
 
 public class astar {
-    private ArrayList<NodeObj> GenPath;
+   /* private ArrayList<NodeObj> GenPath;
 
     protected boolean Pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj
@@ -54,5 +54,5 @@ public class astar {
             path.add(nextNode);
         }
         return path;
-    }
+    }*/
 }
