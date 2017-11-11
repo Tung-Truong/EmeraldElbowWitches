@@ -38,7 +38,7 @@ EHALL02301,3325,870,1,45 Francis,HALL,Hallway Node 21 Floor 1,HallE21,Team E
 EHALL02401,2770,980,1,45 Francis,HALL,Hallway Node 22 Floor 1,HallE22,Team E
 EHALL02501,2925,980,1,45 Francis,HALL,Hallway Node 23 Floor 1,HallE23,Team E
 EREST00201,2985,980,1,45 Francis,REST,Restroom F1 Floor 1,Restroom F1,Team E
-EELEV00F01,3050,980,1,45 Francis,ELEV,Elevator F Floor 1,Elevator F1,Team E
+EELEV00F01,3050,980,1,45 Francis,ELEV ,Elevator F Floor 1 ,Elevator F1,Team E
 EHALL02601,3085,980,1,45 Francis,HALL,Hallway Node 24 Floor 1,HallE24,Team E
 EHALL02701,3085,1000,1,45 Francis,HALL,Hallway Node 25 Floor 1,HallE25,Team E
 EHALL02801,2925,1050,1,45 Francis,HALL,Hallway Node 26 Floor 1,HallE26,Team E
