@@ -12,14 +12,14 @@ public class QueryDB {
         ResultSet resultSet = statement.executeQuery(SQL_STATEMENT);
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
-        for (int x = 1; x <= columnCount; x++) {
+        for (int x = 1; x <= columnCount+1; x++) {
         }
         while (resultSet.next()) {
             String[] tempVals = new String[10];
-            for (int x = 1; x < columnCount; x++) {
+            for (int x = 1; x < columnCount+1; x++) {
                 tempVals[x] = resultSet.getString(x);
             }
-            nodeList.add(new Node(tempVals[2], tempVals[3], tempVals[4], tempVals[5], tempVals[6], tempVals[7], tempVals[8], tempVals[0], tempVals[1]));
+            nodeList.add(new Node(tempVals[2], tempVals[3], tempVals[4], tempVals[5], tempVals[6], tempVals[7], tempVals[8], tempVals[9], tempVals[1]));
 
 
         }
