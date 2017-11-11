@@ -13,11 +13,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Packages/jdk1.8.0_151/db/lib" />
+          <root url="file://$MODULE_DIR$/../../Packages/jdk1.8.0_151/db/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Packages/jdk1.8.0_151/db/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../Packages/jdk1.8.0_151/db/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>
