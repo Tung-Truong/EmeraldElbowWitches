@@ -25,7 +25,6 @@ public class Main {
         }
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
-        QueryDB.getEdges();
 
         // creates and saves the list of nodes for a map
         ArrayList<Node> listOfNodes = new ArrayList<Node>();
@@ -37,5 +36,15 @@ public class Main {
             listOfNodeObj.add(new NodeObj(n));
         }
         int didWeGetHere;
+
+        // creates and saves the list of edges for a map
+        ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
+        listOfEdges = QueryDB.getEdges();
+
+        // create a list of all the node objects for a map
+        /*ArrayList<EdgeObj> listOfEdgeObj = new ArrayList<EdgeObj>();
+        for (Edge n:listOfEdges) {
+            listOfNodeObj.add(new NodeObj(n));
+        }*/
     }
 }
