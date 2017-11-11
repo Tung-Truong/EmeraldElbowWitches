@@ -13,12 +13,12 @@ public class Main {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         try {
-            CreateDB.main();
+            CreateDB.run();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         try {
-            ReadCSV.main();
+            ReadCSV.run();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -26,5 +26,7 @@ public class Main {
         filename = "docs/updated.csv";
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
+        QueryDB qDB = new QueryDB();
+        qDB.run();
     }
 }
