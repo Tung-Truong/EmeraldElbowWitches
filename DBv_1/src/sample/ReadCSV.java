@@ -22,7 +22,7 @@ public class ReadCSV {
             for (int p = 0; p <= 8; p++) inputStream.next();
 
 
-            for (int rowsAdded = 0; rowsAdded <= 57; rowsAdded++) {
+            for (int rowsAdded = 0; inputStream.hasNext(); rowsAdded++) {
                 int i = 0;
                 while (inputStream.hasNext() && (i <= 8)) {
                     String data = inputStream.next();
