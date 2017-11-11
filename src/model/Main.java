@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -22,11 +23,28 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String filename;
-        filename = "docs/updated.csv";
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
-        QueryDB qDB = new QueryDB();
-        qDB.run();
+
+        // creates and saves the list of nodes for a map
+        ArrayList<Node> listOfNodes = new ArrayList<Node>();
+        listOfNodes = QueryDB.getNodes();
+
+        // create a list of all the node objects for a map
+        ArrayList<NodeObj> listOfNodeObj = new ArrayList<NodeObj>();
+        for (Node n:listOfNodes) {
+            listOfNodeObj.add(new NodeObj(n));
+        }
+        int didWeGetHere;
+
+        // creates and saves the list of edges for a map
+        ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
+        listOfEdges = QueryDB.getEdges();
+
+        // create a list of all the node objects for a map
+        /*ArrayList<EdgeObj> listOfEdgeObj = new ArrayList<EdgeObj>();
+        for (Edge n:listOfEdges) {
+            listOfNodeObj.add(new NodeObj(n));
+        }*/
     }
 }

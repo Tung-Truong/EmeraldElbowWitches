@@ -1,8 +1,8 @@
 package model;
 
 public class Node {
-    private String xLoc;
-    private String yLoc;
+    private int xLoc;
+    private int yLoc;
     private String floor;
     private String building;
     private String nodeType;
@@ -12,8 +12,8 @@ public class Node {
     private String nodeID;
 
     public Node(String xLoc, String yLoc, String floor, String building, String nodeType, String shortName, String longName, String team, String nodeID) {
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
+        this.xLoc = Integer.parseInt(xLoc); // converts xLoc and yLoc into ints, from the db's strings
+        this.yLoc = Integer.parseInt(yLoc);
         this.floor = floor;
         this.building = building;
         this.nodeType = nodeType;
@@ -23,11 +23,11 @@ public class Node {
         this.nodeID = nodeID;
     }
 
-    public String getxLoc() {
+    public int getxLoc() {
         return xLoc;
     }
 
-    public String getyLoc() {
+    public int getyLoc() {
         return yLoc;
     }
 
@@ -59,35 +59,35 @@ public class Node {
         return nodeID;
     }
 
-    public void changeLoc(String x, String y) {
+    public void setLoc(int x, int y) {
         this.xLoc = x;
         this.yLoc = y;
     }
-    public void changeFloor(String floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 
-    public void changeBuilding(String building) {
+    public void setBuilding(String building) {
         this.building = building;
     }
 
-    public void changeNodeType(String nodeType) {
+    public void setNodeType(String nodeType) {
         this.nodeType = nodeType;
     }
 
-    public void changeShortName(String shortName) {
+    public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
-    public void changeLongName(String longName) {
+    public void setLongName(String longName) {
         this.longName = longName;
     }
 
-    public void changeTeam(String team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 
-    public void changeNodeID(String nodeID) {
+    public void setNodeID(String nodeID) {
         this.nodeID = nodeID;
     }
 

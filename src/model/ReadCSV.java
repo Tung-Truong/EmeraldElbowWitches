@@ -6,54 +6,58 @@ import java.sql.*;
 import java.util.Scanner;
 
 
+
 public class ReadCSV {
+    final static int NUMROWSNODE = 9;
+    final static int NUMROWSEDGE = 3;
+    final static String EDGETABLE = "edgeTable";
+    final static String NODETABLE = "testTable";
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:testDB;create=true";
+
+
     public static void run() throws ClassNotFoundException, SQLException {
-        String fileName = "src/model/docs/MapENodes.csv";
-        File file = new File(fileName);
-        String[] currentRow = new String[9];
         Class.forName(DRIVER);
+
+        String mapENodes = "src/model/docs/MapENodes.csv";
+        File mapENodesCSV = new File(mapENodes);
+        readFile(mapENodesCSV, NUMROWSNODE, NODETABLE);
+
+        String mapEEdges = "src/model/docs/MapEEdges.csv";
+        File mapEEdgesCSV = new File(mapEEdges);
+        readFile(mapEEdgesCSV, NUMROWSEDGE, EDGETABLE);
+    }
+
+    private static void readFile(File fileToRead, int numColExpected, String destTable) throws ClassNotFoundException, SQLException{
         Connection connection = DriverManager.getConnection(JDBC_URL);
+        String[] newRow = new String[numColExpected];
         try {
-            Scanner inputStream = new Scanner(file);
+            Scanner inputStream = new Scanner(fileToRead);
             inputStream.useDelimiter(",|\\n");
-
-            for (int p = 0; p <= 8; p++) inputStream.next();
-
-
-            for (int rowsAdded = 0; inputStream.hasNext(); rowsAdded++) {
-                int i = 0;
-                while (inputStream.hasNext() && (i <= 8)) {
+            for (int p = 0; p < newRow.length; p++){
+                inputStream.next();
+            }
+            while(inputStream.hasNext()) {
+                for(int i = 0; ((inputStream.hasNext()) && (i<newRow.length)); i++){
                     String data = inputStream.next();
-                    currentRow[i] = data;
-                    i++;
+                    newRow[i] = data;
                 }
-                String SQL = "INSERT INTO testTable VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String buildSQLStr = " VALUES (";
+                for(int numCol = 0; numCol < numColExpected-1; numCol++){
+                    buildSQLStr = buildSQLStr+"?,";
+                }
+                buildSQLStr = buildSQLStr+"?)";
+                String SQL = "INSERT INTO " + destTable + buildSQLStr;
                 PreparedStatement pState = connection.prepareStatement(SQL);
-                pState.setString(1, currentRow[0]);
-                pState.setString(2, currentRow[1]);
-                pState.setString(3, currentRow[2]);
-                pState.setString(4, currentRow[3]);
-                pState.setString(5, currentRow[4]);
-                pState.setString(6, currentRow[5]);
-                pState.setString(7, currentRow[6]);
-                pState.setString(8, currentRow[7]);
-                pState.setString(9, currentRow[8]);
+                for(int eachCol = 0; eachCol < numColExpected; eachCol++){
+                    pState.setString(eachCol+1, newRow[eachCol]);
+                }
                 pState.executeUpdate();
                 pState.close();
-                currentRow = new String[9];
-
             }
             inputStream.close();
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-/*
-        "(2175, 910, '1', '45 Francis', 'HALL', 'Hallway Connector 2 Floor 1', 'HallwayW0201', 'Team E', 'EHALL00201')");
-
-*/
     }
 }
