@@ -22,12 +22,9 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        String filename;
-        filename = "docs/updated.csv";
         String tablename = "testTable";
         statement.executeQuery("SELECT * FROM " + tablename);
-        QueryDB qDB = new QueryDB();
-        qDB.getNodes();
-        qDB.getEdges();
+        QueryDB.getNodes();
+        QueryDB.getEdges();
     }
 }

@@ -37,7 +37,7 @@ public class ReadCSV {
             for (int p = 0; p < newRow.length; p++){
                 inputStream.next();
             }
-            for (int rowsAdded = 0; inputStream.hasNext(); rowsAdded++) {
+            while(inputStream.hasNext()) {
                 for(int i = 0; ((inputStream.hasNext()) && (i<newRow.length)); i++){
                     String data = inputStream.next();
                     newRow[i] = data;

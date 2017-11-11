@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 public class QueryDB {
 
-    public static final String SQL_STATEMENT = "select * from testTable";
+    public static final String GET_NODES = "select * from testTable";
+    public static final String GET_EDGES = "select * from edgeTable";
 
     public static ArrayList<Node> getNodes() throws SQLException {
         ArrayList<Node> nodeList = new ArrayList<Node>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SQL_STATEMENT);
+        ResultSet resultSet = statement.executeQuery(GET_NODES);
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
         while (resultSet.next()) {
@@ -35,7 +36,7 @@ public class QueryDB {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SQL_STATEMENT);
+        ResultSet resultSet = statement.executeQuery(GET_EDGES);
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
         while(resultSet.next()){
@@ -43,8 +44,8 @@ public class QueryDB {
             for(int colInd = 1; colInd < columnCount+1; colInd++){
                 tempVals[colInd-1] = resultSet.getString(colInd);
             }
-            if(tempVals[1] != null){
-                edgeList.add(new Edge(tempVals[1], tempVals[2], tempVals[3]));
+            if(tempVals[0] != null){
+                edgeList.add(new Edge(tempVals[1], tempVals[2], tempVals[0]));
             }
         }
         for(Edge edge:edgeList){
