@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class QueryDB {
 
-    public static final String GET_NODES = "select * from testTable";
+    public static final String GET_NODES = "select * from nodeTable";
     public static final String GET_EDGES = "select * from edgeTable";
 
     public static ArrayList<Node> getNodes() throws SQLException {
