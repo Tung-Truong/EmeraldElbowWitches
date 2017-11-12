@@ -4,18 +4,29 @@ public class EdgeObj {
 
     public NodeObj nodeA;
     public NodeObj nodeB;
+    public String nodeAStr;
+    public String nodeBStr;
     private double weight;
 
     public EdgeObj(NodeObj nodeA, NodeObj nodeB) {
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = this.genWeightFromDistance();
+        this.nodeAStr = nodeA.node.getNodeID();
+        this.nodeBStr = nodeB.node.getNodeID();
     }
 
     public EdgeObj(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = edgeWeight;
+        this.nodeAStr = nodeA.node.getNodeID();
+        this.nodeBStr = nodeB.node.getNodeID();
+    }
+
+    public EdgeObj(String nodeAStr, String nodeBStr){
+        this.nodeAStr = nodeAStr;
+        this.nodeBStr = nodeBStr;
     }
 
     //find the node that is linked to the input node
@@ -45,5 +56,21 @@ public class EdgeObj {
         int by = nodeB.node.getyLoc();
 
         return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+    }
+
+    public NodeObj getNodeA() {
+        return nodeA;
+    }
+
+    public void setNodeA(NodeObj nodeA) {
+        this.nodeA = nodeA;
+    }
+
+    public NodeObj getNodeB() {
+        return nodeB;
+    }
+
+    public void setNodeB(NodeObj nodeB) {
+        this.nodeB = nodeB;
     }
 }

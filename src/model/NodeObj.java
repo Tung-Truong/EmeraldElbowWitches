@@ -29,9 +29,15 @@ public class NodeObj {
     // ---------------------General Functionality----------------------------
 
     // creates an edge to another node, adds edge to the list for the map
+
     public void addEdge(NodeObj nodeB){
         EdgeObj edge = new EdgeObj(this, nodeB);
         listOfEdgeObjs.add(edge);
+        edge.setWeight(edge.genWeightFromDistance());
+    }
+
+    public void addEdge(EdgeObj newEdge){
+        listOfEdgeObjs.add(newEdge);
     }
 
     // creates an edge to another node, adds edge to the list for the map
