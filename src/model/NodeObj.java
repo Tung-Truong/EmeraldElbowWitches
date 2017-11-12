@@ -16,8 +16,8 @@ public class NodeObj {
 
     public ArrayList<NodeObj> getListOfNeighbors(){
         ArrayList<NodeObj> nodeList = new ArrayList<NodeObj>();
-        for (EdgeObj edg: listOfEdgeObjs){
-            try {
+        for (EdgeObj edg: listOfEdgeObjs){ //find all nodes from all edges in node
+            try {//thrown from getOtherNodeObj
                 nodeList.add(edg.getOtherNodeObj(this));
             } catch (InvalidNodeException e) {
                 e.printStackTrace();
@@ -26,10 +26,9 @@ public class NodeObj {
         return nodeList;
     }
 
+    //can throw null
     public ArrayList<EdgeObj> getListOfEdgeObjs(){
-        ArrayList<EdgeObj> edgeList = new ArrayList<EdgeObj>();
-        edgeList.add(new EdgeObj(this, new NodeObj(node), 0));
-        return edgeList;
+        return listOfEdgeObjs;
     }
 
     // ---------------------General Functionality----------------------------
