@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Main {
-
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         File test = new File("mapDB");

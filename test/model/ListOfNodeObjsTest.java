@@ -2,8 +2,6 @@ package model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ListOfNodeObjsTest {
     @Test
     public void getDistance() throws Exception {
