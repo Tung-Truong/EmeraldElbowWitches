@@ -28,8 +28,7 @@ public class UI_v1 {
     }
 
     @FXML
-    //TODO: find out why AddLine is no longer suddenly called twice
-    void AddLine(MouseEvent event) { //CURRENTLY IS CALLED TWICE PER CLICK, PROBABLY BECAUSE OF STACKED IMAGES
+    void AddLine(MouseEvent event) {
 
         //getX/stageWidth = w/5000
         //5000*getX/stageWidth
