@@ -2,38 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8e50e3e-aa91-4e31-8331-5a2032c9ef4d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/controller/Controller.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/CreateDB.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Edge.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/EdgeObj.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/InvalidNodeException.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ListOfNodeObjs.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Main.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Node.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/NodeObj.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/QueryDB.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ReadCSV.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/astar.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/Shapiro.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/basicMap.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/legend.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/Main.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EmeraldElbowWitches.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/derby.log" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/controller/README.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapEEdges.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapENodes.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapShapiroEdges.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapShapiroNodes.csv" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/controller/Controller.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/controller/README.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/CreateDB.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Edge.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/EdgeObj.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/InvalidNodeException.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ListOfNodeObjs.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Main.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/Node.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/NodeObj.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/QueryDB.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/ReadCSV.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/astar.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapEEdges.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapENodes.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapShapiroEdges.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/model/docs/MapShapiroNodes.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/Shapiro.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/basicMap.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/media/legend.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/Main.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/EmeraldElbowWitches/view/ui/UI_v1.fxml" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,17 +85,6 @@
             <path>
               <item name="EmeraldElbowWitches" type="b2602c69:ProjectViewProjectNode" />
               <item name="EmeraldElbowWitches" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="EmeraldElbowWitches" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EmeraldElbowWitches" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="EmeraldElbowWitches" type="b2602c69:ProjectViewProjectNode" />
-              <item name="EmeraldElbowWitches" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -253,12 +233,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1510447119299</updated>
-      <workItem from="1510447124954" duration="772000" />
+      <workItem from="1510447124954" duration="833000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="772000" />
+    <option name="totallyTimeSpent" value="833000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="179" y="117" width="1612" height="876" extended-state="0" />
