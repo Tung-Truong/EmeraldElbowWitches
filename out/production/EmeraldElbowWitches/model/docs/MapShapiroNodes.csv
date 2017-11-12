@@ -1,0 +1,23 @@
+nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName,teamAssigned
+EELEV00N02,1630,1935,2,Shapiro,ELEV,Elevator N Floor 2,ElevatorN,Team E
+EELEV00Q02,1630,2090,2,Shapiro,ELEV,Elevator Q Floor 2,ElevatorQ,Team E
+EEXIT00102,1695,2240,2,Shapiro,EXIT,BridgeExit 1 Floor 2,BExitE01,Team E
+EEXIT00202,1715,1760,2,Shapiro,EXIT,BridgeExit 2 Floor 2,BExitE02,Team E
+EHALL00102,1715,1810,2,Shapiro,HALL,Hallway Node 1 Floor 2,HallwayE01,Team E
+EHALL00202,1580,1810,2,Shapiro,HALL,Hallway Node 2 Floor 2,HallwayE02,Team E
+EHALL00302,1550,1810,2,Shapiro,HALL,Hallway Node 3 Floor 2,HallwayE03,Team E
+EHALL00402,1715,1935,2,Shapiro,HALL,Hallway Node 4 Floor 2,HallwayE04,Team E
+EHALL00502,1580,1935,2,Shapiro,HALL,Hallway Node 5 Floor 2,HallwayE05,Team E
+EHALL00602,1715,2045,2,Shapiro,HALL,Hallway Node 6 Floor 2,HallwayE06,Team E
+EHALL00702,1715,2090,2,Shapiro,HALL,Hallway Node 7 Floor 2,HallwayE07,Team E
+EHALL00802,1695,2090,2,Shapiro,HALL,Hallway Node 8 Floor 2,HallwayE08,Team E
+EHALL00902,1680,2090,2,Shapiro,HALL,Hallway Node 9 Floor 2,HallwayE09,Team E
+EHALL01002,1580,2090,2,Shapiro,HALL,Hallway Node 10 Floor 2,HallwayE10,Team E
+EHALL01102,1580,2155,2,Shapiro,HALL,Hallway Node 11 Floor 2,HallwayE11,Team E
+EHALL01202,1580,2210,2,Shapiro,HALL,Hallway Node 12 Floor 2,HallwayE12,Team E
+EHALL01302,1695,2210,2,Shapiro,HALL,Hallway Node 13 Floor 2,HallwayE13,Team E
+EINFO00102,1630,1810,2,Shapiro,INFO,Information Node 1 Floor 2,HallwayE01,Team E
+EREST00102,1285,1810,2,Shapiro,REST,Restroom Node 1 Floor 2,RestroomE01,Team E
+ERETL00102,1345,1810,2,Shapiro,RETL,Waiting Area Node 1 Floor 2,WaitingE01,Team E
+ESTAI0N102,1680,1935,2,Shapiro,STAI,Staircase N1 Floor 2,StairN1E02,Team E
+ESTAI0N202,1680,2045,2,Shapiro,STAI,Staircase N2 Floor 2,StairN2E02,Team E
