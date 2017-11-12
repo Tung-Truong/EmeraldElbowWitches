@@ -61,8 +61,6 @@ public class Main {
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
-        int i = 0;
-        i++;
     }
 
 

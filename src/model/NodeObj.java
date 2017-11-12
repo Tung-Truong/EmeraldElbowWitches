@@ -16,7 +16,13 @@ public class NodeObj {
 
     public ArrayList<NodeObj> getListOfNeighbors(){
         ArrayList<NodeObj> nodeList = new ArrayList<NodeObj>();
-        nodeList.add(this);
+        for (EdgeObj edg: listOfEdgeObjs){
+            try {
+                nodeList.add(edg.getOtherNodeObj(this));
+            } catch (InvalidNodeException e) {
+                e.printStackTrace();
+            }
+        }
         return nodeList;
     }
 
@@ -59,9 +65,6 @@ public class NodeObj {
 
     // ---------------------Getters----------------------------
 
-    public double getDistToGoal(){
-        return 1;
-    }
 
     public double getHeuristic(){
         return this.heuristic;

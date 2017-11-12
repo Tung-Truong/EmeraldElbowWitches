@@ -3,6 +3,7 @@ package model;
 import java.util.*;
 
 public class astar {
+    //getHeuristic() Never used
     private ArrayList<NodeObj> GenPath;
 
     protected boolean Pathfind(NodeObj start, NodeObj goal) {
@@ -13,7 +14,7 @@ public class astar {
         PriorityQueue<NodeObj> closed_queue = new PriorityQueue<NodeObj>();
         //G cost of going to start from start is zero
         double startG = 0;
-        start.setHeuristic(startG + start.getDistToGoal());
+        start.setHeuristic(startG + start.getDistance(goal));
 
         while (open_queue.size() > 0) {
             NodeObj current = open_queue.peek(); //gets the element with the lowest f cost
@@ -31,7 +32,7 @@ public class astar {
                 if (!closed_queue.contains(neighbor)) {
                     //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
                     neighbor.setgCost(current.getDistance(neighbor));
-                    neighbor.setHeuristic(neighbor.getgCost()+ neighbor.getDistToGoal());
+                    neighbor.setHeuristic(neighbor.getgCost()+ neighbor.getDistance(goal));
                     //if the open queue does not have it then add it to open queue.
                     if (!open_queue.contains(neighbor)) {
                         open_queue.add(neighbor);

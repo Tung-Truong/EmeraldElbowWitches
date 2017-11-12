@@ -38,10 +38,6 @@ public class ListOfNodeObjs {
 
     }
 
-    public void setAllNodeObjToGoal(NodeObj goalNode) {
-
-    }
-
     // ---------------------General Functionality--------------
     public void addNodeObjToList(NodeObj node) {
         nodes.add(node);
