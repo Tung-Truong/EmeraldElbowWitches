@@ -99,4 +99,12 @@ public class NodeObj {
         return null; // this garbage...
     }
 
+    public Double getDistance(NodeObj nodeA, NodeObj nodeB){
+        int ax = nodeA.node.getxLoc();
+        int ay = nodeA.node.getyLoc();
+        int bx = nodeB.node.getxLoc();
+        int by = nodeB.node.getyLoc();
+        return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+    }
+
 }
