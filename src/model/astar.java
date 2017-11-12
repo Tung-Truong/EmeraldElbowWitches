@@ -42,7 +42,8 @@ public class astar {
                         //gets the neighbor from the open queue and if the cost is lower than the current one, then set the openNeighbor as the best one.
                         NodeObj openNeighbor = open_queue.peek();
                         openNeighbor.setgCost(current.getDistance(neighbor));
-                        if(neighbor.getgCost()< openNeighbor.getgCost()){
+                        openNeighbor.setHeuristic(openNeighbor.getDistance(goal)+openNeighbor.getgCost());
+                        if(neighbor.getHeuristic()< openNeighbor.getHeuristic()){
                             openNeighbor.setgCost(neighbor.getgCost());
                             openNeighbor.setParent(neighbor.getParent());
                         }
