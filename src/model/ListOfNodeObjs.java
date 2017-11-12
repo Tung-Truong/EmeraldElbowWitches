@@ -5,14 +5,18 @@ import java.util.ArrayList;
 public class ListOfNodeObjs {
 
     private ArrayList<NodeObj> nodes;
-    private int i;
 
     public ListOfNodeObjs(ArrayList<NodeObj> nodes) {
         this.nodes = nodes;
-        i = 0;
     }
 
     // ---------------------Getters----------------------------
+
+
+    public ArrayList<NodeObj> getNodes() {
+        return this.nodes;
+    }
+
     public Double getDistance(NodeObj nodeA, NodeObj nodeB) {
         return Math.random();
 

@@ -9,4 +9,4 @@
 !/src/model/docs
 !/src/model/docs/*
 !/test/*
-
+!/src/.DS_Store

@@ -46,6 +46,24 @@ public class ListOfNodeObjsTest {
 
     @Test
     public void pair() throws Exception {
+        Node nodeA = new Node("2175","910","1","45 Francis", "HALL","Hallway Connector 2 Floor 1", "HallwayW0201", "Team E", "EHALL00201");
+        NodeObj nodeAObj = new NodeObj(nodeA);
+        Node nodeB = new Node("2190", "910","1","45 Francis","STAI","Staircase K1 Floor 1","Stair K1","Team E","ESTAI00101");
+        NodeObj nodeBObj = new NodeObj(nodeB);
+        ArrayList<NodeObj> nodeObs = new ArrayList<>();
+        nodeObs.add(nodeAObj);
+        nodeObs.add(nodeBObj);
+        ListOfNodeObjs lON = new ListOfNodeObjs(nodeObs);
+
+        EdgeObj edgeObj = new EdgeObj("EHALL00201", "ESTAI00101");
+
+        assertEquals(true, lON.pair(edgeObj));
+        assertEquals(lON.getNodes().get(0).getEdgeObj(nodeBObj), edgeObj);
+        assertEquals(lON.getNodes().get(1).getEdgeObj(nodeAObj), edgeObj);
+        assertEquals(lON.getNodes().get(0).getEdgeObj(nodeBObj).nodeA, nodeAObj);
+        assertEquals(lON.getNodes().get(0).getEdgeObj(nodeBObj).nodeB, nodeBObj);
+
+
     }
 
     @Test
