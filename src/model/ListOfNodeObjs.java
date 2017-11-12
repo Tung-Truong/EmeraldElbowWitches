@@ -18,9 +18,20 @@ public class ListOfNodeObjs {
 
     }
 
-/*public NodeObj getNearestNeighbor(int xLoc, int yLoc){
-    return new NodeObj(node);
-}*/
+    public NodeObj getNearestNeighbor(int xLoc, int yLoc)throws InvalidNodeException{
+        double minDist = Double.MAX_VALUE;
+        NodeObj closestNode = null;
+        for (NodeObj n: nodes){
+            if(n.getDistance(xLoc, yLoc)<minDist){
+                closestNode = n;
+                minDist = n.getDistance(xLoc, yLoc);
+            }
+        }
+        if(closestNode == null)
+            throw new InvalidNodeException("no corresponding edge");
+        return closestNode;
+
+    }
 
     // ---------------------Setters----------------------------
     public void setEdgeWeight(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {

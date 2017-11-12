@@ -1,8 +1,53 @@
 package model;
 
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class ListOfNodeObjsTest {
+
+    private Node node1 = new Node("20", "100", "1", "45 Francis", "HALL", "Hall1", "Hallway 2", "Team E", "EHALL00101");
+    private Node node2 = new Node("50", "30", "1", "45 Francis", "HALL", "Hall2", "Hallway 2", "Team E", "EHALL00201");
+    private NodeObj nodeA = new NodeObj(node1);
+    private NodeObj nodeB = new NodeObj(node2);
+    private double weight = 2;
+
+    private EdgeObj edge1 = new EdgeObj(nodeA, nodeB, weight);
+
+    ListOfNodeObjs loNO;
+
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
+
+    public ListOfNodeObjsTest(){
+        ArrayList<NodeObj> ANO = new ArrayList<NodeObj>();
+        ANO.add(nodeA);
+        ANO.add(nodeB);
+        loNO = new ListOfNodeObjs(ANO);
+
+    }
+
+    @Test
+    public void getNearestNeighbor() throws Exception {
+        ArrayList<NodeObj> ANO = new ArrayList<NodeObj>();
+        ListOfNodeObjs loNO2 = new ListOfNodeObjs(ANO);
+        assertEquals(loNO.getNearestNeighbor(10, 90), nodeA);
+        assertEquals(loNO.getNearestNeighbor(35, -100), nodeB);
+        exception.expect(InvalidNodeException.class);
+        loNO2.getNearestNeighbor(10, 90);
+    }
+
+    @Test
+    public void pair() throws Exception {
+    }
+
     @Test
     public void getDistance() throws Exception {
     }

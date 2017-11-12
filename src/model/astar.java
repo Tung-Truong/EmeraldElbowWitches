@@ -30,7 +30,7 @@ public class astar {
                 //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
                 if (!closed_queue.contains(neighbor)) {
                     //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
-                    neighbor.setgCost(current.getDistance(current,neighbor));
+                    neighbor.setgCost(current.getDistance(neighbor));
                     neighbor.setHeuristic(neighbor.getgCost()+ neighbor.getDistToGoal());
                     //if the open queue does not have it then add it to open queue.
                     if (!open_queue.contains(neighbor)) {
@@ -40,7 +40,7 @@ public class astar {
                     else {
                         //gets the neighbor from the open queue and if the cost is lower than the current one, then set the openNeighbor as the best one.
                         NodeObj openNeighbor = open_queue.peek();
-                        openNeighbor.setgCost(current.getDistance(neighbor,current));
+                        openNeighbor.setgCost(current.getDistance(neighbor));
                         if(neighbor.getgCost()< openNeighbor.getgCost()){
                             openNeighbor.setgCost(neighbor.getgCost());
                             openNeighbor.setParent(neighbor.getParent());
