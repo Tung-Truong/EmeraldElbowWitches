@@ -19,6 +19,7 @@ public class NodeObjTest {
 
     @Test
     public void addEdge1() throws Exception {
+        //hi
     }
 
     @Test
