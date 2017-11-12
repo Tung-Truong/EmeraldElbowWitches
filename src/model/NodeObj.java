@@ -29,9 +29,15 @@ public class NodeObj {
     // ---------------------General Functionality----------------------------
 
     // creates an edge to another node, adds edge to the list for the map
+
     public void addEdge(NodeObj nodeB){
         EdgeObj edge = new EdgeObj(this, nodeB);
         listOfEdgeObjs.add(edge);
+        edge.setWeight(edge.genWeightFromDistance());
+    }
+
+    public void addEdge(EdgeObj newEdge){
+        listOfEdgeObjs.add(newEdge);
     }
 
     // creates an edge to another node, adds edge to the list for the map
@@ -91,6 +97,14 @@ public class NodeObj {
                 throw new InvalidNodeException("no corresponding edge");
         }
         return null; // this garbage...
+    }
+
+    public Double getDistance(NodeObj nodeA, NodeObj nodeB){
+        int ax = nodeA.node.getxLoc();
+        int ay = nodeA.node.getyLoc();
+        int bx = nodeB.node.getxLoc();
+        int by = nodeB.node.getyLoc();
+        return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
     }
 
 }

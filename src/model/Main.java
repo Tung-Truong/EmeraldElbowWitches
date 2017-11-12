@@ -43,14 +43,26 @@ public class Main {
         listOfNodes = QueryDB.getNodes();
 
         // create a list of all the node objects for a map
-        ArrayList<NodeObj> listOfNodeObj = new ArrayList<NodeObj>();
+        ArrayList<NodeObj> loNodeObj = new ArrayList<NodeObj>();
         for (Node n:listOfNodes) {
-            listOfNodeObj.add(new NodeObj(n));
+            loNodeObj.add(new NodeObj(n));
         }
+
+        ListOfNodeObjs nodeMap = new ListOfNodeObjs(loNodeObj);
 
         // creates and saves the list of edges for a map
         ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
         listOfEdges = QueryDB.getEdges();
+
+        // create edge objects
+        for(Edge edge:listOfEdges){
+            EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID());
+            if(nodeMap.pair(newObj)){
+                newObj.setWeight(newObj.genWeightFromDistance());
+            }
+        }
+        int i = 0;
+        i++;
     }
 
 
