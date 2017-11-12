@@ -11,7 +11,7 @@ public class Node {
     private String team;
     private String nodeID;
 
-    public Node(String xLoc, String yLoc, String floor, String building, String nodeType, String shortName, String longName, String team, String nodeID) {
+    public Node(String xLoc, String yLoc, String floor, String building, String nodeType, String longName, String shortName, String team, String nodeID) {
         this.xLoc = Integer.parseInt(xLoc); // converts xLoc and yLoc into ints, from the db's strings
         this.yLoc = Integer.parseInt(yLoc);
         this.floor = floor;
