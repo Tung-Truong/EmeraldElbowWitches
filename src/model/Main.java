@@ -1,17 +1,25 @@
 package model;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import view.ui.*;
 
-public class Main {
+public class Main extends Application{
+
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         File test = new File("mapDB");
         deleteDir(test);
@@ -61,6 +69,9 @@ public class Main {
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
+
+        //keep this at the end
+        javafx.application.Application.launch(args);
     }
 
 
@@ -76,6 +87,24 @@ public class Main {
             }
         }
         return dir.delete();
+    }
+
+    public static int sceneWidth = 1750;
+    public static int sceneHeight = 1000;
+    public static Scene currScene;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml"));
+        primaryStage.setTitle("Map");
+        Scene newScene = new Scene(root, sceneWidth, sceneHeight);
+        this.currScene=newScene;
+        primaryStage.setScene(newScene);
+        primaryStage.show();
+    }
+
+    public static Scene getCurrScene() {
+        return currScene;
     }
 
 }

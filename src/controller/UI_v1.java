@@ -1,17 +1,13 @@
-package view.ui;
+package controller;
 
 
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-
-
-import java.awt.*;
 
 public class UI_v1 {
 
@@ -32,9 +28,21 @@ public class UI_v1 {
     }
 
     @FXML
-    void AddLine() {
- 
-        //System.out.println(mousePoint.x + " " + mousePoint.y);
+    //TODO: find out why AddLine is no longer suddenly called twice
+    void AddLine(MouseEvent event) { //CURRENTLY IS CALLED TWICE PER CLICK, PROBABLY BECAUSE OF STACKED IMAGES
+
+        //getX/stageWidth = w/5000
+        //5000*getX/stageWidth
+        Scene currScene = model.Main.getCurrScene();
+        double mapWidth = currentMap.getFitWidth();
+        double mapHeight = currentMap.getFitHeight();
+        System.out.println((5000*event.getX())/mapWidth + " " + (3400*event.getY())/mapHeight);
+        //far left stair node
+        System.out.println("Far left stair coords: " + 2190 + " " + 910);
+        //Rehab center
+        System.out.println("Rehab center coords: " + 2790 + " " + 1380);
+
+
     }
 
     @FXML
