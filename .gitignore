@@ -6,5 +6,7 @@
 !/src
 !/test
 !/src/*
+!/src/model/docs
+!/src/model/docs/*
 !/test/*
 
