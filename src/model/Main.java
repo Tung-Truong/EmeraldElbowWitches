@@ -13,10 +13,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import view.ui.*;
 
 public class Main extends Application{
 
+
+    public static NodeObj kiosk;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
 
@@ -69,7 +70,13 @@ public class Main extends Application{
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
+        try {
+            kiosk = nodeMap.getNearestNeighbor(2460, 910);
+        }catch(InvalidNodeException e){
+            e.printStackTrace();
+        }
 
+        System.out.println("Default x: " + kiosk.node.getxLoc() + " Default y: " + kiosk.node.getyLoc());
         //keep this at the end
         javafx.application.Application.launch(args);
     }
