@@ -12,7 +12,7 @@ public class EdgeObj {
         this.weight = this.genWeightFromDistance();
     }
 
-    public EdgeObj(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {
+    public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = edgeWeight;
