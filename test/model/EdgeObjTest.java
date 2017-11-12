@@ -48,7 +48,7 @@ public class EdgeObjTest {
         node1.setLoc(500, 500);     //Fuck the coordinates up
         node2.setLoc(7000, 7000);
 
-        assertEquals(9192, edge1.genWeightFromDistance(), 2); 
+        assertEquals(9192, edge1.genWeightFromDistance(), 1);
     }
 
 }
