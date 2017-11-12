@@ -18,7 +18,7 @@ public class ListOfNodeObjs {
     }
 
     public Double getDistance(NodeObj nodeA, NodeObj nodeB) {
-        return Math.random();
+        return nodeA.getDistance(nodeB);
 
     }
 
