@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -22,8 +23,9 @@
            <items>
                <SplitPane dividerPositions="0.7991990846681922" prefHeight="160.0" prefWidth="200.0">
                    <items>
-                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
+                           <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
+                        <Canvas fx:id="gc" height="200.0" width="200.0" />
                                    <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#AddLine" preserveRatio="true">
                                        <image>
                                            <Image url="@../media/basicMap.png" />
@@ -122,6 +124,7 @@
                                          </tabs>
                                      </TabPane>
                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
+                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
                                            <children>
                                                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" text="LEGEND" textFill="WHITE">
                                                    <font>
@@ -134,6 +137,7 @@
                                                    </image>
                                                </ImageView>
                                            </children>
+                                       </AnchorPane>
                                        </AnchorPane>
                           </items>
                         </SplitPane>

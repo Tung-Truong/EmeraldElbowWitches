@@ -17,6 +17,11 @@ import java.util.ArrayList;
 public class Main extends Application{
 
 
+    public static int sceneWidth = 1750;
+    public static int sceneHeight = 1000;
+    public static Scene currScene;
+    public static Stage currStage;
+    public static Parent parentRoot;
     public static NodeObj kiosk;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
@@ -96,13 +101,11 @@ public class Main extends Application{
         return dir.delete();
     }
 
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
-    public static Scene currScene;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
+        this.currStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml"));
+        this.parentRoot = root;
         primaryStage.setTitle("Map");
         Scene newScene = new Scene(root, sceneWidth, sceneHeight);
         this.currScene=newScene;
@@ -114,4 +117,11 @@ public class Main extends Application{
         return currScene;
     }
 
+    public static Stage getCurrStage() {
+        return currStage;
+    }
+
+    public static Parent getParentRoot() {
+        return parentRoot;
+    }
 }
