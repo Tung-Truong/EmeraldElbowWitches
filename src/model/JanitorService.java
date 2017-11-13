@@ -7,8 +7,8 @@ import javax.mail.internet.*;
 public class JanitorService {
     private Properties properties;
     private Session session;
-    private String username;
-    private String password;
+    private String username = "elbowwitchemerald@gmail.com";
+    private String password = "passwordhuh";
 
     public JanitorService(){
         properties.put("mail.smtp.auth", "true");
