@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28e6640a-3fb3-4299-ac43-5048679f70d2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" afterPath="$PROJECT_DIR$/.idea/EmeraldElbowWitches.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/JanitorService.java" afterPath="$PROJECT_DIR$/src/model/JanitorService.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,20 +26,12 @@
       <file leaf-file-name="JanitorService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/JanitorService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Example_2.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/IdeaProjects/src/Example_2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="588">
+              <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#614#816#0" expanded="true" />
+                <element signature="e#815#816#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,6 +69,7 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/model/EdgeObj.java" />
         <option value="$PROJECT_DIR$/test/model/EdgeObjTest.java" />
+        <option value="$USER_HOME$/IdeaProjects/src/Example_2.java" />
         <option value="$PROJECT_DIR$/src/model/JanitorService.java" />
       </list>
     </option>
@@ -532,7 +523,7 @@
         <state relative-caret-position="525">
           <caret line="29" column="40" lean-forward="false" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -672,7 +663,7 @@
         <state relative-caret-position="525">
           <caret line="29" column="40" lean-forward="false" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -702,19 +693,25 @@
     </entry>
     <entry file="file://$USER_HOME$/IdeaProjects/src/Example_2.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="378">
+          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="22" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#641#843#0" expanded="true" />
+            <element signature="e#842#843#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/JanitorService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-          <folding />
+        <state relative-caret-position="588">
+          <caret line="28" column="33" lean-forward="false" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#614#816#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
