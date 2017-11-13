@@ -35,7 +35,7 @@ public class JanitorService {
 
             email.setFrom(new InternetAddress("random@gmail.com"));
             email.addRecipient(Message.RecipientType.TO, new InternetAddress("kgrant@wpi.edu"));
-            email.setSubject("Testing Testing 123");
+            email.setSubject("Maintenance Needed");
             email.setText(message);
 
             Transport.send(email);
