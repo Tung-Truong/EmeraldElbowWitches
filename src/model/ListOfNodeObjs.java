@@ -75,6 +75,44 @@ public class ListOfNodeObjs {
         }
     }
 
+    //removeNode takes in a node to add, and a list of node objs to modify, if the node is in the list remove it. If the node is not there, do nothing
+    public boolean removeNode(NodeObj Node, ListOfNodeObjs list){
+        for (NodeObj nodes: list.getNodes()) {
+            if(nodes.node.getNodeID() == Node.node.getNodeID()){
+                list.getNodes().remove(Node);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //addNode takes in a node to add, and a list of node objs to modify, if the node is already present, do nothing
+    public boolean addNode(NodeObj Node, ListOfNodeObjs list){
+        for (NodeObj nodes: list.getNodes()) {
+            if(nodes.node.getNodeID() == Node.node.getNodeID()){
+                return false;
+            }
+        }
+        list.getNodes().add(Node);
+        return true;
+
+    }
+
+    //editNode takes in a node, list of node objs to modify, and a string Operation that picks which operation to do to the list. Modify removes the node and adds the modified node.
+    public boolean editNode(NodeObj editNode, ListOfNodeObjs list, String Operation) {
+        if (Operation.equals("add")) {
+            addNode(editNode, list);
+        }
+        if (Operation.equals("remove")) {
+            removeNode(editNode, list);
+        }
+        if (Operation.equals("modify")) {
+            removeNode(editNode, list);
+            addNode(editNode, list);
+        }
+        return false;
+    }
+
 //Will need to deal with each edge
 
 
