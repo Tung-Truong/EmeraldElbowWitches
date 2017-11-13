@@ -19,7 +19,6 @@ public class ListOfNodeObjs {
 
     public Double getDistance(NodeObj nodeA, NodeObj nodeB) {
         return nodeA.getDistance(nodeB);
-
     }
 
     public NodeObj getNearestNeighbor(int xLoc, int yLoc)throws InvalidNodeException{
