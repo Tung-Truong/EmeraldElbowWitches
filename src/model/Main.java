@@ -23,6 +23,7 @@ public class Main extends Application{
     public static Stage currStage;
     public static Parent parentRoot;
     public static NodeObj kiosk;
+    public static ListOfNodeObjs nodeMap;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
 
 
@@ -62,7 +63,7 @@ public class Main extends Application{
             loNodeObj.add(new NodeObj(n));
         }
 
-        ListOfNodeObjs nodeMap = new ListOfNodeObjs(loNodeObj);
+        nodeMap = new ListOfNodeObjs(loNodeObj);
 
         // creates and saves the list of edges for a map
         ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
@@ -111,6 +112,14 @@ public class Main extends Application{
         this.currScene=newScene;
         primaryStage.setScene(newScene);
         primaryStage.show();
+    }
+
+    public static NodeObj getKiosk() {
+        return kiosk;
+    }
+
+    public static ListOfNodeObjs getNodeMap() {
+        return nodeMap;
     }
 
     public static Scene getCurrScene() {

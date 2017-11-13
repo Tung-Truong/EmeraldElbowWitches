@@ -4,9 +4,12 @@ import java.util.*;
 
 public class astar {
     //getHeuristic() Never used
+    public astar(){
+
+    }
     private ArrayList<NodeObj> GenPath;
 
-    protected boolean Pathfind(NodeObj start, NodeObj goal) {
+    public boolean Pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj
         //closed_queue contains all explored NodeObjs, which starts empty
         PriorityQueue<NodeObj> open_queue = new PriorityQueue<NodeObj>();
@@ -19,7 +22,7 @@ public class astar {
         while (open_queue.size() > 0) {
             NodeObj current = open_queue.peek(); //gets the element with the lowest f cost
             if (current == goal) {
-                constructPath(goal);
+                GenPath = constructPath(goal);
                 return true;
             }
             open_queue.remove(current);
@@ -64,5 +67,9 @@ public class astar {
             path.add(nextNode);
         }
         return path;
+    }
+
+    public ArrayList<NodeObj> getGenPath() {
+        return GenPath;
     }
 }
