@@ -9,7 +9,8 @@ public class JanitorServiceTest {
 
     @Test
     public void sendEmailServiceRequest() throws Exception {
-        
+        dave.setAccount("elbowwitchemerald@gmail.com", "passwordhuh");
+
     }
 
 }
