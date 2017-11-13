@@ -12,12 +12,10 @@ public class astar {
     public boolean Pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj
         //closed_queue contains all explored NodeObjs, which starts empty
-        //PriorityQueue<NodeObj> open_queue = new PriorityQueue<NodeObj>();
         ArrayList<NodeObj> open_queue = new ArrayList<NodeObj>();
         open_queue.add(0,start);
         System.out.println(start);
         ArrayList<NodeObj> closed_queue = new ArrayList<NodeObj>();
-        //PriorityQueue<NodeObj> closed_queue = new PriorityQueue<NodeObj>();
         //G cost of going to start from start is zero
         double startG = 0;
         start.setHeuristic(startG + start.getDistance(goal));
@@ -31,46 +29,29 @@ public class astar {
                 return true;
             }
             open_queue.remove(0);
-            //System.out.println("Removing stuff from open queue" + current);
             closed_queue.add(current);
 
             //creates a list of neighbors from the current node, and looks at the neighbors for the next optimal path.
             ArrayList<NodeObj> exploreList = current.getListOfNeighbors();
-            for (NodeObj neighbor : exploreList){
-                if (!closed_queue.contains(neighbor)){
-                    if (!open_queue.contains(neighbor)){
-                        neighbor.setParent(current);
-                    }
-                }
-            }
             for (NodeObj neighbor : exploreList) {
                 //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
                 if (!closed_queue.contains(neighbor)) {
                     //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
                     neighbor.setgCost(current.getDistance(neighbor));
                     neighbor.setHeuristic(neighbor.getgCost()+ neighbor.getDistance(goal));
-                    //if the open queue does not have it then add it to open queue.
+                    //if the open queue does not have it then add it to open queue and set the parent to the current node.
                     if (!open_queue.contains(neighbor)) {
-                        //System.out.println("Neighbor:" + neighbor);
-                        //System.out.println("Open_queue status" + open_queue);
                         addToQueue(open_queue,neighbor);
-                        //System.out.println("Open_queue with neighbor" + open_queue);
+                        neighbor.setParent(current);
+                                            }
+                    //else do nothing
+                    else{
+                        continue;
                     }
-                    //if it is in the open queue then look at different one
-                    else {
-                        /*System.out.println("open neighbor process");
-                        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-                        //gets the neighbor from the open queue and if the cost is lower than the current one, then set the openNeighbor as the best one.
-                        NodeObj openNeighbor = open_queue.get(0);
-                        System.out.println(openNeighbor);
-                        openNeighbor.setgCost(current.getDistance(neighbor));
-                        openNeighbor.setHeuristic(openNeighbor.getDistance(goal)+openNeighbor.getgCost());
-                        if(neighbor.getHeuristic()< openNeighbor.getHeuristic()){
-                            openNeighbor.setgCost(neighbor.getgCost());
-                            openNeighbor.setParent(neighbor.getParent());
-                        }*/
-                    }
-
+                }
+                //else ignore it as it has been evaluated already
+                else{
+                    continue;
                 }
             }
         }
