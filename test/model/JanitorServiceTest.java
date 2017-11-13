@@ -9,12 +9,7 @@ public class JanitorServiceTest {
 
     @Test
     public void sendEmailServiceRequest() throws Exception {
-        try {
-            dave.sendEmailServiceRequest("I'm so tired");
-        }
-        catch(Exception e){
-
-        }
+        
     }
 
 }
