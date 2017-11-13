@@ -45,12 +45,21 @@ public class UI_v1 {
     }
 
     @FXML
+    //This is where pathfinding is currently
+    //this shall be renamed later to something better
     void AddLine(MouseEvent event) throws InvalidNodeException {
         //getX/stageWidth = w/5000
         //5000*getX/stageWidth
+
+        //get the mouses location and convert that to the corrected map coordinates for the original image
         Scene currScene = model.Main.getCurrScene();
         double mapWidth = currentMap.getFitWidth();
         double mapHeight = currentMap.getFitHeight();
+
+        double mousex = (5000*event.getX())/mapWidth;
+        double mousey = (3400*event.getY())/mapHeight;
+        //Print to confirm
+
         //convert click resolution to map ratio
         System.out.println((5000*event.getX())/mapWidth + " " + (3400*event.getY())/mapHeight);
         //far left stair node
@@ -58,19 +67,23 @@ public class UI_v1 {
         //Rehab center
         System.out.println("Rehab center coords: " + 2790 + " " + 1380);
 
-
+        //create a new astar object
         astar newpathGen = new astar();
-        //get node that corr. to click
+
+        //get node that corr. to click from ListOfNodeObjects made in main
         NodeObj goal = model.Main.getNodeMap().getNearestNeighbor
-                ((int)Math.floor((5000*event.getX())/mapWidth), (int)Math.floor((3400*event.getY())/mapHeight));
+                ((int)Math.floor(mousex), (int)Math.floor(mousey));
+
         //getStart
         NodeObj Kiosk = model.Main.getKiosk();
+        //set the path to null
         ArrayList<NodeObj> path = null;
+
+        //try a*
         if(newpathGen.Pathfind(Kiosk,goal))
             path = newpathGen.getGenPath();
         else
             throw new InvalidNodeException("this is cot accessable with the current map");
-        int i;
 
 
         /*currScene.setFill(Color.BLUE);

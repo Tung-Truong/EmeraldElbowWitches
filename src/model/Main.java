@@ -76,6 +76,7 @@ public class Main extends Application{
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
+        //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighbor(2460, 910);
         }catch(InvalidNodeException e){
@@ -84,6 +85,11 @@ public class Main extends Application{
 
         System.out.println("Default x: " + kiosk.node.getxLoc() + " Default y: " + kiosk.node.getyLoc());
         //keep this at the end
+        //launches fx file and allows for pathfinding to be done
+        //What Works: All Nodes are added from the CSV files
+        //All Edges are added from the CSV files
+        //All Weights Have Been Computed for All Nodes
+        //getDistToGoal has been removed and replaced with NodeObj.getDistance(goal)
         javafx.application.Application.launch(args);
     }
 
