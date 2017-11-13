@@ -89,16 +89,13 @@ public class NodeObj {
         this.gCost = gCost;
     }
 
-    public EdgeObj getEdgeObj(NodeObj nodeB) throws InvalidNodeException {
+    public EdgeObj getEdgeObj(NodeObj nodeB){
         for (EdgeObj e:listOfEdgeObjs) {
-            if (e.nodeA == this && e.nodeB == nodeB)
+            if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
                 return e;
-            else if (e.nodeB == this && e.nodeA == nodeB)
-                return e;
-            else
-                throw new InvalidNodeException("no corresponding edge");
+            }
         }
-        return null; // this garbage...
+        return null;
     }
 
     public Double getDistance(NodeObj nodeB){
