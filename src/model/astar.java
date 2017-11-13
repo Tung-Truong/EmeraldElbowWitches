@@ -15,6 +15,7 @@ public class astar {
         //PriorityQueue<NodeObj> open_queue = new PriorityQueue<NodeObj>();
         ArrayList<NodeObj> open_queue = new ArrayList<NodeObj>();
         open_queue.add(0,start);
+        System.out.println(start);
         ArrayList<NodeObj> closed_queue = new ArrayList<NodeObj>();
         //PriorityQueue<NodeObj> closed_queue = new PriorityQueue<NodeObj>();
         //G cost of going to start from start is zero
@@ -22,20 +23,26 @@ public class astar {
         start.setHeuristic(startG + start.getDistance(goal));
 
         while (open_queue.size() > 0) {
-            NodeObj current = open_queue.remove(0); //gets the element with the lowest f cost
+            NodeObj current = open_queue.get(0); //gets the element with the lowest f cost
             if (current == goal) {
-                System.out.println("");
-                System.out.println("Got to goal! " + goal);
+                System.out.println("Goal is " + goal);
                 GenPath = constructPath(goal,start);
                 System.out.println(GenPath);
                 return true;
             }
-            open_queue.remove(current);
-            System.out.println("Removing stuff from open queue" + current);
+            open_queue.remove(0);
+            //System.out.println("Removing stuff from open queue" + current);
             closed_queue.add(current);
 
             //creates a list of neighbors from the current node, and looks at the neighbors for the next optimal path.
             ArrayList<NodeObj> exploreList = current.getListOfNeighbors();
+            for (NodeObj neighbor : exploreList){
+                if (!closed_queue.contains(neighbor)){
+                    if (!open_queue.contains(neighbor)){
+                        neighbor.setParent(current);
+                    }
+                }
+            }
             for (NodeObj neighbor : exploreList) {
                 //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
                 if (!closed_queue.contains(neighbor)) {
@@ -44,14 +51,15 @@ public class astar {
                     neighbor.setHeuristic(neighbor.getgCost()+ neighbor.getDistance(goal));
                     //if the open queue does not have it then add it to open queue.
                     if (!open_queue.contains(neighbor)) {
-                        System.out.println("Neighbor:" + neighbor);
-                        System.out.println("Open_queue status" + open_queue);
+                        //System.out.println("Neighbor:" + neighbor);
+                        //System.out.println("Open_queue status" + open_queue);
                         addToQueue(open_queue,neighbor);
-                        System.out.println("Open_queue with neighbor" + open_queue);
+                        //System.out.println("Open_queue with neighbor" + open_queue);
                     }
                     //if it is in the open queue then look at different one
                     else {
-                        System.out.println("open neighbor process");
+                        /*System.out.println("open neighbor process");
+                        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
                         //gets the neighbor from the open queue and if the cost is lower than the current one, then set the openNeighbor as the best one.
                         NodeObj openNeighbor = open_queue.get(0);
                         System.out.println(openNeighbor);
@@ -60,7 +68,7 @@ public class astar {
                         if(neighbor.getHeuristic()< openNeighbor.getHeuristic()){
                             openNeighbor.setgCost(neighbor.getgCost());
                             openNeighbor.setParent(neighbor.getParent());
-                        }
+                        }*/
                     }
 
                 }
@@ -73,13 +81,13 @@ public class astar {
     protected ArrayList<NodeObj> constructPath(NodeObj goal, NodeObj start){
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         path.add(goal);
-        while(true){
-            NodeObj nextNode = goal.getParent();
+        NodeObj nextNode = goal.getParent();
+        while(nextNode != null){
             path.add(nextNode);
-            if (nextNode == start){
-                return path;
-            }
+            nextNode = nextNode.getParent();
+            //System.out.println("Next Node" + nextNode.getHeuristic());
         }
+        return path;
     }
 
     //function to add nodes based on their heuristic cost from increasing order
