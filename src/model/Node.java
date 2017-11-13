@@ -91,5 +91,28 @@ public class Node {
         this.nodeID = nodeID;
     }
 
+    // function that takes in a floor, and a list of nodes, and returns of list of nodes that are on that floor
+    public ArrayList<Node> floorFilter(String floor, ArrayList<Node> nodeArrayList){
+        ArrayList<Node> sameFloorList = new ArrayList<Node>;
+        for (Node node:nodeArrayList) {
+            if (node.getFloor() == floor){
+                sameFloorList.add(node);
+            }
+        }
+        return sameFloorList;
+    }
+
+    // function that takes in a building and list of nodes and returns of list of nodes in that building.
+    public ArrayList<Node> buildFilter(String building, ArrayList<Node> nodeArrayList){
+        ArrayList<Node> sameBuildingList = new ArrayList<Node>;
+        for (Node node:nodeArrayList){
+            if(node.getBuilding() == building){
+                sameBuildingList.add(node);
+            }
+        }
+        return sameBuildingList;
+    }
+
+
 
 }
