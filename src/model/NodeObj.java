@@ -51,14 +51,15 @@ public class NodeObj {
         listOfEdgeObjs.add(edge);
     }
 
-    public void killEdge(NodeObj nodeB) throws InvalidNodeException {
+    public void killEdge(NodeObj nodeB){
         for (EdgeObj e:listOfEdgeObjs) {
-            if (e.nodeA == this && e.nodeB == nodeB)
-                listOfEdgeObjs.remove(e);
-            else if (e.nodeB == this && e.nodeA == nodeB)
-                listOfEdgeObjs.remove(e);
-            else
-                throw new InvalidNodeException("no corresponding edge");
+            try {
+                if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
+                    listOfEdgeObjs.remove(e);
+                }
+            } catch (InvalidNodeException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -91,8 +92,12 @@ public class NodeObj {
 
     public EdgeObj getEdgeObj(NodeObj nodeB){
         for (EdgeObj e:listOfEdgeObjs) {
-            if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
-                return e;
+            try {
+                if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
+                    return e;
+                }
+            } catch (InvalidNodeException e1) {
+                e1.printStackTrace();
             }
         }
         return null;
