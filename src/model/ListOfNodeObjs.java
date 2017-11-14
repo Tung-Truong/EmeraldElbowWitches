@@ -62,6 +62,15 @@ public class ListOfNodeObjs {
         return filteredNodes;
     }
 
+    public NodeObj getNodeObjByID(String nodeID){
+        for(NodeObj n : this.nodes){
+            if(n.node.getNodeID().equals(nodeID)){
+                return n;
+            }
+        }
+        return null;
+    }
+
     // ---------------------Setters----------------------------
     public void setEdgeWeight(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {
 
@@ -96,11 +105,20 @@ public class ListOfNodeObjs {
     //removeNode takes in a node to add, and a list of node objs to modify, if the node is in the list remove it. If the node is not there, do nothing
     public void removeNode(NodeObj nodeToDelete){
         NodeObj actualDeleteNode = null;
+        ArrayList<EdgeObj> actualDeleteEdges = null;
         for (NodeObj nodes: this.nodes) {
             if(nodes.getNode().getNodeID().equals(nodeToDelete.getNode().getNodeID())){
+                System.out.println("NUM NEIGHBORS: " + nodes.getListOfEdgeObjs().size());
+                for (int i = nodes.getListOfEdgeObjs().size()-1; i >= 0; i--){
+                    EdgeObj e = nodes.getListOfEdgeObjs().get(i);
+                    try {
+                        deleteEdge(nodes.getNode().getNodeID(), e.getOtherNodeObj(nodes).node.getNodeID());
+                    } catch (InvalidNodeException e1) {
+                        e1.printStackTrace();
+                    }
+                }
                 actualDeleteNode = nodes;
                 System.out.println("found node to delete");
-                //TODO:delete all edges attached to this NodeObj. Delete edges then nodes
             }
         }
         this.nodes.remove(actualDeleteNode);
@@ -117,6 +135,16 @@ public class ListOfNodeObjs {
         }
         if(!alreadyExists) {
             this.nodes.add(nodeToAdd);
+        }
+    }
+
+    public void deleteEdge(String nodeAID, String nodeBID){
+        NodeObj nodeObjA = getNodeObjByID(nodeAID);
+        NodeObj nodeObjB = getNodeObjByID(nodeBID);
+        if(nodeObjA!=null && nodeObjB!=null) {
+            EdgeObj thisEdgeToDelete = nodeObjA.getEdgeObj(nodeObjB);
+            nodeObjA.getListOfEdgeObjs().remove(thisEdgeToDelete);
+            nodeObjB.getListOfEdgeObjs().remove(thisEdgeToDelete);
         }
     }
 

@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -151,13 +150,13 @@ public class UI_v1 {
             case ADMIN:
                 break;
             case ADDNODE:
-                //edit/add node
+                nodeProcess((int)mousex,(int)mousey,currentState);
                 //addEditNode(Xloc.getText(), Yloc.getText(), Floor.getText(), Building.getText(), NodeType.getText(), LongName.getText(), ShortName.getText(), Team.getText(), NodeId.getText());
                 break;
             case REMOVENODE:
                 //remove node
                 //removeNode(removeNode.getText());
-                nodeDelProcess((int)mousex,(int)mousey,currentState);
+                nodeProcess((int)mousex,(int)mousey,currentState);
                 break;
             case MODIFYBORDERS:
                 if(counterForEdges == 0) {
@@ -181,18 +180,21 @@ public class UI_v1 {
 
     }
 
-    private void nodeDelProcess(int mousex, int mousey, CurrentStatus currentState){
+    private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
         NodeObj nearestNode = null;
-        try {
-            nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
             if(currentState.equals(CurrentStatus.REMOVENODE)){
+                try {
+                    nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
                 this.removeNode.setText(nearestNode.getNode().getNodeID());
             }else if(currentState.equals(CurrentStatus.ADDNODE)){
+                this.Xloc.setText("" + mousex);
+                this.Yloc.setText("" + mousey);
                 //Do the add field stuff
             }
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void edgeProcess(int mousex, int mousey, int counterForEdges) {
@@ -280,7 +282,10 @@ public class UI_v1 {
 
     @FXML
     void DeleteBorderButton() {
-
+        String nodeA = edgeNodeA.getText();
+        String nodeB = edgeNodeB.getText();
+        Main.getNodeMap().deleteEdge(nodeA,nodeB);
+        switchTab2();
     }
 
     public void findPath(int mousex, int mousey) throws InvalidNodeException{
@@ -353,7 +358,6 @@ public class UI_v1 {
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(10);
         gc1.setFill(Color.RED);
-        System.out.println("here");
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
@@ -440,7 +444,16 @@ public class UI_v1 {
     }
 
     @FXML
-    void addEditNode(String xLoc, String yLoc, String floor, String building, String nodeType, String longName, String shortName, String team, String nodeID){
+    void addEditNode(){
+        String xLoc = Xloc.getText();
+        String yLoc = Yloc.getText();
+        String floor = Floor.getText();
+        String building = Building.getText();
+        String nodeType = NodeType.getText();
+        String longName = LongName.getText();
+        String shortName = ShortName.getText();
+        String team = Team.getText();
+        String nodeID = NodeId.getText();
         System.out.println("ADD/EDIT NODE CLICKED");
         Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
         NodeObj modNodeObj = new NodeObj(modNode);
