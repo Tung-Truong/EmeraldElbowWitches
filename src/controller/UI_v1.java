@@ -24,8 +24,9 @@ public class UI_v1 {
 
     private CurrentStatus currentState = CurrentStatus.PATIENT;
 
-    private GraphicsContext gc1;
+    private GraphicsContext gc1 = null;
 
+    private int counterForEdges = 0;
 
     @FXML
     private Layer lineLayer;
@@ -126,7 +127,6 @@ public class UI_v1 {
     @FXML
     private TextArea MessageTestBox;
 
-
     @FXML
         //This is where pathfinding is currently
         //this shall be renamed later to something better
@@ -142,7 +142,11 @@ public class UI_v1 {
 
         switch (currentState){
             case PATIENT:
-                //pathfind
+                try {
+                    findPath((int) Math.floor(mousex), (int) Math.floor(mousey));
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
                 break;
             case ADMIN:
                 break;
@@ -153,7 +157,14 @@ public class UI_v1 {
                 //delete node, attached edges
                 break;
             case MODIFYBORDERS:
-                //edit/delete/add edge
+                if(counterForEdges == 0) {
+                    edgeProcess((int) Math.floor(mousex), (int) Math.floor(mousey), counterForEdges);
+                    counterForEdges++;
+                }
+                else if(counterForEdges == 1) {
+                    edgeProcess((int) Math.floor(mousex), (int) Math.floor(mousey), counterForEdges);
+                    counterForEdges++;
+                }
                 break;
         }
 
@@ -167,10 +178,100 @@ public class UI_v1 {
 
     }
 
+    private void edgeProcess(int mousex, int mousey, int counterForEdges) {
+       NodeObj nodeO = null;
+        try {
+            nodeO = Main.getNodeMap().getNearestNeighborFilter
+                    ((int) Math.floor(mousex), (int) Math.floor(mousey));
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+
+        if (counterForEdges ==0)
+            edgeNodeA.setText(nodeO.node.getNodeID());
+        if (counterForEdges ==1)
+            edgeNodeB.setText(nodeO.node.getNodeID());
+    }
+
+    @FXML
+    void UpdateBorderButton() {
+        String NIDA = edgeNodeA.getText();
+        String NIDB = edgeNodeB.getText();
+        int eWeight = Integer.parseInt(edgeWeight.getText());
+        boolean flagEdgeFoundA = false;
+        boolean flagEdgeFoundB = false;
+        NodeObj nodeA = null;
+        NodeObj nodeB = null;
+        EdgeObj edgeAB = null;
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            if(n.node.getNodeID().equals(NIDA)) {
+                nodeA = n;
+                for (EdgeObj e : n.getListOfEdgeObjs()) {
+                    try {
+                        if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDB)) {
+                            e.setWeight(eWeight);
+                            flagEdgeFoundA = true;
+                            edgeAB = e;
+                        }
+                    } catch (InvalidNodeException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+            if (n.node.getNodeID().equals(NIDB)) {
+                nodeB = n;
+                for (EdgeObj e : n.getListOfEdgeObjs()) {
+                    try {
+                        if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDA)) {
+                            e.setWeight(eWeight);
+                            flagEdgeFoundB = true;
+                            edgeAB = e;
+                        }
+                    } catch (InvalidNodeException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        }
+            if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight!=0) {
+                edgeAB = new EdgeObj(nodeA, nodeB, eWeight);
+                nodeA.addEdge(edgeAB);
+                nodeB.addEdge(edgeAB);
+            }
+            else if(!flagEdgeFoundA && !flagEdgeFoundB && eWeight==0) {
+                edgeAB = new EdgeObj(nodeA, nodeB);
+                nodeA.addEdge(edgeAB);
+                nodeB.addEdge(edgeAB);
+            }
+            else if(!flagEdgeFoundA){
+                nodeA.addEdge(edgeAB);
+            }
+            else if(!flagEdgeFoundB){
+                nodeB.addEdge(edgeAB);
+            }
+
+            System.out.println("here2");
+
+
+        switchTab2();
+        gc1.setStroke(Color.RED);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*mapWidth/5000,
+                edgeAB.getNodeA().node.getyLoc()*mapHeight/3400,
+                edgeAB.getNodeB().node.getxLoc()*mapWidth/5000,
+                edgeAB.getNodeB().node.getyLoc()*mapHeight/3400);
+    }
+
+    @FXML
+    void DeleteBorderButton() {
+
+    }
+
     public void findPath(int mousex, int mousey) throws InvalidNodeException{
         //create a new astar object
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         astar newpathGen = new astar();
-        this.gc1 = gc.getGraphicsContext2D();
         gc1.setLineWidth(10);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
@@ -198,25 +299,16 @@ public class UI_v1 {
                 e.printStackTrace();
             }
 
-        gc1.setGlobalAlpha(.5);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.BLUE);
-        int i = 0;
-        /*for(NodeObj n: Main.getNodeMap().getNodes()){
-            for(EdgeObj e: n.getListOfEdgeObjs()){
-                gc1.setStroke(Color.BLUE);
+            NodeObj tempDraw = goal;
 
-                gc1.fillText(""+i,e.getNodeA().node.getxLoc()*mapWidth/5000,
-                        e.getNodeA().node.getyLoc()*mapHeight/3400);
-                i++;
-
-                gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
-                        e.getNodeA().node.getyLoc()*mapHeight/3400,
-                        e.getNodeB().node.getxLoc()*mapWidth/5000,
-                        e.getNodeB().node.getyLoc()*mapHeight/3400);
+        for(NodeObj n: path)
+            if(n != goal){
+                gc1.strokeLine(n.node.getxLoc()*mapWidth/5000,
+                        n.node.getyLoc()*mapHeight/3400,
+                        tempDraw.node.getxLoc()*mapWidth/5000,
+                        tempDraw.node.getyLoc()*mapHeight/3400);
+                tempDraw = n;
             }
-
-        }*/
     }
 
     @FXML
@@ -226,7 +318,8 @@ public class UI_v1 {
 
     @FXML
     void modifyBordersFlag() {
-
+        currentState = CurrentStatus.MODIFYBORDERS;
+        counterForEdges = 0;
     }
 
     @FXML
@@ -235,7 +328,44 @@ public class UI_v1 {
     }
 
     @FXML
-    void switchTab() {
+    void switchTab2(){
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(10);
+        gc1.setFill(Color.RED);
+        System.out.println("here");
+        currentState = CurrentStatus.ADMIN;
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            for(EdgeObj e: n.getListOfEdgeObjs()){
+                gc1.setStroke(Color.BLUE);
+                gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
+                    e.getNodeA().node.getyLoc()*mapHeight/3400,
+                    e.getNodeB().node.getxLoc()*mapWidth/5000,
+                    e.getNodeB().node.getyLoc()*mapHeight/3400);
+                /*gc1.fillText("" + e.getWeight(),
+                        (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
+                        (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
+            }
+
+        }
+
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            gc1.setStroke(Color.BLUE);
+            gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
+                    n.node.getyLoc()*mapHeight/3400 - 5,
+                    10,
+                    10);
+        }
+    }
+
+    @FXML
+    void switchTab1(){
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        currentState = CurrentStatus.PATIENT;
+
 
     }
 
