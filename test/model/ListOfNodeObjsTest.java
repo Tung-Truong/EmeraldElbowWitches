@@ -1,8 +1,6 @@
 package model;
 
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,12 +39,12 @@ public class ListOfNodeObjsTest {
     public void getNearestNeighbor() throws Exception {
         ArrayList<NodeObj> ANO = new ArrayList<NodeObj>();
         ListOfNodeObjs loNO2 = new ListOfNodeObjs(ANO);
-        assertEquals(loNO.getNearestNeighbor(10, 90), nodeA);
-        assertEquals(loNO.getNearestNeighbor(35, -100), nodeB);
-        assertEquals(loNO.getNearestNeighbor(0, 500), nodeA);       // same y value but slightly smaller x value
-        assertEquals(loNO.getNearestNeighbor(35,35), nodeB);        //Equally even between two nodes but values are odd
+        assertEquals(loNO.getNearestNeighborFilter(10, 90), nodeA);
+        assertEquals(loNO.getNearestNeighborFilter(35, -100), nodeB);
+        assertEquals(loNO.getNearestNeighborFilter(0, 500), nodeA);       // same y value but slightly smaller x value
+        assertEquals(loNO.getNearestNeighborFilter(35,35), nodeB);        //Equally even between two nodes but values are odd
         exception.expect(InvalidNodeException.class);
-        loNO2.getNearestNeighbor(10, 90);
+        loNO2.getNearestNeighborFilter(10, 90);
 
     }
 

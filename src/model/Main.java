@@ -78,7 +78,7 @@ public class Main extends Application{
         }
         //get the kiosk for the assigned floor
         try {
-            kiosk = nodeMap.getNearestNeighbor(2460, 910);
+            kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
         }catch(InvalidNodeException e){
             e.printStackTrace();
         }

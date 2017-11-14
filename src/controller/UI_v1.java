@@ -76,13 +76,13 @@ public class UI_v1 {
         gc1.setFill(Color.RED);
 
         //get node that corr. to click from ListOfNodeObjects made in main
-        NodeObj goal = model.Main.getNodeMap().getNearestNeighbor
+        NodeObj goal = model.Main.getNodeMap().getNearestNeighborFilter
                 ((int)Math.floor(mousex), (int)Math.floor(mousey));
 
-       /*NodeObj goal = model.Main.getNodeMap().getNearestNeighbor
+       /*NodeObj goal = model.Main.getNodeMap().getNearestNeighborFilter
                 (1636, 1933);*/
 
-       // NodeObj goal = model.Main.getNodeMap().getNearestNeighbor
+       // NodeObj goal = model.Main.getNodeMap().getNearestNeighborFilter
               //  (2790, 1380);
 //2788 1389
         //getStart
@@ -156,7 +156,7 @@ public class UI_v1 {
         MapDropDown.setText("Shapiro Building Floor 2");
         Image m2 =  new Image("file:src/view/media/Shapiro.png");
         currentMap.setImage(m2);
-        //Main.getNodeMap().setCurrentBuilding("Shapiro Building");
+        Main.getNodeMap().setCurrentBuilding("Shapiro");
     }
 
     void setKioskLoc(int xCoord, int yCoord){
