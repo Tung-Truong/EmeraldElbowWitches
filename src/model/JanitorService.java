@@ -13,12 +13,6 @@ public class JanitorService {
     public JanitorService(){
         properties = new Properties();
 
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
@@ -31,8 +25,16 @@ public class JanitorService {
         this.password = password;
     }
 
-    public void sendEmailServiceRequest(String message){
+    public boolean sendEmailServiceRequest(String message){
+
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
         try {
+
             MimeMessage email = new MimeMessage(session);
 
             email.setFrom(new InternetAddress("random@gmail.com"));
@@ -41,9 +43,12 @@ public class JanitorService {
             email.setText(message);
 
             Transport.send(email);
+
+            return true;
         }
         catch (MessagingException mex){
             mex.printStackTrace();
+            return false;
         }
     }
 }
