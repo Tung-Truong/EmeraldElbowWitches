@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -27,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
        <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
@@ -135,7 +127,7 @@
                                                 <TextField fx:id="NodeId" layoutX="1.0" layoutY="244.0" text="NodeId" />
                                                 <Button fx:id="addNodeConfirm" layoutX="44.0" layoutY="269.0" mnemonicParsing="false" text="Confirm" />
                                                 <TextField fx:id="removeNode" layoutX="1.0" layoutY="345.0" text="Node" />
-                                                <Button fx:id="removeNodeConfirm" layoutX="46.0" layoutY="368.0" mnemonicParsing="false" text="Confirm" />
+                                                <Button fx:id="removeNodeConfirm" layoutX="47.0" layoutY="372.0" mnemonicParsing="false" onAction="#removeNode" text="Confirm" />
                                                 <Button fx:id="edgeUpdate" layoutX="13.0" layoutY="614.0" mnemonicParsing="false" onAction="#UpdateBorderButton" text="Update" />
                                                 <Button fx:id="edgeDelete" layoutX="90.0" layoutY="614.0" mnemonicParsing="false" onAction="#DeleteBorderButton" text="Delete" />
                                                 <TextArea fx:id="MessageTestBox" layoutX="2.0" layoutY="681.0" prefHeight="200.0" prefWidth="168.0" text="Message" />

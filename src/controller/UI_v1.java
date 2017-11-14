@@ -152,11 +152,12 @@ public class UI_v1 {
                 break;
             case ADDNODE:
                 //edit/add node
-                addEditNode(Xloc.getText(), Yloc.getText(), Floor.getText(), Building.getText(), NodeType.getText(), LongName.getText(), ShortName.getText(), Team.getText(), NodeId.getText());
+                //addEditNode(Xloc.getText(), Yloc.getText(), Floor.getText(), Building.getText(), NodeType.getText(), LongName.getText(), ShortName.getText(), Team.getText(), NodeId.getText());
                 break;
             case REMOVENODE:
                 //remove node
-                removeNode(removeNode.getText());
+                //removeNode(removeNode.getText());
+                nodeDelProcess((int)mousex,(int)mousey,currentState);
                 break;
             case MODIFYBORDERS:
                 if(counterForEdges == 0) {
@@ -178,6 +179,20 @@ public class UI_v1 {
 
 
 
+    }
+
+    private void nodeDelProcess(int mousex, int mousey, CurrentStatus currentState){
+        NodeObj nearestNode = null;
+        try {
+            nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
+            if(currentState.equals(CurrentStatus.REMOVENODE)){
+                this.removeNode.setText(nearestNode.getNode().getNodeID());
+            }else if(currentState.equals(CurrentStatus.ADDNODE)){
+                //Do the add field stuff
+            }
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
     }
 
     private void edgeProcess(int mousex, int mousey, int counterForEdges) {
@@ -340,7 +355,7 @@ public class UI_v1 {
         gc1.setFill(Color.RED);
         System.out.println("here");
         currentState = CurrentStatus.ADMIN;
-        for(NodeObj n: Main.getNodeMap().getNodes()){
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
                 gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
@@ -354,7 +369,7 @@ public class UI_v1 {
 
         }
 
-        for(NodeObj n: Main.getNodeMap().getNodes()){
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setStroke(Color.BLUE);
             gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
                     n.node.getyLoc()*mapHeight/3400 - 5,
@@ -387,6 +402,9 @@ public class UI_v1 {
         Image m1 = new Image("file:src/view/media/basicMap.png");
         currentMap.setImage(m1);
         Main.getNodeMap().setCurrentBuilding("45 Francis");
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
         //need to set currentMap of ListOfNodeObjs to "
     }
 
@@ -398,6 +416,9 @@ public class UI_v1 {
         Image m2 = new Image("file:src/view/media/Shapiro.png");
         currentMap.setImage(m2);
         Main.getNodeMap().setCurrentBuilding("Shapiro");
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
     }
 
     void setKioskLoc(int xCoord, int yCoord) {
@@ -408,17 +429,22 @@ public class UI_v1 {
         }
     }
 
-    void removeNode(String delNodeID){
-        System.out.println("DELETE NODE CLICKED");
+    @FXML
+    void removeNode(){
+        String delNodeID = removeNode.getText();
+        System.out.println("DELETE NODE CLICKED: " + delNodeID);
         Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
         NodeObj delNodeObj = new NodeObj(delNode);
         Main.getNodeMap().removeNode(delNodeObj);
+        switchTab2();
     }
 
+    @FXML
     void addEditNode(String xLoc, String yLoc, String floor, String building, String nodeType, String longName, String shortName, String team, String nodeID){
         System.out.println("ADD/EDIT NODE CLICKED");
         Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
         NodeObj modNodeObj = new NodeObj(modNode);
         Main.getNodeMap().addEditNode(modNodeObj);
+        switchTab2();
     }
 }

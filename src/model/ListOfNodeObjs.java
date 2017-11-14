@@ -37,6 +37,7 @@ public class ListOfNodeObjs {
         return closestNode;
     }
 
+
     public NodeObj getNearestNeighbor(int xLoc, int yLoc)throws InvalidNodeException{
         double minDist = Double.MAX_VALUE;
         NodeObj closestNode = null;
@@ -51,6 +52,15 @@ public class ListOfNodeObjs {
         return closestNode;
     }
 
+    public ArrayList<NodeObj> getFilteredNodes(){
+        ArrayList<NodeObj> filteredNodes = new ArrayList<NodeObj>();
+        for (NodeObj n : this.nodes){
+            if(n.getNode().getBuilding().equals(this.currentBuilding)){
+                filteredNodes.add(n);
+            }
+        }
+        return filteredNodes;
+    }
 
     // ---------------------Setters----------------------------
     public void setEdgeWeight(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {
@@ -85,12 +95,15 @@ public class ListOfNodeObjs {
 
     //removeNode takes in a node to add, and a list of node objs to modify, if the node is in the list remove it. If the node is not there, do nothing
     public void removeNode(NodeObj nodeToDelete){
+        NodeObj actualDeleteNode = null;
         for (NodeObj nodes: this.nodes) {
             if(nodes.getNode().getNodeID().equals(nodeToDelete.getNode().getNodeID())){
-                this.nodes.remove(nodeToDelete);
-                //TODO:delete all edges attached to this NodeObj
+                actualDeleteNode = nodes;
+                System.out.println("found node to delete");
+                //TODO:delete all edges attached to this NodeObj. Delete edges then nodes
             }
         }
+        this.nodes.remove(actualDeleteNode);
     }
 
     //addNode takes in a node to add, and a list of node objs to modify, if the node is already present, do nothing
@@ -107,15 +120,6 @@ public class ListOfNodeObjs {
         }
     }
 
-
-
-    public boolean removeEdge(){ //nodeID1 nodeID2
-        return true;
-    }
-
-    public boolean editAddEdge(){ //nodeID1 nodeID2 weight
-        return true;
-    }
 //Will need to deal with each edge
 
 

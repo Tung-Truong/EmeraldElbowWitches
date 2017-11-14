@@ -38,10 +38,9 @@ public class NodeObj {
 
     public void addEdge(NodeObj nodeB){
         EdgeObj edge = new EdgeObj(this, nodeB);
-        listOfEdgeObjs.add(edge);
-        EdgeObj reverseEdge = new EdgeObj(nodeB, this);
-        nodeB.addEdge(reverseEdge);
         edge.setWeight(edge.genWeightFromDistance());
+        listOfEdgeObjs.add(edge);
+        nodeB.addEdge(edge);
     }
 
     public void addEdge(EdgeObj newEdge){
