@@ -88,8 +88,9 @@ public class ListOfNodeObjsTest {
 
         assertEquals(lON.getDistance(nodeAObj,nodeBObj), (Double)15.0);
         /*-----------------------------------------------------------------------------------------*/
-
-
+        nodeA.setLoc(2190, 910);    // if the nodes have the same coordinates?
+        assertEquals(0, lON.getDistance(nodeAObj, nodeBObj), 0);    // make sure getDistance shows there is no distance between them
+        
     }
 
     @Test
