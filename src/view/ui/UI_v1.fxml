@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -17,20 +26,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
-       <SplitPane dividerPositions="0.9545454545454546" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+       <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
-               <SplitPane dividerPositions="0.7991990846681922" prefHeight="160.0" prefWidth="200.0">
+               <SplitPane fx:id="AddLine" dividerPositions="0.7991990846681922" prefHeight="160.0" prefWidth="200.0">
                    <items>
                            <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
-                        <Canvas fx:id="gc" height="200.0" width="200.0" />
-                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#addLine" preserveRatio="true">
+                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#AddLine" preserveRatio="true">
                                        <image>
                                            <Image url="@../media/basicMap.png" />
                                        </image>
                                    </ImageView>
+                        <Canvas fx:id="gc" height="947.0" onMouseReleased="#AddLine" width="1393.0" />
+                        <MenuButton fx:id="MapDropDown" layoutX="3.0" layoutY="922.0" mnemonicParsing="false" text="Map">
+                          <items>
+                            <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
+                            <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
+                          </items>
+                        </MenuButton>
                                </children>
                   </AnchorPane>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
@@ -118,20 +133,22 @@
                                          </tabs>
                                      </TabPane>
                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
-                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
-                                           <children>
-                                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" text="LEGEND" textFill="WHITE">
-                                                   <font>
-                                                       <Font name="Avenir Next Bold" size="22.0" />
-                                                   </font>
-                                               </Label>
-                                               <ImageView fitHeight="83.0" fitWidth="123.0" layoutX="-2.0" layoutY="67.0">
-                                                   <image>
-                                                       <Image url="@../media/legend.png" />
-                                                   </image>
-                                               </ImageView>
-                                           </children>
-                                       </AnchorPane>
+                                          <children>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
+                                              <children>
+                                                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" text="LEGEND" textFill="WHITE">
+                                                      <font>
+                                                          <Font name="Avenir Next Bold" size="22.0" />
+                                                      </font>
+                                                  </Label>
+                                                  <ImageView fitHeight="83.0" fitWidth="123.0" layoutX="-2.0" layoutY="67.0">
+                                                      <image>
+                                                          <Image url="@../media/legend.png" />
+                                                      </image>
+                                                  </ImageView>
+                                              </children>
+                                          </AnchorPane>
+                                          </children>
                                        </AnchorPane>
                           </items>
                         </SplitPane>
@@ -143,14 +160,6 @@
                    <effect>
                        <Reflection />
                    </effect>
-               <children>
-                  <MenuButton fx:id="MapDropDown" layoutX="-1.0" layoutY="5.0" mnemonicParsing="false" text="Map">
-                    <items>
-                      <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="45 Francis Floor 1 Center" />
-                      <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
-                    </items>
-                  </MenuButton>
-               </children>
             </AnchorPane>
            </items>
        </SplitPane>
