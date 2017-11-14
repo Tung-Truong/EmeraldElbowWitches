@@ -15,8 +15,10 @@ public class ListOfNodeObjsTest {
 
     private Node node1 = new Node("20", "100", "1", "45 Francis", "HALL", "Hall1", "Hallway 2", "Team E", "EHALL00101");
     private Node node2 = new Node("50", "30", "1", "45 Francis", "HALL", "Hall2", "Hallway 2", "Team E", "EHALL00201");
+    private Node node3 = new Node("500", "500", "1", "45 Francis", "HALL", "Hall2", "Hallway 2", "Team E", "EHALL00201");
     private NodeObj nodeA = new NodeObj(node1);
     private NodeObj nodeB = new NodeObj(node2);
+    private NodeObj nodeC = new NodeObj(node3);
     private double weight = 2;
 
     private EdgeObj edge1 = new EdgeObj(nodeA, nodeB, weight);
@@ -30,6 +32,7 @@ public class ListOfNodeObjsTest {
         ArrayList<NodeObj> ANO = new ArrayList<NodeObj>();
         ANO.add(nodeA);
         ANO.add(nodeB);
+        ANO.add(nodeC);
         loNO = new ListOfNodeObjs(ANO);
 
     }
@@ -40,8 +43,11 @@ public class ListOfNodeObjsTest {
         ListOfNodeObjs loNO2 = new ListOfNodeObjs(ANO);
         assertEquals(loNO.getNearestNeighbor(10, 90), nodeA);
         assertEquals(loNO.getNearestNeighbor(35, -100), nodeB);
+        assertEquals(loNO.getNearestNeighbor(0, 500), nodeA);       // same y value but slightly smaller x value
+        assertEquals(loNO.getNearestNeighbor(35,35), nodeB);        //Equally even between two nodes but values are odd
         exception.expect(InvalidNodeException.class);
         loNO2.getNearestNeighbor(10, 90);
+
     }
 
     @Test
