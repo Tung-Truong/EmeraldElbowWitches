@@ -33,12 +33,6 @@
                                        </image>
                                    </ImageView>
                         <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
-                        <MenuButton fx:id="MapDropDown" layoutX="3.0" layoutY="922.0" mnemonicParsing="false" text="Map">
-                          <items>
-                            <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
-                            <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
-                          </items>
-                        </MenuButton>
                                </children>
                   </AnchorPane>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
@@ -172,6 +166,14 @@
                    <effect>
                        <Reflection />
                    </effect>
+               <children>
+                  <MenuButton fx:id="MapDropDown" layoutX="16.0" layoutY="5.0" mnemonicParsing="false" text="Map">
+                    <items>
+                      <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
+                      <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
+                    </items>
+                  </MenuButton>
+               </children>
             </AnchorPane>
            </items>
        </SplitPane>

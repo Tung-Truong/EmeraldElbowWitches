@@ -25,6 +25,10 @@ public class Node {
         this.nodeID = nodeID;
     }
 
+    public Node(String nodeID){
+        this.nodeID = nodeID;
+    }
+
     public int getxLoc() {
         return xLoc;
     }
