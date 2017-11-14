@@ -94,6 +94,7 @@ public class ListOfNodeObjs {
         }
     }
 
+    // TODO:fix this shit
     //removeNode takes in a node to add, and a list of node objs to modify, if the node is in the list remove it. If the node is not there, do nothing
     public boolean removeNode(NodeObj Node, ListOfNodeObjs list){
         for (NodeObj nodes: list.getNodes()) {
@@ -132,13 +133,11 @@ public class ListOfNodeObjs {
         return false;
     }
 
-    public boolean removeEdge(){
+    public boolean removeEdge(){ //nodeID1 nodeID2
         return true;
     }
-    public boolean addEdge(){
-        return true;
-    }
-    public boolean editEdge(){
+
+    public boolean editAddEdge(){ //nodeID1 nodeID2 weight
         return true;
     }
 //Will need to deal with each edge
