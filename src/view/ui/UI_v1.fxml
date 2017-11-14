@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -18,6 +9,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
@@ -26,7 +18,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
        <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
@@ -34,18 +26,12 @@
                    <items>
                            <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
-                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#AddLine" preserveRatio="true">
+                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#addLine" preserveRatio="true">
                                        <image>
                                            <Image url="@../media/basicMap.png" />
                                        </image>
                                    </ImageView>
-                        <Canvas fx:id="gc" height="947.0" onMouseReleased="#AddLine" width="1393.0" />
-                        <MenuButton fx:id="MapDropDown" layoutX="3.0" layoutY="922.0" mnemonicParsing="false" text="Map">
-                          <items>
-                            <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
-                            <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
-                          </items>
-                        </MenuButton>
+                        <Canvas fx:id="gc" height="947.0" onMouseReleased="#addLine" width="1393.0" />
                                </children>
                   </AnchorPane>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
@@ -96,7 +82,7 @@
                                                                      <Cursor fx:constant="V_RESIZE" />
                                                                  </cursor>
                                                 </Button>
-                                                             <Button alignment="CENTER" layoutX="6.0" layoutY="48.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Remove Node" textFill="WHITE">
+                                                             <Button alignment="CENTER" layoutX="7.0" layoutY="215.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Remove Node" textFill="WHITE">
                                                                  <font>
                                                                      <Font name="Avenir Book" size="14.0" />
                                                                  </font>
@@ -104,7 +90,7 @@
                                                                      <InnerShadow color="#0a30ae" />
                                                                  </effect>
                                                 </Button>
-                                                             <Button alignment="CENTER" layoutX="6.0" layoutY="82.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
+                                                             <Button alignment="CENTER" layoutX="7.0" layoutY="410.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
                                                                  <font>
                                                                      <Font name="Avenir Book" size="14.0" />
                                                                  </font>
@@ -112,7 +98,7 @@
                                                                      <InnerShadow color="#0a30ae" />
                                                                  </effect>
                                                 </Button>
-                                                             <MenuButton alignment="CENTER" layoutX="6.0" layoutY="116.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" style="-fx-background-color: #134072#134072;" text="Request Service" textFill="WHITE">
+                                                             <MenuButton alignment="CENTER" layoutX="6.0" layoutY="606.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" style="-fx-background-color: #134072#134072;" text="Request Service" textFill="WHITE">
                                                                  <items>
                                                                      <MenuItem mnemonicParsing="false" text="Food" />
                                                                      <MenuItem mnemonicParsing="false" text="Cleaning" />
@@ -126,6 +112,7 @@
                                                                      <InnerShadow color="#0a30ae" />
                                                                  </effect>
                                                              </MenuButton>
+                                                <TextField layoutX="1.0" layoutY="635.0" text="SERVICE" />
                                                          </children>
                                                      </AnchorPane>
                                                  </content>
@@ -160,6 +147,14 @@
                    <effect>
                        <Reflection />
                    </effect>
+               <children>
+                  <MenuButton fx:id="MapDropDown" layoutX="22.0" layoutY="7.0" mnemonicParsing="false" text="Map">
+                    <items>
+                      <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
+                      <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
+                    </items>
+                  </MenuButton>
+               </children>
             </AnchorPane>
            </items>
        </SplitPane>

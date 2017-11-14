@@ -139,4 +139,8 @@ public class Main extends Application{
     public static Parent getParentRoot() {
         return parentRoot;
     }
+
+    public static void setKiosk(NodeObj kiosk) {
+        Main.kiosk = kiosk;
+    }
 }

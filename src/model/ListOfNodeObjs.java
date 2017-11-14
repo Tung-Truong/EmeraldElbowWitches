@@ -118,6 +118,15 @@ public class ListOfNodeObjs {
         return false;
     }
 
+    public boolean removeEdge(){
+        return true;
+    }
+    public boolean addEdge(){
+        return true;
+    }
+    public boolean editEdge(){
+        return true;
+    }
 //Will need to deal with each edge
 
 
