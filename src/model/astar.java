@@ -27,47 +27,66 @@ public class astar {
         double startG = 0;
         start.setHeuristic(startG + start.getDistance(goal));
 
-        while (open_queue.size() > 0) {
-            NodeObj current = open_queue.get(0); //gets the element with the lowest f cost
+        while (true) {
+                while (open_queue.size() > 0) {
+                    NodeObj current = open_queue.get(0); //gets the element with the lowest f cost
 
-            gc1.fillText("" + i, current.node.getxLoc() * 1397 / 5000,
-                    current.node.getyLoc() * 950 / 3400);
-            i++;
+                    gc1.fillText("" + i, current.node.getxLoc() * 1397 / 5000,
+                            current.node.getyLoc() * 950 / 3400);
+                    i++;
 
 
-            if (current == goal) {
-                System.out.println("Goal is " + goal);
-                GenPath = constructPath(goal, start);
-                System.out.println(GenPath);
-                return true;
-            }
-            open_queue.remove(0);
-
-            //creates a list of neighbors from the current node, and looks at the neighbors for the next optimal path.
-            ArrayList<NodeObj> exploreList = current.getListOfNeighbors();
-            for (NodeObj neighbor : exploreList) {
-                //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
-                if (!closed_queue.contains(neighbor)) {
-                    //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
-                    neighbor.setgCost(current.getDistance(neighbor));
-                    neighbor.setHeuristic(neighbor.getgCost() + neighbor.getDistance(goal));
-                    //if the open queue does not have it then add it to open queue and set the parent to the current node.
-                    if (!open_queue.contains(neighbor)) {
-                        open_queue=addToQueue(open_queue, neighbor);
-                        neighbor.setParent(current);
+                    if (current == goal) {
+                        System.out.println("Goal is " + goal);
+                        GenPath = constructPath(goal, start);
+                        System.out.println(GenPath);
+                        return true;
                     }
-                    //else do nothing
-                    else {
-                        continue;
+                    open_queue.remove(0);
+
+                    //creates a list of neighbors from the current node, and looks at the neighbors for the next optimal path.
+                    ArrayList<NodeObj> exploreList = current.getListOfNeighbors();
+                    for (NodeObj neighbor : exploreList) {
+                        //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
+                        if (!closed_queue.contains(neighbor)) {
+                            //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
+                            neighbor.setgCost(current.getDistance(neighbor));
+                            neighbor.setHeuristic(neighbor.getgCost() + neighbor.getDistance(goal));
+                            //if the open queue does not have it then add it to open queue and set the parent to the current node.
+                            if (!open_queue.contains(neighbor)) {
+                                open_queue = addToQueue(open_queue, neighbor);
+                                neighbor.setParent(current);
+                            }
+                            //else do nothing
+                            else {
+                                continue;
+                            }
+                        }
+                        //else ignore it as it has been evaluated already
+                        else {
+                            continue;
+                        }
+                    }
+                    closed_queue.add(current);
+                }
+                for (NodeObj exploredNodes : closed_queue) {
+                    ArrayList<NodeObj> exploredList = exploredNodes.getListOfNeighbors();
+                    for (NodeObj nodes : exploredList) {
+                        if (!closed_queue.contains(nodes)) {
+                            //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
+                            //if the open queue does not have it then add it to open queue and set the parent to the current node.
+                            open_queue = addToQueue(open_queue, nodes);
+                            // if the parent of the node is null and if the node is not the start node then set the parent
+                            if (nodes.getParent() == null && nodes.node.getNodeID() != start.node.getNodeID()) {
+                                nodes.setParent(exploredNodes);
+                            }
+                        }
                     }
                 }
-                //else ignore it as it has been evaluated already
-                else {
-                    continue;
-                }
-            }
-            closed_queue.add(current);
-        }
+                if (open_queue.size() == 0) {
+                    break;
+
+                }                }
 
         return false; //No path exists
 
