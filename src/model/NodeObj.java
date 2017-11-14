@@ -34,7 +34,7 @@ public class NodeObj {
     // ---------------------General Functionality----------------------------
 
     // creates an edge to another node, adds edge to the list for the map
-    // tgwiles: added 'reverseEdge' to account for backtracking a node to have both an edge from x to y and y to x
+    // tgwiles: added 'reverseEdge' to account for backtracking a node to have both an edge from A to B, and subsequently B to A
 
     public void addEdge(NodeObj nodeB){
         EdgeObj edge = new EdgeObj(this, nodeB);

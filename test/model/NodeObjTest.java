@@ -18,7 +18,7 @@ public class NodeObjTest {
 
     private Edge edge1;
     private Edge edge2;
-    private Edge edge3;
+//    private Edge edge3;
     private EdgeObj edgeA;
     private EdgeObj edgeB;
 
@@ -57,25 +57,43 @@ public class NodeObjTest {
 
     @Test
     public void getListOfEdgeObjs() throws Exception {
+        for (EdgeObj e: nodeA.getListOfEdgeObjs()){
+            assertEquals("EHALL00101", e.getNodeA().node.getNodeID());
+            assertEquals("EHALL00201", e.getNodeB().node.getNodeID());
+        }
+
     }
 
     @Test
     public void addEdge() throws Exception {
         assertEquals(1, nodeA.getListOfEdgeObjs().size());
+        assertEquals(2, nodeB.getListOfEdgeObjs().size());
     }
 
     @Test
     public void addEdge1() throws Exception {
-        //hi
+        Node otherNode4 = new Node("1000", "400", "1", "45 Francis", "STAI", "Stair1", "Stairway 2", "Team E", "ESTAI00201");
+        Node otherNode5 = new Node("1000", "400", "1", "45 Francis", "STAI", "Stair1", "Stairway 2", "Team E", "ESTAI00201");
+        NodeObj otherNodeObjD = new NodeObj(otherNode4);
+        NodeObj otherNodeObjE = new NodeObj(otherNode5);
+        Edge otherEdge = new Edge(otherNode4.getNodeID(), otherNode5.getNodeID(), otherNode4.getNodeID() + "_" + otherNode5.getNodeID());
+        EdgeObj otherEdgeObj = new EdgeObj(otherNodeObjD, otherNodeObjE);
+
+        otherNodeObjD.addEdge(otherEdgeObj);
+        assertEquals(1, otherNodeObjD.getListOfEdgeObjs().size());
+        assertEquals(0, otherNodeObjE.getListOfEdgeObjs().size());
     }
 
     @Test
     public void killEdge() throws Exception {
+        // Same problem as addEdge, needs to be able to delete both subsequent edges;
+        // Edges should be shared between nodes, ideally all nodes should share a single given edge between them, not have a forwards and backwards edge
     }
 
-    @Test
-    public void getDistToGoal() throws Exception {
-    }
+//    @Test
+//    public void getDistToGoal() throws Exception {        // Should this test still be here now that getDistance is overloaded and takes two parameters?
+//
+//    }
 
     @Test
     public void getHeuristic() throws Exception {
