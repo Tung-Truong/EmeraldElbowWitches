@@ -66,6 +66,13 @@ public class NodeObj {
         }
     }
 
+    public void setListOfEdgeObjs(ArrayList<EdgeObj> listOfEdgeObjs) {
+        this.listOfEdgeObjs = listOfEdgeObjs;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
     // ---------------------Getters----------------------------
 
 

@@ -152,9 +152,11 @@ public class UI_v1 {
                 break;
             case ADDNODE:
                 //edit/add node
+                addEditNode(Xloc.getText(), Yloc.getText(), Floor.getText(), Building.getText(), NodeType.getText(), LongName.getText(), ShortName.getText(), Team.getText(), NodeId.getText());
                 break;
             case REMOVENODE:
-                //delete node, attached edges
+                //remove node
+                removeNode(removeNode.getText());
                 break;
             case MODIFYBORDERS:
                 if(counterForEdges == 0) {
@@ -313,7 +315,8 @@ public class UI_v1 {
 
     @FXML
     void addNodeFlag() {
-
+        System.out.println("set to AddNode");
+        this.currentState = CurrentStatus.ADDNODE;
     }
 
     @FXML
@@ -324,7 +327,8 @@ public class UI_v1 {
 
     @FXML
     void removeNodeFlag() {
-
+        System.out.println("set to RemoveNode");
+        this.currentState = CurrentStatus.REMOVENODE;
     }
 
     @FXML
@@ -402,5 +406,19 @@ public class UI_v1 {
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
+    }
+
+    void removeNode(String delNodeID){
+        System.out.println("DELETE NODE CLICKED");
+        Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
+        NodeObj delNodeObj = new NodeObj(delNode);
+        Main.getNodeMap().removeNode(delNodeObj);
+    }
+
+    void addEditNode(String xLoc, String yLoc, String floor, String building, String nodeType, String longName, String shortName, String team, String nodeID){
+        System.out.println("ADD/EDIT NODE CLICKED");
+        Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
+        NodeObj modNodeObj = new NodeObj(modNode);
+        Main.getNodeMap().addEditNode(modNodeObj);
     }
 }
