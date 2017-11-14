@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Node {
     private int xLoc;
     private int yLoc;
@@ -93,7 +95,7 @@ public class Node {
 
     // function that takes in a floor, and a list of nodes, and returns of list of nodes that are on that floor
     public ArrayList<Node> floorFilter(String floor, ArrayList<Node> nodeArrayList){
-        ArrayList<Node> sameFloorList = new ArrayList<Node>;
+        ArrayList<Node> sameFloorList = new ArrayList<Node>();
         for (Node node:nodeArrayList) {
             if (node.getFloor() == floor){
                 sameFloorList.add(node);
@@ -104,7 +106,7 @@ public class Node {
 
     // function that takes in a building and list of nodes and returns of list of nodes in that building.
     public ArrayList<Node> buildFilter(String building, ArrayList<Node> nodeArrayList){
-        ArrayList<Node> sameBuildingList = new ArrayList<Node>;
+        ArrayList<Node> sameBuildingList = new ArrayList<Node>();
         for (Node node:nodeArrayList){
             if(node.getBuilding() == building){
                 sameBuildingList.add(node);

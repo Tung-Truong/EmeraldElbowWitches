@@ -1,6 +1,5 @@
 package controller;
 
-
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
@@ -9,15 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import model.InvalidNodeException;
-import model.NodeObj;
-import model.astar;
+import model.*;
 import sun.plugin.javascript.navig4.Layer;
-
 import java.util.ArrayList;
 
 public class UI_v1 {
@@ -47,7 +39,7 @@ public class UI_v1 {
     @FXML
     //This is where pathfinding is currently
     //this shall be renamed later to something better
-    void AddLine(MouseEvent event) throws InvalidNodeException {
+    void addLine(MouseEvent event) throws InvalidNodeException {
         //getX/stageWidth = w/5000
         //5000*getX/stageWidth
 
@@ -80,10 +72,10 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if(newpathGen.Pathfind(Kiosk,goal))
+        if(newpathGen.pathfind(Kiosk,goal))
             path = newpathGen.getGenPath();
         else
-            throw new InvalidNodeException("this is cot accessable with the current map");
+            throw new InvalidNodeException("this is not accessable with the current map");
 
 
         /*currScene.setFill(Color.BLUE);
@@ -98,9 +90,11 @@ public class UI_v1 {
 
     @FXML
     void GetMap1() {
-        MapDropDown.setText("75 Francis Floor 2 Center");
+        MapDropDown.setText("45 Francis Floor 1 Center");
         Image m1 =  new Image("file:src/view/media/basicMap.png");
         currentMap.setImage(m1);
+        Main.getNodeMap().setCurrentBuilding("45 Francis");
+        //need to set currentMap of ListOfNodeObjs to "
     }
 
     @FXML
@@ -108,5 +102,6 @@ public class UI_v1 {
         MapDropDown.setText("Shapiro Building Floor 2");
         Image m2 =  new Image("file:src/view/media/Shapiro.png");
         currentMap.setImage(m2);
+        Main.getNodeMap().setCurrentBuilding("Shapiro Building");
     }
 }

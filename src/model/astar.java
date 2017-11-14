@@ -9,7 +9,7 @@ public class astar {
     }
     private ArrayList<NodeObj> GenPath;
 
-    public boolean Pathfind(NodeObj start, NodeObj goal) {
+    public boolean pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj
         //closed_queue contains all explored NodeObjs, which starts empty
         ArrayList<NodeObj> open_queue = new ArrayList<NodeObj>();

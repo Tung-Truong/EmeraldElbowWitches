@@ -6,7 +6,9 @@ public class EdgeObj {
     public NodeObj nodeB;
     public String nodeAStr;
     public String nodeBStr;
+    public String edgeID;
     private double weight;
+
 
     public EdgeObj(NodeObj nodeA, NodeObj nodeB) {
         this.nodeA = nodeA;
@@ -24,9 +26,10 @@ public class EdgeObj {
         this.nodeBStr = nodeB.node.getNodeID();
     }
 
-    public EdgeObj(String nodeAStr, String nodeBStr){
+    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID){
         this.nodeAStr = nodeAStr;
         this.nodeBStr = nodeBStr;
+        this.edgeID = edgeID;
     }
 
     //find the node that is linked to the input node
@@ -41,6 +44,7 @@ public class EdgeObj {
 
     //return the weight of the current edge
     public double getWeight(){
+        System.out.println("EDGE ID: " + this.edgeID);
         return weight;
     }
 

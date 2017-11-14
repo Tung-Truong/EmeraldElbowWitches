@@ -5,9 +5,11 @@ import java.util.ArrayList;
 public class ListOfNodeObjs {
 
     private ArrayList<NodeObj> nodes;
+    public String currentBuilding;
 
     public ListOfNodeObjs(ArrayList<NodeObj> nodes) {
         this.nodes = nodes;
+        this.currentBuilding = "45 Francis";
     }
 
     // ---------------------Getters----------------------------
@@ -26,7 +28,7 @@ public class ListOfNodeObjs {
         double minDist = Double.MAX_VALUE;
         NodeObj closestNode = null;
         for (NodeObj n: nodes){
-            if(n.getDistance(xLoc, yLoc)<minDist){
+            if((n.getDistance(xLoc, yLoc)<minDist) && (n.getNode().getBuilding().equals(this.currentBuilding))){
                 closestNode = n;
                 minDist = n.getDistance(xLoc, yLoc);
             }
@@ -40,6 +42,10 @@ public class ListOfNodeObjs {
     // ---------------------Setters----------------------------
     public void setEdgeWeight(NodeObj nodeA, NodeObj nodeB, int edgeWeight) {
 
+    }
+
+    public void setCurrentBuilding(String currentBuilding) {
+        this.currentBuilding = currentBuilding;
     }
 
     // ---------------------General Functionality--------------

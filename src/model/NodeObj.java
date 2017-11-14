@@ -103,6 +103,10 @@ public class NodeObj {
         return null;
     }
 
+    public Node getNode() {
+        return node;
+    }
+
     public Double getDistance(NodeObj nodeB){
         int ax = node.getxLoc();
         int ay = node.getyLoc();

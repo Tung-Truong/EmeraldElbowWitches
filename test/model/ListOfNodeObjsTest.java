@@ -56,7 +56,7 @@ public class ListOfNodeObjsTest {
         nodeObs.add(nodeAObj);
         nodeObs.add(nodeBObj);
         ListOfNodeObjs lON = new ListOfNodeObjs(nodeObs);
-        EdgeObj edgeObj = new EdgeObj("EHALL00201", "ESTAI00101");
+        EdgeObj edgeObj = new EdgeObj("EHALL00201", "ESTAI00101", "EHALL00201_ESTAI00101");
         assertEquals(true, lON.pair(edgeObj));
         assertEquals(lON.getNodes().get(0).getEdgeObj(nodeBObj), edgeObj);
         assertEquals(lON.getNodes().get(1).getEdgeObj(nodeAObj), edgeObj);

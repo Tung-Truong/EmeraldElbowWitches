@@ -26,17 +26,11 @@
                            <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
                         <Canvas fx:id="gc" height="200.0" width="200.0" />
-                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#AddLine" preserveRatio="true">
+                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#addLine" preserveRatio="true">
                                        <image>
                                            <Image url="@../media/basicMap.png" />
                                        </image>
                                    </ImageView>
-                        <MenuButton fx:id="MapDropDown" layoutX="3.0" layoutY="922.0" mnemonicParsing="false" text="Map">
-                          <items>
-                            <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
-                            <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
-                          </items>
-                        </MenuButton>
                                </children>
                   </AnchorPane>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
@@ -149,6 +143,14 @@
                    <effect>
                        <Reflection />
                    </effect>
+               <children>
+                  <MenuButton fx:id="MapDropDown" layoutX="-1.0" layoutY="5.0" mnemonicParsing="false" text="Map">
+                    <items>
+                      <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="75 Francis Floor 2 Center" />
+                      <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
+                    </items>
+                  </MenuButton>
+               </children>
             </AnchorPane>
            </items>
        </SplitPane>

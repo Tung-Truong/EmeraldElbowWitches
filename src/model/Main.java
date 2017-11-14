@@ -71,7 +71,7 @@ public class Main extends Application{
 
         // create edge objects
         for(Edge edge:listOfEdges){
-            EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID());
+            EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
             if(nodeMap.pair(newObj)){
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
