@@ -32,8 +32,8 @@ public class astar {
                 while (open_queue.size() > 0) {
                     NodeObj current = open_queue.get(0); //gets the element with the lowest f cost
 
-                    gc1.fillText("" + i, current.node.getxLoc() * 1397 / 5000,
-                            current.node.getyLoc() * 950 / 3400);
+                    /*gc1.fillText("" + i, current.node.getxLoc() * 1397 / 5000,
+                            current.node.getyLoc() * 950 / 3400);*/
                     i++;
 
 

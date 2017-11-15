@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class WriteCSV2 {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void runEdges() throws SQLException, IOException {
         try {
-            String query = "select DISTINCT * from EDGETABLE";
-            String filename = "src/model/docs/UpdatedMapEEdges.csv";
+            String query = "SELECT DISTINCT * FROM EDGETABLE";
+            String filename = "src/model/docs/Edges.csv";
             File file = new File(filename);
             FileWriter fw = new FileWriter(file);
             ArrayList<String> noRepeat = new ArrayList();
@@ -43,6 +43,7 @@ public class WriteCSV2 {
             ResultSet rs2 = stmt2.executeQuery(query);
 
             System.out.println("Second connection made!");
+            fw.append("edgeID,startNode,endNode\n");
             while (rs2.next()) {
                 if (noRepeat.contains(rs2.getString(1))) {
                     fw.append(rs2.getString(1));

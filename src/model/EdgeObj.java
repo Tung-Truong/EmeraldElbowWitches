@@ -16,6 +16,7 @@ public class EdgeObj {
         this.weight = this.genWeightFromDistance();
         this.nodeAStr = nodeA.node.getNodeID();
         this.nodeBStr = nodeB.node.getNodeID();
+        this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
     public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {
@@ -24,6 +25,7 @@ public class EdgeObj {
         this.weight = edgeWeight;
         this.nodeAStr = nodeA.node.getNodeID();
         this.nodeBStr = nodeB.node.getNodeID();
+        this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
     public EdgeObj(String nodeAStr, String nodeBStr, String edgeID){
@@ -60,6 +62,10 @@ public class EdgeObj {
         int by = nodeB.node.getyLoc();
 
         return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+    }
+
+    public Edge objToEntity(){
+        return new Edge(this.nodeAStr, this.nodeBStr, this.edgeID);
     }
 
     public NodeObj getNodeA() {
