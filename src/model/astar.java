@@ -49,8 +49,28 @@ public class astar {
                     for (NodeObj neighbor : exploreList) {
                         //if closed queue does not have the neighbor, then evaluates the cost of travelling to the next node.
                         if (!closed_queue.contains(neighbor)) {
-                            //sets the gCost of neighbor which is the distance between neighbor and current as well as sets the heuristic of neighbor
-                            neighbor.setgCost(current.getDistance(neighbor));
+                            //sets the the gCost of the neighbor based on the edge weight, if not uses getDistance function
+                            boolean edgeWeightFlag = false;
+                            ArrayList<EdgeObj> edges = new ArrayList<EdgeObj>();
+                            edges = neighbor.getListOfEdgeObjs();
+                            for (EdgeObj edge: edges) {
+                                if(edge.getNodeB().node.getNodeID().equals(neighbor.node.getNodeID())){
+                                    if(edge.getNodeA().node.getNodeID().equals(current.node.getNodeID())){
+                                        edgeWeightFlag = true;
+                                        neighbor.setgCost(edge.getWeight());
+                                    }
+                                }
+                                if(edge.getNodeA().node.getNodeID().equals(neighbor.node.getNodeID())){
+                                    if(edge.getNodeB().node.getNodeID().equals(current.node.getNodeID())){
+                                        edgeWeightFlag = true;
+                                        neighbor.setgCost(edge.getWeight());
+                                    }
+                                }
+
+                            }
+                            if(edgeWeightFlag == false){
+                                neighbor.setgCost(current.getDistance(neighbor));
+                            }
                             neighbor.setHeuristic(neighbor.getgCost() + neighbor.getDistance(goal));
                             //if the open queue does not have it then add it to open queue and set the parent to the current node.
                             if (!open_queue.contains(neighbor)) {
