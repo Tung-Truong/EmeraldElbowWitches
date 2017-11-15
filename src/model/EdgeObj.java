@@ -2,15 +2,16 @@ package model;
 
 public class EdgeObj {
 
-    public NodeObj nodeA;
+    public NodeObj nodeA;      // declaring the start and end nodes for the edge to use
     public NodeObj nodeB;
-    public String nodeAStr;
+    public String nodeAStr;    // strings to hold the value of nodeA and nodeB's ID
     public String nodeBStr;
     public String edgeID;
-    private double weight;
+    private double weight;     // weight of the edge, used in the A* algorithm to find best path
 
 
-    public EdgeObj(NodeObj nodeA, NodeObj nodeB) {
+    // Overloaded constructor so that edge can take multiple parameters for entry, depending on the situation
+    public EdgeObj(NodeObj nodeA, NodeObj nodeB) {  // takes just two node objects
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = this.genWeightFromDistance();
@@ -19,7 +20,7 @@ public class EdgeObj {
         this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
-    public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {
+    public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {   // takes both node objects and the weight of the edge
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = edgeWeight;
@@ -28,7 +29,7 @@ public class EdgeObj {
         this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
-    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID){
+    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID){    // takes just the strings of the nodes' IDs and the edge ID
         this.nodeAStr = nodeAStr;
         this.nodeBStr = nodeBStr;
         this.edgeID = edgeID;
@@ -55,6 +56,7 @@ public class EdgeObj {
         weight = edgeWeight;
     }
 
+    // perform mathematical distance between the start and end location nodes (in pixels)
     public double genWeightFromDistance() {
         int ax = nodeA.node.getxLoc();
         int ay = nodeA.node.getyLoc();
@@ -64,9 +66,12 @@ public class EdgeObj {
         return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
     }
 
+    // convert the EdgeEntity to the EdgeObject
     public Edge objToEntity(){
         return new Edge(this.nodeAStr, this.nodeBStr, this.edgeID);
     }
+
+    // getters and setters--------------------------------------------------------------------
 
     public NodeObj getNodeA() {
         return nodeA;
