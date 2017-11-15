@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class UI_v1 {
 
     private enum CurrentStatus {
-        PATIENT, ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS
+        PATIENT, ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST, SETSTARTNODE
     };
 
     private CurrentStatus currentState = CurrentStatus.PATIENT;
@@ -26,6 +26,24 @@ public class UI_v1 {
     private GraphicsContext gc1 = null;
 
     private int counterForEdges = 0;
+
+    @FXML
+    private Button startNodeSelector;
+
+    @FXML
+    private TextField startNodeID;
+
+    @FXML
+    private Button setStartNodeConfirm;
+
+    @FXML
+    private TextField serviceNodeID;
+
+    @FXML
+    private Button requestServiceSelector;
+
+    @FXML
+    private TextArea MessageTextBox;
 
     @FXML
     private Layer lineLayer;
@@ -131,7 +149,7 @@ public class UI_v1 {
         //this shall be renamed later to something better
     void stateHandler(MouseEvent event) {
         //get the mouses location and convert that to the corrected map coordinates for the original image
-        Scene currScene = model.Main.getCurrScene();
+        Scene currScene = Main.getCurrScene();
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
         // System.out.println(mapWidth + " " + mapHeight);
@@ -168,6 +186,12 @@ public class UI_v1 {
                     counterForEdges++;
                 }
                 break;
+            case SERVICEREQUEST:
+                nodeProcess((int)mousex, (int)mousey, currentState);
+                break;
+            case SETSTARTNODE:
+                nodeProcess((int)mousex, (int)mousey, currentState);
+                break;
         }
 
         //Print to confirm
@@ -182,18 +206,24 @@ public class UI_v1 {
 
     private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
         NodeObj nearestNode = null;
-            if(currentState.equals(CurrentStatus.REMOVENODE)){
-                try {
-                    nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
+        try {
+            if (currentState.equals(CurrentStatus.REMOVENODE)) {
+                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
                 this.removeNode.setText(nearestNode.getNode().getNodeID());
-            }else if(currentState.equals(CurrentStatus.ADDNODE)){
+            } else if (currentState.equals(CurrentStatus.ADDNODE)) {
                 this.Xloc.setText("" + mousex);
                 this.Yloc.setText("" + mousey);
                 //Do the add field stuff
+            } else if (currentState.equals(CurrentStatus.SERVICEREQUEST)) {
+                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+                this.serviceNodeID.setText(nearestNode.getNode().getNodeID());
+            } else if (currentState.equals(CurrentStatus.SETSTARTNODE)){
+                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
+                this.startNodeID.setText(nearestNode.getNode().getNodeID());
             }
+        }catch(InvalidNodeException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -294,7 +324,7 @@ public class UI_v1 {
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         astar newpathGen = new astar();
-        gc1.setLineWidth(10);
+        gc1.setLineWidth(5);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
 
@@ -307,7 +337,7 @@ public class UI_v1 {
             e.printStackTrace();
         }
         //getStart
-        NodeObj Kiosk = model.Main.getKiosk();
+        NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         ArrayList<NodeObj> path = null;
 
@@ -329,13 +359,13 @@ public class UI_v1 {
                         n.node.getyLoc()*mapHeight/3400,
                         tempDraw.node.getxLoc()*mapWidth/5000,
                         tempDraw.node.getyLoc()*mapHeight/3400);
+                gc1.setLineWidth(5);
                 tempDraw = n;
             }
     }
 
     @FXML
     void addNodeFlag() {
-        System.out.println("set to AddNode");
         this.currentState = CurrentStatus.ADDNODE;
     }
 
@@ -347,8 +377,17 @@ public class UI_v1 {
 
     @FXML
     void removeNodeFlag() {
-        System.out.println("set to RemoveNode");
         this.currentState = CurrentStatus.REMOVENODE;
+    }
+
+    @FXML
+    void serviceRequestFlag(){
+        this.currentState = CurrentStatus.SERVICEREQUEST;
+    }
+
+    @FXML
+    void setStartNodeFlag(){
+        this.currentState = CurrentStatus.SETSTARTNODE;
     }
 
     @FXML
@@ -392,11 +431,13 @@ public class UI_v1 {
 
     }
 
-
-    private static class Mpoint {
-        double x, y;
+    @FXML
+    void sendServiceRequest(){
+        String requestedNode = serviceNodeID.getText();
+        String message = MessageTestBox.getText();
+        String finalMessage = "At node " + requestedNode + ": " + message;
+        Main.getJanitorService().sendEmailServiceRequest(finalMessage);
     }
-
 
     @FXML
     void GetMap1() {
@@ -459,5 +500,14 @@ public class UI_v1 {
         NodeObj modNodeObj = new NodeObj(modNode);
         Main.getNodeMap().addEditNode(modNodeObj);
         switchTab2();
+    }
+
+    @FXML
+    void setStartNode(){
+        String newStartNodeID = startNodeID.getText();
+        NodeObj newStartNode = Main.getNodeMap().getNodeObjByID(newStartNodeID);
+        Main.setKiosk(newStartNode);
+        switchTab1();
+        currentState = CurrentStatus.PATIENT;
     }
 }

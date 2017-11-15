@@ -1,10 +1,11 @@
-package model;
+package controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,9 +26,11 @@ public class Main extends Application{
     public static NodeObj kiosk;
     public static ListOfNodeObjs nodeMap;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    public static JanitorService janitorService;
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        janitorService = new JanitorService();
         File test = new File("mapDB");
         deleteDir(test);
         Class.forName(DRIVER);
@@ -142,5 +145,13 @@ public class Main extends Application{
 
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
+    }
+
+    public static JanitorService getJanitorService() {
+        return janitorService;
+    }
+
+    public static void setJanitorService(JanitorService janitorService) {
+        Main.janitorService = janitorService;
     }
 }

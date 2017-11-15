@@ -2,7 +2,8 @@ package model;
 
 import java.util.*;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class JanitorService {
     private Properties properties;
@@ -33,14 +34,12 @@ public class JanitorService {
 
     public boolean sendEmailServiceRequest(String message){
 
-
-
         try {
 
             MimeMessage email = new MimeMessage(session);
 
             email.setFrom(new InternetAddress("random@gmail.com"));
-            email.addRecipient(Message.RecipientType.TO, new InternetAddress("kgrant@wpi.edu"));
+            email.addRecipient(Message.RecipientType.TO, new InternetAddress("karstenroberts@gmail.com"));
             email.setSubject("Maintenance Needed");
             email.setText(message);
 

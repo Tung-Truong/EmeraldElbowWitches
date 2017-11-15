@@ -23,7 +23,7 @@
    <children>
        <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
-               <SplitPane fx:id="AddLine" dividerPositions="0.7991990846681922" prefHeight="160.0" prefWidth="200.0">
+               <SplitPane fx:id="AddLine" dividerPositions="0.8" prefHeight="160.0" prefWidth="200.0">
                    <items>
                            <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
@@ -62,6 +62,16 @@
                                                                              <Font name="Avenir Book" size="10.0" />
                                                                          </font>
                                                                      </Label>
+                                                      <TextField fx:id="startNodeID" layoutX="9.0" layoutY="207.0" prefHeight="26.0" prefWidth="134.0" text="NodeID" />
+                                                      <Button fx:id="setStartNodeConfirm" layoutX="50.0" layoutY="244.0" mnemonicParsing="false" onAction="#setStartNode" text="Confirm" />
+                                                      <Button fx:id="startNodeSelector" alignment="CENTER" layoutX="12.0" layoutY="171.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set Start Node" textFill="WHITE">
+                                                         <font>
+                                                            <Font name="Avenir Book" size="14.0" />
+                                                         </font>
+                                                         <effect>
+                                                            <InnerShadow color="#0a30ae" />
+                                                         </effect>
+                                                      </Button>
                                                                  </children>
                                                              </AnchorPane>
                                                          </children>
@@ -91,7 +101,7 @@
                                                                      <InnerShadow color="#0a30ae" />
                                                                  </effect>
                                                 </Button>
-                                                             <Button fx:id="modifyBordersSelector" alignment="CENTER" layoutX="14.0" layoutY="511.0" mnemonicParsing="false" onAction="#modifyBordersFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
+                                                             <Button fx:id="modifyBordersSelector" alignment="CENTER" layoutX="15.0" layoutY="416.0" mnemonicParsing="false" onAction="#modifyBordersFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
                                                                  <font>
                                                                      <Font name="Avenir Book" size="14.0" />
                                                                  </font>
@@ -99,23 +109,9 @@
                                                                      <InnerShadow color="#0a30ae" />
                                                                  </effect>
                                                 </Button>
-                                                             <MenuButton alignment="CENTER" layoutX="16.0" layoutY="654.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" style="-fx-background-color: #134072#134072;" text="Request Service" textFill="WHITE">
-                                                                 <items>
-                                                                     <MenuItem mnemonicParsing="false" text="Food" />
-                                                                     <MenuItem mnemonicParsing="false" text="Cleaning" />
-                                                                     <MenuItem mnemonicParsing="false" text="Medical Aid" />
-                                                                     <MenuItem mnemonicParsing="false" text="Emergency" />
-                                                                 </items>
-                                                                 <font>
-                                                                     <Font name="Avenir Book" size="13.0" />
-                                                                 </font>
-                                                                 <effect>
-                                                                     <InnerShadow color="#0a30ae" />
-                                                                 </effect>
-                                                             </MenuButton>
-                                                <TextField fx:id="edgeWeight" layoutX="-1.0" layoutY="538.0" text="Weight" />
-                                                <TextField fx:id="edgeNodeA" layoutX="1.0" layoutY="564.0" text="Node1" />
-                                                <TextField fx:id="edgeNodeB" layoutX="1.0" layoutY="589.0" text="Node2" />
+                                                <TextField fx:id="edgeWeight" layoutY="443.0" text="Weight" />
+                                                <TextField fx:id="edgeNodeA" layoutX="2.0" layoutY="469.0" text="Node1" />
+                                                <TextField fx:id="edgeNodeB" layoutX="2.0" layoutY="494.0" text="Node2" />
                                                 <TextField fx:id="Xloc" layoutX="-1.0" layoutY="44.0" text="Xloc" />
                                                 <TextField fx:id="Yloc" layoutX="-1.0" layoutY="69.0" text="Yloc" />
                                                 <TextField fx:id="Floor" layoutX="-2.0" layoutY="93.0" text="Floor" />
@@ -128,10 +124,19 @@
                                                 <Button fx:id="addNodeConfirm" layoutX="43.0" layoutY="271.0" mnemonicParsing="false" onAction="#addEditNode" text="Confirm" />
                                                 <TextField fx:id="removeNode" layoutX="1.0" layoutY="345.0" text="Node" />
                                                 <Button fx:id="removeNodeConfirm" layoutX="47.0" layoutY="372.0" mnemonicParsing="false" onAction="#removeNode" text="Confirm" />
-                                                <Button fx:id="edgeUpdate" layoutX="13.0" layoutY="614.0" mnemonicParsing="false" onAction="#UpdateBorderButton" text="Update" />
-                                                <Button fx:id="edgeDelete" layoutX="90.0" layoutY="614.0" mnemonicParsing="false" onAction="#DeleteBorderButton" text="Delete" />
-                                                <TextArea fx:id="MessageTestBox" layoutX="2.0" layoutY="681.0" prefHeight="200.0" prefWidth="168.0" text="Message" />
-                                                <Button layoutX="48.0" layoutY="881.0" mnemonicParsing="false" text="Confirm" />
+                                                <Button fx:id="edgeUpdate" layoutX="14.0" layoutY="519.0" mnemonicParsing="false" onAction="#UpdateBorderButton" text="Update" />
+                                                <Button fx:id="edgeDelete" layoutX="91.0" layoutY="519.0" mnemonicParsing="false" onAction="#DeleteBorderButton" text="Delete" />
+                                                <TextArea fx:id="MessageTestBox" layoutX="2.0" layoutY="646.0" prefHeight="41.0" prefWidth="169.0" text="Message" />
+                                                <Button layoutX="54.0" layoutY="695.0" mnemonicParsing="false" onMouseReleased="#sendServiceRequest" text="Confirm" />
+                                                <TextField fx:id="serviceNodeID" layoutX="1.0" layoutY="616.0" prefHeight="29.0" prefWidth="167.0" text="NodeId" />
+                                                <Button fx:id="requestServiceSelector" alignment="CENTER" layoutX="13.0" layoutY="576.0" mnemonicParsing="false" onAction="#serviceRequestFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Service Request" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Avenir Book" size="14.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow color="#0a30ae" />
+                                                   </effect>
+                                                </Button>
                                                          </children>
                                                      </AnchorPane>
                                                  </content>
