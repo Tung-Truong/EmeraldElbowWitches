@@ -9,6 +9,7 @@ import java.sql.*;
 public class AddDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
+
     public static void addNode(Node addNode) throws SQLException {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -29,6 +30,7 @@ public class AddDB {
         }
 
     }
+
 
     public static void addEdge(Edge addEdge) throws SQLException {
 

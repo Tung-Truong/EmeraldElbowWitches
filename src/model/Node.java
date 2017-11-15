@@ -25,6 +25,7 @@ public class Node {
         this.nodeID = nodeID;
     }
 
+    //getters
     public Node(String nodeID){
         this.nodeID = nodeID;
     }
@@ -65,6 +66,7 @@ public class Node {
         return nodeID;
     }
 
+    //setters
     public void setLoc(int x, int y) {
         this.xLoc = x;
         this.yLoc = y;
