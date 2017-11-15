@@ -132,8 +132,8 @@ public class Main extends Application{
             AddDB.addNode(n.getNode());
         }
         try {
-            WriteCSV.runNodes();
-            WriteCSV2.runEdges();
+            WriteNodes.runNodes();
+            WriteEdges.runEdges();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {

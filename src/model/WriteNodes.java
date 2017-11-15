@@ -5,11 +5,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class WriteCSV {
+public class WriteNodes {
     final static String EDGETABLE = "edgeTable";
     final static String NODETABLE = "nodeTable";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
+    /*
+    * runNodes takes all rows from the NODETABLE in our database and saves it to our node csv file.
+     */
     public static void runNodes() throws IOException, SQLException, ClassNotFoundException {
         try {
             Connection conn = DriverManager.getConnection(JDBC_URL);
