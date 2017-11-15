@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
        <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
@@ -33,6 +33,15 @@
                                        </image>
                                    </ImageView>
                         <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
+                        <ImageView fx:id="homeScreen" fitHeight="606.0" fitWidth="1162.0" layoutX="223.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/HomeScreen.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="homeScreenButton" layoutX="553.0" layoutY="631.0" mnemonicParsing="false" onAction="#clearHomeScreen" prefHeight="83.0" prefWidth="375.0" text="Click to unlock">
+                           <font>
+                              <Font name="Century Gothic" size="28.0" />
+                           </font></Button>
                                </children>
                   </AnchorPane>
                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
@@ -154,7 +163,7 @@
                                                   </Label>
                                                   <ImageView fitHeight="83.0" fitWidth="123.0" layoutX="-2.0" layoutY="67.0">
                                                       <image>
-                                                          <Image url="@../media/legend.png" />
+                                                          <Image url="file:/C:/Users/Thomas%20Wiles/Desktop/CS%203733/Project/EmeraldElbowWitches/src/view/media/legend.png" />
                                                       </image>
                                                   </ImageView>
                                               </children>
