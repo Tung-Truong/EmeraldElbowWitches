@@ -509,5 +509,6 @@ public class UI_v1 {
         Main.setKiosk(newStartNode);
         switchTab1();
         currentState = CurrentStatus.PATIENT;
+        System.out.println("Did you get here");
     }
 }

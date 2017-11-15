@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.*;
@@ -106,8 +107,8 @@ public class astar {
                 if (open_queue.size() == 0) {
                     break;
 
-                }                }
-
+                }
+        }
         return false; //No path exists
 
     }
@@ -117,11 +118,12 @@ public class astar {
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         path.add(goal);
         NodeObj nextNode = goal.getParent();
-        while (nextNode != null) {
+        while (!nextNode.node.getNodeID().equals(start.node.getNodeID())){
             path.add(nextNode);
             nextNode = nextNode.getParent();
             //System.out.println("Next Node" + nextNode.getHeuristic());
         }
+        path.add(start);
         return path;
     }
 
