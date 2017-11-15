@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 
 public class ReadCSV {
+
     final static int NUMROWSNODE = 9;
     final static int NUMROWSEDGE = 3;
     final static String EDGETABLE = "edgeTable";
@@ -16,14 +17,19 @@ public class ReadCSV {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
 
+    /*
+    *runNode reads a csv file containing a list of nodes from the given path into our table of Node in the database
+     */
     public static void runNode(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Class.forName(DRIVER);
         String mapENodes = path;
         File mapENodesCSV = new File(mapENodes);
         readFile(mapENodesCSV, NUMROWSNODE, NODETABLE);
-
     }
 
+    /*
+    *runEdge reades a csv file containing a list of nodes from the given path into our table of Edge in the the database
+     */
     public static void runEdge(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Class.forName(DRIVER);
         String mapEEdges = path; //ex: "src/model/docs/MapEEdges.csv"
@@ -31,6 +37,9 @@ public class ReadCSV {
         readFile(mapEEdgesCSV, NUMROWSEDGE, EDGETABLE);
     }
 
+    /*
+    * readFile takes a generic file to read, number of expected columns, and the destination table, and reads all data from the file into the database
+     */
     private static void readFile(File fileToRead, int numColExpected, String destTable) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Connection connection = DriverManager.getConnection(JDBC_URL);
 

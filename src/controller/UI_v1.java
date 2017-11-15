@@ -160,8 +160,10 @@ public class UI_v1 {
     }
 
     @FXML
-        //This is where pathfinding is currently
-        //this shall be renamed later to something better
+    /*
+    * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
+     * or provides some map editing functionality
+     */
     void stateHandler(MouseEvent event) {
         //get the mouses location and convert that to the corrected map coordinates for the original image
         Scene currScene = Main.getCurrScene();
@@ -214,11 +216,11 @@ public class UI_v1 {
         //convert click resolution to map ratio
         System.out.println((5000 * event.getX()) / mapWidth + " " + (3400 * event.getY()) / mapHeight);
         //far left stair node
-
-
-
     }
 
+    /*
+    * nodeProcess deals with selecting a node when editing the map
+     */
     private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
         NodeObj nearestNode = null;
         try {
@@ -242,6 +244,9 @@ public class UI_v1 {
 
     }
 
+    /*
+    *  edgeProcess deals with selecting an edge when editing the map
+     */
     private void edgeProcess(int mousex, int mousey, int counterForEdges) {
        NodeObj nodeO = null;
         try {
@@ -258,6 +263,10 @@ public class UI_v1 {
     }
 
     @FXML
+    /*
+    *UpdateBorderButton is called when adding or editing. It updates the
+    * node map, and redraws the screen
+     */
     void UpdateBorderButton() {
         String NIDA = edgeNodeA.getText();
         String NIDB = edgeNodeB.getText();
@@ -331,6 +340,9 @@ public class UI_v1 {
                 edgeAB.getNodeB().node.getyLoc()*mapHeight/3400);
     }
 
+    /*
+    * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
+     */
     @FXML
     void DeleteBorderButton() {
         String nodeA = edgeNodeA.getText();
@@ -339,6 +351,9 @@ public class UI_v1 {
         switchTab2();
     }
 
+    /*
+    * findPath pathfinds, and draws the route to the screen
+     */
     public void findPath(int mousex, int mousey) throws InvalidNodeException{
         //create a new astar object
         if(gc1 == null)
@@ -385,6 +400,9 @@ public class UI_v1 {
             }
     }
 
+    /*
+    * THESE METHODS SET THE CURRENT STATE OF THE APPLICATION
+     */
     @FXML
     void addNodeFlag() {
         this.currentState = CurrentStatus.ADDNODE;
@@ -411,6 +429,12 @@ public class UI_v1 {
         this.currentState = CurrentStatus.SETSTARTNODE;
     }
 
+    //--------------------------------------------------------------------------------
+
+
+    /*
+    * switchTab2 is called when admin tab is selected, draws admin map to screen
+     */
     @FXML
     void switchTab2(){
         if(gc1 == null)
@@ -442,6 +466,9 @@ public class UI_v1 {
         }
     }
 
+    /*
+    * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
+     */
     @FXML
     void switchTab1(){
         if(gc1 == null)
@@ -452,6 +479,9 @@ public class UI_v1 {
 
     }
 
+    /*
+    * sendServiceRequest sends the service request to the set email in JanitorService.sendEmailServiceRequest
+     */
     @FXML
     void sendServiceRequest(){
         String requestedNode = serviceNodeID.getText();
@@ -460,6 +490,9 @@ public class UI_v1 {
         Main.getJanitorService().sendEmailServiceRequest(finalMessage);
     }
 
+    /*
+    * GetMap1 loads Floor 1 map into the screen
+     */
     @FXML
     void GetMap1() {
         setKioskLoc(2460, 910);
@@ -474,6 +507,9 @@ public class UI_v1 {
         //need to set currentMap of ListOfNodeObjs to "
     }
 
+    /*
+    * GetMap2 loads Floor 2 map into the screen
+     */
     @FXML
     void GetMap2() {
         setKioskLoc(1580, 1810);
@@ -487,6 +523,9 @@ public class UI_v1 {
         }
     }
 
+    /*
+    * setKioskLoc sets the default location for the floor
+     */
     void setKioskLoc(int xCoord, int yCoord) {
         try {
             Main.setKiosk(Main.getNodeMap().getNearestNeighbor(xCoord, yCoord));
@@ -495,6 +534,9 @@ public class UI_v1 {
         }
     }
 
+    /*
+    * removeNode removes a node from the map
+     */
     @FXML
     void removeNode(){
         String delNodeID = removeNode.getText();
@@ -505,6 +547,9 @@ public class UI_v1 {
         switchTab2();
     }
 
+    /*
+    * addEditNode adds/modifies a node in the map
+     */
     @FXML
     void addEditNode(){
         String xLoc = Xloc.getText();
@@ -527,6 +572,9 @@ public class UI_v1 {
         switchTab2();
     }
 
+    /*
+    * setStartNode sets the start node to the node nearest to the given coords in the current building
+     */
     @FXML
     void setStartNode(){
         String newStartNodeID = startNodeID.getText();

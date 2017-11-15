@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class WriteCSV2 {
+public class WriteEdges {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
+    /*
+    * runEdges takes all rows from the EDGETABLE in our database and saves it to our edge csv file.
+     */
     public static void runEdges() throws SQLException, IOException {
         try {
             String query = "SELECT DISTINCT * FROM EDGETABLE";
