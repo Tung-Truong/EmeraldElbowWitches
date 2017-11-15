@@ -142,7 +142,21 @@ public class UI_v1 {
     private Button edgeDelete;
 
     @FXML
+    private Button homeScreenButton;
+
+    @FXML
+    private ImageView homeScreen;
+
+
+    @FXML
     private TextArea MessageTestBox;
+
+    @FXML
+    private void clearHomeScreen(){
+        mapContainer.getChildren().remove(homeScreen);
+        mapContainer.getChildren().remove(homeScreenButton);
+
+    }
 
     @FXML
         //This is where pathfinding is currently
