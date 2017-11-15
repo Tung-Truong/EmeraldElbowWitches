@@ -39,7 +39,7 @@ public class JanitorService {
             MimeMessage email = new MimeMessage(session);
 
             email.setFrom(new InternetAddress("random@gmail.com"));
-            email.addRecipient(Message.RecipientType.TO, new InternetAddress("karstenroberts@gmail.com"));
+            email.addRecipient(Message.RecipientType.TO, new InternetAddress("cdembski1@gmail.com"));
             email.setSubject("Maintenance Needed");
             email.setText(message);
 

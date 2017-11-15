@@ -181,6 +181,7 @@ public class UI_v1 {
                 }
                 break;
             case ADMIN:
+                switchTab2();
                 break;
             case ADDNODE:
                 nodeProcess((int)mousex,(int)mousey,currentState);
@@ -417,7 +418,7 @@ public class UI_v1 {
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(10);
-        gc1.setFill(Color.RED);
+        gc1.setFill(Color.YELLOW);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
@@ -440,6 +441,7 @@ public class UI_v1 {
                     10,
                     10);
         }
+        gc1.setFill(Color.BLUE);
     }
 
     @FXML
