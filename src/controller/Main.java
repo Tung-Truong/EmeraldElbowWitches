@@ -6,9 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
+import model.AddDB;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -42,10 +44,8 @@ public class Main extends Application{
             e.printStackTrace();
         }
         try {
-            ReadCSV.runNode("src/model/docs/MapENodes.csv");
-            ReadCSV.runEdge("src/model/docs/MapEEdges.csv");
-            ReadCSV.runNode("src/model/docs/MapShapiroNodes.csv");
-            ReadCSV.runEdge("src/model/docs/MapShapiroEdges.csv");
+            ReadCSV.runNode("src/model/docs/Nodes.csv");
+            ReadCSV.runEdge("src/model/docs/Edges.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (SQLException e){
@@ -122,6 +122,28 @@ public class Main extends Application{
         primaryStage.setScene(newScene);
         primaryStage.show();
     }
+
+    @Override
+    public void stop() throws SQLException {
+        for(NodeObj n : nodeMap.getNodes()){
+            for(EdgeObj e : n.getListOfEdgeObjs()){
+                AddDB.addEdge(e.objToEntity());
+            }
+            AddDB.addNode(n.getNode());
+        }
+        try {
+            WriteCSV.runNodes();
+            WriteCSV2.runEdges();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public static NodeObj getKiosk() {
         return kiosk;

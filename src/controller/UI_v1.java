@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import model.*;
 import sun.plugin.javascript.navig4.Layer;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UI_v1 {
@@ -258,7 +259,10 @@ public class UI_v1 {
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDB)) {
-                            e.setWeight(eWeight);
+                            if(eWeight < 0)
+                                e.setWeight(eWeight);
+                            else
+                                e.setWeight(e.genWeightFromDistance());
                             flagEdgeFoundA = true;
                             edgeAB = e;
                         }
@@ -272,7 +276,10 @@ public class UI_v1 {
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDA)) {
-                            e.setWeight(eWeight);
+                            if(eWeight < 0)
+                                e.setWeight(eWeight);
+                            else
+                                e.setWeight(e.genWeightFromDistance());
                             flagEdgeFoundB = true;
                             edgeAB = e;
                         }
@@ -498,7 +505,11 @@ public class UI_v1 {
         System.out.println("ADD/EDIT NODE CLICKED");
         Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
         NodeObj modNodeObj = new NodeObj(modNode);
-        Main.getNodeMap().addEditNode(modNodeObj);
+        try {
+            Main.getNodeMap().addEditNode(modNodeObj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         switchTab2();
     }
 
@@ -511,4 +522,5 @@ public class UI_v1 {
         currentState = CurrentStatus.PATIENT;
         System.out.println("Did you get here");
     }
+
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ListOfNodeObjs {
@@ -122,15 +123,20 @@ public class ListOfNodeObjs {
             }
         }
         this.nodes.remove(actualDeleteNode);
+        try {
+            DeleteDB.delNode(nodeToDelete.node.getNodeID());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //addNode takes in a node to add, and a list of node objs to modify, if the node is already present, do nothing
-    public void addEditNode(NodeObj nodeToAdd){
+    public void addEditNode(NodeObj nodeToAdd) throws SQLException {
         boolean alreadyExists = false;
-        for(NodeObj nodes : this.nodes){
-            if(nodes.getNode().getNodeID().equals(nodeToAdd.getNode().getNodeID())){
+        for(NodeObj node : this.nodes){
+            if(node.getNode().getNodeID().equals(nodeToAdd.getNode().getNodeID())){
                 alreadyExists = true;
-                nodes.setNode(nodeToAdd.getNode());
+                node.setNode(nodeToAdd.getNode());
             }
         }
         if(!alreadyExists) {
@@ -145,6 +151,14 @@ public class ListOfNodeObjs {
             EdgeObj thisEdgeToDelete = nodeObjA.getEdgeObj(nodeObjB);
             nodeObjA.getListOfEdgeObjs().remove(thisEdgeToDelete);
             nodeObjB.getListOfEdgeObjs().remove(thisEdgeToDelete);
+            try {
+                DeleteDB.delEdge(nodeAID + "_" + nodeBID);
+                DeleteDB.delEdge(nodeBID + "_" + nodeAID);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
