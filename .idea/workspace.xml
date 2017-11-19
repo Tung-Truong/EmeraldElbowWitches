@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="332f4e68-ca0c-4d28-b4bb-ed708c343975" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/controller/UI_v1.java" afterPath="$PROJECT_DIR$/src/controller/UI_v1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/model/JanitorService.java" afterPath="$PROJECT_DIR$/src/model/JanitorService.java" />
-    </list>
+    <list default="true" id="332f4e68-ca0c-4d28-b4bb-ed708c343975" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -433,7 +430,7 @@
       <workItem from="1510264319438" duration="3615000" />
       <workItem from="1510712303973" duration="593000" />
       <workItem from="1510955501479" duration="21000" />
-      <workItem from="1511131942851" duration="2493000" />
+      <workItem from="1511131942851" duration="2542000" />
     </task>
     <servers />
   </component>
@@ -470,7 +467,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9293000" />
+    <option name="totallyTimeSpent" value="9342000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
