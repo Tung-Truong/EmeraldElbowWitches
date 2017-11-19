@@ -29,5 +29,5 @@ public class JanitorService extends ServiceRequest{
     public void setJanitorEmail (String mail){
         this.janitorEmail = mail;
     }
-
+ 
 }
