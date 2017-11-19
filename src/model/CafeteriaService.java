@@ -1,4 +1,5 @@
 package model;
 
-public class CafeteriaService {
+public class CafeteriaService extends ServiceRequest {
+    
 }
