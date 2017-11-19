@@ -489,7 +489,8 @@ public class UI_v1 {
         String requestedNode = serviceNodeID.getText();
         String message = MessageTestBox.getText();
         String finalMessage = "At node " + requestedNode + ": " + message;
-        Main.getJanitorService().sendEmailServiceRequest(finalMessage);
+        Main.getJanitorService().setMessageText(finalMessage);
+        Main.getJanitorService().sendEmailServiceRequest();
     }
 
     /*
