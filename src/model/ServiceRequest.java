@@ -6,13 +6,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ServiceRequest {
-    private String messageText;
-    private String messageHeader;
     private Properties properties;
     private Session session;
     private String username = "elbowwitchemerald@gmail.com";
     private String password = "passwordhuh";
-    private String email;
+    protected String email;
+    protected String messageText;
+    protected String messageHeader;
 
     public ServiceRequest(){
         properties = new Properties();
