@@ -139,7 +139,7 @@
                                                       <InnerShadow color="#0a30ae" />
                                                    </effect>
                                                 </Button>
-                                                <Button fx:id="EndNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="287.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set End Node" textFill="WHITE">
+                                                <Button fx:id="EndNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="287.0" mnemonicParsing="false" onAction="#setEndNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set End Node" textFill="WHITE">
                                                    <font>
                                                       <Font name="Avenir Book" size="14.0" />
                                                    </font>
@@ -151,7 +151,7 @@
                                                    <cursor>
                                                       <Cursor fx:constant="TEXT" />
                                                    </cursor></TextField>
-                                                <Button fx:id="setEndNodeConfirm" layoutX="60.0" layoutY="359.0" mnemonicParsing="false" onAction="#setStartNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                                <Button fx:id="setEndNodeConfirm" layoutX="60.0" layoutY="359.0" mnemonicParsing="false" onAction="#setEndNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
                                                    <cursor>
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor></Button>
