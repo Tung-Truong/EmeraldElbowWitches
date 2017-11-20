@@ -20,37 +20,35 @@ public class astar {
 
         while (open_queue.size() > 0) {
             NodeObj current = getLowest(open_queue);
-            System.out.println(current);
             closed_queue.add(current);
             open_queue.remove(current);
 
-            if (current.node.getNodeID().equals(goal.node.getNodeID())) {
-            if (current == goal) {
-                GenPath = constructPath(goal, start);
-                return true;
-            }
-            ArrayList<NodeObj> neighbors = current.getListOfNeighbors();
-            for (NodeObj neighbor : neighbors) {
-                if(closed_queue.contains(neighbor)){
-                    continue;
-                } else if (!open_queue.contains(neighbor)) {
-                    neighbor.setParent(current);
-                    neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
-                    open_queue.add(neighbor);
-                    neighbor.setHeuristic(neighbor.getDistance(goal) + neighbor.getgCost());
+                if (current == goal) {
+                    GenPath = constructPath(goal, start);
+                    return true;
                 }
-
-                else{
-                    if(neighbor.getgCost() > neighbor.getEdgeObj(current).getWeight()){
+                ArrayList<NodeObj> neighbors = current.getListOfNeighbors();
+                for (NodeObj neighbor : neighbors) {
+                    if (closed_queue.contains(neighbor)) {
+                        continue;
+                    } else if (!open_queue.contains(neighbor)) {
                         neighbor.setParent(current);
-                        neighbor.setgCost(current.getgCost());
+                        neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
+                        open_queue.add(neighbor);
+                        neighbor.setHeuristic(neighbor.getDistance(goal) + neighbor.getgCost());
+                    } else {
+                        if (neighbor.getgCost() > neighbor.getEdgeObj(current).getWeight()) {
+                            neighbor.setParent(current);
+                            neighbor.setgCost(current.getgCost());
 
+                        }
                     }
                 }
             }
-        }
         return false;
     }
+
+
 
     private NodeObj getLowest(LinkedList<NodeObj> list) {
         double currentHeuristic = Integer.MAX_VALUE;
@@ -65,9 +63,9 @@ public class astar {
     }
 
     //function to get edge weight
-    private double getEdge(NodeObj current, NodeObj neighbor){
-
-    }
+//    private double getEdge(NodeObj current, NodeObj neighbor){
+//
+//    }
 
     //function to construct a path from the goal path.
     //uses the getParent function of nodes and adds the parent to the path and stops when the parent is the start node

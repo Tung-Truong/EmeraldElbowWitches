@@ -58,4 +58,9 @@ public class Dijkstras {
         path.add(start);
         return path;
     }
+
+    //getter
+    public ArrayList<NodeObj> getGenPath() {
+        return GenPath;
+    }
 }
