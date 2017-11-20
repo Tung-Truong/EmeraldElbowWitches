@@ -441,11 +441,12 @@ public class UI_v1 {
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(10);
+        gc1.setLineWidth(3);
         gc1.setFill(Color.YELLOW);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
+                System.out.println(e.edgeID);
                 gc1.setStroke(Color.BLUE);
                 gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
                     e.getNodeA().node.getyLoc()*mapHeight/3400,
@@ -459,6 +460,7 @@ public class UI_v1 {
         }
 
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            System.out.println(n.node.getNodeID());
             gc1.setStroke(Color.BLUE);
             gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
                     n.node.getyLoc()*mapHeight/3400 - 5,

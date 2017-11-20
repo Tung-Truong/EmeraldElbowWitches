@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
@@ -19,126 +32,106 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
-       <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+      <SplitPane prefHeight="359.0" prefWidth="287.0">
+        <items>
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;" />
+        </items>
+      </SplitPane>
+       <SplitPane dividerPositions="0.9158316633266533" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
                <SplitPane fx:id="AddLine" dividerPositions="0.8" prefHeight="160.0" prefWidth="200.0">
                    <items>
                            <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
                                <children>
+                        <Pane layoutX="575.0" layoutY="278.0" prefHeight="358.0" prefWidth="395.0" style="-fx-background-color: #498cd8 #498cd8;">
+                           <children>
+                              <JFXTextField layoutX="39.0" layoutY="116.0" prefHeight="48.0" prefWidth="309.0" promptText="username" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXPasswordField layoutX="38.0" layoutY="211.0" prefHeight="48.0" prefWidth="313.0" promptText="password" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <Label alignment="CENTER" layoutX="56.0" layoutY="37.0" prefHeight="55.0" prefWidth="270.0" text="STAFF LOGIN" textFill="WHITE">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="38.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                                    <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#stateHandler" preserveRatio="true">
                                        <image>
                                            <Image url="@../media/basicMap.png" />
                                        </image>
                                    </ImageView>
                         <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
-                        <ImageView fx:id="homeScreen" fitHeight="606.0" fitWidth="1162.0" layoutX="223.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="homeScreen" fitHeight="808.0" fitWidth="1217.0" layoutX="14.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../media/HomeScreen.png" />
+                              <Image url="@../media/HomeScreen2.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="homeScreenButton" layoutX="553.0" layoutY="631.0" mnemonicParsing="false" onAction="#clearHomeScreen" prefHeight="83.0" prefWidth="375.0" text="Click to unlock">
+                        <Button fx:id="homeScreenButton" layoutX="423.0" layoutY="728.0" mnemonicParsing="false" onAction="#clearHomeScreen" prefHeight="42.0" prefWidth="305.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="CLICK TO UNLOCK" textFill="WHITE">
                            <font>
-                              <Font name="Century Gothic" size="28.0" />
-                           </font></Button>
+                              <Font name="Avenir Next Bold" size="28.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Pane layoutX="1151.0" layoutY="680.0" prefHeight="204.0" prefWidth="228.0" style="-fx-background-color: #498cd8 #498cd8;">
+                           <children>
+                              <ImageView fitHeight="138.0" fitWidth="200.0" layoutX="9.0" layoutY="57.0">
+                                 <image>
+                                    <Image url="@../media/legend.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="18.0" prefHeight="35.0" prefWidth="200.0" text="LEGEND" textFill="WHITE">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                                </children>
                   </AnchorPane>
-                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="395.0">
+                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="416.0">
                            <children>
-                        <SplitPane dividerPositions="0.5" prefHeight="359.0" prefWidth="287.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                                     <TabPane prefHeight="347.0" prefWidth="176.0" style="-fx-background-color: #0c2d51#0c2d51;" tabClosingPolicy="UNAVAILABLE">
-                                         <tabs>
-                                             <Tab fx:id="patientTab" onSelectionChanged="#switchTab1" text="PATIENT">
-                                                 <content>
-                                                     <Pane>
-                                                         <children>
-                                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="914.0" prefWidth="167.0" style="-fx-background-color: #498cd8#498cd8;">
-                                                                 <children>
-                                                                     <Label alignment="CENTER" layoutY="12.0" prefHeight="26.0" prefWidth="158.0" text="HOW TO USE THIS KIOSK" textFill="WHITE">
-                                                                         <font>
-                                                                             <Font name="Avenir Next Bold" size="10.0" />
-                                                                         </font>
-                                                                     </Label>
-                                                                     <Label alignment="CENTER" layoutX="1.0" layoutY="49.0" prefHeight="26.0" prefWidth="158.0" text="1. Click your current location." textFill="WHITE">
-                                                                         <font>
-                                                                             <Font name="Avenir Book" size="10.0" />
-                                                                         </font>
-                                                                     </Label>
-                                                                     <Label alignment="CENTER" layoutX="1.0" layoutY="71.0" prefHeight="26.0" prefWidth="158.0" text="2. Click your destination." textFill="WHITE">
-                                                                         <font>
-                                                                             <Font name="Avenir Book" size="10.0" />
-                                                                         </font>
-                                                                     </Label>
-                                                      <TextField fx:id="startNodeID" layoutX="9.0" layoutY="207.0" prefHeight="26.0" prefWidth="134.0" text="NodeID" />
-                                                      <Button fx:id="setStartNodeConfirm" layoutX="50.0" layoutY="244.0" mnemonicParsing="false" onAction="#setStartNode" text="Confirm" />
-                                                      <Button fx:id="startNodeSelector" alignment="CENTER" layoutX="12.0" layoutY="171.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set Start Node" textFill="WHITE">
-                                                         <font>
-                                                            <Font name="Avenir Book" size="14.0" />
-                                                         </font>
-                                                         <effect>
-                                                            <InnerShadow color="#0a30ae" />
-                                                         </effect>
-                                                      </Button>
-                                                                 </children>
-                                                             </AnchorPane>
-                                                         </children>
-                                                     </Pane>
-                                                 </content>
-                                             </Tab>
-                                             <Tab fx:id="adminTab" onSelectionChanged="#switchTab2" text="ADMIN">
-                                                 <content>
-                                                     <AnchorPane fx:id="requestconfirm" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8;">
-                                                         <children>
-                                                             <Button fx:id="addNodeSelector" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#addNodeFlag" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #134072#134072;" text="Add Node" textFill="WHITE">
-                                                                 <font>
-                                                                     <Font name="Avenir Book" size="14.0" />
-                                                                 </font>
-                                                                 <effect>
-                                                                     <InnerShadow color="#0a30ae" />
-                                                                 </effect>
-                                                                 <cursor>
-                                                                     <Cursor fx:constant="V_RESIZE" />
-                                                                 </cursor>
-                                                </Button>
-                                                             <Button fx:id="removeNodeSelector" alignment="CENTER" layoutX="15.0" layoutY="315.0" mnemonicParsing="false" onAction="#removeNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Remove Node" textFill="WHITE">
-                                                                 <font>
-                                                                     <Font name="Avenir Book" size="14.0" />
-                                                                 </font>
-                                                                 <effect>
-                                                                     <InnerShadow color="#0a30ae" />
-                                                                 </effect>
-                                                </Button>
-                                                             <Button fx:id="modifyBordersSelector" alignment="CENTER" layoutX="15.0" layoutY="416.0" mnemonicParsing="false" onAction="#modifyBordersFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
-                                                                 <font>
-                                                                     <Font name="Avenir Book" size="14.0" />
-                                                                 </font>
-                                                                 <effect>
-                                                                     <InnerShadow color="#0a30ae" />
-                                                                 </effect>
-                                                </Button>
-                                                <TextField fx:id="edgeWeight" layoutY="443.0" text="Weight" />
-                                                <TextField fx:id="edgeNodeA" layoutX="2.0" layoutY="469.0" text="Node1" />
-                                                <TextField fx:id="edgeNodeB" layoutX="2.0" layoutY="494.0" text="Node2" />
-                                                <TextField fx:id="Xloc" layoutX="-1.0" layoutY="44.0" text="Xloc" />
-                                                <TextField fx:id="Yloc" layoutX="-1.0" layoutY="69.0" text="Yloc" />
-                                                <TextField fx:id="Floor" layoutX="-2.0" layoutY="93.0" text="Floor" />
-                                                <TextField fx:id="Building" layoutX="-3.0" layoutY="118.0" text="Building" />
-                                                <TextField fx:id="NodeType" layoutX="1.0" layoutY="144.0" text="NodeType" />
-                                                <TextField fx:id="ShortName" layoutX="1.0" layoutY="169.0" text="ShortName" />
-                                                <TextField fx:id="LongName" layoutX="1.0" layoutY="194.0" text="LongName" />
-                                                <TextField fx:id="Team" layoutX="1.0" layoutY="219.0" text="Team" />
-                                                <TextField fx:id="NodeId" layoutX="1.0" layoutY="244.0" text="NodeId" />
-                                                <Button fx:id="addNodeConfirm" layoutX="43.0" layoutY="271.0" mnemonicParsing="false" onAction="#addEditNode" text="Confirm" />
-                                                <TextField fx:id="removeNode" layoutX="1.0" layoutY="345.0" text="Node" />
-                                                <Button fx:id="removeNodeConfirm" layoutX="47.0" layoutY="372.0" mnemonicParsing="false" onAction="#removeNode" text="Confirm" />
-                                                <Button fx:id="edgeUpdate" layoutX="14.0" layoutY="519.0" mnemonicParsing="false" onAction="#UpdateBorderButton" text="Update" />
-                                                <Button fx:id="edgeDelete" layoutX="91.0" layoutY="519.0" mnemonicParsing="false" onAction="#DeleteBorderButton" text="Delete" />
-                                                <TextArea fx:id="MessageTestBox" layoutX="2.0" layoutY="646.0" prefHeight="41.0" prefWidth="169.0" text="Message" />
-                                                <Button layoutX="54.0" layoutY="695.0" mnemonicParsing="false" onMouseReleased="#sendServiceRequest" text="Confirm" />
-                                                <TextField fx:id="serviceNodeID" layoutX="1.0" layoutY="616.0" prefHeight="29.0" prefWidth="167.0" text="NodeId" />
-                                                <Button fx:id="requestServiceSelector" alignment="CENTER" layoutX="13.0" layoutY="576.0" mnemonicParsing="false" onAction="#serviceRequestFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Service Request" textFill="WHITE">
+                               <TabPane prefHeight="920.0" prefWidth="348.0" style="-fx-background-color: #0c2d51#0c2d51;" tabClosingPolicy="UNAVAILABLE">
+                                   <tabs>
+                                       <Tab fx:id="patientTab" onSelectionChanged="#switchTab1" text="PATIENT">
+                                           <content>
+                                               <Pane prefHeight="887.0" prefWidth="381.0">
+                                                   <children>
+                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="914.0" prefWidth="187.0" style="-fx-background-color: #498cd8;">
+                                                           <children>
+                                                               <Label alignment="CENTER" layoutY="12.0" prefHeight="35.0" prefWidth="187.0" text="INSTRUCTIONS" textFill="WHITE">
+                                                                   <font>
+                                                                       <Font name="Avenir Next Bold" size="23.0" />
+                                                                   </font>
+                                                               </Label>
+                                                               <Label alignment="CENTER" layoutX="15.0" layoutY="53.0" prefHeight="26.0" prefWidth="158.0" text="1. Click current location." textFill="WHITE">
+                                                                   <font>
+                                                                       <Font name="Avenir Book" size="14.0" />
+                                                                   </font>
+                                                               </Label>
+                                                               <Label alignment="CENTER" layoutX="15.0" layoutY="79.0" prefHeight="26.0" prefWidth="158.0" text="2. Click destination." textFill="WHITE">
+                                                                   <font>
+                                                                       <Font name="Avenir Book" size="14.0" />
+                                                                   </font>
+                                                               </Label>
+                                                <TextField fx:id="startNodeID" layoutX="27.0" layoutY="184.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                                                   <cursor>
+                                                      <Cursor fx:constant="TEXT" />
+                                                   </cursor></TextField>
+                                                <Button fx:id="setStartNodeConfirm" layoutX="60.0" layoutY="218.0" mnemonicParsing="false" onAction="#setStartNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
+                                                <Button fx:id="startNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="145.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set Start Node" textFill="WHITE">
                                                    <font>
                                                       <Font name="Avenir Book" size="14.0" />
                                                    </font>
@@ -146,32 +139,161 @@
                                                       <InnerShadow color="#0a30ae" />
                                                    </effect>
                                                 </Button>
-                                                         </children>
-                                                     </AnchorPane>
-                                                 </content>
-                                             </Tab>
-                                         </tabs>
-                                     </TabPane>
-                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
-                                          <children>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;">
-                                              <children>
-                                                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" text="LEGEND" textFill="WHITE">
-                                                      <font>
-                                                          <Font name="Avenir Next Bold" size="22.0" />
-                                                      </font>
-                                                  </Label>
-                                                  <ImageView fitHeight="83.0" fitWidth="123.0" layoutX="-2.0" layoutY="67.0">
-                                                      <image>
-                                                          <Image url="@../media/legend.png" />
-                                                      </image>
-                                                  </ImageView>
-                                              </children>
-                                          </AnchorPane>
-                                          </children>
-                                       </AnchorPane>
-                          </items>
-                        </SplitPane>
+                                                <Button fx:id="EndNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="287.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set End Node" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Avenir Book" size="14.0" />
+                                                   </font>
+                                                   <effect>
+                                                      <InnerShadow color="#0a30ae" />
+                                                   </effect>
+                                                </Button>
+                                                <TextField fx:id="EndNodeID" layoutX="27.0" layoutY="325.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                                                   <cursor>
+                                                      <Cursor fx:constant="TEXT" />
+                                                   </cursor></TextField>
+                                                <Button fx:id="setEndNodeConfirm" layoutX="60.0" layoutY="359.0" mnemonicParsing="false" onAction="#setStartNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></Button>
+                                                           </children>
+                                                       </AnchorPane>
+                                          <Button fx:id="startNodeSelector2" alignment="CENTER" layoutX="195.0" layoutY="9.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="25.0" prefWidth="143.0" style="-fx-background-color: #134072#134072;" text="Filter" textFill="WHITE">
+                                             <font>
+                                                <Font name="Avenir Book" size="17.0" />
+                                             </font>
+                                             <effect>
+                                                <InnerShadow color="#0a30ae" />
+                                             </effect>
+                                          </Button>
+                                          <JFXCheckBox layoutX="203.0" layoutY="88.0" text="Restrooms" textFill="WHITE" unCheckedColor="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></JFXCheckBox>
+                                          <JFXCheckBox layoutX="203.0" layoutY="119.0" text="Stairwells" textFill="WHITE" unCheckedColor="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></JFXCheckBox>
+                                          <JFXCheckBox layoutX="203.0" layoutY="148.0" text="Exits" textFill="WHITE" unCheckedColor="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></JFXCheckBox>
+                                                   </children>
+                                               </Pane>
+                                           </content>
+                                       </Tab>
+                                       <Tab fx:id="adminTab" onSelectionChanged="#switchTab2" text="ADMIN">
+                                           <content>
+                                               <AnchorPane fx:id="requestconfirm" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8;">
+                                                   <children>
+                                                       <Button fx:id="addNodeSelector" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="102.0" mnemonicParsing="false" onAction="#addNodeFlag" prefHeight="35.0" prefWidth="152.0" style="-fx-background-color: #134072#134072;" text="Add Node" textFill="WHITE">
+                                                           <font>
+                                                               <Font name="Avenir Book" size="15.0" />
+                                                           </font>
+                                                           <effect>
+                                                               <InnerShadow color="#0a30ae" />
+                                                           </effect>
+                                                           <cursor>
+                                                               <Cursor fx:constant="V_RESIZE" />
+                                                           </cursor>
+                                          </Button>
+                                                       <Button fx:id="removeNodeSelector" alignment="CENTER" layoutX="21.0" layoutY="541.0" mnemonicParsing="false" onAction="#removeNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Remove Node" textFill="WHITE">
+                                                           <font>
+                                                               <Font name="Avenir Book" size="16.0" />
+                                                           </font>
+                                                           <effect>
+                                                               <InnerShadow color="#0a30ae" />
+                                                           </effect>
+                                             <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                          </Button>
+                                                       <Button fx:id="modifyBordersSelector" alignment="CENTER" layoutX="196.0" layoutY="102.0" mnemonicParsing="false" onAction="#modifyBordersFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Modify Borders" textFill="WHITE">
+                                                           <font>
+                                                               <Font name="Avenir Book" size="16.0" />
+                                                           </font>
+                                                           <effect>
+                                                               <InnerShadow color="#0a30ae" />
+                                                           </effect>
+                                          </Button>
+                                          <TextField fx:id="edgeWeight" layoutX="194.0" layoutY="150.0" prefHeight="27.0" prefWidth="137.0" text="Weight" />
+                                          <TextField fx:id="edgeNodeA" layoutX="194.0" layoutY="188.0" prefHeight="27.0" prefWidth="137.0" text="Node1" />
+                                          <TextField fx:id="edgeNodeB" layoutX="195.0" layoutY="225.0" prefHeight="27.0" prefWidth="137.0" text="Node2" />
+                                          <TextField fx:id="Xloc" layoutX="13.0" layoutY="150.0" prefHeight="27.0" prefWidth="152.0" text="Xloc" />
+                                          <TextField fx:id="Yloc" layoutX="13.0" layoutY="188.0" prefHeight="27.0" prefWidth="153.0" text="Yloc" />
+                                          <TextField fx:id="Floor" layoutX="13.0" layoutY="225.0" prefHeight="27.0" prefWidth="153.0" text="Floor" />
+                                          <TextField fx:id="Building" layoutX="13.0" layoutY="262.0" prefHeight="27.0" prefWidth="153.0" text="Building" />
+                                          <TextField fx:id="NodeType" layoutX="13.0" layoutY="299.0" prefHeight="27.0" prefWidth="154.0" text="NodeType" />
+                                          <TextField fx:id="ShortName" layoutX="13.0" layoutY="335.0" prefHeight="27.0" prefWidth="154.0" text="ShortName" />
+                                          <TextField fx:id="LongName" layoutX="13.0" layoutY="373.0" prefHeight="27.0" prefWidth="155.0" text="LongName" />
+                                          <TextField fx:id="Team" layoutX="13.0" layoutY="409.0" prefHeight="27.0" prefWidth="154.0" text="Team" />
+                                          <TextField fx:id="NodeId" layoutX="13.0" layoutY="448.0" prefHeight="27.0" prefWidth="155.0" text="NodeId" />
+                                          <Button fx:id="addNodeConfirm" layoutX="57.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEditNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
+                                          <TextField fx:id="removeNode" layoutX="21.0" layoutY="586.0" prefHeight="27.0" prefWidth="137.0" text="Node" />
+                                          <Button fx:id="removeNodeConfirm" layoutX="55.0" layoutY="625.0" mnemonicParsing="false" onAction="#removeNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
+                                          <Button fx:id="edgeUpdate" layoutX="268.0" layoutY="262.0" mnemonicParsing="false" onAction="#UpdateBorderButton" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Update" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
+                                          <Button fx:id="edgeDelete" layoutX="195.0" layoutY="262.0" mnemonicParsing="false" onAction="#DeleteBorderButton" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Delete" textFill="WHITE">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></Button>
+                                          <TextArea fx:id="MessageTestBox" layoutX="12.0" layoutY="733.0" prefHeight="41.0" prefWidth="169.0" text="Message" />
+                                          <Button layoutX="55.0" layoutY="698.0" mnemonicParsing="false" onMouseReleased="#sendServiceRequest" text="Confirm" />
+                                          <TextField fx:id="serviceNodeID" layoutX="132.0" layoutY="697.0" prefHeight="29.0" prefWidth="167.0" text="NodeId" />
+                                          <Button fx:id="requestServiceSelector" alignment="CENTER" layoutX="10.0" layoutY="15.0" mnemonicParsing="false" onAction="#serviceRequestFlag" prefHeight="30.0" prefWidth="324.0" style="-fx-background-color: #00001F#00001F;" text="SERVICE REQUEST" textFill="WHITE">
+                                             <font>
+                                                <Font name="Avenir Book" size="20.0" />
+                                             </font>
+                                             <effect>
+                                                <InnerShadow color="#0a30ae" />
+                                             </effect>
+                                          </Button>
+                                          <JFXButton id="backbutton" buttonType="RAISED" layoutX="12.0" layoutY="831.0" prefHeight="35.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="&lt;" textFill="WHITE">
+                                             <font>
+                                                <Font name="Avenir Next Bold" size="26.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </JFXButton>
+                                          <JFXButton id="forwardbutton" buttonType="RAISED" layoutX="280.0" layoutY="831.0" prefHeight="35.0" prefWidth="46.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="&gt;" textFill="WHITE">
+                                             <font>
+                                                <Font name="Avenir Next Bold" size="26.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </JFXButton>
+                                          <MenuButton layoutX="196.0" layoutY="313.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Pathfinding Method">
+                                             <items>
+                                                <MenuItem mnemonicParsing="false" text="Depth-First" />
+                                                <MenuItem mnemonicParsing="false" text="Breadth-First" />
+                                                <MenuItem mnemonicParsing="false" text="Djikstra's" />
+                                                <MenuItem mnemonicParsing="false" text="A*" />
+                                             </items>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </MenuButton>
+                                                   </children>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                               </AnchorPane>
+                                           </content>
+                                       </Tab>
+                                   </tabs>
+                               </TabPane>
                            </children>
                   </AnchorPane>
                    </items>
@@ -181,12 +303,39 @@
                        <Reflection />
                    </effect>
                <children>
-                  <MenuButton fx:id="MapDropDown" layoutX="16.0" layoutY="5.0" mnemonicParsing="false" text="Map">
+                  <MenuButton fx:id="MapDropDown" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Map" textFill="WHITE">
                     <items>
                       <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="45 Francis Floor 1 Center" />
                       <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
                     </items>
+                     <font>
+                        <Font name="Avenir Next Bold" size="19.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </MenuButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="308.0" layoutY="-14.0" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton id="zoomout" buttonType="RAISED" layoutX="525.0" layoutY="-14.0" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="-" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <Label alignment="CENTER" layoutX="401.0" layoutY="14.0" prefHeight="35.0" prefWidth="103.0" text="ZOOM" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="23.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
            </items>
