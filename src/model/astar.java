@@ -24,6 +24,7 @@ public class astar {
             closed_queue.add(current);
             open_queue.remove(current);
 
+            if (current.node.getNodeID().equals(goal.node.getNodeID())) {
             if (current == goal) {
                 GenPath = constructPath(goal, start);
                 return true;
@@ -61,6 +62,11 @@ public class astar {
             }
         }
         return lowestNode;
+    }
+
+    //function to get edge weight
+    private double getEdge(NodeObj current, NodeObj neighbor){
+
     }
 
     //function to construct a path from the goal path.
