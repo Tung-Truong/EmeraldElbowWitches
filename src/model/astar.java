@@ -8,11 +8,6 @@ import java.util.concurrent.TimeUnit;
 
 public class astar {
 
-
-    public astar() {
-
-    }
-
     private ArrayList<NodeObj> GenPath;
 
     public boolean pathfind(NodeObj start, NodeObj goal, GraphicsContext gc1) {
@@ -20,45 +15,44 @@ public class astar {
         //closed_queue contains all explored NodeObjs, which starts empty
         LinkedList<NodeObj> open_queue = new LinkedList();
         LinkedList<NodeObj> closed_queue = new LinkedList();
+        start.setgCost(0);
         open_queue.add(start);
+
         while (open_queue.size() > 0) {
             NodeObj current = getLowest(open_queue);
+            System.out.println(current);
             closed_queue.add(current);
             open_queue.remove(current);
 
-            if (current.node.getNodeID().equals(current.node.getNodeID())) {
+            if (current == goal) {
                 GenPath = constructPath(goal, start);
                 return true;
             }
             ArrayList<NodeObj> neighbors = current.getListOfNeighbors();
             for (NodeObj neighbor : neighbors) {
-                if (!open_queue.contains(neighbor)) {
+                if(closed_queue.contains(neighbor)){
+                    continue;
+                } else if (!open_queue.contains(neighbor)) {
                     neighbor.setParent(current);
-                    ArrayList<EdgeObj> edges = current.getListOfEdgeObjs();
-                    for (EdgeObj edge : edges) {
-                        if (edge.getNodeB().node.getNodeID().equals(neighbor.node.getNodeID()) && edge.getNodeA().node.getNodeID().equals(current.node.getNodeID())) {
-                            neighbor.setgCost(edge.getWeight());
-                        }
-                        if (edge.getNodeA().node.getNodeID().equals(neighbor.node.getNodeID()) && edge.getNodeA().node.getNodeID().equals(current.node.getNodeID())) {
-                            neighbor.setgCost(edge.getWeight());
-                        }
-                    }
+                    neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
+                    open_queue.add(neighbor);
                     neighbor.setHeuristic(neighbor.getDistance(goal) + neighbor.getgCost());
                 }
+
                 else{
-                    if(neighbor.getgCost() > neighbor.getgCost()){
+                    if(neighbor.getgCost() > neighbor.getEdgeObj(current).getWeight()){
                         neighbor.setParent(current);
                         neighbor.setgCost(current.getgCost());
+
                     }
                 }
-
             }
         }
         return false;
     }
 
     private NodeObj getLowest(LinkedList<NodeObj> list) {
-        double currentHeuristic = 0;
+        double currentHeuristic = Integer.MAX_VALUE;
         NodeObj lowestNode = null;
         for (NodeObj node : list) {
             if (node.getHeuristic() < currentHeuristic) {
