@@ -13,6 +13,20 @@ public class ServiceController {
     }
 
     // Getters
+    public String getServiceNeeded(){
+        return this.serviceNeeded;
+    }
+
+    public ServiceRequest getService() {
+        return this.service;
+    }
 
     // Setters
+    public void setServiceNeeded(String needed){
+        this.serviceNeeded = needed;
+    }
+
+    public void setService(ServiceRequest serve){
+        this.service = serve;
+    }
 }
