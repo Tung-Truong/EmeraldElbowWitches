@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
        <SplitPane dividerPositions="0.9559118236472945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
            <items>
@@ -29,7 +29,6 @@
                                <children>
                                    <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#stateHandler" preserveRatio="true">
                                        <image>
-                                           <Image url="@../media/basicMap.png" />
                                        </image>
                                    </ImageView>
                         <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
@@ -183,8 +182,12 @@
                <children>
                   <MenuButton fx:id="MapDropDown" layoutX="16.0" layoutY="5.0" mnemonicParsing="false" text="Map">
                     <items>
+                        <MenuItem fx:id="MapL2" mnemonicParsing="false" onAction="#GetMapL2" text="Floor L2" />
+                        <MenuItem fx:id="MapL1" mnemonicParsing="false" onAction="#GetMapL1" text="Floor L1" />
+                        <MenuItem fx:id="MapG" mnemonicParsing="false" onAction="#GetMapG" text="Ground Floor" />
                       <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap1" text="45 Francis Floor 1 Center" />
                       <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap2" text="Shapiro Building Floor 2" />
+                        <MenuItem fx:id="Map3" mnemonicParsing="false" onAction="#GetMap3" text="Floor 3" />
                     </items>
                   </MenuButton>
                </children>

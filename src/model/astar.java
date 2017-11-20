@@ -26,7 +26,7 @@ public class astar {
         //Heuristic of the start is just distance to goal using getDistance();
         double startG = 0;
         start.setHeuristic(startG + start.getDistance(goal));
-
+        int i = 0;
         //while true loop which stops when open_queue is equal to 0.
         //this loop accounts of neighbor nodes not being evaluated
         while (true) {
@@ -34,6 +34,11 @@ public class astar {
                 while (open_queue.size() > 0) {
                     //gets teh elemetn with the lowest f cost
                     NodeObj current = open_queue.get(0);
+
+                    gc1.fillText("" + i, current.node.getxLoc() * 1397 / 5000,
+                            current.node.getyLoc() * 950 / 3400);
+                    i++;
+
 
                     //if the current is goal, generate the path and print it out and end function
                     if (current == goal) {

@@ -74,6 +74,18 @@ public class UI_v1 {
     private MenuItem Map2;
 
     @FXML
+    private MenuItem MapL2;
+
+    @FXML
+    private MenuItem MapL1;
+
+    @FXML
+    private MenuItem MapG;
+
+    @FXML
+    private MenuItem Map3;
+
+    @FXML
     private Tab patientTab;
 
     @FXML
@@ -157,6 +169,18 @@ public class UI_v1 {
         mapContainer.getChildren().remove(homeScreen);
         mapContainer.getChildren().remove(homeScreenButton);
 
+    }
+
+    ImageLoader mapL2 = new ImageLoader();
+    ImageLoader mapL1 = new ImageLoader();
+    ImageLoader mapG = new ImageLoader();
+    ImageLoader map01 = new ImageLoader();
+    ImageLoader map02 = new ImageLoader();
+    ImageLoader map03 = new ImageLoader();
+
+    public void initialize(){
+        Image m1 = map01.getLoadedMap("file:src/view/media/map01.png");
+        currentMap.setImage(m1);
     }
 
     @FXML
@@ -361,7 +385,7 @@ public class UI_v1 {
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         astar newpathGen = new astar();
-        gc1.setLineWidth(5);
+        gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
 
@@ -396,7 +420,7 @@ public class UI_v1 {
                         n.node.getyLoc()*mapHeight/3400,
                         tempDraw.node.getxLoc()*mapWidth/5000,
                         tempDraw.node.getyLoc()*mapHeight/3400);
-                gc1.setLineWidth(5);
+                gc1.setLineWidth(2);
                 tempDraw = n;
             }
     }
@@ -441,7 +465,7 @@ public class UI_v1 {
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(10);
+        gc1.setLineWidth(2);
         gc1.setFill(Color.YELLOW);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
@@ -458,13 +482,13 @@ public class UI_v1 {
 
         }
 
-        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+        /*for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setStroke(Color.BLUE);
             gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
                     n.node.getyLoc()*mapHeight/3400 - 5,
                     10,
                     10);
-        }
+        }*/
         gc1.setFill(Color.BLUE);
     }
 
@@ -500,7 +524,7 @@ public class UI_v1 {
         setKioskLoc(2460, 910);
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         MapDropDown.setText("45 Francis Floor 1 Center");
-        Image m1 = new Image("file:src/view/media/basicMap.png");
+        Image m1 = map01.getLoadedMap("file:src/view/media/map01.png");
         currentMap.setImage(m1);
         Main.getNodeMap().setCurrentBuilding("45 Francis");
         if(currentState == CurrentStatus.ADMIN){
@@ -517,12 +541,68 @@ public class UI_v1 {
         setKioskLoc(1580, 1810);
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         MapDropDown.setText("Shapiro Building Floor 2");
-        Image m2 = new Image("file:src/view/media/Shapiro.png");
+        Image m2 = map02.getLoadedMap("file:src/view/media/map02.png");
         currentMap.setImage(m2);
         Main.getNodeMap().setCurrentBuilding("Shapiro");
+         if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
+    }
+
+    @FXML
+    void GetMap3() {
+        setKioskLoc(2460, 910);
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        MapDropDown.setText("Floor 3");
+        Image m3 = map03.getLoadedMap("file:src/view/media/map03.png");
+        currentMap.setImage(m3);
+        Main.getNodeMap().setCurrentBuilding("45 Francis");
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
         }
+        //need to set currentMap of ListOfNodeObjs to "
+    }
+
+    @FXML
+    void GetMapG() {
+        setKioskLoc(2460, 910);
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        MapDropDown.setText("Ground Floor");
+        Image mG = mapG.getLoadedMap("file:src/view/media/mapG.png");
+        currentMap.setImage(mG);
+        Main.getNodeMap().setCurrentBuilding("45 Francis");
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
+        //need to set currentMap of ListOfNodeObjs to "
+    }
+
+    @FXML
+    void GetMapL1() {
+        setKioskLoc(2460, 910);
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        MapDropDown.setText("Floor L1");
+        Image mL1 = mapL1.getLoadedMap("file:src/view/media/mapL1.png");
+        currentMap.setImage(mL1);
+        Main.getNodeMap().setCurrentBuilding("45 Francis");
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
+        //need to set currentMap of ListOfNodeObjs to "
+    }
+
+    @FXML
+    void GetMapL2() {
+        setKioskLoc(2460, 910);
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        MapDropDown.setText("Floor L2");
+        Image mL2 = mapL2.getLoadedMap("file:src/view/media/mapL2.png");
+        currentMap.setImage(mL2);
+        Main.getNodeMap().setCurrentBuilding("45 Francis");
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
+        //need to set currentMap of ListOfNodeObjs to "
     }
 
     /*
