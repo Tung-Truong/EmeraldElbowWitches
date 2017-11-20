@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -171,15 +172,10 @@ public class UI_v1 {
 
     }
 
-    ImageLoader mapL2 = new ImageLoader();
-    ImageLoader mapL1 = new ImageLoader();
-    ImageLoader mapG = new ImageLoader();
-    ImageLoader map01 = new ImageLoader();
-    ImageLoader map02 = new ImageLoader();
-    ImageLoader map03 = new ImageLoader();
+    ImageLoader mapImage = new ImageLoader();
 
     public void initialize(){
-        Image m1 = map01.getLoadedMap("file:src/view/media/map01.png");
+        Image m1 = mapImage.getLoadedMap("Map1");
         currentMap.setImage(m1);
     }
 
@@ -516,9 +512,54 @@ public class UI_v1 {
         Main.getJanitorService().sendEmailServiceRequest(finalMessage);
     }
 
+    @FXML
+    void GetMap(Event e){
+        String clickedID = ((MenuItem)e.getSource()).getId();
+
+        switch(clickedID){
+            case "MapL2":
+                setKioskLoc(2460, 910);
+                MapDropDown.setText("45 Francis Floor 1 Center");
+                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                break;
+            case "MapL1":
+                setKioskLoc(2460, 910);
+                MapDropDown.setText("45 Francis Floor 1 Center");
+                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                break;
+            case "MapG":
+                setKioskLoc(2460, 910);
+                MapDropDown.setText("45 Francis Floor 1 Center");
+                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                break;
+            case "Map1":
+                setKioskLoc(2460, 910);
+                MapDropDown.setText("45 Francis Floor 1 Center");
+                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                break;
+            case "Map2":
+                setKioskLoc(1580, 1810);
+                MapDropDown.setText("Shapiro Building Floor 2");
+                Main.getNodeMap().setCurrentBuilding("Shapiro");
+                break;
+            case "Map3":
+                setKioskLoc(2460, 910);
+                MapDropDown.setText("45 Francis Floor 1 Center");
+                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                break;
+        }
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        Image map = mapImage.getLoadedMap(clickedID);
+        currentMap.setImage(map);
+        if(currentState == CurrentStatus.ADMIN){
+            switchTab2();
+        }
+    }
+
     /*
     * GetMap1 loads Floor 1 map into the screen
      */
+    /*
     @FXML
     void GetMap1() {
         setKioskLoc(2460, 910);
@@ -536,6 +577,7 @@ public class UI_v1 {
     /*
     * GetMap2 loads Floor 2 map into the screen
      */
+    /*
     @FXML
     void GetMap2() {
         setKioskLoc(1580, 1810);
