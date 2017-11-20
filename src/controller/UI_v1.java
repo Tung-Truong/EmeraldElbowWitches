@@ -30,6 +30,8 @@ public class UI_v1 {
 
     ArrayList<NodeObj> currPath = null;
 
+    NodeObj goal = null;
+
     @FXML
     private Button startNodeSelector;
 
@@ -379,7 +381,7 @@ public class UI_v1 {
         gc1.setFill(Color.RED);
 
         //get node that corr. to click from ListOfNodeObjects made in main
-        NodeObj goal = null;
+
         try {
             goal = Main.getNodeMap().getNearestNeighborFilter
                     ((int) Math.floor(mousex), (int) Math.floor(mousey));
@@ -403,17 +405,28 @@ public class UI_v1 {
                 e.printStackTrace();
             }
         }
-        NodeObj tempDraw = goal;
 
-        for(NodeObj n: path)
-            if(n != goal){
-                gc1.strokeLine(n.node.getxLoc()*mapWidth/5000,
-                        n.node.getyLoc()*mapHeight/3400,
-                        tempDraw.node.getxLoc()*mapWidth/5000,
-                        tempDraw.node.getyLoc()*mapHeight/3400);
-                gc1.setLineWidth(5);
-                tempDraw = n;
+        DrawCurrentFloorPath();
+    }
+
+
+    public void DrawCurrentFloorPath(){
+        gc1.setLineWidth(5);
+        NodeObj tempDraw = goal;
+        for(NodeObj n: currPath) {
+            if (n != goal) {
+                if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
+                        tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                    gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
+                            n.node.getyLoc() * mapHeight / 3400,
+                            tempDraw.node.getxLoc() * mapWidth / 5000,
+                            tempDraw.node.getyLoc() * mapHeight / 3400);
+                }
             }
+            System.out.println(n.node.getFloor());
+            System.out.println(tempDraw.node.getFloor());
+            tempDraw = n;
+        }
     }
 
     /*
@@ -528,6 +541,9 @@ public class UI_v1 {
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
         }
+        if(currentState == CurrentStatus.PATIENT && currPath!=null){
+            DrawCurrentFloorPath();
+        }
         //need to set currentMap of ListOfNodeObjs to "
     }
 
@@ -541,13 +557,16 @@ public class UI_v1 {
         MapDropDown.setText("Shapiro Building Floor 2");
         Image m2 = new Image("file:src/view/media/Shapiro.png");
         currentMap.setImage(m2);
-        Main.getNodeMap().setCurrentFloor("L1");
+        Main.getNodeMap().setCurrentFloor("2");
 
     /*
     * findPath pathfinds, and draws the route to the screen
      */
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
+        }
+        if(currentState == CurrentStatus.PATIENT && currPath!=null){
+            DrawCurrentFloorPath();
         }
     }
 
