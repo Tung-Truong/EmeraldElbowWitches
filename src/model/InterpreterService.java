@@ -1,4 +1,4 @@
 package model;
 
-public class InterpreterService {
+public class InterpreterService extends ServiceRequest {
 }
