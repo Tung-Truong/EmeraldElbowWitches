@@ -12,16 +12,16 @@ public class BreadthFirst {
         queue.add(start);
         explored.add(start);
         while (!queue.isEmpty()){
-            NodeObj node=queue.remove();
-            if(node.node.getNodeID() == goal.node.getNodeID()){
+            NodeObj node = queue.remove();
+            if(node.node.getNodeID().equals(goal.node.getNodeID())){
                 explored.add(node);
                 GenPath = explored;
                 return true;
             }
-            ArrayList<NodeObj> neighbours=node.getListOfNeighbors();
+            ArrayList<NodeObj> neighbours = node.getListOfNeighbors();
             for (int i = 0; i < neighbours.size(); i++){
                 NodeObj n=neighbours.get(i);
-                if(n!=null && !explored.contains(n)){
+                if(n != null && !explored.contains(n)){
                     queue.add(n);
                     explored.add(n);
                 }
