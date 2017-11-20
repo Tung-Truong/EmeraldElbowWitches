@@ -15,7 +15,7 @@ public class DepthFirst {
         explored.add(start);
         while (!stack.isEmpty()) {
             NodeObj element = stack.pop();
-            if (element.node.getNodeID() == goal.node.getNodeID()) {
+            if (element.node.getNodeID().equals(goal.node.getNodeID())) {
                 explored.add(element);
                 GenPath = explored;
                 return true;
