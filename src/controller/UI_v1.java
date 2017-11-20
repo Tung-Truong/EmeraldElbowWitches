@@ -502,7 +502,7 @@ public class UI_v1 {
         MapDropDown.setText("45 Francis Floor 1 Center");
         Image m1 = new Image("file:src/view/media/basicMap.png");
         currentMap.setImage(m1);
-        Main.getNodeMap().setCurrentBuilding("45 Francis");
+        Main.getNodeMap().setCurrentFloor("1");
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
         }
@@ -519,7 +519,7 @@ public class UI_v1 {
         MapDropDown.setText("Shapiro Building Floor 2");
         Image m2 = new Image("file:src/view/media/Shapiro.png");
         currentMap.setImage(m2);
-        Main.getNodeMap().setCurrentBuilding("Shapiro");
+        Main.getNodeMap().setCurrentFloor("2");
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
         }

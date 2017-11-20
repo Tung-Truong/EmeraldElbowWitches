@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public class ListOfNodeObjs {
 
     private ArrayList<NodeObj> nodes;
-    public String currentBuilding;
+    public String currentFloor;
 
     public ListOfNodeObjs(ArrayList<NodeObj> nodes) {
         this.nodes = nodes;
-        this.currentBuilding = "45 Francis";
+        this.currentFloor = "1";
     }
 
     // ---------------------Getters----------------------------
@@ -28,7 +28,7 @@ public class ListOfNodeObjs {
         double minDist = Double.MAX_VALUE;
         NodeObj closestNode = null;
         for (NodeObj n: nodes){
-            if((n.getDistance(xLoc, yLoc)<minDist) && (n.getNode().getBuilding().equals(this.currentBuilding))){
+            if((n.getDistance(xLoc, yLoc)<minDist) && (n.getNode().getFloor().equals(this.currentFloor))){
                 closestNode = n;
                 minDist = n.getDistance(xLoc, yLoc);
             }
@@ -56,7 +56,7 @@ public class ListOfNodeObjs {
     public ArrayList<NodeObj> getFilteredNodes(){
         ArrayList<NodeObj> filteredNodes = new ArrayList<NodeObj>();
         for (NodeObj n : this.nodes){
-            if(n.getNode().getBuilding().equals(this.currentBuilding)){
+            if(n.getNode().getFloor().equals(this.currentFloor)){
                 filteredNodes.add(n);
             }
         }
@@ -77,8 +77,8 @@ public class ListOfNodeObjs {
 
     }
 
-    public void setCurrentBuilding(String currentBuilding) {
-        this.currentBuilding = currentBuilding;
+    public void setCurrentFloor(String currentFloor) {
+        this.currentFloor = currentFloor;
     }
 
     // ---------------------General Functionality--------------
