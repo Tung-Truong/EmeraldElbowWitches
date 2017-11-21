@@ -1,9 +1,11 @@
 package model;
 
+import java.util.ArrayList;
+
 public class JanitorService extends ServiceRequest{
 
     // Attributes
-    private String[] suppliesNeeded;
+    private ArrayList<String> suppliesNeeded;
     private String janitorEmail = "kgrant@wpi.edu";
 
     // Constructors
@@ -13,7 +15,7 @@ public class JanitorService extends ServiceRequest{
     }
 
     // Getters
-    public String[] getSuppliesNeeded(){
+    public ArrayList<String> getSuppliesNeeded(){
         return this.suppliesNeeded;
     }
 
@@ -22,7 +24,7 @@ public class JanitorService extends ServiceRequest{
     }
 
     // Setters
-    public void setSuppliesNeeded (String[] supplies){
+    public void setSuppliesNeeded (ArrayList<String> supplies){
         this.suppliesNeeded = supplies;
     }
 

@@ -72,7 +72,6 @@ public class ServiceController {
     void SubmitRequest( ) {
         this.setService();
 
-
         service.setLocation(LocationDropdown.getText());
         service.setMessageText(NotesTextFeild.getText());
         service.sendEmailServiceRequest();
