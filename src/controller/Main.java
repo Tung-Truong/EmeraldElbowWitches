@@ -11,10 +11,7 @@ import model.AddDB;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Main extends Application{
@@ -39,17 +36,23 @@ public class Main extends Application{
         janitorService = new JanitorService();
         //set up space for database
         File test = new File("mapDB");
-        deleteDir(test);
         Class.forName(DRIVER);
         //get the connection for the database
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
-        try {
-            CreateDB.run();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
+        ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        if(resultSet.next() && resultSet.getInt(1) < 1){
+            try {
+                CreateDB.run();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+
+
         //for each of our csv files, read them in and fill their data to one of two tables
         //the node table or the edge table
         try {
