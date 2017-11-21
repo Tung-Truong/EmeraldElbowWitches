@@ -15,6 +15,7 @@ public class ServiceController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
+    // private ArrayList<Employee> employees;
 
     @FXML
     private MenuButton EmployeeDropdown, FoodDropdown,
@@ -90,6 +91,11 @@ public class ServiceController {
     void InterpreterItem( ) {
 
         RequestServiceDropdown.setText("Interpreter");
+    }
+
+    @FXML
+    void EmployeeNames(){
+        // TODO: get employee names from database and display them
     }
 
     @FXML
