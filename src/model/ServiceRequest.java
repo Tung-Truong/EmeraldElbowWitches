@@ -6,15 +6,21 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class ServiceRequest {
+
+    // Attributes
     private Properties properties;
     private Session session;
-    private String username = "elbowwitchemerald@gmail.com";
+    private String username = "elbowwitchemerald@gmail.com"; // E-mail corresponding to the sending e-mail address
     private String password = "passwordhuh";
+
     protected String email;
     protected String messageText;
     protected String messageHeader;
     protected String location;
 
+    // Constructor
+
+    // Sets up attributes in order to send emails
     public ServiceRequest(){
         properties = new Properties();
 
@@ -31,11 +37,13 @@ public class ServiceRequest {
         });
     }
 
+    // Resets the e-mail account that the message is coming from
     public void setAccountFrom(String username, String password){
         this.username = username;
         this.password = password;
     }
 
+    // Sets the e-mail address that the message is going to
     public void setAccountTo(String email){
         this.email = email;
     }
@@ -55,10 +63,11 @@ public class ServiceRequest {
         try {
             MimeMessage mime = new MimeMessage(session);
 
-            mime.setFrom(new InternetAddress("random@gmail.com"));
+            mime.setFrom("Team E");
+            //mime.setFrom(new InternetAddress("random@gmail.com"));
             mime.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             mime.setSubject(messageHeader);
-            mime.setText(this.messageText);
+            mime.setText(messageText);
 
             Transport.send(mime);
 
