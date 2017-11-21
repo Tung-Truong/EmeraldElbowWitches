@@ -18,8 +18,9 @@ public class Dijkstras {
         while (open_queue.size() > 0) {
             NodeObj current = getLowest(open_queue);
             open_queue.remove(current);
+            closed_queue.add(current);
             if (current.node.getNodeID().equals(goal.node.getNodeID())) {
-                constructPath(goal, start);
+                GenPath = constructPath(goal, start);
                 return true;
             }
             ArrayList<NodeObj> neighbors = current.getListOfNeighbors();
@@ -39,7 +40,6 @@ public class Dijkstras {
                     }
                 }
             }
-            closed_queue.add(current);
         }
         return false;
     }
