@@ -99,7 +99,7 @@ public class Main extends Application{
         nodeMap = new ListOfNodeObjs(loNodeObj);
 
         // creates and saves the list of edges for a map
-        ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
+        ArrayList<Edge> listOfEdges;
         listOfEdges = QueryDB.getEdges();
 
         // create edge objects
@@ -185,11 +185,7 @@ public class Main extends Application{
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
 
