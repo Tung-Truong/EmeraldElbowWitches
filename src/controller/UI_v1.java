@@ -474,7 +474,9 @@ public class UI_v1 {
 
     @FXML
     void serviceRequestFlag(){
+
         this.currentState = CurrentStatus.SERVICEREQUEST;
+        Main.getCurrStage().setScene(Main.getService());
     }
 
     @FXML

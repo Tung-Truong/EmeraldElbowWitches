@@ -165,11 +165,10 @@ public class Main extends Application{
 
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
-        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
+        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
         currScene=Start;
 
-        Scene ServReq = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
-        Service = ServReq;
+        Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
         this.currScene=Start;
         primaryStage.setScene(Start);
         primaryStage.show();

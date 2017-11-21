@@ -65,7 +65,7 @@ public class ServiceController {
     // FXML Methods
     @FXML
     void BackToUIV1( ) {
-        Main.getCurrStage().setScene(Main.getService());
+        Main.getCurrStage().setScene(Main.getCurrScene());
     }
 
     @FXML
