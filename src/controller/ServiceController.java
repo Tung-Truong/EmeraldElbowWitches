@@ -49,7 +49,7 @@ public class ServiceController {
         if(needed.toUpperCase() == "INTERPRETER"){
             service = new InterpreterService();
             // placeholder
-            service.setAccountTo("cjdembski@wpi.edu");
+            service.setAccountTo("kgrant@wpi.edu");
             serviceNeeded = "Interpreter";
         } else if(needed.toUpperCase() == "MAINTENANCE"){
             service = new JanitorService();
@@ -57,7 +57,7 @@ public class ServiceController {
         } else {
             service = new CafeteriaService();
             // placeholder
-            service.setAccountTo("cjdembski@wpi.edu");
+            service.setAccountTo("kgrant@wpi.edu");
             serviceNeeded = "Food";
         }
     }
@@ -71,9 +71,13 @@ public class ServiceController {
     @FXML
     void SubmitRequest( ) {
         this.setService();
+
+
         service.setLocation(LocationDropdown.getText());
         service.setMessageText(NotesTextFeild.getText());
         service.sendEmailServiceRequest();
+
+        // Header field is not being updated so definitely look into this more
 
         System.out.println("Message sent succesfully");
     }

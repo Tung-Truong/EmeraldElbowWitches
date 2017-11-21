@@ -4,7 +4,7 @@ public class JanitorService extends ServiceRequest{
 
     // Attributes
     private String[] suppliesNeeded;
-    private String janitorEmail = "cjdembski@wpi.edu";
+    private String janitorEmail = "kgrant@wpi.edu";
 
     // Constructors
     public JanitorService (){
@@ -19,10 +19,6 @@ public class JanitorService extends ServiceRequest{
 
     public String getJanitorEmail() {
         return this.janitorEmail;
-    }
-
-    public String getLocation() {
-        return this.location;
     }
 
     // Setters

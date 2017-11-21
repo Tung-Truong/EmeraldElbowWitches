@@ -63,11 +63,11 @@ public class ServiceRequest {
         try {
             MimeMessage mime = new MimeMessage(session);
 
-            mime.setFrom("Team E");
-            //mime.setFrom(new InternetAddress("random@gmail.com"));
+            mime.setFrom(new InternetAddress("random@gmail.com"));
             mime.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             mime.setSubject(messageHeader);
             mime.setText(messageText);
+            mime.saveChanges();
 
             Transport.send(mime);
 
