@@ -13,6 +13,7 @@ public class ServiceRequest {
     protected String email;
     protected String messageText;
     protected String messageHeader;
+    protected String location;
 
     public ServiceRequest(){
         properties = new Properties();
@@ -46,6 +47,8 @@ public class ServiceRequest {
     public void setMessageHeader(String header){
         this.messageHeader = header;
     }
+
+    public void setLocation(String location) { this.location = location;}
 
     public boolean sendEmailServiceRequest(){
 

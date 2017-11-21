@@ -48,10 +48,17 @@ public class ServiceController {
 
         if(needed.toUpperCase() == "INTERPRETER"){
             service = new InterpreterService();
-        } else if(needed.toUpperCase() == "JANITOR"){
+            // placeholder
+            service.setAccountTo("cjdembski@wpi.edu");
+            serviceNeeded = "Interpreter";
+        } else if(needed.toUpperCase() == "MAINTENANCE"){
             service = new JanitorService();
+            serviceNeeded = "Janitor";
         } else {
             service = new CafeteriaService();
+            // placeholder
+            service.setAccountTo("cjdembski@wpi.edu");
+            serviceNeeded = "Food";
         }
     }
 
@@ -63,7 +70,12 @@ public class ServiceController {
 
     @FXML
     void SubmitRequest( ) {
+        this.setService();
+        service.setLocation(LocationDropdown.getText());
+        service.setMessageText(NotesTextFeild.getText());
+        service.sendEmailServiceRequest();
 
+        System.out.println("Message sent succesfully");
     }
 
     @FXML

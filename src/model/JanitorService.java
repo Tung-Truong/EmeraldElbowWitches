@@ -4,13 +4,12 @@ public class JanitorService extends ServiceRequest{
 
     // Attributes
     private String[] suppliesNeeded;
-    private String janitorEmail;
-    private String location;
+    private String janitorEmail = "cjdembski@wpi.edu";
 
     // Constructors
     public JanitorService (){
         this.setAccountTo(janitorEmail);
-        this.setMessageHeader("Supplies Needed at " + location);
+        this.setMessageHeader("Supplies Needed at " + this.location);
     }
 
     // Getters
@@ -33,10 +32,6 @@ public class JanitorService extends ServiceRequest{
 
     public void setJanitorEmail (String mail){
         this.janitorEmail = mail;
-    }
-
-    public void setLocation (String location){
-        this.location = location;
     }
 
 }
