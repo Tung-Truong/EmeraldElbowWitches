@@ -40,7 +40,7 @@ public class astar {
                             }
                         }
                         open_queue.add(neighbor);
-                        neighbor.setHeuristic(neighbor.getDistance(goal) + neighbor.getgCost());
+                        neighbor.setHeuristic(neighbor.getDistance(goal)  + neighbor.getgCost() + floorDifference(neighbor,current));
                     } else {
                         if (neighbor.getgCost() > neighbor.getEdgeObj(current).getWeight()) {
                             neighbor.setParent(current);
@@ -53,6 +53,15 @@ public class astar {
         return false;
     }
 
+    //method that checks if the NodeA is on the same floor as nodeB and it is not, return a higher heuristic
+    private double floorDifference(NodeObj nodeA, NodeObj nodeB){
+        if(nodeA.getNode().getFloor().equals(nodeB.getNode().getFloor())){
+            return 0;
+        }
+        else{
+            return 50000;
+        }
+    }
 
 
     private NodeObj getLowest(LinkedList<NodeObj> list) {
