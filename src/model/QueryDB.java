@@ -21,6 +21,7 @@ public class QueryDB {
                 tempVals[x-1] = resultSet.getString(x);
             }
             if(tempVals[1] != null)
+                System.out.println("" + tempVals[0]);
                 nodeList.add(new Node(tempVals[1], tempVals[2], tempVals[3], tempVals[4], tempVals[5], tempVals[6], tempVals[7], tempVals[8], tempVals[0]));
         }
         for (Node nodeN:nodeList) {

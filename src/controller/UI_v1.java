@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class UI_v1 {
 
     private enum CurrentStatus {
-        PATIENT, ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST, SETSTARTNODE
+        PATIENT, ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST, SETSTARTNODE, SETENDNODE
     };
 
     private CurrentStatus currentState = CurrentStatus.PATIENT;
@@ -28,6 +28,10 @@ public class UI_v1 {
     private GraphicsContext gc1 = null;
 
     private int counterForEdges = 0;
+
+    ArrayList<NodeObj> currPath = null;
+
+    NodeObj goal = null;
 
     @FXML
     private Button startNodeSelector;
@@ -37,6 +41,15 @@ public class UI_v1 {
 
     @FXML
     private Button setStartNodeConfirm;
+
+    @FXML
+    private Button EndNodeSelector;
+
+    @FXML
+    private TextField EndNodeID;
+
+    @FXML
+    private Button setEndNodeConfirm;
 
     @FXML
     private TextField serviceNodeID;
@@ -230,6 +243,9 @@ public class UI_v1 {
             case SETSTARTNODE:
                 nodeProcess((int)mousex, (int)mousey, currentState);
                 break;
+            case SETENDNODE:
+                nodeProcess((int)mousex, (int)mousey, currentState);
+                break;
         }
 
         //Print to confirm
@@ -258,6 +274,9 @@ public class UI_v1 {
             } else if (currentState.equals(CurrentStatus.SETSTARTNODE)){
                 nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
                 this.startNodeID.setText(nearestNode.getNode().getNodeID());
+            }else if (currentState.equals(CurrentStatus.SETENDNODE)){
+                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
+                this.EndNodeID.setText(nearestNode.getNode().getNodeID());
             }
         }catch(InvalidNodeException e){
             e.printStackTrace();
@@ -386,7 +405,7 @@ public class UI_v1 {
         gc1.setFill(Color.RED);
 
         //get node that corr. to click from ListOfNodeObjects made in main
-        NodeObj goal = null;
+
         try {
             goal = Main.getNodeMap().getNearestNeighborFilter
                     ((int) Math.floor(mousex), (int) Math.floor(mousey));
@@ -399,26 +418,39 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if(newpathGen.pathfind(Kiosk,goal,gc1))
+        if (newpathGen.pathfind(Kiosk, goal, gc1)){
             path = newpathGen.getGenPath();
-        else
+            currPath = path;
+        }
+        else {
             try {
                 throw new InvalidNodeException("this is not accessable with the current map");
             } catch (InvalidNodeException e) {
                 e.printStackTrace();
             }
+        }
 
-            NodeObj tempDraw = goal;
+        DrawCurrentFloorPath();
+    }
 
-        for(NodeObj n: path)
-            if(n != goal){
-                gc1.strokeLine(n.node.getxLoc()*mapWidth/5000,
-                        n.node.getyLoc()*mapHeight/3400,
-                        tempDraw.node.getxLoc()*mapWidth/5000,
-                        tempDraw.node.getyLoc()*mapHeight/3400);
-                gc1.setLineWidth(2);
-                tempDraw = n;
+
+    public void DrawCurrentFloorPath(){
+        gc1.setLineWidth(2);
+        NodeObj tempDraw = goal;
+        for(NodeObj n: currPath) {
+            if (n != goal) {
+                if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
+                        tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                    gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
+                            n.node.getyLoc() * mapHeight / 3400,
+                            tempDraw.node.getxLoc() * mapWidth / 5000,
+                            tempDraw.node.getyLoc() * mapHeight / 3400);
+                }
             }
+            System.out.println(n.node.getFloor());
+            System.out.println(tempDraw.node.getFloor());
+            tempDraw = n;
+        }
     }
 
     /*
@@ -450,6 +482,11 @@ public class UI_v1 {
         this.currentState = CurrentStatus.SETSTARTNODE;
     }
 
+    @FXML
+    void setEndNodeFlag(){
+        this.currentState = CurrentStatus.SETENDNODE;
+    }
+
     //--------------------------------------------------------------------------------
 
 
@@ -478,13 +515,13 @@ public class UI_v1 {
 
         }
 
-        /*for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setStroke(Color.BLUE);
             gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
                     n.node.getyLoc()*mapHeight/3400 - 5,
                     10,
                     10);
-        }*/
+        }
         gc1.setFill(Color.BLUE);
     }
 
@@ -519,33 +556,33 @@ public class UI_v1 {
         switch(clickedID){
             case "MapL2":
                 setKioskLoc(2460, 910);
-                MapDropDown.setText("45 Francis Floor 1 Center");
-                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                MapDropDown.setText("Floor L2");
+                Main.getNodeMap().setCurrentFloor("L2");
                 break;
             case "MapL1":
                 setKioskLoc(2460, 910);
-                MapDropDown.setText("45 Francis Floor 1 Center");
-                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                MapDropDown.setText("Floor L1");
+                Main.getNodeMap().setCurrentFloor("L1");
                 break;
             case "MapG":
                 setKioskLoc(2460, 910);
-                MapDropDown.setText("45 Francis Floor 1 Center");
-                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                MapDropDown.setText("Ground Floor");
+                Main.getNodeMap().setCurrentFloor("G");
                 break;
             case "Map1":
                 setKioskLoc(2460, 910);
-                MapDropDown.setText("45 Francis Floor 1 Center");
-                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                MapDropDown.setText("Floor 1");
+                Main.getNodeMap().setCurrentFloor("1");
                 break;
             case "Map2":
                 setKioskLoc(1580, 1810);
-                MapDropDown.setText("Shapiro Building Floor 2");
-                Main.getNodeMap().setCurrentBuilding("Shapiro");
+                MapDropDown.setText("Floor 2");
+                Main.getNodeMap().setCurrentFloor("2");
                 break;
             case "Map3":
                 setKioskLoc(2460, 910);
-                MapDropDown.setText("45 Francis Floor 1 Center");
-                Main.getNodeMap().setCurrentBuilding("45 Francis");
+                MapDropDown.setText("Floor 3");
+                Main.getNodeMap().setCurrentFloor("3");
                 break;
         }
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -553,6 +590,9 @@ public class UI_v1 {
         currentMap.setImage(map);
         if(currentState == CurrentStatus.ADMIN){
             switchTab2();
+        }
+        if(currentState == CurrentStatus.PATIENT && currPath!=null){
+            DrawCurrentFloorPath();
         }
     }
 
@@ -614,6 +654,20 @@ public class UI_v1 {
         NodeObj newStartNode = Main.getNodeMap().getNodeObjByID(newStartNodeID);
         Main.setKiosk(newStartNode);
         switchTab1();
+        currentState = CurrentStatus.PATIENT;
+        System.out.println("Did you get here");
+    }
+
+    @FXML
+    void setEndNode(){
+        String newEndNodeID = EndNodeID.getText();
+        NodeObj newEndNode = Main.getNodeMap().getNodeObjByID(newEndNodeID);
+        switchTab1();
+        try {
+            findPath(newEndNode.node.getxLoc(),newEndNode.node.getyLoc());
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
         currentState = CurrentStatus.PATIENT;
         System.out.println("Did you get here");
     }

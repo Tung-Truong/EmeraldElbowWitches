@@ -52,8 +52,27 @@ public class Main extends Application{
         //for each of our csv files, read them in and fill their data to one of two tables
         //the node table or the edge table
         try {
-            ReadCSV.runNode("src/model/docs/Nodes.csv");
-            ReadCSV.runEdge("src/model/docs/Edges.csv");
+            ReadCSV.runNode("src/model/docs/MapAnodes.csv");
+            ReadCSV.runNode("src/model/docs/MapBnodes.csv");
+            ReadCSV.runNode("src/model/docs/MapCnodes.csv");
+            ReadCSV.runNode("src/model/docs/MapDnodes.csv");
+            ReadCSV.runNode("src/model/docs/MapENodes.csv");
+            ReadCSV.runNode("src/model/docs/MapFNodes.csv");
+            ReadCSV.runNode("src/model/docs/MapGNodes.csv");
+            ReadCSV.runNode("src/model/docs/MapHnodes.csv");
+            ReadCSV.runNode("src/model/docs/MapInodes.csv");
+            ReadCSV.runNode("src/model/docs/MapWnodes.csv");
+
+            ReadCSV.runEdge("src/model/docs/MapAedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapBedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapCedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapDedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapEEdges.csv");
+            ReadCSV.runEdge("src/model/docs/MapFEdges.csv");
+            ReadCSV.runEdge("src/model/docs/MapGEdges.csv");
+            ReadCSV.runEdge("src/model/docs/MapHedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapIedges.csv");
+            ReadCSV.runEdge("src/model/docs/MapWedges.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (SQLException e){
@@ -90,9 +109,18 @@ public class Main extends Application{
         for(Edge edge:listOfEdges){
             EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
             if(nodeMap.pair(newObj)){
-                newObj.setWeight(newObj.genWeightFromDistance());
+                if(((newObj.getNodeA().getNode().getTeam().equals("Team W"))
+                        && (newObj.getNodeA().getNode().getNodeType().equals("ELEV"))) &&
+                ((newObj.getNodeB().getNode().getTeam().equals("Team W"))
+                        && (newObj.getNodeB().getNode().getNodeType().equals("ELEV")))){
+                    newObj.setWeight(50000);
+                }
+                else
+                    newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
+
+
 
         //get the kiosk for the assigned floor
         try {
