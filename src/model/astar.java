@@ -33,7 +33,12 @@ public class astar {
                         continue;
                     } else if (!open_queue.contains(neighbor)) {
                         neighbor.setParent(current);
-                        neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
+                        ArrayList<EdgeObj> edges = current.getListOfEdgeObjs();
+                        for (EdgeObj edge: edges) {
+                            if(edge.getNodeA().getNode().getNodeID() == current.node.getNodeID() && edge.getNodeB().getNode().getNodeID() == neighbor.getNode().getNodeID()){
+                                neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
+                            }
+                        }
                         open_queue.add(neighbor);
                         neighbor.setHeuristic(neighbor.getDistance(goal) + neighbor.getgCost());
                     } else {
