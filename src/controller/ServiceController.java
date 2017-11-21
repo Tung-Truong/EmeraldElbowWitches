@@ -17,39 +17,17 @@ public class ServiceController {
     private ServiceRequest service;
 
     @FXML
-    private MenuButton EmployeeDropdown;
+    private MenuButton EmployeeDropdown, FoodDropdown,
+            LocationDropdown, RequestServiceDropdown;
 
     @FXML
     private Button removeNodeSelector;
-
-    @FXML
-    private MenuButton FoodDropdown;
-
-    @FXML
-    private MenuButton LocationDropdown;
-
-    @FXML
-    private MenuButton RequestServiceDropdown;
 
     @FXML
     private JFXTextField NotesTextFeild;
 
     @FXML
     private MenuItem AdmGrant;
-
-
-    // Methods
-    public void Service (String needed){
-        this.serviceNeeded = needed;
-
-        if(needed.toUpperCase() == "INTERPRETER"){
-            service = new InterpreterService();
-        } else if(needed.toUpperCase() == "JANITOR"){
-            service = new JanitorService();
-        } else {
-            service = new CafeteriaService();
-        }
-    }
 
     // Getters
     public String getServiceNeeded() {
@@ -65,8 +43,16 @@ public class ServiceController {
         this.serviceNeeded = service;
     }
 
-    public void setService(ServiceRequest serve){
+    public void setService (){
+        String needed = this.RequestServiceDropdown.getText();
 
+        if(needed.toUpperCase() == "INTERPRETER"){
+            service = new InterpreterService();
+        } else if(needed.toUpperCase() == "JANITOR"){
+            service = new JanitorService();
+        } else {
+            service = new CafeteriaService();
+        }
     }
 
     // FXML Methods
