@@ -575,7 +575,7 @@ public class UI_v1 {
                 Main.getNodeMap().setCurrentFloor("1");
                 break;
             case "Map2":
-                setKioskLoc(1580, 1810);
+                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor 2");
                 Main.getNodeMap().setCurrentFloor("2");
                 break;

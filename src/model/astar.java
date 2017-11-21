@@ -13,8 +13,8 @@ public class astar {
     public boolean pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj at the first position
         //closed_queue contains all explored NodeObjs, which starts empty
-        LinkedList<NodeObj> open_queue = new LinkedList();
-        LinkedList<NodeObj> closed_queue = new LinkedList();
+        LinkedList<NodeObj> open_queue = new LinkedList<>();
+        LinkedList<NodeObj> closed_queue = new LinkedList<>();
         start.setgCost(0);
         open_queue.add(start);
 
@@ -35,7 +35,7 @@ public class astar {
                         neighbor.setParent(current);
                         ArrayList<EdgeObj> edges = current.getListOfEdgeObjs();
                         for (EdgeObj edge: edges) {
-                            if(edge.getNodeA().getNode().getNodeID() == current.node.getNodeID() && edge.getNodeB().getNode().getNodeID() == neighbor.getNode().getNodeID()){
+                            if(edge.getNodeA().getNode().getNodeID().equals(current.node.getNodeID()) && edge.getNodeB().getNode().getNodeID().equals(neighbor.getNode().getNodeID())){
                                 neighbor.setgCost(neighbor.getEdgeObj(current).getWeight());
                             }
                         }
@@ -74,7 +74,7 @@ public class astar {
 
     //function to construct a path from the goal path.
     //uses the getParent function of nodes and adds the parent to the path and stops when the parent is the start node
-    protected ArrayList<NodeObj> constructPath(NodeObj goal, NodeObj start) {
+    private ArrayList<NodeObj> constructPath(NodeObj goal, NodeObj start) {
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         path.add(goal);
         NodeObj nextNode = goal.getParent();

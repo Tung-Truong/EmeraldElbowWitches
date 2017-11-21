@@ -9,7 +9,7 @@ EHALL00601,2385,910,1,45 Francis,HALL,Hallway Node 4 Floor 1,HallE04,Team E
 EHALL00701,2385,860,1,45 Francis,HALL,Hallway Node 5 Floor 1,HallE05,Team E
 EDEPT00101,2335,860,1,45 Francis,DEPT,Waiting Room 1 Floor 1,Wait 1,Team E
 EHALL00801,2460,910,1,45 Francis,HALL,Hallway Node 6 Floor 1,HallE06,Team E
-EINFO00101,2460,850,1,45 Francis,INFO,Connor's Center Security Desk Floor 1,Security 1,Team E
+EINFO00101,2460,850,1,45 Francis,INFO,Connors Center Security Desk Floor 1,Security 1,Team E
 EHALL00901,2585,910,1,45 Francis,HALL,Hallway Node 7 Floor 1,HallE07,Team E
 EHALL01001,2585,890,1,45 Francis,HALL,Hallway Node 8 Floor 1,HallE08,Team E
 EHALL01101,2610,910,1,45 Francis,HALL,Hallway Node 9 Floor 1,HallE09,Team E
