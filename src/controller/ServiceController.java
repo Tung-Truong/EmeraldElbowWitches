@@ -11,6 +11,9 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
 public class ServiceController {
+    // Attributes
+    private String serviceNeeded;
+    private ServiceRequest service;
 
     @FXML
     private MenuButton EmployeeDropdown;
@@ -33,24 +36,7 @@ public class ServiceController {
     @FXML
     private MenuItem AdmGrant;
 
-
-
-    @FXML
-    void BackToUIV1( ) {
-
-    }
-
-    @FXML
-    void SubmitRequest( ) {
-
-    }
-
-
-    // Attributes
-    private String serviceNeeded;
-    private ServiceRequest service;
-
-    // Constructor
+    // Methods
     public void Service (String needed){
         this.serviceNeeded = needed;
 
@@ -78,6 +64,17 @@ public class ServiceController {
     }
 
     public void setService(ServiceRequest serve){
+
+    }
+
+    // FXML Methods
+    @FXML
+    void BackToUIV1( ) {
+
+    }
+
+    @FXML
+    void SubmitRequest( ) {
 
     }
 
