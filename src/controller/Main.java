@@ -23,6 +23,7 @@ public class Main extends Application{
     public static int sceneWidth = 1750;
     public static int sceneHeight = 1000;
     public static Scene currScene;
+    public static Scene Service;
     public static Stage currStage;
     public static Parent parentRoot;
     public static NodeObj kiosk;
@@ -133,13 +134,16 @@ public class Main extends Application{
     //and handing control to the controller
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         this.currStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml"));
-        this.parentRoot = root;
         primaryStage.setTitle("Map");
-        Scene newScene = new Scene(root, sceneWidth, sceneHeight);
-        this.currScene=newScene;
-        primaryStage.setScene(newScene);
+        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
+        currScene=Start;
+
+        Scene ServReq = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
+        Service = ServReq;
+        this.currScene=Start;
+        primaryStage.setScene(Start);
         primaryStage.show();
     }
 
@@ -187,6 +191,10 @@ public class Main extends Application{
 
     public static Parent getParentRoot() {
         return parentRoot;
+    }
+
+    public static Scene getService() {
+        return Service;
     }
 
     public static void setKiosk(NodeObj kiosk) {
