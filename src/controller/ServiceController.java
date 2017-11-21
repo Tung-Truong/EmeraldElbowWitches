@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import controller.Main;
 
 public class ServiceController {
 
@@ -37,7 +38,7 @@ public class ServiceController {
 
     @FXML
     void BackToUIV1( ) {
-
+        Main.getCurrStage().setScene(Main.getService());
     }
 
     @FXML
@@ -88,6 +89,7 @@ public class ServiceController {
 
     @FXML
     void InterpreterItem( ) {
+
         RequestServiceDropdown.setText("Interpreter");
     }
 
