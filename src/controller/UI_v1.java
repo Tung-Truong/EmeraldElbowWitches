@@ -418,7 +418,7 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if (newpathGen.pathfind(Kiosk, goal, gc1)){
+        if (newpathGen.pathfind(Kiosk, goal)){
             path = newpathGen.getGenPath();
             currPath = path;
         }
@@ -588,10 +588,10 @@ public class UI_v1 {
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         Image map = mapImage.getLoadedMap(clickedID);
         currentMap.setImage(map);
-        if(currentState == CurrentStatus.ADMIN){
+        if((currentState == CurrentStatus.ADMIN) || (currentState == CurrentStatus.ADDNODE) ||  (currentState == CurrentStatus.REMOVENODE) ||  (currentState == CurrentStatus.MODIFYBORDERS)){
             switchTab2();
         }
-        if(currentState == CurrentStatus.PATIENT && currPath!=null){
+        if(((currentState == CurrentStatus.PATIENT) ||  (currentState == CurrentStatus.SERVICEREQUEST) ||  (currentState == CurrentStatus.SETSTARTNODE) || (currentState == CurrentStatus.SETENDNODE)) && (currPath!=null)){
             DrawCurrentFloorPath();
         }
     }
