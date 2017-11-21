@@ -145,7 +145,7 @@ public class Main extends Application{
 
     //do a graceful exit: when the close button is clicked at the top of the map
     //add everything to the database tables,
-    //recreate the csv files, allowing for persistance
+    //recreate the csv files, allowing for persistence
     @Override
     public void stop() throws SQLException {
         for(NodeObj n : nodeMap.getNodes()){
