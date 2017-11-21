@@ -10,7 +10,7 @@ public class astar {
 
     private ArrayList<NodeObj> GenPath;
 
-    public boolean pathfind(NodeObj start, NodeObj goal, GraphicsContext gc1) {
+    public boolean pathfind(NodeObj start, NodeObj goal) {
         //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj at the first position
         //closed_queue contains all explored NodeObjs, which starts empty
         LinkedList<NodeObj> open_queue = new LinkedList();

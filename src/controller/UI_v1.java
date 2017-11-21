@@ -360,7 +360,7 @@ public class UI_v1 {
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        astar newpathGen = new astar();
+        Dijkstras newpathGen = new Dijkstras();
         gc1.setLineWidth(5);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
@@ -378,8 +378,8 @@ public class UI_v1 {
         //set the path to null
         ArrayList<NodeObj> path = null;
 
-        //try a*
-        if(newpathGen.pathfind(Kiosk,goal,gc1))
+        //try pathfinding
+        if(newpathGen.pathfind(Kiosk,goal))
             path = newpathGen.getGenPath();
         else
             try {

@@ -2,46 +2,58 @@ package model;
 
 import sun.awt.image.ImageWatched;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.function.IntToDoubleFunction;
 
 public class Dijkstras {
     private ArrayList<NodeObj> GenPath;
 
-    public Dijkstras() {
-    }
 
-    public boolean dijkstras(NodeObj start, NodeObj goal) {
+    public boolean pathfind(NodeObj start, NodeObj goal) {
         //ArrayList<NodeObj> shortestPath = new ArrayList<NodeObj>();
         //shortestPath.add(start);
-        TreeMap<NodeObj, Double> map = new TreeMap<>();
-        start.setgCost(0);
-        map.put(start, start.getgCost());
-        while (map.size() > 0) {
-            NodeObj current = map.firstKey();
-            map.remove(map.firstKey());
+        LinkedList<NodeObj> open_queue = new LinkedList<>();
+        Set<NodeObj> closed_queue = new HashSet<>();
+        open_queue.add(start);
+        while (open_queue.size() > 0) {
+            NodeObj current = getLowest(open_queue);
+            open_queue.remove(current);
             if (current.node.getNodeID().equals(goal.node.getNodeID())) {
                 constructPath(goal, start);
                 return true;
             }
             ArrayList<NodeObj> neighbors = current.getListOfNeighbors();
             for (NodeObj neighbor : neighbors) {
+                if (closed_queue.contains(neighbor)) {
+                    continue;
+                }
                 //if the neighbor has not been explored yet, set the value as infinity
                 //There might be an issue running multiple times as parents aren't cleared
-                if (neighbor.getParent().node.getNodeID() == null) {
+                else {
                     neighbor.setgCost(Integer.MAX_VALUE);
-                }
-                double tentativeCost = current.getgCost() + neighbor.getEdgeObj(current).getWeight();
-                if (tentativeCost < neighbor.getgCost()) {
-                    neighbor.setgCost(tentativeCost);
-                    neighbor.setParent(current);
-                    map.put(neighbor, neighbor.getgCost());
+                    double tentativeCost = current.getgCost() + neighbor.getEdgeObj(current).getWeight();
+                    if (tentativeCost < neighbor.getgCost()) {
+                        neighbor.setgCost(tentativeCost);
+                        neighbor.setParent(current);
+                        open_queue.add(neighbor);
+                    }
                 }
             }
+            closed_queue.add(current);
         }
         return false;
+    }
+
+    private NodeObj getLowest(LinkedList<NodeObj> list) {
+        double currentGCost = Integer.MAX_VALUE;
+        NodeObj lowestNode = null;
+        for (NodeObj node : list) {
+            if (node.getgCost() < currentGCost) {
+                currentGCost = node.getgCost();
+                lowestNode = node;
+            }
+        }
+        return lowestNode;
     }
 
 
