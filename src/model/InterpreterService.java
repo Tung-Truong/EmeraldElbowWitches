@@ -6,7 +6,7 @@ public class InterpreterService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> languages;
-    private String[] emails;
+    private ArrayList<String> emails;
 
     // Constructors
     public InterpreterService(){
@@ -18,7 +18,7 @@ public class InterpreterService extends ServiceRequest {
         return this.languages;
     }
 
-    public String[] getEmails() {
+    public ArrayList<String> getEmails() {
         return this.emails;
     }
 
@@ -27,7 +27,7 @@ public class InterpreterService extends ServiceRequest {
         this.languages = languages;
     }
 
-    public void setEmails(String[] emails){
+    public void setEmails(ArrayList<String> emails){
         this.emails = emails;
     }
 

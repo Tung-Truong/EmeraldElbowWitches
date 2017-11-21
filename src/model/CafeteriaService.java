@@ -1,31 +1,47 @@
 package model;
 
+import java.util.ArrayList;
+
 public class CafeteriaService extends ServiceRequest {
 
     // Attributes
-    private String[] menu = {"Cake", "French Fries", "Soup",
-                            "Water", "Club Sandwich"};
-    private String[] emails;
+    private ArrayList<String> menu = new ArrayList<String>();
+    private ArrayList<String> emails;
 
     // Constructor
     public CafeteriaService() {
+        menu.add("Cake");
+        menu.add("Noodles");
+        menu.add("Tea");
+        menu.add("Pie");
+
         // TODO: get emails from database and set them here
     }
-    // Getters
 
-    public String[] getMenu() {
+    // Getters
+    public ArrayList<String> getMenu() {
         return this.menu;
     }
 
-    public String[] getEmails() {
+    public ArrayList<String> getEmails() {
         return this.emails;
     }
 
     // Setters
-    public void setMenu(String[] items){
+    public void setMenu(ArrayList<String> items){
         this.menu = items;
     }
-    public void setEmails(String[] emails){
-        this.emails = emails;
+
+    // Methods
+    public void updateEmails(ArrayList<String> emails){
+        // TODO: get emails from database
+    }
+
+    public void addMenuItem(String food){
+        menu.add(food);
+    }
+
+    public void removeMenuItem(String food){
+        menu.remove(food);
     }
 }
