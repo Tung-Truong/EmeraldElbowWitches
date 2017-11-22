@@ -1,20 +1,23 @@
 package model;
 
 public class Employee {
+
+    // Attributes
     private String email;
     private String firstName;
     private String lastName;
     private String department;
     private String language;
-    private String availability;
+    private boolean available;
 
-    public Employee(String email, String firstName, String lastName, String department, String language, String availability){     // constructor for edges
+    // Constructor
+    public Employee(String email, String firstName, String lastName, String department, String language, boolean available){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.language = language;
-        this.availability = availability;
+        this.available = available;
     }
 
     // getters--------------------------------------
@@ -38,7 +41,32 @@ public class Employee {
         return language;
     }
 
-    public String getAvailability() {
-        return availability;
+    public boolean getAvailability() {
+        return available;
+    }
+
+    // Setters
+    public void setEmail(String email){
+        this.email = email;
+    }
+
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName){
+        this.lastName = lastName;
+    }
+
+    public void setDepartment(String department){
+        this.department = department;
+    }
+
+    public void setLanguage(String language){
+        this.language = language;
+    }
+
+    public void setAvailability(boolean available){
+        this.available = available;
     }
 }
