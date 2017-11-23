@@ -1,9 +1,10 @@
 package model;
 
+import java.net.SocketPermission;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class BreadthFirst {
+public class BreadthFirst extends PathingAlgorithm{
     private ArrayList<NodeObj> GenPath;
 
     public boolean pathfind(NodeObj start, NodeObj goal){
@@ -47,6 +48,7 @@ public class BreadthFirst {
 
     //getter
     public ArrayList<NodeObj> getGenPath() {
+        System.out.println("BREADTH FIRST");
         return GenPath;
     }
 }

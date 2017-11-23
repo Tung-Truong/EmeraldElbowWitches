@@ -6,7 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class astar {
+public class astar extends PathingAlgorithm{
 
     private ArrayList<NodeObj> GenPath;
 
@@ -107,7 +107,8 @@ public class astar {
     }
 
     //getter
-    public ArrayList<NodeObj> getGenPath() {
+    public ArrayList<NodeObj> getGenPath(){
+        System.out.println("ASTAR");
         return GenPath;
     }
 }

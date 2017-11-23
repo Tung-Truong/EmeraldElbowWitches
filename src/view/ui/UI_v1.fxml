@@ -263,10 +263,10 @@
                                           </JFXButton>
                                           <MenuButton layoutX="196.0" layoutY="313.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Pathfinding Method">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" text="Depth-First" />
-                                                <MenuItem mnemonicParsing="false" text="Breadth-First" />
-                                                <MenuItem mnemonicParsing="false" text="Djikstra's" />
-                                                <MenuItem mnemonicParsing="false" text="A*" />
+                                                <MenuItem fx:id="depthFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Depth-First" />
+                                                <MenuItem fx:id="breadthFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Breadth-First" />
+                                                <MenuItem fx:id="dijkstras" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Djikstra's" />
+                                                <MenuItem fx:id="aStar" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="A*" />
                                              </items>
                                              <font>
                                                 <Font size="11.0" />

@@ -1,5 +1,7 @@
 package model;
 
+import controller.Main;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -160,6 +162,70 @@ public class ListOfNodeObjs {
             }
 
         }
+    }
+
+    public EdgeObj addEditEdge(String nodeAID, String nodeBID, int eWeight){
+        boolean flagEdgeFoundA = false;
+        boolean flagEdgeFoundB = false;
+        NodeObj nodeA = null;
+        NodeObj nodeB = null;
+        EdgeObj edgeAB = null;
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            if(n.node.getNodeID().equals(nodeAID)) {
+                nodeA = n;
+                for (EdgeObj e : n.getListOfEdgeObjs()) {
+                    try {
+                        if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeBID)) {
+                            if(eWeight < 0)
+                                e.setWeight(eWeight);
+                            else
+                                e.setWeight(e.genWeightFromDistance());
+                            flagEdgeFoundA = true;
+                            edgeAB = e;
+                        }
+                    } catch (InvalidNodeException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+            else if (n.node.getNodeID().equals(nodeBID)) {
+                nodeB = n;
+                for (EdgeObj e : n.getListOfEdgeObjs()) {
+                    try {
+                        if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeAID)) {
+                            if(eWeight < 0)
+                                e.setWeight(eWeight);
+                            else
+                                e.setWeight(e.genWeightFromDistance());
+                            flagEdgeFoundB = true;
+                            edgeAB = e;
+                        }
+                    } catch (InvalidNodeException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        }
+        if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight!=0) {
+            edgeAB = new EdgeObj(nodeA, nodeB, eWeight);
+            nodeA.addEdge(edgeAB);
+            nodeB.addEdge(edgeAB);
+        }
+        else if(!flagEdgeFoundA && !flagEdgeFoundB && eWeight==0) {
+            edgeAB = new EdgeObj(nodeA, nodeB);
+            nodeA.addEdge(edgeAB);
+            nodeB.addEdge(edgeAB);
+        }
+        else if(!flagEdgeFoundA){
+            nodeA.addEdge(edgeAB);
+        }
+        else if(!flagEdgeFoundB){
+            nodeB.addEdge(edgeAB);
+        }
+
+        System.out.println("here2");
+
+        return edgeAB;
     }
 
 //Will need to deal with each edge

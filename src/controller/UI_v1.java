@@ -33,6 +33,8 @@ public class UI_v1 {
 
     NodeObj goal = null;
 
+    private PathingAlgorithm currentAlgorithm;
+
     @FXML
     private Button startNodeSelector;
 
@@ -98,6 +100,18 @@ public class UI_v1 {
 
     @FXML
     private MenuItem Map3;
+
+    @FXML
+    private MenuItem depthFirst;
+
+    @FXML
+    private MenuItem breadthFirst;
+
+    @FXML
+    private MenuItem dijkstras;
+
+    @FXML
+    private MenuItem aStar;
 
     @FXML
     private Tab patientTab;
@@ -190,6 +204,10 @@ public class UI_v1 {
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("Map1");
         currentMap.setImage(m1);
+        currentAlgorithm = new astar();
+        currentState = CurrentStatus.PATIENT;
+        mapWidth = currentMap.getFitWidth();
+        mapHeight = currentMap.getFitHeight();
     }
 
     @FXML
@@ -199,9 +217,6 @@ public class UI_v1 {
      */
     void stateHandler(MouseEvent event) {
         //get the mouses location and convert that to the corrected map coordinates for the original image
-        Scene currScene = Main.getCurrScene();
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
         // System.out.println(mapWidth + " " + mapHeight);
 
         double mousex = (5000 * event.getX()) / mapWidth;
@@ -311,67 +326,7 @@ public class UI_v1 {
         String NIDA = edgeNodeA.getText();
         String NIDB = edgeNodeB.getText();
         int eWeight = Integer.parseInt(edgeWeight.getText());
-        boolean flagEdgeFoundA = false;
-        boolean flagEdgeFoundB = false;
-        NodeObj nodeA = null;
-        NodeObj nodeB = null;
-        EdgeObj edgeAB = null;
-        for(NodeObj n: Main.getNodeMap().getNodes()){
-            if(n.node.getNodeID().equals(NIDA)) {
-                nodeA = n;
-                for (EdgeObj e : n.getListOfEdgeObjs()) {
-                    try {
-                        if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDB)) {
-                            if(eWeight < 0)
-                                e.setWeight(eWeight);
-                            else
-                                e.setWeight(e.genWeightFromDistance());
-                            flagEdgeFoundA = true;
-                            edgeAB = e;
-                        }
-                    } catch (InvalidNodeException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-            if (n.node.getNodeID().equals(NIDB)) {
-                nodeB = n;
-                for (EdgeObj e : n.getListOfEdgeObjs()) {
-                    try {
-                        if (e.getOtherNodeObj(n).node.getNodeID().equals(NIDA)) {
-                            if(eWeight < 0)
-                                e.setWeight(eWeight);
-                            else
-                                e.setWeight(e.genWeightFromDistance());
-                            flagEdgeFoundB = true;
-                            edgeAB = e;
-                        }
-                    } catch (InvalidNodeException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-        }
-            if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight!=0) {
-                edgeAB = new EdgeObj(nodeA, nodeB, eWeight);
-                nodeA.addEdge(edgeAB);
-                nodeB.addEdge(edgeAB);
-            }
-            else if(!flagEdgeFoundA && !flagEdgeFoundB && eWeight==0) {
-                edgeAB = new EdgeObj(nodeA, nodeB);
-                nodeA.addEdge(edgeAB);
-                nodeB.addEdge(edgeAB);
-            }
-            else if(!flagEdgeFoundA){
-                nodeA.addEdge(edgeAB);
-            }
-            else if(!flagEdgeFoundB){
-                nodeB.addEdge(edgeAB);
-            }
-
-            System.out.println("here2");
-
-
+        EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
         switchTab2();
         gc1.setStroke(Color.RED);
         gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*mapWidth/5000,
@@ -399,7 +354,6 @@ public class UI_v1 {
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        astar newpathGen = new astar();
         gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
@@ -418,8 +372,8 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if (newpathGen.pathfind(Kiosk, goal)){
-            path = newpathGen.getGenPath();
+        if (currentAlgorithm.pathfind(Kiosk, goal)){
+            path = currentAlgorithm.getGenPath();
             currPath = path;
         }
         else {
@@ -504,6 +458,7 @@ public class UI_v1 {
         gc1.setFill(Color.YELLOW);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            System.out.println("I'm HERE");
             for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
                 gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
@@ -550,6 +505,29 @@ public class UI_v1 {
         Main.getJanitorService().setLocation(requestedNode);
         Main.getJanitorService().setMessageText(message);
         Main.getJanitorService().sendEmailServiceRequest();
+    }
+
+    @FXML
+    void setCurrentAlgorithm(Event e){
+        String clickedID = ((MenuItem)e.getSource()).getId();
+
+        switch(clickedID){
+            case "depthFirst":
+                this.currentAlgorithm = new DepthFirst();
+                break;
+            case "breadthFirst":
+                this.currentAlgorithm = new BreadthFirst();
+                break;
+            case "dijkstras":
+                this.currentAlgorithm = new Dijkstras();
+                break;
+            case "aStar":
+                this.currentAlgorithm = new astar();
+                break;
+            default:
+                this.currentAlgorithm = new astar();
+                break;
+        }
     }
 
     @FXML

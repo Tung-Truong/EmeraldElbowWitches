@@ -5,7 +5,7 @@ import sun.awt.image.ImageWatched;
 import java.util.*;
 import java.util.function.IntToDoubleFunction;
 
-public class Dijkstras {
+public class Dijkstras extends PathingAlgorithm{
     private ArrayList<NodeObj> GenPath;
 
 
@@ -73,6 +73,7 @@ public class Dijkstras {
 
     //getter
     public ArrayList<NodeObj> getGenPath() {
+        System.out.println("DIJKSTRAS");
         return GenPath;
     }
 }
