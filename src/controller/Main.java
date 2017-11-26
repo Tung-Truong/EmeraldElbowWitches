@@ -32,6 +32,8 @@ public class Main extends Application{
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the messages
     public static JanitorService janitorService;
+    // contains all the employees
+    public static ArrayList<Employee> employees;
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -55,6 +57,7 @@ public class Main extends Application{
         try {
             ReadCSV.runNode("src/model/docs/Nodes.csv");
             ReadCSV.runEdge("src/model/docs/Edges.csv");
+            ReadCSV.runEmployee("src/model/docs/Employees.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (SQLException e){
@@ -84,9 +87,12 @@ public class Main extends Application{
         ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
         listOfEdges = QueryDB.getEdges();
 
+        // assigns and saves employees from the database
+        employees = QueryDB.getEmployees();
+
         // create edge objects
         //for every edge in the database
-        //create the corrisponding edge object and place it into the corrisponding node
+        //create the corresponding edge object and place it into the corrisponding node
         //automatically set the weight for the node by the distance in pixels between noes
         for(Edge edge:listOfEdges){
             EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
@@ -161,6 +167,7 @@ public class Main extends Application{
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
+            WriteEmployees.runEmployees();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -204,7 +211,7 @@ public class Main extends Application{
     public static JanitorService getJanitorService() {
         return janitorService;
     }
-    //this runs the survice request
+    //this runs the service request
     public static void setJanitorService(JanitorService janitorService) {
         Main.janitorService = janitorService;
     }
