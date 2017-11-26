@@ -15,7 +15,7 @@ public class WriteEmployees {
     public static void runEmployees() throws SQLException, IOException {
         try {
             String query = "SELECT DISTINCT * FROM EMPLOYEETABLE";
-            String filename = "src/model/docs/dummy.csv";
+            String filename = "src/model/docs/Employees.csv";
             File file = new File(filename);
             FileWriter fw = new FileWriter(file);
             ArrayList<String> noRepeat = new ArrayList();
