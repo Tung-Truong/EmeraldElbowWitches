@@ -8,10 +8,10 @@ public class Employee {
     private String lastName;
     private String department;
     private String language;
-    private boolean available;
+    private String available;
 
     // Constructor
-    public Employee(String email, String firstName, String lastName, String department, String language, boolean available){
+    public Employee(String email, String firstName, String lastName, String department, String language, String available){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,7 +41,7 @@ public class Employee {
         return language;
     }
 
-    public boolean getAvailability() {
+    public String getAvailability() {
         return available;
     }
 
@@ -66,7 +66,7 @@ public class Employee {
         this.language = language;
     }
 
-    public void setAvailability(boolean available){
+    public void setAvailability(String available){
         this.available = available;
     }
 }
