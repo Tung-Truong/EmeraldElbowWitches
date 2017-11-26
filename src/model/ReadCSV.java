@@ -48,7 +48,7 @@ public class ReadCSV {
         File mapEEmployeeCSV = new File(mapEEmployees);
         readFile(mapEEmployeeCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
     }
-    
+
     /*
     * readFile takes a generic file to read, number of expected columns, and the destination table, and reads all data from the file into the database
      */
