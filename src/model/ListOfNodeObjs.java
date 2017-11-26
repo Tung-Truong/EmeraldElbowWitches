@@ -16,8 +16,6 @@ public class ListOfNodeObjs {
     }
 
     // ---------------------Getters----------------------------
-
-
     public ArrayList<NodeObj> getNodes() {
         return this.nodes;
     }
@@ -26,48 +24,48 @@ public class ListOfNodeObjs {
         return nodeA.getDistance(nodeB);
     }
 
-    public NodeObj getNearestNeighborFilter(int xLoc, int yLoc)throws InvalidNodeException{
+    public NodeObj getNearestNeighborFilter(int xLoc, int yLoc) throws InvalidNodeException {
         double minDist = Double.MAX_VALUE;
         NodeObj closestNode = null;
-        for (NodeObj n: nodes){
-            if((n.getDistance(xLoc, yLoc)<minDist) && (n.getNode().getFloor().equals(this.currentFloor))){
+        for (NodeObj n : nodes) {
+            if ((n.getDistance(xLoc, yLoc) < minDist) && (n.getNode().getFloor().equals(this.currentFloor))) {
                 closestNode = n;
                 minDist = n.getDistance(xLoc, yLoc);
             }
         }
-        if(closestNode == null)
+        if (closestNode == null)
             throw new InvalidNodeException("no corresponding edge");
         return closestNode;
     }
 
 
-    public NodeObj getNearestNeighbor(int xLoc, int yLoc)throws InvalidNodeException{
+    public NodeObj getNearestNeighbor(int xLoc, int yLoc) throws InvalidNodeException {
         double minDist = Double.MAX_VALUE;
         NodeObj closestNode = null;
-        for (NodeObj n: nodes){
-            if((n.getDistance(xLoc, yLoc)<minDist)){
+        for (NodeObj n : nodes) {
+            if ((n.getDistance(xLoc, yLoc) < minDist)) {
                 closestNode = n;
                 minDist = n.getDistance(xLoc, yLoc);
             }
         }
-        if(closestNode == null)
+        if (closestNode == null)
             throw new InvalidNodeException("no corresponding edge");
         return closestNode;
     }
 
-    public ArrayList<NodeObj> getFilteredNodes(){
+    public ArrayList<NodeObj> getFilteredNodes() {
         ArrayList<NodeObj> filteredNodes = new ArrayList<NodeObj>();
-        for (NodeObj n : this.nodes){
-            if(n.getNode().getFloor().equals(this.currentFloor)){
+        for (NodeObj n : this.nodes) {
+            if (n.getNode().getFloor().equals(this.currentFloor)) {
                 filteredNodes.add(n);
             }
         }
         return filteredNodes;
     }
 
-    public NodeObj getNodeObjByID(String nodeID){
-        for(NodeObj n : this.nodes){
-            if(n.node.getNodeID().equals(nodeID)){
+    public NodeObj getNodeObjByID(String nodeID) {
+        for (NodeObj n : this.nodes) {
+            if (n.node.getNodeID().equals(nodeID)) {
                 return n;
             }
         }
@@ -85,34 +83,34 @@ public class ListOfNodeObjs {
 
     // ---------------------General Functionality--------------
 
-    public boolean pair(EdgeObj newEdge){
+    public boolean pair(EdgeObj newEdge) {
         int flag = 0;
-        for(NodeObj n: this.nodes){
-            if(n.node.getNodeID().equals(newEdge.nodeAStr)){
+        for (NodeObj n : this.nodes) {
+            if (n.node.getNodeID().equals(newEdge.nodeAStr)) {
                 n.addEdge(newEdge);
                 newEdge.setNodeA(n);
                 flag++;
-            }else if(n.node.getNodeID().equals(newEdge.nodeBStr)){
+            } else if (n.node.getNodeID().equals(newEdge.nodeBStr)) {
                 n.addEdge(newEdge);
                 newEdge.setNodeB(n);
                 flag++;
             }
         }
-        if(flag<2){
+        if (flag < 2) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     //removeNode takes in a node to add, and a list of node objs to modify, if the node is in the list remove it. If the node is not there, do nothing
-    public void removeNode(NodeObj nodeToDelete){
+    public void removeNode(NodeObj nodeToDelete) {
         NodeObj actualDeleteNode = null;
         ArrayList<EdgeObj> actualDeleteEdges = null;
-        for (NodeObj nodes: this.nodes) {
-            if(nodes.getNode().getNodeID().equals(nodeToDelete.getNode().getNodeID())){
+        for (NodeObj nodes : this.nodes) {
+            if (nodes.getNode().getNodeID().equals(nodeToDelete.getNode().getNodeID())) {
                 System.out.println("NUM NEIGHBORS: " + nodes.getListOfEdgeObjs().size());
-                for (int i = nodes.getListOfEdgeObjs().size()-1; i >= 0; i--){
+                for (int i = nodes.getListOfEdgeObjs().size() - 1; i >= 0; i--) {
                     EdgeObj e = nodes.getListOfEdgeObjs().get(i);
                     try {
                         deleteEdge(nodes.getNode().getNodeID(), e.getOtherNodeObj(nodes).node.getNodeID());
@@ -135,21 +133,21 @@ public class ListOfNodeObjs {
     //addNode takes in a node to add, and a list of node objs to modify, if the node is already present, do nothing
     public void addEditNode(NodeObj nodeToAdd) throws SQLException {
         boolean alreadyExists = false;
-        for(NodeObj node : this.nodes){
-            if(node.getNode().getNodeID().equals(nodeToAdd.getNode().getNodeID())){
+        for (NodeObj node : this.nodes) {
+            if (node.getNode().getNodeID().equals(nodeToAdd.getNode().getNodeID())) {
                 alreadyExists = true;
                 node.setNode(nodeToAdd.getNode());
             }
         }
-        if(!alreadyExists) {
+        if (!alreadyExists) {
             this.nodes.add(nodeToAdd);
         }
     }
 
-    public void deleteEdge(String nodeAID, String nodeBID){
+    public void deleteEdge(String nodeAID, String nodeBID) {
         NodeObj nodeObjA = getNodeObjByID(nodeAID);
         NodeObj nodeObjB = getNodeObjByID(nodeBID);
-        if(nodeObjA!=null && nodeObjB!=null) {
+        if (nodeObjA != null && nodeObjB != null) {
             EdgeObj thisEdgeToDelete = nodeObjA.getEdgeObj(nodeObjB);
             nodeObjA.getListOfEdgeObjs().remove(thisEdgeToDelete);
             nodeObjB.getListOfEdgeObjs().remove(thisEdgeToDelete);
@@ -164,19 +162,19 @@ public class ListOfNodeObjs {
         }
     }
 
-    public EdgeObj addEditEdge(String nodeAID, String nodeBID, int eWeight){
+    public EdgeObj addEditEdge(String nodeAID, String nodeBID, int eWeight) {
         boolean flagEdgeFoundA = false;
         boolean flagEdgeFoundB = false;
         NodeObj nodeA = null;
         NodeObj nodeB = null;
         EdgeObj edgeAB = null;
-        for(NodeObj n: Main.getNodeMap().getNodes()){
-            if(n.node.getNodeID().equals(nodeAID)) {
+        for (NodeObj n : Main.getNodeMap().getNodes()) {
+            if (n.node.getNodeID().equals(nodeAID)) {
                 nodeA = n;
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeBID)) {
-                            if(eWeight < 0)
+                            if (eWeight < 0)
                                 e.setWeight(eWeight);
                             else
                                 e.setWeight(e.genWeightFromDistance());
@@ -187,13 +185,12 @@ public class ListOfNodeObjs {
                         e1.printStackTrace();
                     }
                 }
-            }
-            else if (n.node.getNodeID().equals(nodeBID)) {
+            } else if (n.node.getNodeID().equals(nodeBID)) {
                 nodeB = n;
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeAID)) {
-                            if(eWeight < 0)
+                            if (eWeight < 0)
                                 e.setWeight(eWeight);
                             else
                                 e.setWeight(e.genWeightFromDistance());
@@ -206,20 +203,17 @@ public class ListOfNodeObjs {
                 }
             }
         }
-        if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight!=0) {
+        if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight != 0) {
             edgeAB = new EdgeObj(nodeA, nodeB, eWeight);
             nodeA.addEdge(edgeAB);
             nodeB.addEdge(edgeAB);
-        }
-        else if(!flagEdgeFoundA && !flagEdgeFoundB && eWeight==0) {
+        } else if (!flagEdgeFoundA && !flagEdgeFoundB && eWeight == 0) {
             edgeAB = new EdgeObj(nodeA, nodeB);
             nodeA.addEdge(edgeAB);
             nodeB.addEdge(edgeAB);
-        }
-        else if(!flagEdgeFoundA){
+        } else if (!flagEdgeFoundA) {
             nodeA.addEdge(edgeAB);
-        }
-        else if(!flagEdgeFoundB){
+        } else if (!flagEdgeFoundB) {
             nodeB.addEdge(edgeAB);
         }
 
@@ -229,6 +223,4 @@ public class ListOfNodeObjs {
     }
 
 //Will need to deal with each edge
-
-
 }

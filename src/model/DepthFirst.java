@@ -3,12 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.Stack;
 
-
-public class DepthFirst extends PathingAlgorithm{
+public class DepthFirst extends PathingAlgorithm {
     private ArrayList<NodeObj> GenPath;
 
     //depth first search using a stack that takes in a start node and goal node. It goes until it runs out of nodes to explore, or the popped node is the goal
-    public boolean pathfind(NodeObj start,NodeObj goal) {
+    public boolean pathfind(NodeObj start, NodeObj goal) {
         ArrayList<NodeObj> explored = new ArrayList<NodeObj>();
         Stack<NodeObj> stack = new Stack<NodeObj>();
         stack.add(start);

@@ -4,7 +4,7 @@ public class CafeteriaService extends ServiceRequest {
 
     // Attributes
     private String[] menu = {"Cake", "French Fries", "Soup",
-                            "Water", "Club Sandwich"};
+            "Water", "Club Sandwich"};
     private String[] emails;
 
     // Constructor
@@ -22,10 +22,11 @@ public class CafeteriaService extends ServiceRequest {
     }
 
     // Setters
-    public void setMenu(String[] items){
+    public void setMenu(String[] items) {
         this.menu = items;
     }
-    public void setEmails(String[] emails){
+
+    public void setEmails(String[] emails) {
         this.emails = emails;
     }
 }

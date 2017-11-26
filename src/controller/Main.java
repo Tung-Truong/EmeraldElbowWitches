@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Main extends Application{
+public class Main extends Application {
 
     //get height of application
     public static int sceneWidth = 1750;
@@ -23,7 +23,7 @@ public class Main extends Application{
     public static Scene Service;
     public static Stage currStage;
     public static Parent parentRoot;
-    public static NodeObj kiosk;
+    public static NodeObj kiosk;        // default location of the starting point for pathfinding
     //contains all the node objects from the entity
     public static ListOfNodeObjs nodeMap;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
@@ -44,7 +44,7 @@ public class Main extends Application{
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-        if(resultSet.next() && resultSet.getInt(1) < 1){
+        if (resultSet.next() && resultSet.getInt(1) < 1) {
             try {
                 CreateDB.run();
             } catch (ClassNotFoundException e) {
@@ -79,9 +79,9 @@ public class Main extends Application{
             ReadCSV.runEdge("src/model/docs/MapWedges.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         //from this csv,generate all of the nodes that will be on the map
@@ -94,7 +94,7 @@ public class Main extends Application{
 
         // create a list of all the node objects for a map
         ArrayList<NodeObj> loNodeObj = new ArrayList<NodeObj>();
-        for (Node n:listOfNodes) {
+        for (Node n : listOfNodes) {
             loNodeObj.add(new NodeObj(n));
         }
 
@@ -110,26 +110,24 @@ public class Main extends Application{
         //for every edge in the database
         //create the corrisponding edge object and place it into the corrisponding node
         //automatically set the weight for the node by the distance in pixels between noes
-        for(Edge edge:listOfEdges){
+        for (Edge edge : listOfEdges) {
             EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
-            if(nodeMap.pair(newObj)){
-                if(((newObj.getNodeA().getNode().getTeam().equals("Team W"))
+            if (nodeMap.pair(newObj)) {
+                if (((newObj.getNodeA().getNode().getTeam().equals("Team W"))
                         && (newObj.getNodeA().getNode().getNodeType().equals("ELEV"))) &&
-                ((newObj.getNodeB().getNode().getTeam().equals("Team W"))
-                        && (newObj.getNodeB().getNode().getNodeType().equals("ELEV")))){
+                        ((newObj.getNodeB().getNode().getTeam().equals("Team W"))
+                                && (newObj.getNodeB().getNode().getNodeType().equals("ELEV")))) {
                     newObj.setWeight(50000);
-                }
-                else
+                } else
                     newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
 
 
-
         //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
-        }catch(InvalidNodeException e){
+        } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
 
@@ -150,7 +148,7 @@ public class Main extends Application{
         //recursively delete everything
         if (dir.isDirectory()) {
             String[] children = dir.list();
-            for (int i=0; i<children.length; i++) {
+            for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));
                 if (!success) {
                     return false;
@@ -164,15 +162,15 @@ public class Main extends Application{
     //running the fxml file to open the UI
     //and handing control to the controller
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
         Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
-        currScene=Start;
+        currScene = Start;
 
         Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
-        this.currScene=Start;
+        this.currScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
     }
@@ -182,8 +180,8 @@ public class Main extends Application{
     //recreate the csv files, allowing for persistence
     @Override
     public void stop() throws SQLException {
-        for(NodeObj n : nodeMap.getNodes()){
-            for(EdgeObj e : n.getListOfEdgeObjs()){
+        for (NodeObj n : nodeMap.getNodes()) {
+            for (EdgeObj e : n.getListOfEdgeObjs()) {
                 AddDB.addEdge(e.objToEntity());
             }
             AddDB.addNode(n.getNode());
@@ -197,7 +195,7 @@ public class Main extends Application{
 
     }
 
-//this allows for access from main by the controller
+    //this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
     public static NodeObj getKiosk() {
         return kiosk;
@@ -230,6 +228,7 @@ public class Main extends Application{
     public static JanitorService getJanitorService() {
         return janitorService;
     }
+
     //this runs the survice request
     public static void setJanitorService(JanitorService janitorService) {
         Main.janitorService = janitorService;

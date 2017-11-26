@@ -26,7 +26,7 @@ public class Node {
     }
 
     //getters
-    public Node(String nodeID){
+    public Node(String nodeID) {
         this.nodeID = nodeID;
     }
 
@@ -71,6 +71,7 @@ public class Node {
         this.xLoc = x;
         this.yLoc = y;
     }
+
     public void setFloor(String floor) {
         this.floor = floor;
     }
@@ -100,10 +101,10 @@ public class Node {
     }
 
     // function that takes in a floor, and a list of nodes, and returns of list of nodes that are on that floor
-    public ArrayList<Node> floorFilter(String floor, ArrayList<Node> nodeArrayList){
+    public ArrayList<Node> floorFilter(String floor, ArrayList<Node> nodeArrayList) {
         ArrayList<Node> sameFloorList = new ArrayList<Node>();
-        for (Node node:nodeArrayList) {
-            if (node.getFloor() == floor){
+        for (Node node : nodeArrayList) {
+            if (node.getFloor() == floor) {
                 sameFloorList.add(node);
             }
         }
@@ -111,16 +112,13 @@ public class Node {
     }
 
     // function that takes in a building and list of nodes and returns of list of nodes in that building.
-    public ArrayList<Node> buildFilter(String building, ArrayList<Node> nodeArrayList){
+    public ArrayList<Node> buildFilter(String building, ArrayList<Node> nodeArrayList) {
         ArrayList<Node> sameBuildingList = new ArrayList<Node>();
-        for (Node node:nodeArrayList){
-            if(node.getBuilding() == building){
+        for (Node node : nodeArrayList) {
+            if (node.getBuilding() == building) {
                 sameBuildingList.add(node);
             }
         }
         return sameBuildingList;
     }
-
-
-
 }

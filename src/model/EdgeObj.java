@@ -29,7 +29,7 @@ public class EdgeObj {
         this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
-    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID){    // takes just the strings of the nodes' IDs and the edge ID
+    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID) {    // takes just the strings of the nodes' IDs and the edge ID
         this.nodeAStr = nodeAStr;
         this.nodeBStr = nodeBStr;
         this.edgeID = edgeID;
@@ -46,13 +46,13 @@ public class EdgeObj {
     }
 
     //return the weight of the current edge
-    public double getWeight(){
+    public double getWeight() {
         System.out.println("EDGE ID: " + this.edgeID);
         return weight;
     }
 
     //set the weight of the edge to a specific value
-    public void setWeight(double edgeWeight){
+    public void setWeight(double edgeWeight) {
         weight = edgeWeight;
     }
 
@@ -63,11 +63,11 @@ public class EdgeObj {
         int bx = nodeB.node.getxLoc();
         int by = nodeB.node.getyLoc();
 
-        return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+        return Math.abs(Math.sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
     }
 
     // convert the EdgeEntity to the EdgeObject
-    public Edge objToEntity(){
+    public Edge objToEntity() {
         return new Edge(this.nodeAStr, this.nodeBStr, this.edgeID);
     }
 

@@ -15,7 +15,7 @@ public class ServiceRequest {
     protected String messageHeader;
     protected String location;
 
-    public ServiceRequest(){
+    public ServiceRequest() {
         properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -31,26 +31,28 @@ public class ServiceRequest {
         });
     }
 
-    public void setAccountFrom(String username, String password){
+    public void setAccountFrom(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public void setAccountTo(String email){
+    public void setAccountTo(String email) {
         this.email = email;
     }
 
-    public void setMessageText(String message){
+    public void setMessageText(String message) {
         this.messageText = message;
     }
 
-    public void setMessageHeader(String header){
+    public void setMessageHeader(String header) {
         this.messageHeader = header;
     }
 
-    public void setLocation(String location) { this.location = location;}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-    public boolean sendEmailServiceRequest(){
+    public boolean sendEmailServiceRequest() {
 
         try {
             MimeMessage mime = new MimeMessage(session);
@@ -63,8 +65,7 @@ public class ServiceRequest {
             Transport.send(mime);
 
             return true;
-        }
-        catch (MessagingException mex){
+        } catch (MessagingException mex) {
             mex.printStackTrace();
             return false;
         }

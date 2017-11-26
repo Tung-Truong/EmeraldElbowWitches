@@ -9,7 +9,7 @@ public class InterpreterService extends ServiceRequest {
     private String[] emails;
 
     // Constructors
-    public InterpreterService(){
+    public InterpreterService() {
         // TODO: get emails from database
     }
 
@@ -23,24 +23,24 @@ public class InterpreterService extends ServiceRequest {
     }
 
     // Setters
-    public void setLanguages(ArrayList<String> languages){
+    public void setLanguages(ArrayList<String> languages) {
         this.languages = languages;
     }
 
-    public void setEmails(String[] emails){
+    public void setEmails(String[] emails) {
         this.emails = emails;
     }
 
     // Methods
-    public void updateEmails(){
+    public void updateEmails() {
         // TODO: get emails from database if edited in database
     }
 
-    public void addLanguage(String add){
+    public void addLanguage(String add) {
         this.languages.add(add);
     }
 
-    public void removeLanguage(String remove){
+    public void removeLanguage(String remove) {
         this.languages.remove(remove);
     }
 }
