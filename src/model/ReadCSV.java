@@ -11,8 +11,10 @@ public class ReadCSV {
 
     final static int NUMROWSNODE = 9;
     final static int NUMROWSEDGE = 3;
+    final static int NUMROWSEMPLOYEE = 6;
     final static String EDGETABLE = "edgeTable";
     final static String NODETABLE = "nodeTable";
+    final static String EMPLOYEETABLE = "employeeTable";
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
@@ -28,7 +30,7 @@ public class ReadCSV {
     }
 
     /*
-    *runEdge reades a csv file containing a list of nodes from the given path into our table of Edge in the the database
+    *runEdge reads a csv file containing a list of nodes from the given path into our table of Edge in the the database
      */
     public static void runEdge(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Class.forName(DRIVER);
@@ -37,6 +39,16 @@ public class ReadCSV {
         readFile(mapEEdgesCSV, NUMROWSEDGE, EDGETABLE);
     }
 
+    /*
+    *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
+     */
+    public static void runEmployee(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Class.forName(DRIVER);
+        String mapEEmployees = path; //ex: "src/model/docs/MapEEdges.csv"
+        File mapEEmployeeCSV = new File(mapEEmployees);
+        readFile(mapEEmployeeCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
+    }
+    
     /*
     * readFile takes a generic file to read, number of expected columns, and the destination table, and reads all data from the file into the database
      */
