@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
@@ -23,7 +32,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UI_v1">
    <children>
       <SplitPane prefHeight="359.0" prefWidth="287.0">
         <items>
@@ -261,7 +270,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </JFXButton>
-                                          <MenuButton layoutX="196.0" layoutY="313.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Pathfinding Method">
+                                          <MenuButton fx:id="PFM" layoutX="196.0" layoutY="313.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Pathfinding Method">
                                              <items>
                                                 <MenuItem fx:id="depthFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Depth-First" />
                                                 <MenuItem fx:id="breadthFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Breadth-First" />
@@ -309,7 +318,7 @@
                         <MenuItem fx:id="Map3" mnemonicParsing="false" onAction="#GetMap" text="Floor 3" />
                      </items>
                   </MenuButton>
-                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="308.0" layoutY="-14.0" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="+" textFill="WHITE">
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="308.0" layoutY="-14.0" onAction="#Zin" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="+" textFill="WHITE">
                      <font>
                         <Font name="Avenir Next Bold" size="35.0" />
                      </font>
@@ -317,7 +326,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton id="zoomout" buttonType="RAISED" layoutX="525.0" layoutY="-14.0" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="-" textFill="WHITE">
+                  <JFXButton id="zoomout" buttonType="RAISED" layoutX="525.0" layoutY="-14.0" onAction="#Zout" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="-" textFill="WHITE">
                      <font>
                         <Font name="Avenir Next Bold" size="35.0" />
                      </font>
@@ -330,6 +339,38 @@
                         <Font name="Avenir Next Bold" size="23.0" />
                      </font>
                   </Label>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="657.0" layoutY="-15.0" onAction="#Tleft" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&lt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="750.0" layoutY="-14.0" onAction="#Tright" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&gt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="886.0" layoutY="-14.0" onAction="#Tup" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" rotate="90.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&lt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="979.0" layoutY="-15.0" onAction="#Tdown" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" rotate="90.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&gt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </AnchorPane>
            </items>

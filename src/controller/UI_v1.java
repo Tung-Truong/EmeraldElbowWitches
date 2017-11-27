@@ -12,8 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
-import sun.plugin.javascript.navig4.Layer;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,6 +24,12 @@ public class UI_v1 {
     private CurrentStatus currentState = CurrentStatus.PATIENT;
 
     private GraphicsContext gc1 = null;
+
+    private int XTrans = 0;
+
+    private int YTrans = 0;
+
+    private double Zoom = 1;
 
     private int counterForEdges = 0;
 
@@ -40,6 +44,9 @@ public class UI_v1 {
 
     @FXML
     private TextField startNodeID;
+
+    @FXML
+    private MenuButton PFM;
 
     @FXML
     private Button setStartNodeConfirm;
@@ -61,9 +68,6 @@ public class UI_v1 {
 
     @FXML
     private TextArea MessageTextBox;
-
-    @FXML
-    private Layer lineLayer;
 
     @FXML
     private SplitPane AddLine;
@@ -383,14 +387,48 @@ public class UI_v1 {
                 e.printStackTrace();
             }
         }
-
         DrawCurrentFloorPath();
     }
 
+    public void highlightFloors(){
+        Map1.setStyle("-fx-background-color: transparent;");
+        Map2.setStyle("-fx-background-color: transparent;");
+        Map3.setStyle("-fx-background-color: transparent;");
+        MapL1.setStyle("-fx-background-color: transparent;");
+        MapL2.setStyle("-fx-background-color: transparent;");
+        MapG.setStyle("-fx-background-color: transparent;");
+    }
+
+    public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
+        switch(Nfloor){
+            case "1":
+                return Map1;
+
+            case "2":
+                return Map2;
+
+            case "3":
+                return Map3;
+
+            case "L1":
+                return MapL1;
+
+            case "L2":
+                return MapL2;
+
+            case "G":
+                return MapG;
+
+            default:
+                throw new InvalidNodeException("Node does not have a correct floor ID");
+        }
+
+    }
 
     public void DrawCurrentFloorPath(){
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
+        ArrayList<String> Floors = new ArrayList<String>();
         for(NodeObj n: currPath) {
             if (n != goal) {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
@@ -400,10 +438,40 @@ public class UI_v1 {
                             tempDraw.node.getxLoc() * mapWidth / 5000,
                             tempDraw.node.getyLoc() * mapHeight / 3400);
                 }
+                if(!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
+                    Floors.add(n.node.getFloor());
             }
             System.out.println(n.node.getFloor());
             System.out.println(tempDraw.node.getFloor());
             tempDraw = n;
+        }
+
+        if(goal.node.getFloor().equals(Main.getNodeMap().currentFloor)){
+            gc1.setFill(Color.DARKRED);
+            gc1.fillOval(goal.node.getxLoc()*mapWidth/5000 - 5,
+                    goal.node.getyLoc()*mapHeight/3400 - 5,
+                    10,
+                    10);
+        }
+        if(Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)){
+            gc1.setFill(Color.DARKGREEN);
+            gc1.fillOval(Main.getKiosk().node.getxLoc()*mapWidth/5000 - 5,
+                    Main.getKiosk().node.getyLoc()*mapHeight/3400 - 5,
+                    10,
+                    10);
+        }
+        gc1.setFill(Color.YELLOW);
+
+        highlightFloors();
+        try {
+            for(String s:Floors) {
+                System.out.println(s);
+                GetMapDropdownFromFloor(s).setStyle("-fx-background-color: lemonchiffon;");
+            }
+            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setStyle("-fx-background-color: lightgreen;");
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+            System.out.println("fail");
         }
     }
 
@@ -528,6 +596,7 @@ public class UI_v1 {
                 this.currentAlgorithm = new astar();
                 break;
         }
+        PFM.setText(clickedID);
     }
 
     @FXML
@@ -575,6 +644,7 @@ public class UI_v1 {
         if(((currentState == CurrentStatus.PATIENT) ||  (currentState == CurrentStatus.SERVICEREQUEST) ||  (currentState == CurrentStatus.SETSTARTNODE) || (currentState == CurrentStatus.SETENDNODE)) && (currPath!=null)){
             DrawCurrentFloorPath();
         }
+
     }
 
     /*
@@ -651,6 +721,63 @@ public class UI_v1 {
         }
         currentState = CurrentStatus.PATIENT;
         System.out.println("Did you get here");
+    }
+
+
+    @FXML
+    void Zin() {
+        Zoom+=.5;
+        resize();
+    }
+
+    @FXML
+    void Zout() {
+        if(Zoom>1) {
+            Zoom -= .5;
+            resize();
+        }
+
+    }
+
+    @FXML
+    void Tleft() {
+        XTrans+=(int) (200.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tright() {
+        XTrans-=(int) (200.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tup() {
+        YTrans+=(int) (160.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tdown() {
+        YTrans-=(int) (160.0/Zoom);
+        resize();
+    }
+
+    public void resize(){
+        if(Zoom<=1){
+            XTrans = 0;
+            YTrans = 0;
+        }
+        gc.setScaleX(Zoom);
+        gc.setScaleY(Zoom);
+        gc.setTranslateX(XTrans);
+        gc.setTranslateY(YTrans);
+        currentMap.setScaleX(Zoom);
+        currentMap.setScaleY(Zoom);
+        currentMap.setTranslateX(XTrans);
+        currentMap.setTranslateY(YTrans);
+        mapWidth = currentMap.getFitWidth();
+        mapHeight = currentMap.getFitHeight();
     }
 
 }
