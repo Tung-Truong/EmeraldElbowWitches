@@ -74,6 +74,7 @@ EHALL00801,2460,910,1,45 Francis,HALL,Hallway Node 6 Floor 1,HallE06,Team E
 EHALL01601,2910,910,1,45 Francis,HALL,Hallway Node 14 Floor 1,HallE14,Team E
 EHALL00401,2275,910,1,45 Francis,HALL,Hallway Node 2 Floor 1,HallE02,Team E
 EHALL00802,1695,2090,2,Shapiro,HALL,Hallway Node 8 Floor 2,HallwayE08,Team E
+NodeId,4681,93,Floor,1,1,LongName,ShortName,Team
 EHALL01501,2675,910,1,45 Francis,HALL,Hallway Node 13 Floor 1,HallE13,Team E
 EHALL03501,2760,1460,1,45 Francis,HALL,Hallway Node 33 Floor 1,HallE33,Team E
 EHALL03301,2605,1380,1,45 Francis,HALL,Hallway Node 31 Floor 1,HallE31,Team E

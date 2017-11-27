@@ -389,16 +389,18 @@ public class UI_v1 {
 
             NodeObj tempDraw = goal;
 
-        for(NodeObj n: path)
-            if(n != goal){
-                gc1.strokeLine(n.node.getxLoc()*mapWidth/5000,
-                        n.node.getyLoc()*mapHeight/3400,
-                        tempDraw.node.getxLoc()*mapWidth/5000,
-                        tempDraw.node.getyLoc()*mapHeight/3400);
+        for(NodeObj n: path) {
+            if (n != goal) {
+                gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
+                        n.node.getyLoc() * mapHeight / 3400,
+                        tempDraw.node.getxLoc() * mapWidth / 5000,
+                        tempDraw.node.getyLoc() * mapHeight / 3400);
                 gc1.setLineWidth(5);
                 tempDraw = n;
             }
+        }
     }
+
 
     /*
     * THESE METHODS SET THE CURRENT STATE OF THE APPLICATION
