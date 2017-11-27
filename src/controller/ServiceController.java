@@ -1,15 +1,15 @@
 package controller;
 
-import model.CafeteriaService;
-import model.InterpreterService;
-import model.JanitorService;
-import model.ServiceRequest;
+import javafx.collections.ObservableArray;
+import model.*;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import controller.Main;
+
+import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
@@ -83,7 +83,7 @@ public class ServiceController {
     }
 
     @FXML
-    void MateninceItem() {
+    void MaintenanceItem() {
         RequestServiceDropdown.setText("Maintenance");
     }
 
@@ -95,6 +95,10 @@ public class ServiceController {
 
     @FXML
     void EmployeeNames(){
+        for(Employee e: Main.employees){
+            EmployeeDropdown.getItems().add(new MenuItem(e.getFirstName()));
+            EmployeeDropdown.setText(e.getFirstName());
+        }
         // TODO: get employee names from database and display them
     }
 

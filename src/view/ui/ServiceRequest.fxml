@@ -32,7 +32,7 @@
       </Label>
       <MenuButton fx:id="RequestServiceDropdown" layoutX="512.0" layoutY="271.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="343.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Service" textFill="WHITE">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#MateninceItem" text="Maintenance" />
+            <MenuItem mnemonicParsing="false" onAction="#MaintenanceItem" text="Maintenance" />
             <MenuItem mnemonicParsing="false" onAction="#InterpreterItem" text="Interpreter" />
          </items>
          <font>
@@ -79,7 +79,7 @@
       <Pane layoutX="2.0" layoutY="803.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="1750.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;" />
       <MenuButton fx:id="EmployeeDropdown" layoutX="513.0" layoutY="619.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="690.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Employee Assigned" textFill="WHITE">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#DrDembskiItem" text="Dr. Dembski" />
+            <MenuItem mnemonicParsing="false" onAction="#EmployeeNames" text="Dr. Dembski" />
             <MenuItem fx:id="AdmGrant" mnemonicParsing="false" onAction="#AdmGrantItem" text="Adm. Grant" />
          </items>
          <font>

@@ -1,12 +1,14 @@
 package model;
 
+import controller.Main;
+
 import java.util.ArrayList;
 
 public class CafeteriaService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
-    private ArrayList<String> emails;
+    private ArrayList<String> emails = new ArrayList<String>();
 
     // Constructor
     public CafeteriaService() {
@@ -15,7 +17,10 @@ public class CafeteriaService extends ServiceRequest {
         menu.add("Tea");
         menu.add("Pie");
 
-        // TODO: get emails from database and set them here
+        for(Employee e: Main.employees){
+            emails.add(e.getEmail());
+        }
+        
     }
 
     // Getters
@@ -33,10 +38,6 @@ public class CafeteriaService extends ServiceRequest {
     }
 
     // Methods
-    public void updateEmails(ArrayList<String> emails){
-        // TODO: get emails from database
-    }
-
     public void addMenuItem(String food){
         menu.add(food);
     }

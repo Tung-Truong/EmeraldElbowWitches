@@ -74,7 +74,8 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getString(colInd);
             }
             if(tempVals[0] != null){
-                employeeList.add(new Employee(tempVals[1], tempVals[2], tempVals[3],tempVals[4], tempVals[5], tempVals[6]));
+                employeeList.add(new Employee(tempVals[0], tempVals[1], tempVals[2],tempVals[3], tempVals[4], tempVals[5]));
+
             }
         }
         for(Employee employee:employeeList){
