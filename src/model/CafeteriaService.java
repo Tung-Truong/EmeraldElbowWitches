@@ -20,7 +20,7 @@ public class CafeteriaService extends ServiceRequest {
         for(Employee e: Main.employees){
             emails.add(e.getEmail());
         }
-        
+
     }
 
     // Getters
