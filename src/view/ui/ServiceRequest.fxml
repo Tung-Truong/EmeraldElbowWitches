@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
@@ -20,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
       <Label alignment="CENTER" layoutX="381.0" layoutY="55.0" prefHeight="138.0" prefWidth="947.0" text="SERVICE REQUEST" textFill="WHITE">
          <font>
@@ -76,11 +69,24 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></JFXTextField>
-      <Pane layoutX="2.0" layoutY="803.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="1750.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;" />
+      <Pane layoutX="2.0" layoutY="803.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="1750.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;">
+         <children>
+            <JFXButton id="backbutton" buttonType="RAISED" layoutX="622.0" layoutY="32.0" onAction="#SubmitRequest" prefHeight="133.0" prefWidth="506.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
+               <font>
+                  <Font name="Avenir Next Bold" size="63.0" />
+               </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+         </children></Pane>
       <MenuButton fx:id="EmployeeDropdown" layoutX="513.0" layoutY="619.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="690.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Employee Assigned" textFill="WHITE">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#DrDembskiItem" text="Dr. Dembski" />
-            <MenuItem fx:id="AdmGrant" mnemonicParsing="false" onAction="#AdmGrantItem" text="Adm. Grant" />
+            <MenuItem fx:id="DrDembskiI" mnemonicParsing="false" onAction="#DrDembskiItem" text="Gordon Freeman" />
+            <MenuItem fx:id="AdmGrant" mnemonicParsing="false" onAction="#AdmGrantItem" visible="false" />
          </items>
          <font>
             <Font name="Avenir Book" size="29.0" />
@@ -93,17 +99,6 @@
          <font>
             <Font name="Avenir Next Bold" size="63.0" />
          </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <JFXButton id="backbutton" buttonType="RAISED" layoutX="614.0" layoutY="824.0" onAction="#SubmitRequest" prefHeight="133.0" prefWidth="506.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Bold" size="63.0" />
-         </font>
-         <effect>
-            <Glow level="1.0" />
-         </effect>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

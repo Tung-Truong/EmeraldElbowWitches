@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Menu;
 import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import model.*;
 import com.jfoenix.controls.JFXTextField;
@@ -26,6 +27,9 @@ public class ServiceController {
 
     @FXML
     private JFXTextField NotesTextField;
+
+    @FXML
+    private MenuItem DrDembskiI;
 
     @FXML
     private MenuItem AdmGrant;
@@ -82,44 +86,53 @@ public class ServiceController {
         System.out.println("Message sent succesfully");
     }
 
+    //these two items handle changing the employyee names available
     @FXML
     void MateninceItem() {
-        RequestServiceDropdown.setText("Maintenance");
-    }
+        ArrayList<MenuItem> items = new ArrayList<>();
+        items.add(AdmGrant);
+        items.add(DrDembskiI);
+        for (MenuItem item:items) {
+            item.setText(null);
+            item.setVisible(false);
+        }
+        int i = 0;
+        for (Employee e : Main.getEmployee()) {
+            if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
+                items.get(i).setText(e.getFirstName() + e.getLastName());
+                EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                items.get(i).setVisible(true);
+                i++;
+            }
+        }
+    RequestServiceDropdown.setText("Maintenance");
+}
 
     @FXML
     void InterpreterItem() {
-
+        ArrayList<MenuItem> items = new ArrayList<>();
+        items.add(AdmGrant);
+        items.add(DrDembskiI);
+        for (MenuItem item:items) {
+            item.setText(null);
+            item.setVisible(false);
+        }int i = 0;
+        for (Employee e : Main.getEmployee()) {
+            if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
+                items.get(i).setText(e.getFirstName() + e.getLastName());
+                EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                i++;
+                items.get(i).setVisible(true);
+            }
+        }
         RequestServiceDropdown.setText("Interpreter");
+
     }
 
+    //next iteration change how the changing menu items work
     @FXML
     void EmployeeNames() {
-        if (serviceNeeded.equals("Interpreter")) {
-            for (Employee e : Main.getEmployee()) {
-                if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
-                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
-                }
-
-            }
-
-        } else if (serviceNeeded.equals("Janitor")) {
-            for (Employee e : Main.getEmployee()) {
-                if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
-                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
-                }
-
-            }
-        } else if (serviceNeeded.equals("Cafetoria")) {
-            for (Employee e : Main.getEmployee()) {
-                if (e.getDepartment().equals("cafetoria") && e.getAvailability().equals("T")) {
-                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
-                }
-
-            }
-        }   else {
-            EmployeeDropdown.setText("Select a Service");
-        }
+        //to do
     }
 
     @FXML
@@ -151,12 +164,11 @@ public class ServiceController {
 
     @FXML
     void DrDembskiItem() {
-        EmployeeDropdown.setText("Dr. Dembski");
     }
 
     @FXML
     void AdmGrantItem() {
-        EmployeeDropdown.setText("Admin Grant");
-
     }
+
+
 }

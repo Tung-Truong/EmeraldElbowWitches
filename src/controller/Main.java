@@ -102,7 +102,7 @@ public class Main extends Application{
         //creates and saves the list of employees
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
-
+        employees = listOfEmployees;
         //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
