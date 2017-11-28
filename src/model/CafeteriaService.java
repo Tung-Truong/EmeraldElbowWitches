@@ -9,6 +9,9 @@ public class CafeteriaService extends ServiceRequest {
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
     private ArrayList<String> emails = new ArrayList<String>();
+    private int soldItems = 0;
+
+    // TODO: have each menu item have an associated number of items sold and who delivered them
 
     // Constructor
     public CafeteriaService() {
@@ -32,6 +35,10 @@ public class CafeteriaService extends ServiceRequest {
         return this.emails;
     }
 
+    public int getSoldItems() {
+        return soldItems;
+    }
+
     // Setters
     public void setMenu(ArrayList<String> items){
         this.menu = items;
@@ -44,5 +51,14 @@ public class CafeteriaService extends ServiceRequest {
 
     public void removeMenuItem(String food){
         menu.remove(food);
+    }
+
+    public void sellItem(){
+        soldItems++;
+    }
+
+    public void generateReport(){
+        System.out.println("From Cafeteria: ");
+        System.out.println("    Items Ordered: " + soldItems);
     }
 }
