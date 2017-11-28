@@ -17,9 +17,10 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
-    public static Scene currScene;
+    public static int sceneWidth = 1000;
+    public static int sceneHeight = 700;
+    public static Scene patientScene;
+    public static Scene adminScene;
     public static Scene Service;
     public static Stage currStage;
     public static Parent parentRoot;
@@ -29,6 +30,8 @@ public class Main extends Application {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the messages
     public static JanitorService janitorService;
+    public static ControllerListener controllers;
+
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -148,38 +151,38 @@ public class Main extends Application {
         javafx.application.Application.launch(args);
     }
 
-
-    //taken from https://stackoverflow.com/questions/12835285/create-directory-if-exists-delete-directory-and-its-content-and-create-new-one
-    public static boolean deleteDir(File dir) {
-        //clear the database for every time the system is run
-        //recursively delete everything
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        return dir.delete();
-    }
-
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        this.controllers = new ControllerListener();
+
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
-        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
-        currScene = Start;
+
+        FXMLLoader patientContLoad = new FXMLLoader(getClass().getResource("../view/ui/Patient.fxml"));
+        Scene Start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
+        PatientController patCont = patientContLoad.getController();
+        patientScene = Start;
+
+        this.controllers.addObserver(patCont);
+
+        FXMLLoader adminContLoad = new FXMLLoader(getClass().getResource("../view/ui/Admin.fxml"));
+        adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
+        AdminController adminCont = adminContLoad.getController();
+
+        this.controllers.addObserver(adminCont);
 
         Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
-        this.currScene = Start;
+        this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
+    }
+
+    public static Scene getAdminScene() {
+        return adminScene;
     }
 
     //do a graceful exit: when the close button is clicked at the top of the map
@@ -212,8 +215,8 @@ public class Main extends Application {
         return nodeMap;
     }
 
-    public static Scene getCurrScene() {
-        return currScene;
+    public static Scene getPatientScene() {
+        return patientScene;
     }
 
     public static Stage getCurrStage() {
@@ -234,6 +237,10 @@ public class Main extends Application {
 
     public static JanitorService getJanitorService() {
         return janitorService;
+    }
+
+    public static ControllerListener getControllers() {
+        return controllers;
     }
 
     //this runs the survice request
