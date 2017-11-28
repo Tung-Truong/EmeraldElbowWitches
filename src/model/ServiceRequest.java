@@ -5,7 +5,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-abstract class ServiceRequest implements IReport {
+public abstract class ServiceRequest implements IReport {
 
     // Attributes
     private Properties properties;
