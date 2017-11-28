@@ -204,6 +204,10 @@ public class Main extends Application{
         return Service;
     }
 
+    public static ArrayList<Employee> getEmployees(){
+        return employees;
+    }
+
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
     }
