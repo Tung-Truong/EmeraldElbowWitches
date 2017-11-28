@@ -55,9 +55,9 @@ public class Main extends Application{
         //for each of our csv files, read them in and fill their data to one of two tables
         //the node table,edge table, or employee table
         try {
-            ReadCSV.runNode("EmeraldElbowWitches/src/model/docs/Nodes.csv");
-            ReadCSV.runEdge("EmeraldElbowWitches/src/model/docs/Edges.csv");
-            ReadCSV.runEmployee("EmeraldElbowWitches/src/model/docs/Employees.csv");
+            ReadCSV.runNode("src/model/docs/Nodes.csv");
+            ReadCSV.runEdge("src/model/docs/Edges.csv");
+            ReadCSV.runEmployee("src/model/docs/Employees.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (SQLException e){
