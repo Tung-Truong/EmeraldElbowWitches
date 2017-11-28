@@ -1,7 +1,7 @@
 package model;
 
 public class PathingContainer {
-    public PathingAlgorithm pathAlg;
+    public static PathingAlgorithm pathAlg;
 
     public PathingContainer(){}
 

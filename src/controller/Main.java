@@ -17,9 +17,10 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
-    public static Scene currScene;
+    public static int sceneWidth = 1000;
+    public static int sceneHeight = 700;
+    public static Scene patientScene;
+    public static Scene adminScene;
     public static Scene Service;
     public static Stage currStage;
     public static Parent parentRoot;
@@ -173,13 +174,19 @@ public class Main extends Application {
 
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
-        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/UI_v1.fxml")), sceneWidth, sceneHeight);
-        currScene = Start;
+        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/Patient.fxml")), sceneWidth, sceneHeight);
+        patientScene = Start;
+
+        adminScene = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/Admin.fxml")), sceneWidth, sceneHeight);
 
         Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
-        this.currScene = Start;
+        this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
+    }
+
+    public static Scene getAdminScene() {
+        return adminScene;
     }
 
     //do a graceful exit: when the close button is clicked at the top of the map
@@ -212,8 +219,8 @@ public class Main extends Application {
         return nodeMap;
     }
 
-    public static Scene getCurrScene() {
-        return currScene;
+    public static Scene getPatientScene() {
+        return patientScene;
     }
 
     public static Stage getCurrStage() {

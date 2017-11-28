@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import controller.Main;
 
 public class ServiceController {
     // Attributes
@@ -64,8 +63,8 @@ public class ServiceController {
 
     // FXML Methods
     @FXML
-    void BackToUIV1( ) {
-        Main.getCurrStage().setScene(Main.getCurrScene());
+    void BackToAdmin( ) {
+        Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
     @FXML
