@@ -37,7 +37,7 @@ public class UI_v1 {
 
     NodeObj goal = null;
 
-    private PathingAlgorithm currentAlgorithm;
+    private PathingContainer currentAlgorithm = new PathingContainer();
 
     @FXML
     private Button startNodeSelector;
@@ -208,7 +208,7 @@ public class UI_v1 {
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("Map1");
         currentMap.setImage(m1);
-        currentAlgorithm = new astar();
+        currentAlgorithm.setPathAlg(new astar());
         currentState = CurrentStatus.PATIENT;
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
@@ -376,8 +376,8 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if (currentAlgorithm.pathfind(Kiosk, goal)){
-            path = currentAlgorithm.getGenPath();
+        if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)){
+            path = currentAlgorithm.getPathAlg().getGenPath();
             currPath = path;
         }
         else {
@@ -581,19 +581,16 @@ public class UI_v1 {
 
         switch(clickedID){
             case "depthFirst":
-                this.currentAlgorithm = new DepthFirst();
+                this.currentAlgorithm.setPathAlg(new DepthFirst());
                 break;
             case "breadthFirst":
-                this.currentAlgorithm = new BreadthFirst();
+                this.currentAlgorithm.setPathAlg(new BreadthFirst());
                 break;
             case "dijkstras":
-                this.currentAlgorithm = new Dijkstras();
+                this.currentAlgorithm.setPathAlg(new Dijkstras());
                 break;
             case "aStar":
-                this.currentAlgorithm = new astar();
-                break;
-            default:
-                this.currentAlgorithm = new astar();
+                this.currentAlgorithm.setPathAlg(new astar());
                 break;
         }
         PFM.setText(clickedID);
