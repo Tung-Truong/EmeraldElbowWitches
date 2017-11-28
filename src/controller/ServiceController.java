@@ -1,15 +1,15 @@
 package controller;
 
-import model.CafeteriaService;
-import model.InterpreterService;
-import model.JanitorService;
-import model.ServiceRequest;
+import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
+import model.*;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import controller.Main;
+
+import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
@@ -25,7 +25,7 @@ public class ServiceController {
     private Button removeNodeSelector;
 
     @FXML
-    private JFXTextField NotesTextFeild;
+    private JFXTextField NotesTextField;
 
     @FXML
     private MenuItem AdmGrant;
@@ -40,19 +40,19 @@ public class ServiceController {
     }
 
     // Setters
-    public void setServiceNeeded(String service){
+    public void setServiceNeeded(String service) {
         this.serviceNeeded = service;
     }
 
-    public void setService (){
+    public void setService() {
         String needed = this.RequestServiceDropdown.getText();
 
-        if(needed.toUpperCase() == "INTERPRETER"){
+        if (needed.toUpperCase() == "INTERPRETER") {
             service = new InterpreterService();
             // placeholder
             service.setAccountTo("kgrant@wpi.edu");
             serviceNeeded = "Interpreter";
-        } else if(needed.toUpperCase() == "MAINTENANCE"){
+        } else if (needed.toUpperCase() == "MAINTENANCE") {
             service = new JanitorService();
             serviceNeeded = "Janitor";
         } else {
@@ -65,16 +65,16 @@ public class ServiceController {
 
     // FXML Methods
     @FXML
-    void BackToUIV1( ) {
+    void BackToUIV1() {
         Main.getCurrStage().setScene(Main.getService());
     }
 
     @FXML
-    void SubmitRequest( ) {
+    void SubmitRequest() {
         this.setService();
 
         service.setLocation(LocationDropdown.getText());
-        service.setMessageText(NotesTextFeild.getText());
+        service.setMessageText(NotesTextField.getText());
         service.sendEmailServiceRequest();
 
         // Header field is not being updated so definitely look into this more
@@ -88,50 +88,74 @@ public class ServiceController {
     }
 
     @FXML
-    void InterpreterItem( ) {
+    void InterpreterItem() {
 
         RequestServiceDropdown.setText("Interpreter");
     }
 
     @FXML
-    void EmployeeNames(){
-        // TODO: get employee names from database and display them
+    void EmployeeNames() {
+        if (serviceNeeded.equals("Interpreter")) {
+            for (Employee e : Main.getEmployee()) {
+                if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
+                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                }
+
+            }
+
+        } else if (serviceNeeded.equals("Janitor")) {
+            for (Employee e : Main.getEmployee()) {
+                if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
+                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                }
+
+            }
+        } else if (serviceNeeded.equals("Cafetoria")) {
+            for (Employee e : Main.getEmployee()) {
+                if (e.getDepartment().equals("cafetoria") && e.getAvailability().equals("T")) {
+                    EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                }
+
+            }
+        } else {
+            EmployeeDropdown.setText("Select a Service");
+        }
     }
 
     @FXML
-    void NoodlesItem( ) {
+    void NoodlesItem() {
         FoodDropdown.setText("Noodles");
     }
 
     @FXML
-    void BurgerItem( ) {
+    void BurgerItem() {
         FoodDropdown.setText("Burger");
     }
 
     @FXML
-    void TapiocaItem( ) {
+    void TapiocaItem() {
         FoodDropdown.setText("Tapioca");
     }
 
 
     @FXML
-    void WaitingRoomItem( ) {
+    void WaitingRoomItem() {
         LocationDropdown.setText("WaitingRoom");
     }
 
     @FXML
-    void XrayItem( ) {
+    void XrayItem() {
         LocationDropdown.setText("Xray");
 
     }
 
     @FXML
-    void DrDembskiItem( ) {
+    void DrDembskiItem() {
         EmployeeDropdown.setText("Dr. Dembski");
     }
 
     @FXML
-    void AdmGrantItem( ) {
+    void AdmGrantItem() {
         EmployeeDropdown.setText("Admin Grant");
 
     }
