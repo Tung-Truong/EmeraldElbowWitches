@@ -88,7 +88,7 @@ public class ServiceController {
 
     //these two items handle changing the employyee names available
     @FXML
-    void MateninceItem() {
+    void MaintenanceItem() {
         ArrayList<MenuItem> items = new ArrayList<>();
         items.add(AdmGrant);
         items.add(DrDembskiI);

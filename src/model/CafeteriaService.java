@@ -8,7 +8,6 @@ public class CafeteriaService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
-    private ArrayList<String> emails;
     private ArrayList<String> emails = new ArrayList<String>();
     private int soldItems = 0;
 
