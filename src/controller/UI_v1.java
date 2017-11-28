@@ -391,12 +391,12 @@ public class UI_v1 {
     }
 
     public void highlightFloors(){
-        Map1.setStyle("-fx-background-color: transparent;");
-        Map2.setStyle("-fx-background-color: transparent;");
-        Map3.setStyle("-fx-background-color: transparent;");
-        MapL1.setStyle("-fx-background-color: transparent;");
-        MapL2.setStyle("-fx-background-color: transparent;");
-        MapG.setStyle("-fx-background-color: transparent;");
+        Map1.setText("45 Francis Floor 1 Center");
+        Map2.setText("Shapiro Building Floor 2");
+        Map3.setText("Floor 3");
+        MapL1.setText("Floor L1");
+        MapL2.setText("Floor L2");
+        MapG.setText("Ground Floor");
     }
 
     public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
@@ -466,9 +466,10 @@ public class UI_v1 {
         try {
             for(String s:Floors) {
                 System.out.println(s);
-                GetMapDropdownFromFloor(s).setStyle("-fx-background-color: lemonchiffon;");
+                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
             }
-            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setStyle("-fx-background-color: lightgreen;");
+            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText
+                    (GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
         } catch (InvalidNodeException e) {
             e.printStackTrace();
             System.out.println("fail");
