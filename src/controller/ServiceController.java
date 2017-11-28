@@ -48,20 +48,7 @@ public class ServiceController {
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
 
-        if (needed.toUpperCase() == "INTERPRETER") {
-            service = new InterpreterService();
-            // placeholder
-            service.setAccountTo("kgrant@wpi.edu");
-            serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase() == "MAINTENANCE") {
-            service = new JanitorService();
-            serviceNeeded = "Janitor";
-        } else {
-            service = new CafeteriaService();
-            // placeholder
-            service.setAccountTo("kgrant@wpi.edu");
-            serviceNeeded = "Food";
-        }
+        service = ServiceContext.selectService(needed);
     }
 
     // FXML Methods
