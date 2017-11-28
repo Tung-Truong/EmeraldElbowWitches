@@ -1,6 +1,5 @@
 package controller;
 
-
 import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import model.*;
 import com.jfoenix.controls.JFXTextField;
@@ -49,6 +48,7 @@ public class ServiceController {
         String needed = this.RequestServiceDropdown.getText();
 
         service = ServiceContext.selectService(needed);
+
     }
 
     // FXML Methods

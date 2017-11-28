@@ -30,6 +30,8 @@ public class Main extends Application{
     //contains all the node objects from the entity
     public static ListOfNodeObjs nodeMap;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    //contains all the employee
+    public static ArrayList<Employee> employees;
     //contains all the messages
     public static JanitorService janitorService;
     // contains all the employees
@@ -53,11 +55,17 @@ public class Main extends Application{
             e.printStackTrace();
         }
         //for each of our csv files, read them in and fill their data to one of two tables
-        //the node table or the edge table
+        //the node table,edge table, or employee table
         try {
+<<<<<<< HEAD
             ReadCSV.runNode("src/model/docs/Nodes.csv");
             ReadCSV.runEdge("src/model/docs/Edges.csv");
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
+=======
+            ReadCSV.runNode("EmeraldElbowWitches/src/model/docs/Nodes.csv");
+            ReadCSV.runEdge("EmeraldElbowWitches/src/model/docs/Edges.csv");
+            ReadCSV.runEmployee("EmeraldElbowWitches/src/model/docs/Employees.csv");
+>>>>>>> 647d39ea27e0bde0ebec587a7de4a16bb1b19300
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }catch (SQLException e){
@@ -65,6 +73,7 @@ public class Main extends Application{
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+
         //from this csv,generate all of the nodes that will be on the map
         String tablename = "nodeTable";
         statement.executeQuery("SELECT * FROM " + tablename);
@@ -100,6 +109,10 @@ public class Main extends Application{
                 newObj.setWeight(newObj.genWeightFromDistance());
             }
         }
+
+        //creates and saves the list of employees
+        ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
+        listOfEmployees = QueryDB.getEmployees();
 
         //get the kiosk for the assigned floor
         try {
@@ -178,7 +191,7 @@ public class Main extends Application{
 
     }
 
-//this allows for access from main by the controller
+    //this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
     public static NodeObj getKiosk() {
         return kiosk;
@@ -198,6 +211,9 @@ public class Main extends Application{
 
     public static Parent getParentRoot() {
         return parentRoot;
+    }
+    public static ArrayList<Employee> getEmployee(){
+        return employees;
     }
 
     public static Scene getService() {
