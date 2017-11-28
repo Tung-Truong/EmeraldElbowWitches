@@ -9,3 +9,7 @@
 !/src/model/docs
 !/src/model/docs/*
 !/test/*
+
+#edited map csv files should be ignored
+/src/model/docs/Nodes.csv
+/src/model/docs/Edges.csv

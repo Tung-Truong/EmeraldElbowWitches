@@ -44,7 +44,7 @@ public class Main extends Application {
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-        if (resultSet.next() && resultSet.getInt(1) < 1) {
+        if (resultSet.next() && resultSet.getInt(1) < 1) {//if DB not yet created
             try {
                 CreateDB.run();
             } catch (ClassNotFoundException e) {
@@ -56,27 +56,34 @@ public class Main extends Application {
         //for each of our csv files, read them in and fill their data to one of two tables
         //the node table or the edge table
         try {
-            ReadCSV.runNode("src/model/docs/MapAnodes.csv");
-            ReadCSV.runNode("src/model/docs/MapBnodes.csv");
-            ReadCSV.runNode("src/model/docs/MapCnodes.csv");
-            ReadCSV.runNode("src/model/docs/MapDnodes.csv");
-            ReadCSV.runNode("src/model/docs/MapENodes.csv");
-            ReadCSV.runNode("src/model/docs/MapFNodes.csv");
-            ReadCSV.runNode("src/model/docs/MapGNodes.csv");
-            ReadCSV.runNode("src/model/docs/MapHnodes.csv");
-            ReadCSV.runNode("src/model/docs/MapInodes.csv");
-            ReadCSV.runNode("src/model/docs/MapWnodes.csv");
+            File nodeCSVTest = new File("src/model/docs/Nodes.csv");
+            File edgeCSVTest = new File("src/model/docs/Edges.csv");
+            if(nodeCSVTest.exists() && edgeCSVTest.exists()){           //if map has been edited, load edited files
+                ReadCSV.runNode("src/model/docs/Nodes.csv");
+                ReadCSV.runEdge("src/model/docs/Edges.csv");
+            }else {
+                ReadCSV.runNode("src/model/docs/MapAnodes.csv");
+                ReadCSV.runNode("src/model/docs/MapBnodes.csv");
+                ReadCSV.runNode("src/model/docs/MapCnodes.csv");
+                ReadCSV.runNode("src/model/docs/MapDnodes.csv");
+                ReadCSV.runNode("src/model/docs/MapENodes.csv");
+                ReadCSV.runNode("src/model/docs/MapFNodes.csv");
+                ReadCSV.runNode("src/model/docs/MapGNodes.csv");
+                ReadCSV.runNode("src/model/docs/MapHnodes.csv");
+                ReadCSV.runNode("src/model/docs/MapInodes.csv");
+                ReadCSV.runNode("src/model/docs/MapWnodes.csv");
 
-            ReadCSV.runEdge("src/model/docs/MapAedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapBedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapCedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapDedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapEEdges.csv");
-            ReadCSV.runEdge("src/model/docs/MapFEdges.csv");
-            ReadCSV.runEdge("src/model/docs/MapGEdges.csv");
-            ReadCSV.runEdge("src/model/docs/MapHedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapIedges.csv");
-            ReadCSV.runEdge("src/model/docs/MapWedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapAedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapBedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapCedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapDedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapEEdges.csv");
+                ReadCSV.runEdge("src/model/docs/MapFEdges.csv");
+                ReadCSV.runEdge("src/model/docs/MapGEdges.csv");
+                ReadCSV.runEdge("src/model/docs/MapHedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapIedges.csv");
+                ReadCSV.runEdge("src/model/docs/MapWedges.csv");
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
