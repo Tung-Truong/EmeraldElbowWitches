@@ -1,13 +1,11 @@
 package controller;
 
-import javafx.scene.control.Menu;
+import com.sun.org.apache.regexp.internal.RE;
+import javafx.scene.control.*;
 import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import model.*;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import controller.Main;
 
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class ServiceController {
     // private ArrayList<Employee> employees;
 
     @FXML
-    private MenuButton EmployeeDropdown, FoodDropdown,
+    private MenuButton FoodDropdown,
             LocationDropdown, RequestServiceDropdown;
 
     @FXML
@@ -29,10 +27,8 @@ public class ServiceController {
     private JFXTextField NotesTextField;
 
     @FXML
-    private MenuItem DrDembskiI;
+    private ComboBox<String> employees;
 
-    @FXML
-    private MenuItem AdmGrant;
 
     // Getters
     public String getServiceNeeded() {
@@ -51,12 +47,12 @@ public class ServiceController {
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
 
-        if (needed.toUpperCase() == "INTERPRETER") {
+        if (needed.toUpperCase().equals("INTERPRETER")) {
             service = new InterpreterService();
             // placeholder
             service.setAccountTo("kgrant@wpi.edu");
             serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase() == "MAINTENANCE") {
+        } else if (needed.toUpperCase().equals("MAINTENANCE")) {
             service = new JanitorService();
             serviceNeeded = "Janitor";
         } else {
@@ -89,75 +85,40 @@ public class ServiceController {
     //these three items handle changing the employyee names available
     @FXML
     void MaintenanceItem() {
-        ArrayList<MenuItem> items = new ArrayList<>();
-        items.add(AdmGrant);
-        items.add(DrDembskiI);
-        for (MenuItem item : items) {
-            item.setText(null);
-            item.setVisible(false);
-        }
-        int i = 0;
+        employees.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
-                items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText("Employee Assigned");
-                items.get(i).setVisible(true);
-                i++;
+                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
-        employeeAvailabile(items);
+        employeeAvailabile();
         RequestServiceDropdown.setText("Maintenance");
     }
+
     @FXML
     void CafeteriaItem() {
-        ArrayList<MenuItem> items = new ArrayList<>();
-        items.add(AdmGrant);
-        items.add(DrDembskiI);
-        for (MenuItem item:items) {
-            item.setText(null);
-            item.setVisible(false);
-        }
-        int i = 0;
+        employees.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
-                items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText("Employee Assigned");
-                items.get(i).setVisible(true);
-                i++;
+                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
-        employeeAvailabile(items);
+        employeeAvailabile();
         RequestServiceDropdown.setText("Cafeteria");
     }
 
     @FXML
     void InterpreterItem() {
-        ArrayList<MenuItem> items = new ArrayList<>();
-        items.add(AdmGrant);
-        items.add(DrDembskiI);
-        for (MenuItem item : items) {
-            item.setText(null);
-            item.setVisible(false);
-        }
-        int i = 0;
+        employees.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
-                items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText("Employee Assigned");
-                items.get(i).setVisible(true);
-                i++;
+                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
             }
         }
-        employeeAvailabile(items);
+        employeeAvailabile();
         RequestServiceDropdown.setText("Interpreter");
-
     }
 
-    //next iteration change how the changing menu items work
-    @FXML
-    void EmployeeNames() {
-        //to do
-    }
 
     @FXML
     void NoodlesItem() {
@@ -186,31 +147,11 @@ public class ServiceController {
 
     }
 
-    @FXML
-    void DrDembskiItem() {
-        EmployeeDropdown.setText(DrDembskiI.getText());
-    }
-
-    @FXML
-    void AdmGrantItem() {
-        EmployeeDropdown.setText(AdmGrant.getText());
-    }
-
 
     //function that just sets the menu items to display no employee available if there is none.
-    void employeeAvailabile(ArrayList<MenuItem> items){
-        //simple flag to make sure there is at least one employee available to do things
-        boolean employeeAvailable = false;
-        for (MenuItem item:items){
-            //if any of the items in the menuitems are visible then set the flag to true
-            if(item.isVisible() == true){
-                employeeAvailable = true;
-            }
-        }
-        if(employeeAvailable == false){
-            EmployeeDropdown.setText("No Employee Available");
-            items.get(0).setVisible(true);
-            items.get(0).setText("No Employee Available");
+    private void employeeAvailabile() {
+        if (employees.getItems().size() == 0) {
+            employees.getItems().add("No Employees Currently Available");
         }
     }
 
