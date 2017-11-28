@@ -117,7 +117,7 @@ public class ServiceController {
                 }
 
             }
-        } else {
+        }   else {
             EmployeeDropdown.setText("Select a Service");
         }
     }
