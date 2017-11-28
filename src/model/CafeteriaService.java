@@ -1,5 +1,7 @@
 package model;
 
+import controller.Main;
+
 import java.util.ArrayList;
 
 public class CafeteriaService extends ServiceRequest {
@@ -7,6 +9,10 @@ public class CafeteriaService extends ServiceRequest {
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
     private ArrayList<String> emails;
+    private ArrayList<String> emails = new ArrayList<String>();
+    private int soldItems = 0;
+
+    // TODO: have each menu item have an associated number of items sold and who delivered them
 
     // Constructor
     public CafeteriaService() {
@@ -15,7 +21,10 @@ public class CafeteriaService extends ServiceRequest {
         menu.add("Tea");
         menu.add("Pie");
 
-        // TODO: get emails from database and set them here
+        for(Employee e: Main.employees){
+            emails.add(e.getEmail());
+        }
+
     }
 
     // Getters
@@ -27,21 +36,30 @@ public class CafeteriaService extends ServiceRequest {
         return this.emails;
     }
 
+    public int getSoldItems() {
+        return soldItems;
+    }
+
     // Setters
     public void setMenu(ArrayList<String> items){
         this.menu = items;
     }
 
     // Methods
-    public void updateEmails(ArrayList<String> emails){
-        // TODO: get emails from database
-    }
-
     public void addMenuItem(String food){
         menu.add(food);
     }
 
     public void removeMenuItem(String food){
         menu.remove(food);
+    }
+
+    public void sellItem(){
+        soldItems++;
+    }
+
+    public void generateReport(){
+        System.out.println("From Cafeteria: ");
+        System.out.println("    Items Ordered: " + soldItems);
     }
 }

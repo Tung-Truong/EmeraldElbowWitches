@@ -7,10 +7,13 @@ public class InterpreterService extends ServiceRequest {
     // Attributes
     private ArrayList<String> languages;
     private ArrayList<String> emails;
+    private int interpretersUsed = 0;
+    // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
     public InterpreterService(){
         // TODO: get emails from database
+        interpretersUsed ++;
     }
 
     // Getters
@@ -42,5 +45,9 @@ public class InterpreterService extends ServiceRequest {
 
     public void removeLanguage(String remove){
         this.languages.remove(remove);
+    }
+
+    public void generateReport(){
+        System.out.println("Interpreter's Used: " + interpretersUsed);
     }
 }

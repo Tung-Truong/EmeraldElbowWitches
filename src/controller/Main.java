@@ -88,9 +88,13 @@ public class Main extends Application{
         ArrayList<Edge> listOfEdges = new ArrayList<Edge>();
         listOfEdges = QueryDB.getEdges();
 
+        // assigns and saves employees from the database
+        employees = QueryDB.getEmployees();
+
         // create edge objects
         //for every edge in the database
         //create the corrisponding edge object and place it into the corrisponding node
+        //create the corresponding edge object and place it into the corrisponding node
         //automatically set the weight for the node by the distance in pixels between noes
         for(Edge edge:listOfEdges){
             EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
@@ -169,6 +173,7 @@ public class Main extends Application{
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
+            WriteEmployees.runEmployees();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -208,6 +213,10 @@ public class Main extends Application{
         return Service;
     }
 
+    public static ArrayList<Employee> getEmployees(){
+        return employees;
+    }
+
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
     }
@@ -216,6 +225,7 @@ public class Main extends Application{
         return janitorService;
     }
     //this runs the survice request
+    //this runs the service request
     public static void setJanitorService(JanitorService janitorService) {
         Main.janitorService = janitorService;
     }

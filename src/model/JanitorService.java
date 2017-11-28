@@ -32,4 +32,8 @@ public class JanitorService extends ServiceRequest{
         this.janitorEmail = mail;
     }
 
+    @Override
+    public void generateReport() {
+        System.out.println("Supplies Used: " + suppliesNeeded);
+    }
 }
