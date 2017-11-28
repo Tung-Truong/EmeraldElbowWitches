@@ -100,7 +100,7 @@ public class ServiceController {
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
                 items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                EmployeeDropdown.setText("Employee Assigned");
                 items.get(i).setVisible(true);
                 i++;
             }
@@ -121,7 +121,7 @@ public class ServiceController {
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
                 items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
+                EmployeeDropdown.setText("Employee Assigned");
                 items.get(i).setVisible(true);
                 i++;
             }
@@ -143,9 +143,9 @@ public class ServiceController {
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
                 items.get(i).setText(e.getFirstName() + e.getLastName());
-                EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
-                i++;
+                EmployeeDropdown.setText("Employee Assigned");
                 items.get(i).setVisible(true);
+                i++;
             }
         }
         employeeAvailabile(items);
