@@ -14,7 +14,6 @@ public class ServiceController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
-    // private ArrayList<Employee> employees;
 
     @FXML
     private MenuButton FoodDropdown,
@@ -28,6 +27,7 @@ public class ServiceController {
 
     @FXML
     private ComboBox<String> employees;
+
 
 
     // Getters
@@ -46,19 +46,29 @@ public class ServiceController {
 
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
-
+        String[] requestedEmployee = employees.getValue().split(" ");
+        String email = "";
+        for (Employee e: Main.getEmployee()) {
+            if(e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])){
+                email = e.getEmail();
+            }
+            else{
+                //TO DO throw an exception because employee was never set
+            }
+        }
         if (needed.toUpperCase().equals("INTERPRETER")) {
             service = new InterpreterService();
             // placeholder
-            service.setAccountTo("kgrant@wpi.edu");
+            service.setAccountTo(email);
             serviceNeeded = "Interpreter";
         } else if (needed.toUpperCase().equals("MAINTENANCE")) {
             service = new JanitorService();
+            service.setAccountTo(email);
             serviceNeeded = "Janitor";
         } else {
             service = new CafeteriaService();
             // placeholder
-            service.setAccountTo("kgrant@wpi.edu");
+            service.setAccountTo(email);
             serviceNeeded = "Food";
         }
     }
@@ -74,7 +84,7 @@ public class ServiceController {
         this.setService();
 
         service.setLocation(LocationDropdown.getText());
-        service.setMessageText(NotesTextField.getText());
+        //service.setMessageText(NotesTextField.getText());
         service.sendEmailServiceRequest();
 
         // Header field is not being updated so definitely look into this more
@@ -91,6 +101,7 @@ public class ServiceController {
                 employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
+        employees.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Maintenance");
     }
@@ -115,6 +126,7 @@ public class ServiceController {
                 employees.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
             }
         }
+        employees.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Interpreter");
     }
@@ -151,7 +163,11 @@ public class ServiceController {
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailabile() {
         if (employees.getItems().size() == 0) {
-            employees.getItems().add("No Employees Currently Available");
+            employees.setPromptText("No Employees Currently Available");
+            employees.setDisable(true);
+        }
+        else{
+            employees.setDisable(false);
         }
     }
 
