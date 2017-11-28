@@ -179,19 +179,22 @@ public class PatientController extends Controller{
         //set the path to null
         ArrayList<NodeObj> path = null;
 
-        //try a*
-        if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)){
-            path = currentAlgorithm.getPathAlg().getGenPath();
-            currPath = path;
-        }
-        else {
-            try {
-                throw new InvalidNodeException("this is not accessable with the current map");
-            } catch (InvalidNodeException e) {
-                e.printStackTrace();
+        if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+            //try a*
+            if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+                path = currentAlgorithm.getPathAlg().getGenPath();
+                currPath = path;
+            } else {
+                try {
+                    throw new InvalidNodeException("this is not accessable with the current map");
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
             }
+            DrawCurrentFloorPath();
+        }else {
+            
         }
-        DrawCurrentFloorPath();
     }
 
     public void highlightFloors(){
