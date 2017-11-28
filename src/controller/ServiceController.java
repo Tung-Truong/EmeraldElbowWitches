@@ -82,9 +82,17 @@ public class ServiceController {
     @FXML
     void SubmitRequest() {
         this.setService();
+        String location = LocationDropdown.getText();
 
+        if (service instanceof JanitorService){
+            service.setMessageHeader("Supplies needed at: " + location);
+        } else if (service instanceof InterpreterService){
+            service.setMessageHeader("Interpreter needed at: " + location);
+        } else {
+            service.setMessageHeader("Food needed in: " + location);
+        }
         service.setLocation(LocationDropdown.getText());
-        //service.setMessageText(NotesTextField.getText());
+        service.setMessageText(NotesTextField.getText());
         service.sendEmailServiceRequest();
 
         // Header field is not being updated so definitely look into this more

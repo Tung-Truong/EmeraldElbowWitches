@@ -67,7 +67,7 @@
             <Font name="Avenir Next Bold" size="29.0" />
          </font>
       </Button>
-      <JFXTextField fx:id="NotesTextFeild" layoutX="511.0" layoutY="496.0" prefHeight="95.0" prefWidth="694.0" style="-fx-background-color: WHITE;">
+      <JFXTextField fx:id="NotesTextField" layoutX="511.0" layoutY="496.0" prefHeight="95.0" prefWidth="694.0" style="-fx-background-color: WHITE;">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></JFXTextField>

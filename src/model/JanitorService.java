@@ -11,7 +11,6 @@ public class JanitorService extends ServiceRequest{
     // Constructors
     public JanitorService (){
         this.setAccountTo(janitorEmail);
-        this.setMessageHeader("Supplies Needed at " + this.location);
     }
 
     // Getters
