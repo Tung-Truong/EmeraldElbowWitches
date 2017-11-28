@@ -401,6 +401,11 @@ public class AdminController extends Controller{
     }
 
     @FXML
+    void resetKioskLoc(){
+        setKioskLoc(2460, 910);
+    }
+
+    @FXML
     void mapSelected(Event e){
         Main.getControllers().updateAllMaps(e);
     }
@@ -411,32 +416,26 @@ public class AdminController extends Controller{
 
         switch(clickedID){
             case "MapL2":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor L2");
                 Main.getNodeMap().setCurrentFloor("L2");
                 break;
             case "MapL1":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor L1");
                 Main.getNodeMap().setCurrentFloor("L1");
                 break;
             case "MapG":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Ground Floor");
                 Main.getNodeMap().setCurrentFloor("G");
                 break;
             case "Map1":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor 1");
                 Main.getNodeMap().setCurrentFloor("1");
                 break;
             case "Map2":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor 2");
                 Main.getNodeMap().setCurrentFloor("2");
                 break;
             case "Map3":
-                setKioskLoc(2460, 910);
                 MapDropDown.setText("Floor 3");
                 Main.getNodeMap().setCurrentFloor("3");
                 break;

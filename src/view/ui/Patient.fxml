@@ -170,6 +170,11 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
+                                    <Button layoutX="199.0" layoutY="359.0" mnemonicParsing="false" onAction="#resetKioskLoc" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Reset Kiosk Location" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
                                                </children>
                                            </AnchorPane>
                                        </children>
