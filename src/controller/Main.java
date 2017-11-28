@@ -151,23 +151,6 @@ public class Main extends Application {
         javafx.application.Application.launch(args);
     }
 
-
-    //taken from https://stackoverflow.com/questions/12835285/create-directory-if-exists-delete-directory-and-its-content-and-create-new-one
-    public static boolean deleteDir(File dir) {
-        //clear the database for every time the system is run
-        //recursively delete everything
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        return dir.delete();
-    }
-
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
