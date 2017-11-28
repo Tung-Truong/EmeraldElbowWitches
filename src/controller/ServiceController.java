@@ -188,10 +188,12 @@ public class ServiceController {
 
     @FXML
     void DrDembskiItem() {
+        EmployeeDropdown.setText(DrDembskiI.getText());
     }
 
     @FXML
     void AdmGrantItem() {
+        EmployeeDropdown.setText(AdmGrant.getText());
     }
 
 
@@ -200,6 +202,7 @@ public class ServiceController {
         //simple flag to make sure there is at least one employee available to do things
         boolean employeeAvailable = false;
         for (MenuItem item:items){
+            //if any of the items in the menuitems are visible then set the flag to true
             if(item.isVisible() == true){
                 employeeAvailable = true;
             }
@@ -207,7 +210,7 @@ public class ServiceController {
         if(employeeAvailable == false){
             EmployeeDropdown.setText("No Employee Available");
             items.get(0).setVisible(true);
-            items.get(0).setText("No Employee Avaiable");
+            items.get(0).setText("No Employee Available");
         }
     }
 
