@@ -57,7 +57,7 @@
                                        </image>
                                    </ImageView>
                         <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
-                        <ImageView fx:id="homeScreen" fitHeight="808.0" fitWidth="1217.0" layoutX="14.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="homeScreen" fitHeight="808.0" fitWidth="1217.0" layoutX="14.0" layoutY="71.0" onMouseClicked="#clearHomeScreen" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../media/HomeScreen2.png" />
                            </image>
