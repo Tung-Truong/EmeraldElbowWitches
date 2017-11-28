@@ -30,6 +30,8 @@ public class Main extends Application {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the messages
     public static JanitorService janitorService;
+    public static ControllerListener controllers;
+
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
@@ -172,12 +174,23 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        this.controllers = new ControllerListener();
+
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
-        Scene Start = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/Patient.fxml")), sceneWidth, sceneHeight);
+
+        FXMLLoader patientContLoad = new FXMLLoader(getClass().getResource("../view/ui/Patient.fxml"));
+        Scene Start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
+        PatientController patCont = patientContLoad.getController();
         patientScene = Start;
 
-        adminScene = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/Admin.fxml")), sceneWidth, sceneHeight);
+        this.controllers.addObserver(patCont);
+
+        FXMLLoader adminContLoad = new FXMLLoader(getClass().getResource("../view/ui/Admin.fxml"));
+        adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
+        AdminController adminCont = adminContLoad.getController();
+
+        this.controllers.addObserver(adminCont);
 
         Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
         this.patientScene = Start;
@@ -241,6 +254,10 @@ public class Main extends Application {
 
     public static JanitorService getJanitorService() {
         return janitorService;
+    }
+
+    public static ControllerListener getControllers() {
+        return controllers;
     }
 
     //this runs the survice request

@@ -12,10 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PatientController {
+public class PatientController extends Controller{
 
     private enum CurrentStatus {
         PATIENT, SETSTARTNODE, SETENDNODE
@@ -312,6 +311,11 @@ public class PatientController {
         currentState = CurrentStatus.PATIENT;
 
 
+    }
+
+    @FXML
+    void mapSelected(Event e){
+        Main.getControllers().updateAllMaps(e);
     }
 
     @FXML

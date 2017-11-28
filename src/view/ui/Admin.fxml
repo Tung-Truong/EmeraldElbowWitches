@@ -216,12 +216,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <items>
-                        <MenuItem fx:id="MapL2" mnemonicParsing="false" onAction="#GetMap" text="Floor L2" />
-                        <MenuItem fx:id="MapL1" mnemonicParsing="false" onAction="#GetMap" text="Floor L1" />
-                        <MenuItem fx:id="MapG" mnemonicParsing="false" onAction="#GetMap" text="Ground Floor" />
-                        <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#GetMap" text="45 Francis Floor 1 Center" />
-                        <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#GetMap" text="Shapiro Building Floor 2" />
-                        <MenuItem fx:id="Map3" mnemonicParsing="false" onAction="#GetMap" text="Floor 3" />
+                        <MenuItem fx:id="MapL2" mnemonicParsing="false" onAction="#mapSelected" text="Floor L2" />
+                        <MenuItem fx:id="MapL1" mnemonicParsing="false" onAction="#mapSelected" text="Floor L1" />
+                        <MenuItem fx:id="MapG" mnemonicParsing="false" onAction="#mapSelected" text="Ground Floor" />
+                        <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#mapSelected" text="Floor 1" />
+                        <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#mapSelected" text="Floor 2" />
+                        <MenuItem fx:id="Map3" mnemonicParsing="false" onAction="#mapSelected" text="Floor 3" />
                      </items>
                   </MenuButton>
                   <JFXButton id="zoomin" buttonType="RAISED" layoutX="308.0" layoutY="-14.0" onAction="#Zin" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="+" textFill="WHITE">

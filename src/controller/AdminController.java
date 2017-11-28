@@ -15,7 +15,7 @@ import model.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class AdminController {
+public class AdminController extends Controller{
 
     private enum CurrentStatus {
        ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST,
@@ -130,7 +130,7 @@ public class AdminController {
 
     }
 
-    public static ImageLoader mapImage = new ImageLoader();
+    public ImageLoader mapImage = new ImageLoader();
 
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("Map1");
@@ -398,6 +398,11 @@ public class AdminController {
                 break;
         }
         PFM.setText(clickedID);
+    }
+
+    @FXML
+    void mapSelected(Event e){
+        Main.getControllers().updateAllMaps(e);
     }
 
     @FXML
