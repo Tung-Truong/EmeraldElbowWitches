@@ -98,7 +98,7 @@ public class ServiceController {
     void EmployeeNames() {
         if (serviceNeeded.equals("Interpreter")) {
             for (Employee e : Main.getEmployees()) {
-                if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
+                if (e.getDepartment().toLowerCase().equals("interpreter") && e.getAvailability().toUpperCase().equals("TRUE")) {
                     EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
                 }
 
@@ -106,14 +106,14 @@ public class ServiceController {
 
         } else if (serviceNeeded.equals("Janitor")) {
             for (Employee e : Main.getEmployees()) {
-                if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
+                if (e.getDepartment().toLowerCase().equals("janitor") && e.getAvailability().toUpperCase().equals("TRUE")) {
                     EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
                 }
 
             }
         } else if (serviceNeeded.equals("Cafeteria")) {
             for (Employee e : Main.getEmployees()) {
-                if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
+                if (e.getDepartment().toLowerCase().equals("cafeteria") && e.getAvailability().toUpperCase().equals("TRUE")) {
                     EmployeeDropdown.setText(e.getFirstName() + e.getLastName());
                 }
 
