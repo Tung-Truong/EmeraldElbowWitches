@@ -39,7 +39,7 @@ public class TextDirections {
 
                 // calculate the angle between the vector last->
                 // starts from
-                angle = angleBetweenNodes(path.get(i - 1).getNode(), path.get(i).getNode(), path.get(i + 1).getNode());
+                angle = angleBetweenNodes(lastNode, curNode, nextNode);
 
 //            if (angle < 0) {
 //                angle += 360;
@@ -53,16 +53,34 @@ public class TextDirections {
                     float prevAngle;
 
                     try {
-                        prevAngle = angleBetweenNodes(path.get(i - 2).getNode(), path.get(i - 1).getNode(), path.get(i).getNode());
-                    } catch (IndexOutOfBoundsException) {
+                        prevAngle = angleBetweenNodes(path.get(i - 2).getNode(), lastNode, curNode);
+                    } catch (IndexOutOfBoundsException e) {
                         // catch if the index is at the beginning of the path when i-2 is accessed
                         // in this case, the previous direction was automatically straight
                         prevAngle = 180;
                     }
                     // if the previous instruction was not to go straight and this was the first time down a hall
-                    if( !(prevAngle >= 160 || prevAngle <= -160) && path.get(i - 1).getNode().getNodeType() == "HALL" )
+                    if( !(prevAngle >= 160 || prevAngle <= -160) && lastNode.getNodeType().equals("HALL") )
                         msg += "go straight";
                 }
+
+                // add how much to turn
+                if (Math.abs(angle) < 45)
+                    msg += "Turn sharply ";
+                else if (Math.abs(angle) < 135)
+                    msg += "Turn ";
+                else if (Math.abs(angle) < 160) {
+                    msg += "Turn slightly ";
+                }
+
+                // add which direction to turn
+                if(angle >= 0)
+                    msg += "right";
+                else
+                    msg += "left";
+
+
+                /*
 
                 // if the direction is to the right (produced by the angle being greater than zero)
                 else if (angle >= 0) {
@@ -71,18 +89,22 @@ public class TextDirections {
                     else if (angle < 135)
                         msg += "Turn right";
                     else if (angle < 160) {
-
-
-
-
+                        msg += "Turn slightly right";
                     }
-
-
-
-                } else {
-
-
                 }
+
+                // if the direction is to the left (produced by the angle being less than zero)
+                else {
+                    if (angle < 45)
+                        msg += "Turn sharply right";
+                    else if (angle < 135)
+                        msg += "Turn right";
+                    else if (angle < 160) {
+                        msg += "Turn slightly right";
+                    }
+                }
+
+                */
 
                 /*
                 // turn around
@@ -151,12 +173,12 @@ public class TextDirections {
     Node nextHallwayNode(ArrayList<NodeObj> path, int start) {
         Node node = path.get(start).getNode();
         int index = 1;
-        while(node.getNodeType() != "HALL") {
+        while( !node.getNodeType().equals("HALL") ) {
 
             try {
                 node = path.get(start + index).getNode();
             }
-            catch (IndexOutOfBoundsException) {
+            catch (IndexOutOfBoundsException e) {
                 return path.get(start + index - 1).getNode();
             }
 
