@@ -106,6 +106,7 @@ public class TextDirections {
         int Ay = (y2 - y1);
         int Bx = (x3 - x2);
         int By = (y3 - y2);
+
         int angle = (int)Math.toDegrees(Math.atan2(Ax - Ay, Bx - By));
         System.out.println("THIS IS THE ANGLE: " + angle);
         return angle;

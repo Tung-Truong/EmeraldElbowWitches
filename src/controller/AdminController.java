@@ -331,7 +331,7 @@ public class AdminController extends Controller{
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
-        gc1.setFill(Color.YELLOW);
+        gc1.setFill(Color.BLACK);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             System.out.println("I'm HERE");
@@ -349,11 +349,16 @@ public class AdminController extends Controller{
         }
 
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
-            gc1.setStroke(Color.BLUE);
+            gc1.setFill(Color.BLACK);
             gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
                     n.node.getyLoc()*mapHeight/3400 - 5,
                     10,
                     10);
+            gc1.setFill(Color.LIGHTBLUE);
+            gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 4,
+                    n.node.getyLoc()*mapHeight/3400 - 4,
+                    8,
+                    8);
         }
         gc1.setFill(Color.BLUE);
     }
