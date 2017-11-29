@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class UI_v1 {
 
+    public static TextDirections textDirections = new TextDirections();
+
     private enum CurrentStatus {
         PATIENT, ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST, SETSTARTNODE
     };
@@ -378,8 +380,10 @@ public class UI_v1 {
         ArrayList<NodeObj> path = null;
 
         //try a*
-        if(newpathGen.pathfind(Kiosk,goal,gc1))
+        if(newpathGen.pathfind(Kiosk,goal,gc1)) {
             path = newpathGen.getGenPath();
+            textDirections.getTextDirections(path);
+        }
         else
             try {
                 throw new InvalidNodeException("this is not accessable with the current map");

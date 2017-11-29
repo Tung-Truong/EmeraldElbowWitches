@@ -94,6 +94,7 @@ public class Main extends Application{
         //All Weights Have Been Computed for All Nodes
         //getDistToGoal has been removed and replaced with NodeObj.getDistance(goal)
         javafx.application.Application.launch(args);
+
     }
 
 
