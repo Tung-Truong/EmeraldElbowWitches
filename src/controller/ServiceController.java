@@ -10,12 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
+import javax.xml.stream.Location;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
+    private Employee foundMOd, foundDel;
 
     @FXML
     private MenuButton FoodDropdown,
@@ -28,8 +31,11 @@ public class ServiceController {
     private JFXTextField NotesTextField;
 
     @FXML
-    private ComboBox<String> employees;
+    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne,
+    emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo;
 
+    @FXML
+    private ComboBox<String> AssignEmployee, AddEmployee, DeleteEmployee, ModifyEmployee;
 
 
     // Getters
@@ -48,13 +54,12 @@ public class ServiceController {
 
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
-        String[] requestedEmployee = employees.getValue().split(" ");
+        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
         String email = "";
-        for (Employee e: Main.getEmployee()) {
-            if(e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])){
+        for (Employee e : Main.getEmployee()) {
+            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
                 email = e.getEmail();
-            }
-            else{
+            } else {
                 //TO DO throw an exception because employee was never set
             }
         }
@@ -86,9 +91,9 @@ public class ServiceController {
         this.setService();
         String location = LocationDropdown.getText();
 
-        if (service instanceof JanitorService){
+        if (service instanceof JanitorService) {
             service.setMessageHeader("Supplies needed at: " + location);
-        } else if (service instanceof InterpreterService){
+        } else if (service instanceof InterpreterService) {
             service.setMessageHeader("Interpreter needed at: " + location);
         } else {
             service.setMessageHeader("Food needed in: " + location);
@@ -105,23 +110,23 @@ public class ServiceController {
     //these three items handle changing the employyee names available
     @FXML
     void MaintenanceItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
-        employees.setPromptText("Employees Available");
+        AssignEmployee.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Maintenance");
     }
 
     @FXML
     void CafeteriaItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
         employeeAvailabile();
@@ -130,15 +135,106 @@ public class ServiceController {
 
     @FXML
     void InterpreterItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
             }
         }
-        employees.setPromptText("Employees Available");
+        AssignEmployee.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Interpreter");
+    }
+
+    @FXML
+    void AddEmployee(){
+        String email = emailOne.getText().trim();
+        String first = firstOne.getText().trim();
+        String last = lastOne.getText().trim();
+        String dep = depOne.getText().trim();
+        String lang = langOne.getText().trim();
+        String avail = availOne.getText().trim();
+
+        Employee e = new Employee(email, first, last, dep, lang, avail);
+
+        Main.getEmployees().add(e);
+        ModifyEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
+        DeleteEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
+
+        emailOne.clear();
+        firstOne.clear();
+        lastOne.clear();
+        depOne.clear();
+        langOne.clear();
+        availOne.clear();
+
+    }
+
+    @FXML
+    void AutoFill(){
+        foundMOd = new Employee();
+        String name = ModifyEmployee.getValue().split(":")[0].trim();
+        String email = ModifyEmployee.getValue().split(":")[1].trim();
+
+        for(Employee e: Main.getEmployees()){
+            if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
+                foundMOd = e;
+                break;
+            }
+        }
+
+        emailTwo.setText(foundMOd.getEmail());
+        firstTwo.setText(foundMOd.getFirstName());
+        lastTwo.setText(foundMOd.getLastName());
+        depTwo.setText(foundMOd.getDepartment());
+        langTwo.setText(foundMOd.getLanguage());
+        availTwo.setText(foundMOd.getAvailability());
+
+    }
+
+    @FXML
+    void SelectEmployee(){
+        for (Employee e : Main.getEmployee()) {
+            ModifyEmployee.getItems().addAll(e.getFirstName() + " : " + e.getEmail());
+        }
+        DeleteEmployee.getItems().addAll(ModifyEmployee.getItems());
+    }
+
+    @FXML
+    void ModifyEmployees(){
+        foundMOd.setEmail(emailTwo.getText());
+        foundMOd.setFirstName(firstTwo.getText());
+        foundMOd.setLastName(lastTwo.getText());
+        foundMOd.setDepartment(depTwo.getText());
+        foundMOd.setLanguage(langTwo.getText());
+        foundMOd.setAvailability(availTwo.getText());
+
+        emailTwo.clear();
+        firstTwo.clear();
+        lastTwo.clear();
+        depTwo.clear();
+        langTwo.clear();
+        availTwo.clear();
+    }
+
+    @FXML
+    void removeEmployee() {
+        foundDel = new Employee();
+        String name = DeleteEmployee.getValue().split(":")[0].trim();
+        String email = DeleteEmployee.getValue().split(":")[1].trim();
+
+        for(Employee e: Main.getEmployees()){
+            if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
+                foundDel = e;
+                break;
+            }
+        }
+
+        Main.employees.remove(foundDel);
+
+        ModifyEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
+        DeleteEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
+
     }
 
     @FXML
@@ -159,24 +255,23 @@ public class ServiceController {
 
     @FXML
     void WaitingRoomItem() {
-        LocationDropdown.setText("WaitingRoom");
+        LocationDropdown.setText("Waiting Room");
     }
 
     @FXML
     void XrayItem() {
-        LocationDropdown.setText("Xray");
+        LocationDropdown.setText("X Ray");
 
     }
-
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailabile() {
-        if (employees.getItems().size() == 0) {
-            employees.setPromptText("No Employees Currently Available");
-            employees.setDisable(true);
-        }
-        else{
-            employees.setDisable(false);
+        if (AssignEmployee.getItems().size() == 0) {
+            AssignEmployee.setPromptText("No Employees Currently Available");
+            AssignEmployee.setDisable(true);
+        } else {
+            AssignEmployee.setDisable(false);
         }
     }
+
 }
