@@ -15,14 +15,20 @@ public class TextDirections {
      * <p>
      * add if statement to handle less than 2 nodes
      */
-    public String getTextDirections(ArrayList<NodeObj> path) {
-
-        String msg = "";
+    public String getTextDirections(ArrayList<NodeObj> pat) {
+        ArrayList<NodeObj> path = new ArrayList<NodeObj>();
+        for(NodeObj n: pat)
+            path.add(0,n);
+        ArrayList<String> msg = new ArrayList<String>();
 
         float angle;
         Node lastNode;
         Node curNode;
         Node nextNode;
+
+        if(path.size() == 2){
+            return "go straight";
+        }
 
         for (int i = 1; i < path.size() - 1; i++) {
 
@@ -32,9 +38,9 @@ public class TextDirections {
 
             // if the next node is a staircase
             if(nextNode.getNodeType() == "STAI")
-                msg = msg + "Take the stairs to floor " + nextHallwayNode(path, i).getFloor();
+                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "/n"));
             else if(nextNode.getNodeType() == "ELEV")
-                msg = msg + "Take the elevator to floor " + nextHallwayNode(path, i).getFloor();
+                msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "/n"));
             else {
 
                 // calculate the angle between the vector last->
@@ -61,54 +67,59 @@ public class TextDirections {
                     }
                     // if the previous instruction was not to go straight and this was the first time down a hall
                     if( !(prevAngle >= 160 || prevAngle <= -160) && lastNode.getNodeType().equals("HALL") )
-                        msg += "go straight\n";
+                        msg.add("go straight\n");
                 }
+                else {
+                    String dirAng = "";
+                    // add how much to turn
+                    if (Math.abs(angle) < 45)
+                        dirAng += "Turn sharply ";
+                    else if (Math.abs(angle) < 135)
+                        dirAng += "Turn ";
+                    else if (Math.abs(angle) < 160) {
+                        dirAng += "Turn slightly ";
+                    }
 
-                // add how much to turn
-                if (Math.abs(angle) < 45)
-                    msg += "Turn sharply ";
-                else if (Math.abs(angle) < 135)
-                    msg += "Turn ";
-                else if (Math.abs(angle) < 160) {
-                    msg += "Turn slightly ";
+                    // add which direction to turn
+
+                    if (angle >= 0)
+                        dirAng += "right\n";
+                    else
+                        dirAng += "left\n";
+                    msg.add(dirAng);
                 }
-
-                // add which direction to turn
-                if(angle >= 0)
-                    msg += "right\n";
-                else
-                    msg += "left\n";
             }
 
         }
+        String txtDir = "";
+        for(String s:msg)
+            txtDir = txtDir + s;
 
-        return msg;
+        return txtDir;
     }
 
     int angleBetweenNodes(Node lastNode, Node curNode, Node nextNode) {
 
-        int x1 = lastNode.getxLoc();
-        int y1 = lastNode.getyLoc();
+        int DxCurrLast = curNode.getxLoc() - lastNode.getxLoc();
+        int DyCurrLast = -curNode.getyLoc() + lastNode.getyLoc();
 
-        int x2 = curNode.getxLoc();
-        int y2 = curNode.getyLoc();
+        int DxNextCurr = nextNode.getxLoc() - curNode.getxLoc();
+        int DyNextCurr = -nextNode.getyLoc() + curNode.getyLoc();
 
-        int x3 = nextNode.getxLoc();
-        int y3 = nextNode.getyLoc();
+        double McurrLast = Math.sqrt(DxCurrLast*DxCurrLast+DyCurrLast*DyCurrLast);
+        double MNextCurr =  Math.sqrt(DxNextCurr*DxNextCurr + DyNextCurr*DyNextCurr);
 
-//            int x12 = abs(x2 - x1);
-//            int x23 = abs(x3 - x2);
-//
-//            int y12 = abs(y2 - y1);
-//            int y23 = abs(y3 - y2);
-//
-        int Ax = (x2 - x1);
-        int Ay = (y2 - y1);
-        int Bx = (x3 - x2);
-        int By = (y3 - y2);
-        int angle = (int)Math.toDegrees(Math.atan2(Ax - Ay, Bx - By));
+        double DotVect = DxCurrLast*DxNextCurr + DyCurrLast*DyNextCurr;
+
+        double angle = Math.toDegrees(Math.acos(DotVect/(McurrLast*MNextCurr)));
+
         System.out.println("THIS IS THE ANGLE: " + angle);
-        return angle;
+
+        if((DxCurrLast>0&&DyNextCurr>0)||(DxCurrLast<0&&DyNextCurr<0)||
+                (DxNextCurr>0&&DyCurrLast<0)||(DxNextCurr<0&&DyCurrLast>0))
+            return -180 +(int)angle;
+
+        return 180 - (int)angle;
 
     }
 
