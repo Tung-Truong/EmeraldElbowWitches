@@ -20,6 +20,8 @@ public class PatientController extends Controller{
         PATIENT, SETSTARTNODE, SETENDNODE
     };
 
+    public static TextDirections textDirections = new TextDirections();
+
     private CurrentStatus currentState = CurrentStatus.PATIENT;
 
     private GraphicsContext gc1 = null;
@@ -35,6 +37,9 @@ public class PatientController extends Controller{
     NodeObj goal = null;
 
     private PathingContainer currentAlgorithm = new PathingContainer();
+
+    @FXML
+    private TextArea directionsBox;
 
     @FXML
     private TextField startNodeID;
@@ -182,6 +187,7 @@ public class PatientController extends Controller{
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
                 path = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = path;
+                directionsBox.setText(textDirections.getTextDirections(path));
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -212,6 +218,7 @@ public class PatientController extends Controller{
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
                 path = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = path;
+                directionsBox.setText(textDirections.getTextDirections(path));
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");

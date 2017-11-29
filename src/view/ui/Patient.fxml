@@ -11,6 +11,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
@@ -101,7 +102,7 @@
                                                            <Font name="Avenir Book" size="14.0" />
                                                        </font>
                                                    </Label>
-                                                   <Label alignment="CENTER" layoutX="15.0" layoutY="79.0" prefHeight="26.0" prefWidth="158.0" text="2. Click destination." textFill="WHITE">
+                                                   <Label alignment="CENTER" layoutY="79.0" prefHeight="26.0" prefWidth="158.0" text="2. Click destination." textFill="WHITE">
                                                        <font>
                                                            <Font name="Avenir Book" size="14.0" />
                                                        </font>
@@ -170,11 +171,12 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button layoutX="199.0" layoutY="359.0" mnemonicParsing="false" onAction="#resetKioskLoc" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Reset Kiosk Location" textFill="WHITE">
+                                    <Button layoutX="189.0" layoutY="53.0" mnemonicParsing="false" onAction="#resetKioskLoc" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Reset Kiosk Location" textFill="WHITE">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
+                                    <TextArea fx:id="directionsBox" layoutX="180.0" layoutY="137.0" prefHeight="245.0" prefWidth="166.0" promptText="Step by step instructions" />
                                                </children>
                                            </AnchorPane>
                                        </children>
