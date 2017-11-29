@@ -1,10 +1,7 @@
 package model;
 
-import com.sun.xml.internal.bind.v2.TODO;
-import sun.awt.image.ImageWatched;
 
 import java.util.*;
-import java.util.function.IntToDoubleFunction;
 
 public class Dijkstras extends PathingAlgorithm {
     private ArrayList<NodeObj> GenPath;
@@ -28,7 +25,6 @@ public class Dijkstras extends PathingAlgorithm {
                     continue;
                 }
                 //if the neighbor has not been explored yet, set the value as infinity
-                // TODO: There might be an issue running multiple times as parents aren't cleared
                 else {
                     neighbor.setgCost(Integer.MAX_VALUE);
                     double tentativeCost = current.getgCost() + neighbor.getEdgeObj(current).getWeight();
