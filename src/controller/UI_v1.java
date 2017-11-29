@@ -49,6 +49,9 @@ public class UI_v1 {
     private TextArea MessageTextBox;
 
     @FXML
+    private TextArea directionsBox;
+
+    @FXML
     private Layer lineLayer;
 
     @FXML
@@ -382,7 +385,7 @@ public class UI_v1 {
         //try a*
         if(newpathGen.pathfind(Kiosk,goal,gc1)) {
             path = newpathGen.getGenPath();
-            textDirections.getTextDirections(path);
+            directionsBox.setText(textDirections.getTextDirections(path));
         }
         else
             try {
