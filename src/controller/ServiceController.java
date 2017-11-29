@@ -31,7 +31,6 @@ public class ServiceController {
     private ComboBox<String> employees;
 
 
-
     // Getters
     public String getServiceNeeded() {
         return this.serviceNeeded;
@@ -142,6 +141,20 @@ public class ServiceController {
     }
 
     @FXML
+    void AddEmployeee(){
+        Employee e;
+
+        AddDB.addEmployee(e);
+    }
+
+    @FXML
+    void ModifyEmployee(){
+
+        
+
+    }
+
+    @FXML
     void NoodlesItem() {
         FoodDropdown.setText("Noodles");
     }
@@ -179,4 +192,5 @@ public class ServiceController {
             employees.setDisable(false);
         }
     }
+
 }
