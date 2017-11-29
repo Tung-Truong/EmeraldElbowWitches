@@ -8,92 +8,217 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
-      <Label alignment="CENTER" layoutX="381.0" layoutY="55.0" prefHeight="138.0" prefWidth="947.0" text="SERVICE REQUEST" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Bold" size="96.0" />
-         </font>
-         <effect>
-            <BoxBlur />
-         </effect>
-      </Label>
-      <MenuButton fx:id="RequestServiceDropdown" layoutX="512.0" layoutY="271.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="343.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Service" textFill="WHITE">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#CafeteriaItem" text="Cafeteria" />
-            <MenuItem mnemonicParsing="false" onAction="#MaintenanceItem" text="Maintenance" />
-            <MenuItem mnemonicParsing="false" onAction="#InterpreterItem" text="Interpreter" />
-         </items>
-         <font>
-            <Font name="Avenir Book" size="29.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuButton>
-      <MenuButton fx:id="FoodDropdown" layoutX="876.0" layoutY="272.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="324.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Food" textFill="WHITE">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#NoodlesItem" text="Noodles" />
-            <MenuItem mnemonicParsing="false" onAction="#BurgerItem" text="Burger" />
-            <MenuItem mnemonicParsing="false" onAction="#TapiocaItem" text="Tapioca" />
-         </items>
-         <font>
-            <Font name="Avenir Book" size="29.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuButton>
-      <MenuButton fx:id="LocationDropdown" layoutX="513.0" layoutY="367.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="690.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Location" textFill="WHITE">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#WaitingRoomItem" text="Waiting Room" />
-            <MenuItem mnemonicParsing="false" onAction="#XrayItem" text="X-Ray Department" />
-         </items>
-         <font>
-            <Font name="Avenir Book" size="29.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuButton>
-      <Button alignment="TOP_LEFT" layoutX="499.0" layoutY="431.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="138.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" text="Notes:" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Bold" size="29.0" />
-         </font>
-      </Button>
-      <JFXTextField fx:id="NotesTextField" layoutX="511.0" layoutY="496.0" prefHeight="95.0" prefWidth="694.0" style="-fx-background-color: WHITE;">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor></JFXTextField>
+      <TabPane layoutX="2.0" layoutY="10.0" prefHeight="793.0" prefWidth="1761.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Service Request">
+               <content>
+                  <Pane prefHeight="760.0" prefWidth="1741.0">
+                     <children>
+                        <MenuButton fx:id="RequestServiceDropdown" layoutX="457.0" layoutY="195.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="366.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Service" textFill="WHITE">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#CafeteriaItem" text="Cafeteria" />
+                              <MenuItem mnemonicParsing="false" onAction="#MaintenanceItem" text="Maintenance" />
+                              <MenuItem mnemonicParsing="false" onAction="#InterpreterItem" text="Interpreter" />
+                           </items>
+                           <font>
+                              <Font name="Avenir Book" size="29.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                        <MenuButton fx:id="FoodDropdown" layoutX="829.0" layoutY="195.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="393.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Food" textFill="WHITE">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#NoodlesItem" text="Noodles" />
+                              <MenuItem mnemonicParsing="false" onAction="#BurgerItem" text="Burger" />
+                              <MenuItem mnemonicParsing="false" onAction="#TapiocaItem" text="Tapioca" />
+                           </items>
+                           <font>
+                              <Font name="Avenir Book" size="29.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                        <MenuButton fx:id="LocationDropdown" layoutX="460.0" layoutY="278.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="760.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Location" textFill="WHITE">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#WaitingRoomItem" text="Waiting Room" />
+                              <MenuItem mnemonicParsing="false" onAction="#XrayItem" text="X-Ray Department" />
+                           </items>
+                           <font>
+                              <Font name="Avenir Book" size="29.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </MenuButton>
+                        <ComboBox fx:id="employees" layoutX="460.0" layoutY="550.0" prefHeight="47.0" prefWidth="768.0" promptText="Employees Available" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="22.0" prefHeight="138.0" prefWidth="984.0" text="SERVICE REQUEST" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="96.0" />
+                           </font>
+                        </Label>
+                        <Button alignment="TOP_LEFT" layoutX="453.0" layoutY="346.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="138.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" text="Notes:" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="29.0" />
+                           </font>
+                        </Button>
+                        <JFXTextField fx:id="NotesTextField" layoutX="459.0" layoutY="425.0" prefHeight="95.0" prefWidth="767.0" style="-fx-background-color: WHITE;">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </JFXTextField>
+                        <JFXButton id="backbutton" buttonType="RAISED" layoutX="678.0" layoutY="616.0" onAction="#SubmitRequest" prefHeight="112.0" prefWidth="340.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="57.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+               </content>
+          </Tab>
+          <Tab text="Modify Employee">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox layoutX="198.0" layoutY="156.0" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+                        <TextField layoutX="201.0" layoutY="236.0" promptText="email">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <TextField layoutX="201.0" layoutY="296.0" promptText="first name">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <TextField layoutX="201.0" layoutY="480.0" promptText="language">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <TextField layoutX="201.0" layoutY="358.0" promptText="last name">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <TextField layoutX="201.0" layoutY="417.0" promptText="department">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <TextField layoutX="201.0" layoutY="542.0" promptText="availability">
+                           <font>
+                              <Font size="24.0" />
+                           </font></TextField>
+                        <JFXButton id="backbutton" buttonType="RAISED" layoutX="201.0" layoutY="617.0" onAction="#SubmitRequest" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="43.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="68.0" prefHeight="72.0" prefWidth="316.0" text="ADD EMPLOYEE" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="33.0" />
+                           </font>
+                        </Label>
+                        <ComboBox layoutX="719.0" layoutY="154.0" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+                        <TextField layoutX="721.0" layoutY="235.0" promptText="email">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="723.0" layoutY="296.0" promptText="first name">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="722.0" layoutY="357.0" promptText="last name">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="723.0" layoutY="417.0" promptText="department">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="726.0" layoutY="479.0" promptText="language">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField layoutX="726.0" layoutY="542.0" promptText="availability">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <JFXButton id="backbutton" buttonType="RAISED" layoutX="729.0" layoutY="613.0" onAction="#SubmitRequest" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="43.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="691.0" layoutY="68.0" prefHeight="72.0" prefWidth="364.0" text="MODIFY EMPLOYEE" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="33.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1248.0" layoutY="67.0" prefHeight="72.0" prefWidth="364.0" text="REMOVE" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="33.0" />
+                           </font>
+                        </Label>
+                        <ComboBox layoutX="1281.0" layoutY="154.0" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+                        <JFXButton id="backbutton" buttonType="RAISED" layoutX="1286.0" layoutY="231.0" onAction="#SubmitRequest" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="43.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
       <Pane layoutX="2.0" layoutY="803.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="1750.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;">
          <children>
-            <JFXButton id="backbutton" buttonType="RAISED" layoutX="622.0" layoutY="32.0" onAction="#SubmitRequest" prefHeight="133.0" prefWidth="506.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
+            <JFXButton id="backbutton" buttonType="RAISED" layoutX="-9.0" layoutY="23.0" onAction="#BackToUIV1" prefHeight="115.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="◄" textFill="WHITE">
                <font>
                   <Font name="Avenir Next Bold" size="63.0" />
                </font>
-               <effect>
-                  <Glow level="1.0" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
          </children></Pane>
-      <JFXButton id="backbutton" buttonType="RAISED" layoutX="37.0" layoutY="827.0" onAction="#BackToAdmin" prefHeight="115.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="&lt;" textFill="WHITE">
-         <font>
-            <Font name="Avenir Next Bold" size="63.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <ComboBox fx:id="employees" layoutX="513.0" layoutY="643.0" prefHeight="47.0" prefWidth="690.0" promptText="Employees Available" />
    </children>
    <effect>
       <InnerShadow height="255.0" radius="68.5" />

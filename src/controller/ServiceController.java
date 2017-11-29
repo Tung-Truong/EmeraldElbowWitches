@@ -30,7 +30,7 @@ public class ServiceController {
     private JFXTextField NotesTextField;
 
     @FXML
-    private ComboBox<String> employees;
+    private ComboBox<String> AssignEmployee, AddEmployee, DeleteEmployee, ModifyEmployee;
 
 
     // Getters
@@ -49,7 +49,7 @@ public class ServiceController {
 
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
-        String[] requestedEmployee = employees.getValue().split(" ");
+        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
         String email = "";
         for (Employee e : Main.getEmployee()) {
             if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
@@ -105,23 +105,23 @@ public class ServiceController {
     //these three items handle changing the employyee names available
     @FXML
     void MaintenanceItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("janitor") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
-        employees.setPromptText("Employees Available");
+        AssignEmployee.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Maintenance");
     }
 
     @FXML
     void CafeteriaItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
             }
         }
         employeeAvailabile();
@@ -130,13 +130,13 @@ public class ServiceController {
 
     @FXML
     void InterpreterItem() {
-        employees.getItems().clear();
+        AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployee()) {
             if (e.getDepartment().equals("interpret") && e.getAvailability().equals("T")) {
-                employees.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
+                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName() + " " + "Language: " + e.getLanguage());
             }
         }
-        employees.setPromptText("Employees Available");
+        AssignEmployee.setPromptText("Employees Available");
         employeeAvailabile();
         RequestServiceDropdown.setText("Interpreter");
     }
@@ -153,6 +153,17 @@ public class ServiceController {
 
         
 
+    }
+
+    @FXML
+    void removeEmployee() {
+        Employee employee = AssignEmployee.getValue();
+        Main.employees.remove(employee);
+        try {
+            DeleteDB.delEmployee(employee);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -182,25 +193,13 @@ public class ServiceController {
 
     }
 
-    @FXML
-    void removeEmployee() {
-        Employee employee = employees.getValue();
-        Main.employees.remove(employee);
-        try {
-            DeleteDB.delEmployee(employee);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailabile() {
-        if (employees.getItems().size() == 0) {
-            employees.setPromptText("No Employees Currently Available");
-            employees.setDisable(true);
+        if (AssignEmployee.getItems().size() == 0) {
+            AssignEmployee.setPromptText("No Employees Currently Available");
+            AssignEmployee.setDisable(true);
         } else {
-            employees.setDisable(false);
+            AssignEmployee.setDisable(false);
         }
     }
 
