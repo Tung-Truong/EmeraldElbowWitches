@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1000;
-    public static int sceneHeight = 700;
+    public static int sceneWidth = 1750;
+    public static int sceneHeight = 1000;
     public static Scene patientScene;
     public static Scene adminScene;
     public static Scene Service;
@@ -28,6 +28,8 @@ public class Main extends Application {
     //contains all the node objects from the entity
     public static ListOfNodeObjs nodeMap;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    //contains all the employee
+    public static ArrayList<Employee> employees;
     //contains all the messages
     public static JanitorService janitorService;
     public static ControllerListener controllers;
@@ -54,10 +56,8 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         }
-
-
         //for each of our csv files, read them in and fill their data to one of two tables
-        //the node table or the edge table
+        //the node table,edge table, or employee table
         try {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
@@ -87,6 +87,7 @@ public class Main extends Application {
                 ReadCSV.runEdge("src/model/docs/MapIedges.csv");
                 ReadCSV.runEdge("src/model/docs/MapWedges.csv");
             }
+            ReadCSV.runEmployee("src/model/docs/Employees.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -116,9 +117,13 @@ public class Main extends Application {
         ArrayList<Edge> listOfEdges;
         listOfEdges = QueryDB.getEdges();
 
+        // assigns and saves employees from the database
+        employees = QueryDB.getEmployees();
+
         // create edge objects
         //for every edge in the database
         //create the corrisponding edge object and place it into the corrisponding node
+        //create the corresponding edge object and place it into the corrisponding node
         //automatically set the weight for the node by the distance in pixels between noes
         for (Edge edge : listOfEdges) {
             EdgeObj newObj = new EdgeObj(edge.getNodeAID(), edge.getNodeBID(), edge.getEdgeID());
@@ -133,7 +138,10 @@ public class Main extends Application {
             }
         }
 
-
+        //creates and saves the list of employees
+        ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
+        listOfEmployees = QueryDB.getEmployees();
+        employees = listOfEmployees;
         //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
@@ -199,13 +207,18 @@ public class Main extends Application {
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
-        } catch (IOException | ClassNotFoundException | SQLException e) {
+            WriteEmployees.runEmployees();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
-    //this allows for access from main by the controller
+//this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
     public static NodeObj getKiosk() {
         return kiosk;
@@ -226,9 +239,16 @@ public class Main extends Application {
     public static Parent getParentRoot() {
         return parentRoot;
     }
+    public static ArrayList<Employee> getEmployee(){
+        return employees;
+    }
 
     public static Scene getService() {
         return Service;
+    }
+
+    public static ArrayList<Employee> getEmployees(){
+        return employees;
     }
 
     public static void setKiosk(NodeObj kiosk) {
@@ -243,7 +263,7 @@ public class Main extends Application {
         return controllers;
     }
 
-    //this runs the survice request
+    //this runs the service request
     public static void setJanitorService(JanitorService janitorService) {
         Main.janitorService = janitorService;
     }

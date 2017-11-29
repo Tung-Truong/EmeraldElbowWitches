@@ -24,4 +24,13 @@ public class DeleteDB {
         statement.executeUpdate(DEL_EDGE);
         statement.close();
     }
+
+    public static void delEmployee(String delEmployeeEmail) throws SQLException {
+        String DEL_EMPLOYEE = null;
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE WHERE email = '" + delEmployeeEmail + "'";
+        statement.executeUpdate(DEL_EMPLOYEE);
+        statement.close();
+    }
 }

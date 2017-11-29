@@ -7,6 +7,7 @@ public class QueryDB {
 
     public static final String GET_NODES = "select DISTINCT * from nodeTable";
     public static final String GET_EDGES = "select DISTINCT * from edgeTable";
+    public static final String GET_EMPLOYEES = "select DISTINCT * from employeeTable";
 
     public static ArrayList<Node> getNodes() throws SQLException {
         ArrayList<Node> nodeList = new ArrayList<Node>();
@@ -59,5 +60,33 @@ public class QueryDB {
             connection.close();
         }
         return edgeList;
+    }
+
+    public static ArrayList<Employee> getEmployees() throws SQLException{
+        ArrayList<Employee> employeeList = new ArrayList<Employee>();
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(GET_EMPLOYEES);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        int columnCount = resultSetMetaData.getColumnCount();
+        while(resultSet.next()){
+            String[] tempVals = new String[columnCount];
+            for(int colInd = 1; colInd < columnCount+1; colInd++){
+                tempVals[colInd-1] = resultSet.getString(colInd);
+            }
+            if(tempVals[0] != null){
+                employeeList.add(new Employee(tempVals[0], tempVals[1], tempVals[2],tempVals[3], tempVals[4], tempVals[5]));
+            }
+        }
+        for(Employee employee:employeeList){
+            System.out.println("Email:" + employee.getEmail() + " FirstName:" + employee.getFirstName() + " LastName:" + employee.getLastName() + " Department:" + employee.getDepartment() + " Language:" + employee.getLanguage() + " Availability:" + employee.getAvailability());
+        }
+        if(statement != null){
+            statement.close();
+        }
+        if(connection != null){
+            connection.close();
+        }
+        return employeeList;
     }
 }

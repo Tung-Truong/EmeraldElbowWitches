@@ -44,4 +44,21 @@ public class AddDB {
         pState.executeUpdate();
         pState.close();
     }
+
+    public static void addEmployee(Employee addEmployee) throws SQLException {
+
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+
+        String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
+                addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "')"; //build the sql template
+
+        String SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
+
+        PreparedStatement pState = connection.prepareStatement(SQL);
+        pState.executeUpdate();
+        pState.close();
+
+
+    }
+
 }

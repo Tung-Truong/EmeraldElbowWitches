@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -25,7 +26,8 @@
       </Label>
       <MenuButton fx:id="RequestServiceDropdown" layoutX="512.0" layoutY="271.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="343.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Request Service" textFill="WHITE">
          <items>
-            <MenuItem mnemonicParsing="false" onAction="#MateninceItem" text="Maintenance" />
+            <MenuItem mnemonicParsing="false" onAction="#CafeteriaItem" text="Cafeteria" />
+            <MenuItem mnemonicParsing="false" onAction="#MaintenanceItem" text="Maintenance" />
             <MenuItem mnemonicParsing="false" onAction="#InterpreterItem" text="Interpreter" />
          </items>
          <font>
@@ -65,44 +67,33 @@
             <Font name="Avenir Next Bold" size="29.0" />
          </font>
       </Button>
-      <JFXTextField fx:id="NotesTextFeild" layoutX="511.0" layoutY="496.0" prefHeight="95.0" prefWidth="694.0" style="-fx-background-color: WHITE;">
+      <JFXTextField fx:id="NotesTextField" layoutX="511.0" layoutY="496.0" prefHeight="95.0" prefWidth="694.0" style="-fx-background-color: WHITE;">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></JFXTextField>
       <Pane layoutX="2.0" layoutY="803.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="1750.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;">
          <children>
-            <JFXButton id="backbutton" buttonType="RAISED" layoutX="31.0" layoutY="33.0" onAction="#BackToAdmin" prefHeight="115.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="&lt;" textFill="WHITE">
+            <JFXButton id="backbutton" buttonType="RAISED" layoutX="622.0" layoutY="32.0" onAction="#SubmitRequest" prefHeight="133.0" prefWidth="506.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
                <font>
                   <Font name="Avenir Next Bold" size="63.0" />
                </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
          </children></Pane>
-      <MenuButton fx:id="EmployeeDropdown" layoutX="513.0" layoutY="619.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="690.0" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Employee Assigned" textFill="WHITE">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#DrDembskiItem" text="Dr. Dembski" />
-            <MenuItem fx:id="AdmGrant" mnemonicParsing="false" onAction="#AdmGrantItem" text="Adm. Grant" />
-         </items>
-         <font>
-            <Font name="Avenir Book" size="29.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuButton>
-      <JFXButton id="backbutton" buttonType="RAISED" layoutX="614.0" layoutY="824.0" onAction="#SubmitRequest" prefHeight="133.0" prefWidth="506.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="SUBMIT" textFill="WHITE">
+      <JFXButton id="backbutton" buttonType="RAISED" layoutX="37.0" layoutY="827.0" onAction="#BackToAdmin" prefHeight="115.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="&lt;" textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="63.0" />
          </font>
-         <effect>
-            <Glow level="1.0" />
-         </effect>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <ComboBox fx:id="employees" layoutX="513.0" layoutY="643.0" prefHeight="47.0" prefWidth="690.0" promptText="Employees Available" />
    </children>
    <effect>
       <InnerShadow height="255.0" radius="68.5" />

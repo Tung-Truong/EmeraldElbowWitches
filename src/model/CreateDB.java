@@ -13,6 +13,7 @@ public class CreateDB {
         Connection connection = DriverManager.getConnection(JDBC_URL);
         connection.createStatement().execute("create table nodeTable(nodeID VARCHAR(255), xLoc VARCHAR(255), yLoc VARCHAR(255), floor VARCHAR(255), building VARCHAR(255), nodeType VARCHAR(255), shortName VARCHAR(255), longName VARCHAR(255), team VARCHAR(255))");
         connection.createStatement().execute("create table edgeTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
+        connection.createStatement().execute("create table employeeTable(email VARCHAR(255), firstName VARCHAR(255), lastName VARCHAR(255), department VARCHAR(255), language VARCHAR(255), availability VARCHAR(255))");
         System.out.print("The table has been built!");
     }
 }

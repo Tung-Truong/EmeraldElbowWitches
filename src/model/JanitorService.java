@@ -1,19 +1,20 @@
 package model;
 
-public class JanitorService extends ServiceRequest {
+import java.util.ArrayList;
+
+public class JanitorService extends ServiceRequest{
 
     // Attributes
-    private String[] suppliesNeeded;
-    private String janitorEmail = "cjdembski@wpi.edu";
+    private ArrayList<String> suppliesNeeded;
+    private String janitorEmail = "kgrant@wpi.edu";
 
     // Constructors
-    public JanitorService() {
+    public JanitorService (){
         this.setAccountTo(janitorEmail);
-        this.setMessageHeader("Supplies Needed at " + this.location);
     }
 
     // Getters
-    public String[] getSuppliesNeeded() {
+    public ArrayList<String> getSuppliesNeeded(){
         return this.suppliesNeeded;
     }
 
@@ -21,17 +22,17 @@ public class JanitorService extends ServiceRequest {
         return this.janitorEmail;
     }
 
-    public String getLocation() {
-        return this.location;
-    }
-
     // Setters
-    public void setSuppliesNeeded(String[] supplies) {
+    public void setSuppliesNeeded (ArrayList<String> supplies){
         this.suppliesNeeded = supplies;
     }
 
-    public void setJanitorEmail(String mail) {
+    public void setJanitorEmail (String mail){
         this.janitorEmail = mail;
     }
 
+    @Override
+    public void generateReport() {
+        System.out.println("Supplies Used: " + suppliesNeeded);
+    }
 }
