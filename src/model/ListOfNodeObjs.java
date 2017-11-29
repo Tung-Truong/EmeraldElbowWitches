@@ -109,7 +109,6 @@ public class ListOfNodeObjs {
         ArrayList<EdgeObj> actualDeleteEdges = null;
         for (NodeObj nodes : this.nodes) {
             if (nodes.getNode().getNodeID().equals(nodeToDelete.getNode().getNodeID())) {
-                System.out.println("NUM NEIGHBORS: " + nodes.getListOfEdgeObjs().size());
                 for (int i = nodes.getListOfEdgeObjs().size() - 1; i >= 0; i--) {
                     EdgeObj e = nodes.getListOfEdgeObjs().get(i);
                     try {
@@ -216,9 +215,6 @@ public class ListOfNodeObjs {
         } else if (!flagEdgeFoundB) {
             nodeB.addEdge(edgeAB);
         }
-
-        System.out.println("here2");
-
         return edgeAB;
     }
 

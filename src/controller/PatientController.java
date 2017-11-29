@@ -137,7 +137,6 @@ public class PatientController extends Controller{
         //Print to confirm
 
         //convert click resolution to map ratio
-        System.out.println((5000 * event.getX()) / mapWidth + " " + (3400 * event.getY()) / mapHeight);
         //far left stair node
     }
 
@@ -281,8 +280,6 @@ public class PatientController extends Controller{
             }
             if(!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
                 Floors.add(n.node.getFloor());
-            System.out.println(n.node.getFloor());
-            System.out.println(tempDraw.node.getFloor());
             tempDraw = n;
         }
 
@@ -305,7 +302,6 @@ public class PatientController extends Controller{
         highlightFloors();
         try {
             for(String s:Floors) {
-                System.out.println(s);
                 GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
             }
             GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText
@@ -316,7 +312,6 @@ public class PatientController extends Controller{
             }
         } catch (InvalidNodeException e) {
             e.printStackTrace();
-            System.out.println("fail");
         }
     }
 
@@ -422,7 +417,6 @@ public class PatientController extends Controller{
         Main.setKiosk(newStartNode);
         switchTab1();
         currentState = CurrentStatus.PATIENT;
-        System.out.println("Did you get here");
     }
 
     @FXML

@@ -47,7 +47,6 @@ public class EdgeObj {
 
     //return the weight of the current edge
     public double getWeight() {
-        System.out.println("EDGE ID: " + this.edgeID);
         return weight;
     }
 

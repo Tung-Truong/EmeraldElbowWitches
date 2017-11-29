@@ -184,7 +184,6 @@ public class AdminController extends Controller{
         //Print to confirm
 
         //convert click resolution to map ratio
-        System.out.println((5000 * event.getX()) / mapWidth + " " + (3400 * event.getY()) / mapHeight);
         //far left stair node
     }
 
@@ -334,7 +333,6 @@ public class AdminController extends Controller{
         gc1.setFill(Color.YELLOW);
         currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
-            System.out.println("I'm HERE");
             for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
                 gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
@@ -466,7 +464,6 @@ public class AdminController extends Controller{
     @FXML
     void removeNode(){
         String delNodeID = removeNode.getText();
-        System.out.println("DELETE NODE CLICKED: " + delNodeID);
         Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
         NodeObj delNodeObj = new NodeObj(delNode);
         Main.getNodeMap().removeNode(delNodeObj);
@@ -487,7 +484,6 @@ public class AdminController extends Controller{
         String shortName = ShortName.getText();
         String team = Team.getText();
         String nodeID = NodeId.getText();
-        System.out.println("ADD/EDIT NODE CLICKED");
         Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
         NodeObj modNodeObj = new NodeObj(modNode);
         try {
