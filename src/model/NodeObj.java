@@ -9,14 +9,14 @@ public class NodeObj {
     private double gCost;
     private ArrayList<EdgeObj> listOfEdgeObjs;
 
-    public NodeObj(Node myNode){
+    public NodeObj(Node myNode) {
         node = myNode;
         listOfEdgeObjs = new ArrayList<EdgeObj>();
     }
 
-    public ArrayList<NodeObj> getListOfNeighbors(){
+    public ArrayList<NodeObj> getListOfNeighbors() {
         ArrayList<NodeObj> nodeList = new ArrayList<NodeObj>();
-        for (EdgeObj edg: listOfEdgeObjs){ //find all nodes from all edges in node
+        for (EdgeObj edg : listOfEdgeObjs) { //find all nodes from all edges in node
             try {//thrown from getOtherNodeObj
                 nodeList.add(edg.getOtherNodeObj(this));
             } catch (InvalidNodeException e) {
@@ -27,7 +27,7 @@ public class NodeObj {
     }
 
     //can throw null
-    public ArrayList<EdgeObj> getListOfEdgeObjs(){
+    public ArrayList<EdgeObj> getListOfEdgeObjs() {
         return listOfEdgeObjs;
     }
 
@@ -36,25 +36,25 @@ public class NodeObj {
     // creates an edge to another node, adds edge to the list for the map
     // tgwiles: added 'reverseEdge' to account for backtracking a node to have both an edge from A to B, and subsequently B to A
 
-    public void addEdge(NodeObj nodeB){
+    public void addEdge(NodeObj nodeB) {
         EdgeObj edge = new EdgeObj(this, nodeB);
         edge.setWeight(edge.genWeightFromDistance());
         listOfEdgeObjs.add(edge);
         nodeB.addEdge(edge);
     }
 
-    public void addEdge(EdgeObj newEdge){
+    public void addEdge(EdgeObj newEdge) {
         listOfEdgeObjs.add(newEdge);
     }
 
     // creates an edge to another node, adds edge to the list for the map
-    public void addEdge(NodeObj nodeB, int edgeWeight){
+    public void addEdge(NodeObj nodeB, int edgeWeight) {
         EdgeObj edge = new EdgeObj(this, nodeB, edgeWeight);
         listOfEdgeObjs.add(edge);
     }
 
-    public void killEdge(NodeObj nodeB){
-        for (EdgeObj e:listOfEdgeObjs) {
+    public void killEdge(NodeObj nodeB) {
+        for (EdgeObj e : listOfEdgeObjs) {
             try {
                 if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
                     listOfEdgeObjs.remove(e);
@@ -75,11 +75,11 @@ public class NodeObj {
     // ---------------------Getters----------------------------
 
 
-    public double getHeuristic(){
+    public double getHeuristic() {
         return this.heuristic;
     }
 
-    public void setHeuristic(double heuristic){
+    public void setHeuristic(double heuristic) {
         this.heuristic = heuristic;
     }
 
@@ -99,8 +99,8 @@ public class NodeObj {
         this.gCost = gCost;
     }
 
-    public EdgeObj getEdgeObj(NodeObj nodeB){
-        for (EdgeObj e:listOfEdgeObjs) {
+    public EdgeObj getEdgeObj(NodeObj nodeB) {
+        for (EdgeObj e : listOfEdgeObjs) {
             try {
                 if (e.getOtherNodeObj(this).node.getNodeID() == nodeB.node.getNodeID()) {
                     return e;
@@ -116,18 +116,17 @@ public class NodeObj {
         return node;
     }
 
-    public Double getDistance(NodeObj nodeB){
+    public Double getDistance(NodeObj nodeB) {
         int ax = node.getxLoc();
         int ay = node.getyLoc();
         int bx = nodeB.node.getxLoc();
         int by = nodeB.node.getyLoc();
-        return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+        return Math.abs(Math.sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
     }
 
-    public Double getDistance(int ax, int ay){
+    public Double getDistance(int ax, int ay) {
         int bx = node.getxLoc();
         int by = node.getyLoc();
-        return Math.abs( Math.sqrt( ((ax-bx)*(ax-bx)) + ((ay-by)*(ay-by)) ) );
+        return Math.abs(Math.sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
     }
-
 }

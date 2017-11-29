@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+   <children>
+      <SplitPane prefHeight="359.0" prefWidth="287.0">
+        <items>
+                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="135.0" style="-fx-background-color: #81baf9#81baf9;" />
+        </items>
+      </SplitPane>
+       <SplitPane dividerPositions="0.9158316633266533" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+           <items>
+               <SplitPane fx:id="AddLine" dividerPositions="0.8" prefHeight="160.0" prefWidth="200.0">
+                   <items>
+                           <AnchorPane fx:id="mapContainer" minHeight="0.0" minWidth="0.0" prefHeight="949.0" prefWidth="1459.0">
+                               <children>
+                        <Pane layoutX="575.0" layoutY="278.0" prefHeight="358.0" prefWidth="395.0" style="-fx-background-color: #498cd8 #498cd8;">
+                           <children>
+                              <JFXTextField layoutX="39.0" layoutY="116.0" prefHeight="48.0" prefWidth="309.0" promptText="username" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXPasswordField layoutX="38.0" layoutY="211.0" prefHeight="48.0" prefWidth="313.0" promptText="password" unFocusColor="WHITE">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </JFXPasswordField>
+                              <Label alignment="CENTER" layoutX="56.0" layoutY="37.0" prefHeight="55.0" prefWidth="270.0" text="STAFF LOGIN" textFill="WHITE">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="38.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                                   <ImageView fx:id="currentMap" fitHeight="950.0" fitWidth="1397.0" onMouseReleased="#stateHandler" preserveRatio="true">
+                                       <image>
+                                       </image>
+                                   </ImageView>
+                        <Canvas fx:id="gc" height="947.0" onMouseReleased="#stateHandler" width="1393.0" />
+                        <ImageView fx:id="homeScreen" fitHeight="808.0" fitWidth="1217.0" layoutX="14.0" layoutY="71.0" onMouseClicked="#clearHomeScreen" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../media/HomeScreen2.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="homeScreenButton" layoutX="423.0" layoutY="728.0" mnemonicParsing="false" onAction="#clearHomeScreen" prefHeight="42.0" prefWidth="305.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="CLICK TO UNLOCK" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="28.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
+                        <Pane layoutX="1151.0" layoutY="680.0" prefHeight="204.0" prefWidth="228.0" style="-fx-background-color: #498cd8 #498cd8;">
+                           <children>
+                              <ImageView fitHeight="138.0" fitWidth="200.0" layoutX="9.0" layoutY="57.0">
+                                 <image>
+                                    <Image url="@../media/legend.png" />
+                                 </image>
+                              </ImageView>
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="18.0" prefHeight="35.0" prefWidth="200.0" text="LEGEND" textFill="WHITE">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="23.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                               </children>
+                  </AnchorPane>
+                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="416.0">
+                           <children>
+                                   <Pane prefHeight="887.0" prefWidth="381.0">
+                                       <children>
+                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="914.0" prefWidth="346.0" style="-fx-background-color: #498cd8;">
+                                               <children>
+                                                   <Label alignment="CENTER" layoutY="12.0" prefHeight="35.0" prefWidth="187.0" text="INSTRUCTIONS" textFill="WHITE">
+                                                       <font>
+                                                           <Font name="Avenir Next Bold" size="23.0" />
+                                                       </font>
+                                                   </Label>
+                                                   <Label alignment="CENTER" layoutX="15.0" layoutY="53.0" prefHeight="26.0" prefWidth="158.0" text="1. Click current location." textFill="WHITE">
+                                                       <font>
+                                                           <Font name="Avenir Book" size="14.0" />
+                                                       </font>
+                                                   </Label>
+                                                   <Label alignment="CENTER" layoutY="79.0" prefHeight="26.0" prefWidth="158.0" text="2. Click destination." textFill="WHITE">
+                                                       <font>
+                                                           <Font name="Avenir Book" size="14.0" />
+                                                       </font>
+                                                   </Label>
+                                    <TextField fx:id="startNodeID" layoutX="27.0" layoutY="184.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </TextField>
+                                    <Button fx:id="setStartNodeConfirm" layoutX="60.0" layoutY="218.0" mnemonicParsing="false" onAction="#setStartNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="startNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="145.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set Start Node" textFill="WHITE">
+                                       <font>
+                                          <Font name="Avenir Book" size="14.0" />
+                                       </font>
+                                       <effect>
+                                          <InnerShadow color="#0a30ae" />
+                                       </effect>
+                                    </Button>
+                                    <Button fx:id="EndNodeSelector" alignment="CENTER" layoutX="26.0" layoutY="287.0" mnemonicParsing="false" onAction="#setEndNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Set End Node" textFill="WHITE">
+                                       <font>
+                                          <Font name="Avenir Book" size="14.0" />
+                                       </font>
+                                       <effect>
+                                          <InnerShadow color="#0a30ae" />
+                                       </effect>
+                                    </Button>
+                                    <TextField fx:id="EndNodeID" layoutX="27.0" layoutY="325.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </TextField>
+                                    <Button fx:id="setEndNodeConfirm" layoutX="60.0" layoutY="359.0" mnemonicParsing="false" onAction="#setEndNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button fx:id="startNodeSelector2" alignment="CENTER" layoutX="191.0" layoutY="140.0" mnemonicParsing="false" onAction="#setStartNodeFlag" prefHeight="25.0" prefWidth="143.0" style="-fx-background-color: #134072#134072;" text="Filter" textFill="WHITE">
+                                       <font>
+                                          <Font name="Avenir Book" size="17.0" />
+                                       </font>
+                                       <effect>
+                                          <InnerShadow color="#0a30ae" />
+                                       </effect>
+                                    </Button>
+                                    <JFXCheckBox layoutX="199.0" layoutY="219.0" text="Restrooms" textFill="WHITE" unCheckedColor="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXCheckBox>
+                                    <JFXCheckBox layoutX="199.0" layoutY="250.0" text="Stairwells" textFill="WHITE" unCheckedColor="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXCheckBox>
+                                    <JFXCheckBox layoutX="199.0" layoutY="279.0" text="Exits" textFill="WHITE" unCheckedColor="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </JFXCheckBox>
+                                    <Button layoutX="117.0" layoutY="417.0" mnemonicParsing="false" onAction="#switchTab2" prefHeight="80.0" prefWidth="113.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Admin View" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <Button layoutX="189.0" layoutY="53.0" mnemonicParsing="false" onAction="#resetKioskLoc" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Reset Kiosk Location" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <TextArea fx:id="directionsBox" layoutX="180.0" layoutY="137.0" prefHeight="245.0" prefWidth="166.0" promptText="Step by step instructions" />
+                                               </children>
+                                           </AnchorPane>
+                                       </children>
+                                   </Pane>
+                           </children>
+                  </AnchorPane>
+                   </items>
+               </SplitPane>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="742.0" style="-fx-background-color: #214c91#214c91;">
+                   <effect>
+                       <Reflection />
+                   </effect>
+               <children>
+                  <MenuButton fx:id="MapDropDown" layoutX="14.0" layoutY="19.0" mnemonicParsing="false" style="-fx-background-color: #00001F#00001F #00001F#00001F #00001F#00001F #00001F#00001F;" text="Map" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="19.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <items>
+                        <MenuItem fx:id="MapL2" mnemonicParsing="false" onAction="#mapSelected" text="Floor L2" />
+                        <MenuItem fx:id="MapL1" mnemonicParsing="false" onAction="#mapSelected" text="Floor L1" />
+                        <MenuItem fx:id="MapG" mnemonicParsing="false" onAction="#mapSelected" text="Ground Floor" />
+                        <MenuItem fx:id="Map1" mnemonicParsing="false" onAction="#mapSelected" text="Floor 1" />
+                        <MenuItem fx:id="Map2" mnemonicParsing="false" onAction="#mapSelected" text="Floor 2" />
+                        <MenuItem fx:id="Map3" mnemonicParsing="false" onAction="#mapSelected" text="Floor 3" />
+                     </items>
+                  </MenuButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="308.0" layoutY="-14.0" onAction="#Zin" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="+" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton id="zoomout" buttonType="RAISED" layoutX="525.0" layoutY="-14.0" onAction="#Zout" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="-" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <Label alignment="CENTER" layoutX="401.0" layoutY="14.0" prefHeight="35.0" prefWidth="103.0" text="ZOOM" textFill="WHITE">
+                     <font>
+                        <Font name="Avenir Next Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="657.0" layoutY="-15.0" onAction="#Tleft" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&lt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="750.0" layoutY="-14.0" onAction="#Tright" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&gt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="886.0" layoutY="-14.0" onAction="#Tup" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" rotate="90.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&lt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton id="zoomin" buttonType="RAISED" layoutX="979.0" layoutY="-15.0" onAction="#Tdown" prefHeight="74.0" prefWidth="72.0" ripplerFill="WHITE" rotate="90.0" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="&gt;" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Avenir Next Bold" size="35.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+           </items>
+       </SplitPane>
+   </children>
+</AnchorPane>

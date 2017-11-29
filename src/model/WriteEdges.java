@@ -39,8 +39,6 @@ public class WriteEdges {
             }
 
             conn.close();
-            System.out.println("NoRepeat list made!");
-
             Connection conn2 = DriverManager.getConnection(JDBC_URL);
             Statement stmt2 = conn2.createStatement();
             ResultSet rs2 = stmt2.executeQuery(query);
