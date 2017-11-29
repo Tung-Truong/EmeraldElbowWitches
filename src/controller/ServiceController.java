@@ -18,6 +18,7 @@ public class ServiceController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
+    private Employee foundMOd, foundDel;
 
     @FXML
     private MenuButton FoodDropdown,
@@ -28,6 +29,10 @@ public class ServiceController {
 
     @FXML
     private JFXTextField NotesTextField;
+
+    @FXML
+    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne,
+    emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo;
 
     @FXML
     private ComboBox<String> AssignEmployee, AddEmployee, DeleteEmployee, ModifyEmployee;
@@ -142,28 +147,94 @@ public class ServiceController {
     }
 
     @FXML
-    void AddEmployeee(){
-        Employee e;
+    void AddEmployee(){
+        String email = emailOne.getText().trim();
+        String first = firstOne.getText().trim();
+        String last = lastOne.getText().trim();
+        String dep = depOne.getText().trim();
+        String lang = langOne.getText().trim();
+        String avail = availOne.getText().trim();
 
-        AddDB.addEmployee(e);
+        Employee e = new Employee(email, first, last, dep, lang, avail);
+
+        Main.getEmployees().add(e);
+        ModifyEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
+        DeleteEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
+
+        emailOne.clear();
+        firstOne.clear();
+        lastOne.clear();
+        depOne.clear();
+        langOne.clear();
+        availOne.clear();
+
     }
 
     @FXML
-    void ModifyEmployee(){
+    void AutoFill(){
+        foundMOd = new Employee();
+        String name = ModifyEmployee.getValue().split(":")[0].trim();
+        String email = ModifyEmployee.getValue().split(":")[1].trim();
 
-        
+        for(Employee e: Main.getEmployees()){
+            if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
+                foundMOd = e;
+                break;
+            }
+        }
 
+        emailTwo.setText(foundMOd.getEmail());
+        firstTwo.setText(foundMOd.getFirstName());
+        lastTwo.setText(foundMOd.getLastName());
+        depTwo.setText(foundMOd.getDepartment());
+        langTwo.setText(foundMOd.getLanguage());
+        availTwo.setText(foundMOd.getAvailability());
+
+    }
+
+    @FXML
+    void SelectEmployee(){
+        for (Employee e : Main.getEmployee()) {
+            ModifyEmployee.getItems().addAll(e.getFirstName() + " : " + e.getEmail());
+        }
+        DeleteEmployee.getItems().addAll(ModifyEmployee.getItems());
+    }
+
+    @FXML
+    void ModifyEmployees(){
+        foundMOd.setEmail(emailTwo.getText());
+        foundMOd.setFirstName(firstTwo.getText());
+        foundMOd.setLastName(lastTwo.getText());
+        foundMOd.setDepartment(depTwo.getText());
+        foundMOd.setLanguage(langTwo.getText());
+        foundMOd.setAvailability(availTwo.getText());
+
+        emailTwo.clear();
+        firstTwo.clear();
+        lastTwo.clear();
+        depTwo.clear();
+        langTwo.clear();
+        availTwo.clear();
     }
 
     @FXML
     void removeEmployee() {
-        Employee employee = AssignEmployee.getValue();
-        Main.employees.remove(employee);
-        try {
-            DeleteDB.delEmployee(employee);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        foundDel = new Employee();
+        String name = DeleteEmployee.getValue().split(":")[0].trim();
+        String email = DeleteEmployee.getValue().split(":")[1].trim();
+
+        for(Employee e: Main.getEmployees()){
+            if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
+                foundDel = e;
+                break;
+            }
         }
+
+        Main.employees.remove(foundDel);
+
+        ModifyEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
+        DeleteEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
+
     }
 
     @FXML

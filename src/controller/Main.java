@@ -204,6 +204,9 @@ public class Main extends Application {
             }
             AddDB.addNode(n.getNode());
         }
+        for (Employee e : employees) {
+            AddDB.addEmployee(e);
+        }
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();

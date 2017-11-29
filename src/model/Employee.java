@@ -11,6 +11,9 @@ public class Employee {
     private String available;
 
     // Constructor
+    public Employee(){
+
+    }
     public Employee(String email, String firstName, String lastName, String department, String language, String available){
         this.email = email;
         this.firstName = firstName;
