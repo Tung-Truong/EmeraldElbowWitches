@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
       <TabPane layoutX="2.0" layoutY="10.0" prefHeight="793.0" prefWidth="1761.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -94,7 +94,7 @@
                   </Pane>
                </content>
           </Tab>
-          <Tab text="Modify Employee" onSelectionChanged="#SelectEmployee">
+          <Tab onSelectionChanged="#SelectEmployee" text="Modify Employee">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -106,15 +106,15 @@
                            <font>
                               <Font size="24.0" />
                            </font></TextField>
-                        <TextField fx:id="lastOne" layoutX="201.0" layoutY="470.0" promptText="language">
+                        <TextField fx:id="langOne" layoutX="201.0" layoutY="470.0" promptText="language">
                            <font>
                               <Font size="24.0" />
                            </font></TextField>
-                        <TextField fx:id="depOne" layoutX="201.0" layoutY="348.0" promptText="last name">
+                        <TextField fx:id="lastOne" layoutX="201.0" layoutY="348.0" promptText="last name">
                            <font>
                               <Font size="24.0" />
                            </font></TextField>
-                        <TextField fx:id="langOne" layoutX="201.0" layoutY="407.0" promptText="department">
+                        <TextField fx:id="depOne" layoutX="201.0" layoutY="407.0" promptText="department">
                            <font>
                               <Font size="24.0" />
                            </font></TextField>
@@ -138,7 +138,7 @@
                               <Font name="Avenir Next Bold" size="33.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="ModifyEmployee" onAction="#AutoFill" layoutX="719.0" layoutY="154.0" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+                        <ComboBox fx:id="ModifyEmployee" layoutX="719.0" layoutY="154.0" onAction="#AutoFill" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
                         <TextField fx:id="emailTwo" layoutX="721.0" layoutY="235.0" promptText="email">
                            <font>
                               <Font size="24.0" />

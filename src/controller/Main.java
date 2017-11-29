@@ -242,9 +242,6 @@ public class Main extends Application {
     public static Parent getParentRoot() {
         return parentRoot;
     }
-    public static ArrayList<Employee> getEmployee(){
-        return employees;
-    }
 
     public static Scene getService() {
         return Service;
