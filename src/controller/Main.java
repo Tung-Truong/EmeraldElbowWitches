@@ -170,20 +170,20 @@ public class Main extends Application {
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
 
-        FXMLLoader patientContLoad = new FXMLLoader(getClass().getResource("../view/ui/Patient.fxml"));
+        FXMLLoader patientContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Patient.fxml"));
         Scene Start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
         PatientController patCont = patientContLoad.getController();
         patientScene = Start;
 
         this.controllers.addObserver(patCont);
 
-        FXMLLoader adminContLoad = new FXMLLoader(getClass().getResource("../view/ui/Admin.fxml"));
+        FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
         adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
         AdminController adminCont = adminContLoad.getController();
 
         this.controllers.addObserver(adminCont);
 
-        Service = new Scene(FXMLLoader.load(getClass().getResource("../view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
+        Service = new Scene(FXMLLoader.load(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
         this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();

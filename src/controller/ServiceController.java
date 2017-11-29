@@ -1,16 +1,12 @@
 package controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.scene.control.*;
-import jdk.internal.org.objectweb.asm.tree.analysis.Interpreter;
 import model.*;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-
-import javax.xml.stream.Location;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -83,7 +79,7 @@ public class ServiceController {
     // FXML Methods
     @FXML
     void BackToAdmin() {
-        Main.getCurrStage().setScene(Main.getPatientScene());
+        Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
     @FXML
