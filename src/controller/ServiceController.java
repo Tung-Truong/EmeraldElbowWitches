@@ -44,12 +44,14 @@ public class ServiceController {
     }
 
     // Setters
-    public void setServiceNeeded(String service) {
+    public void setServiceNeeded(String service) throws NullPointerException {
         this.serviceNeeded = service;
     }
 
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
+        if(AssignEmployee.getValue().split(" ") == null)
+            throw new NullPointerException("No service added");
         String[] requestedEmployee = AssignEmployee.getValue().split(" ");
         String email = "";
         for (Employee e : Main.getEmployee()) {
@@ -84,23 +86,28 @@ public class ServiceController {
 
     @FXML
     void SubmitRequest() {
-        this.setService();
-        String location = LocationDropdown.getText();
+        try {
+            this.setService();
+            String location = LocationDropdown.getText();
 
-        if (service instanceof JanitorService) {
-            service.setMessageHeader("Supplies needed at: " + location);
-        } else if (service instanceof InterpreterService) {
-            service.setMessageHeader("Interpreter needed at: " + location);
-        } else {
-            service.setMessageHeader("Food needed in: " + location);
+            if (service instanceof JanitorService) {
+                service.setMessageHeader("Supplies needed at: " + location);
+            } else if (service instanceof InterpreterService) {
+                service.setMessageHeader("Interpreter needed at: " + location);
+            } else {
+                service.setMessageHeader("Food needed in: " + location);
+            }
+            service.setLocation(LocationDropdown.getText());
+            service.setMessageText(NotesTextField.getText());
+            service.sendEmailServiceRequest();
+
+            // Header field is not being updated so definitely look into this more
+
+            System.out.println("Message sent succesfully");
         }
-        service.setLocation(LocationDropdown.getText());
-        service.setMessageText(NotesTextField.getText());
-        service.sendEmailServiceRequest();
-
-        // Header field is not being updated so definitely look into this more
-
-        System.out.println("Message sent succesfully");
+        catch(NullPointerException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     //these three items handle changing the employyee names available
