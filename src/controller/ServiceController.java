@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 
+import javax.xml.stream.Location;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceController {
@@ -49,11 +51,10 @@ public class ServiceController {
         String needed = this.RequestServiceDropdown.getText();
         String[] requestedEmployee = employees.getValue().split(" ");
         String email = "";
-        for (Employee e: Main.getEmployee()) {
-            if(e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])){
+        for (Employee e : Main.getEmployee()) {
+            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
                 email = e.getEmail();
-            }
-            else{
+            } else {
                 //TO DO throw an exception because employee was never set
             }
         }
@@ -85,9 +86,9 @@ public class ServiceController {
         this.setService();
         String location = LocationDropdown.getText();
 
-        if (service instanceof JanitorService){
+        if (service instanceof JanitorService) {
             service.setMessageHeader("Supplies needed at: " + location);
-        } else if (service instanceof InterpreterService){
+        } else if (service instanceof InterpreterService) {
             service.setMessageHeader("Interpreter needed at: " + location);
         } else {
             service.setMessageHeader("Food needed in: " + location);
@@ -172,13 +173,24 @@ public class ServiceController {
 
     @FXML
     void WaitingRoomItem() {
-        LocationDropdown.setText("WaitingRoom");
+        LocationDropdown.setText("Waiting Room");
     }
 
     @FXML
     void XrayItem() {
-        LocationDropdown.setText("Xray");
+        LocationDropdown.setText("X Ray");
 
+    }
+
+    @FXML
+    void removeEmployee() {
+        Employee employee = employees.getValue();
+        Main.employees.remove(employee);
+        try {
+            DeleteDB.delEmployee(employee);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -187,8 +199,7 @@ public class ServiceController {
         if (employees.getItems().size() == 0) {
             employees.setPromptText("No Employees Currently Available");
             employees.setDisable(true);
-        }
-        else{
+        } else {
             employees.setDisable(false);
         }
     }
