@@ -1,55 +1,38 @@
 package model;
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.util.ArrayList;
 
-public class JanitorService {
-    private Properties properties;
-    private Session session;
-    private String username = "elbowwitchemerald@gmail.com";
-    private String password = "passwordhuh";
+public class JanitorService extends ServiceRequest{
 
-    public JanitorService(){
-        properties = new Properties();
+    // Attributes
+    private ArrayList<String> suppliesNeeded;
+    private String janitorEmail = "kgrant@wpi.edu";
 
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.port", "587");
-
-        session = Session.getInstance(properties, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
+    // Constructors
+    public JanitorService (){
+        this.setAccountTo(janitorEmail);
     }
 
-    public void setAccount(String username, String password){
-        this.username = username;
-        this.password = password;
+    // Getters
+    public ArrayList<String> getSuppliesNeeded(){
+        return this.suppliesNeeded;
     }
 
-    public boolean sendEmailServiceRequest(String message){
+    public String getJanitorEmail() {
+        return this.janitorEmail;
+    }
 
-        try {
+    // Setters
+    public void setSuppliesNeeded (ArrayList<String> supplies){
+        this.suppliesNeeded = supplies;
+    }
 
-            MimeMessage email = new MimeMessage(session);
+    public void setJanitorEmail (String mail){
+        this.janitorEmail = mail;
+    }
 
-            email.setFrom(new InternetAddress("random@gmail.com"));
-            email.addRecipient(Message.RecipientType.TO, new InternetAddress("cdembski1@gmail.com"));
-            email.setSubject("Maintenance Needed");
-            email.setText(message);
-
-            Transport.send(email);
-
-            return true;
-        }
-        catch (MessagingException mex){
-            mex.printStackTrace();
-            return false;
-        }
+    @Override
+    public void generateReport() {
+        System.out.println("Supplies Used: " + suppliesNeeded);
     }
 }
