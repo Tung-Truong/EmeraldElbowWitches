@@ -166,9 +166,7 @@ public class PatientController extends Controller{
         gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
-
         //get node that corr. to click from ListOfNodeObjects made in main
-
         try {
             goal = Main.getNodeMap().getNearestNeighborFilter
                     ((int) Math.floor(mousex), (int) Math.floor(mousey));
@@ -178,8 +176,7 @@ public class PatientController extends Controller{
         //getStart
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
-        ArrayList<NodeObj> path = null;
-
+        ArrayList<NodeObj> path;
         if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
@@ -193,18 +190,46 @@ public class PatientController extends Controller{
                 }
             }
             DrawCurrentFloorPath();
-        }else {
+        }
+    }
 
+    public void findPath(NodeObj dest) throws InvalidNodeException{
+        //create a new astar object
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(2);
+        gc1.setStroke(Color.BLUE);
+        gc1.setFill(Color.RED);
+        //get node that corr. to click from ListOfNodeObjects made in main
+            goal = dest;
+        //getStart
+        NodeObj Kiosk = Main.getKiosk();
+        //set the path to null
+        ArrayList<NodeObj> path;
+        if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+            //try a*
+            if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+                path = currentAlgorithm.getPathAlg().getGenPath();
+                currPath = path;
+            } else {
+                try {
+                    throw new InvalidNodeException("this is not accessable with the current map");
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
+            }
+            DrawCurrentFloorPath();
         }
     }
 
     public void highlightFloors(){
-        Map1.setStyle("-fx-background-color: transparent;");
-        Map2.setStyle("-fx-background-color: transparent;");
-        Map3.setStyle("-fx-background-color: transparent;");
-        MapL1.setStyle("-fx-background-color: transparent;");
-        MapL2.setStyle("-fx-background-color: transparent;");
-        MapG.setStyle("-fx-background-color: transparent;");
+        Map1.setText("45 Francis Floor 1 Center");
+        Map2.setText("Shapiro Building Floor 2");
+        Map3.setText("Floor 3");
+        MapL1.setText("Floor L1");
+        MapL2.setText("Floor L2");
+        MapG.setText("Ground Floor");
     }
 
     public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
@@ -246,9 +271,9 @@ public class PatientController extends Controller{
                             tempDraw.node.getxLoc() * mapWidth / 5000,
                             tempDraw.node.getyLoc() * mapHeight / 3400);
                 }
-                if(!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
-                    Floors.add(n.node.getFloor());
             }
+            if(!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
+                Floors.add(n.node.getFloor());
             System.out.println(n.node.getFloor());
             System.out.println(tempDraw.node.getFloor());
             tempDraw = n;
@@ -274,9 +299,14 @@ public class PatientController extends Controller{
         try {
             for(String s:Floors) {
                 System.out.println(s);
-                GetMapDropdownFromFloor(s).setStyle("-fx-background-color: lemonchiffon;");
+                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
             }
-            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setStyle("-fx-background-color: lightgreen;");
+            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText
+                    (GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
+            if(goal.node.getNodeType().equals("ELEV")){
+                GetMapDropdownFromFloor(goal.node.getFloor()).setText
+                        (GetMapDropdownFromFloor(goal.node.getFloor()).getText() + " [*]");
+            }
         } catch (InvalidNodeException e) {
             e.printStackTrace();
             System.out.println("fail");
@@ -313,8 +343,6 @@ public class PatientController extends Controller{
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         currentState = CurrentStatus.PATIENT;
-
-
     }
 
     @FXML
@@ -396,7 +424,7 @@ public class PatientController extends Controller{
         NodeObj newEndNode = Main.getNodeMap().getNodeObjByID(newEndNodeID);
         switchTab1();
         try {
-            findPath(newEndNode.node.getxLoc(),newEndNode.node.getyLoc());
+            findPath(newEndNode);
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
