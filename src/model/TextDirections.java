@@ -19,7 +19,7 @@ public class TextDirections {
 
         String msg = "";
 
-        float angle;
+        int angle;
         Node lastNode;
         Node curNode;
         Node nextNode;
