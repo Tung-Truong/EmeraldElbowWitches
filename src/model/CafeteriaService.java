@@ -62,6 +62,11 @@ public class CafeteriaService extends ServiceRequest {
     }
 
     public void generateReport(){
+        /*
+            Information required:
+            - How long did it  take for this request to be fulfilled
+            - What foods were delivered/ordered
+         */
         System.out.println("From Cafeteria: ");
         System.out.println("    Items Ordered: " + soldItems);
     }

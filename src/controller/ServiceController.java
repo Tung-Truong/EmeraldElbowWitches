@@ -130,6 +130,7 @@ public class ServiceController {
     void CafeteriaItem() {
         FoodDropdown.setVisible(true);
         AssignEmployee.getItems().clear();
+
         for (Employee e : Main.getEmployees()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
                 AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());

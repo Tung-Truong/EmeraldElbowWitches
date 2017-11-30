@@ -48,6 +48,12 @@ public class InterpreterService extends ServiceRequest {
     }
 
     public void generateReport(){
+        /*
+            Information required:
+            - How much time did each interpreter take
+            - How many interpreters of each language have been requested
+         */
+        // this should only be done if the request status is inactive
         System.out.println("Interpreter's Used: " + interpretersUsed);
     }
 }

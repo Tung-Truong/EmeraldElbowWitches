@@ -12,6 +12,8 @@ public abstract class ServiceRequest implements IReport {
     private Session session;
     private String username = "elbowwitchemerald@gmail.com"; // E-mail corresponding to the sending e-mail address
     private String password = "passwordhuh";
+    private boolean isActive;
+    private Employee assigned;
 
     protected String email;
     protected String messageText;
@@ -22,6 +24,8 @@ public abstract class ServiceRequest implements IReport {
 
     // Sets up attributes in order to send emails
     public ServiceRequest(){
+        isActive = true;
+
         properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -41,6 +45,10 @@ public abstract class ServiceRequest implements IReport {
     public void setAccountFrom(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public void setActive(boolean bool){
+        this.isActive = bool;
     }
 
     // Sets the e-mail address that the message is going to
@@ -77,5 +85,13 @@ public abstract class ServiceRequest implements IReport {
             mex.printStackTrace();
             return false;
         }
+    }
+
+    public void resolveRequest(){
+        if(this.isActive){
+            // do the things
+        }
+        // when the refresh button is pressed check for resolutions to request
+        // There will also be a resolve button in the UI and if this is pressed remove the request from the active list
     }
 }
