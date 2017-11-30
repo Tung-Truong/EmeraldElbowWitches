@@ -19,6 +19,7 @@ public class ServiceController {
     @FXML
     private MenuButton FoodDropdown,
             LocationDropdown, RequestServiceDropdown;
+    // LocationDropdown will not be present for the next iteration so there is no real use working with it now
 
     @FXML
     private Button removeNodeSelector;
@@ -110,7 +111,7 @@ public class ServiceController {
         }
     }
 
-    //these three items handle changing the employyee names available
+    //these three items handle changing the employee names available
     @FXML
     void MaintenanceItem() {
         AssignEmployee.getItems().clear();
@@ -122,10 +123,12 @@ public class ServiceController {
         AssignEmployee.setPromptText("Employees Available");
         employeeAvailable();
         RequestServiceDropdown.setText("Maintenance");
+        FoodDropdown.setVisible(false);
     }
 
     @FXML
     void CafeteriaItem() {
+        FoodDropdown.setVisible(true);
         AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployees()) {
             if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
@@ -147,6 +150,7 @@ public class ServiceController {
         AssignEmployee.setPromptText("Employees Available");
         employeeAvailable();
         RequestServiceDropdown.setText("Interpreter");
+        FoodDropdown.setVisible(false);
     }
 
     @FXML
@@ -260,13 +264,13 @@ public class ServiceController {
     @FXML
     void WaitingRoomItem() {
         LocationDropdown.setText("Waiting Room");
-    }
+    } // LocationDropdown will not be present for the next iteration so there is no real use working with it now
 
     @FXML
     void XrayItem() {
         LocationDropdown.setText("X Ray");
 
-    }
+    } // LocationDropdown will not be present for the next iteration so there is no real use working with it now
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {
