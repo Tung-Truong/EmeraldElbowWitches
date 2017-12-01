@@ -1,12 +1,9 @@
 package model;
 
-import controller.Main;
-import javafx.scene.canvas.GraphicsContext;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-public class astar extends PathingAlgorithm {
+public class Dstar extends PathingAlgorithm {
 
     private ArrayList<NodeObj> GenPath;     // list of node objects generated at the end that show the route - start to finish
 
@@ -86,7 +83,7 @@ public class astar extends PathingAlgorithm {
 
     //getter
     public ArrayList<NodeObj> getGenPath() {
-        System.out.println("ASTAR");
+        System.out.println("DSTAR");
         return GenPath;
     }
 }
