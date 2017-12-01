@@ -279,7 +279,7 @@ public class ServiceController {
     void Refresh(){
         service.resolveRequest();
         if(service.isActive()){
-            NotesTextField.setText(service.getClass().toString());
+            NotesTextField.setText("Active request: " + service);
         } else {
             NotesTextField.setText("No active Requests");
         }

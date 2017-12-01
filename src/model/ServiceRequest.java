@@ -34,6 +34,7 @@ public abstract class ServiceRequest implements IReport {
         // property attributes for replying to the email
         properties.put("mail.store.protocol", "pop3");
         properties.put("mail.pop3s.host", "pop.gmail.com");
+        properties.put("mail.pop3s.ssl.trust", "pop.gmail.com");
         properties.put("mail.pop3s.port", "995");
         properties.put("mail.pop3s.starttls.enable", "true");
 
@@ -120,53 +121,54 @@ public abstract class ServiceRequest implements IReport {
                     for a solution
                  */
                 store.connect("pop.gmail.com", 995, username, password);
-//
-//                Folder folder = store.getFolder("inbox");
-//
-//                if(folder.exists()){
-//                    folder.open(Folder.READ_ONLY);
-//
-//                    Message[] messages = folder.getMessages();
-//
-//                    if (messages.length != 0) {
-//                        for (int i = 0, n = messages.length; i < n; i++) {
-//                            Message message = messages[i];
-//                            // Get all the information from the message
-//                            String from = InternetAddress.toString(message.getFrom());
-//                            if (from != null && from.equals(email)) {
-//                                gates += 1;
-//                            }
-//
-//                            String to = InternetAddress.toString(message
-//                                    .getRecipients(Message.RecipientType.TO));
-//                            if (to != null && to.equals(username)) {
-//                                gates += 1;
-//                            }
-//
-//                            String subject = message.getSubject();
-//                            if (subject != null && subject.equals("Re: " + messageHeader)) {
-//                                gates += 1;
-//                            }
-//
-//                            Date received = message.getSentDate();
-//
-//                            if (received != null && received.after(sent)) {
-//                                gates += 1;
-//                            }
-//
-//                            if (gates == 4){
-//                                replyInfo = message.getContent().toString();
-//                                setActive(false);
-//                                break;
-//                            }
-//                        }//end of for loop
-//
-//                        folder.close(false);
-//                        store.close();
-//                    } else {
-//                        System.out.println("There is no msg....");
-//                    }
-//                }
+
+                Folder folder = store.getFolder("inbox");
+
+                if(folder.exists()){
+                    folder.open(Folder.READ_ONLY);
+
+                    Message[] messages = folder.getMessages();
+
+                    if (messages.length != 0) {
+                        for (int i = 0, n = messages.length; i < n; i++) {
+                            Message message = messages[i];
+                            // Get all the information from the message
+                            String from = InternetAddress.toString(message.getFrom());
+                            if (from != null && from.equals(email)) {
+                                gates += 1;
+                            }
+
+                            String to = InternetAddress.toString(message
+                                    .getRecipients(Message.RecipientType.TO));
+                            if (to != null && to.equals(username)) {
+                                gates += 1;
+                            }
+
+                            String subject = message.getSubject();
+                            if (subject != null && subject.equals("Re: " + messageHeader)) {
+                                gates += 1;
+                            }
+
+                            Date received = message.getSentDate();
+
+                            if (received != null && received.after(sent)) {
+                                gates += 1;
+                            }
+
+                            if (gates == 4){
+                                replyInfo = message.getContent().toString();
+                                setActive(false);
+                                break;
+                            }
+                        }//end of for loop
+                        System.out.println(gates);
+                        
+                        folder.close(false);
+                        store.close();
+                    } else {
+                        System.out.println("This folder is empty");
+                    }
+                }
             } catch (Exception e){
                 e.printStackTrace();
             }
