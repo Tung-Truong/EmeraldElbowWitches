@@ -142,9 +142,11 @@ public class AdminController extends Controller{
     }
 
     @FXML
-    /*
-    * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
-     * or provides some map editing functionality
+
+
+    /**
+     * StateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
+     * or provides some map editing functionality.
      */
     void stateHandler(MouseEvent event) {
         //get the mouses location and convert that to the corrected map coordinates for the original image
@@ -187,8 +189,12 @@ public class AdminController extends Controller{
         //far left stair node
     }
 
-    /*
-    * nodeProcess deals with selecting a node when editing the map
+
+    /**
+     * This method deals with selecting a node when editing the map
+     * @param mousex This is the x coordinate of the mouse.
+     * @param mousey This is the y coordinate of the mouse.
+     * @param currentState This is the current state of the state machine in stateHandler.
      */
     private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
         NodeObj nearestNode = null;
@@ -210,8 +216,12 @@ public class AdminController extends Controller{
 
     }
 
-    /*
-    *  edgeProcess deals with selecting an edge when editing the map
+
+    /**
+     * This deals with selecting an edge when editing the map.
+     * @param mousex This is the x coordinate of the mouse.
+     * @param mousey This is the y coordinate of the mouse.
+     * @param counterForEdges This is an integer that keeps track of an edge is selected.
      */
     private void edgeProcess(int mousex, int mousey, int counterForEdges) {
        NodeObj nodeO = null;
@@ -229,9 +239,10 @@ public class AdminController extends Controller{
     }
 
     @FXML
-    /*
-    *UpdateBorderButton is called when adding or editing. It updates the
-    * node map, and redraws the screen
+
+    /**
+     * This is called when adding or editing. It updates the
+     * node map, and redraws the screen.
      */
     void UpdateBorderButton() {
         String NIDA = edgeNodeA.getText();
@@ -246,8 +257,8 @@ public class AdminController extends Controller{
                 edgeAB.getNodeB().node.getyLoc()*mapHeight/3400);
     }
 
-    /*
-    * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
+    /**
+     * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
      */
     @FXML
     void DeleteBorderButton() {
@@ -257,6 +268,10 @@ public class AdminController extends Controller{
         switchTab2();
     }
 
+    /**
+     * This method highlights the floors and setting the rest of them transparent.
+     * @deprecated This function is never used.
+     */
     public void highlightFloors(){
         Map1.setStyle("-fx-background-color: transparent;");
         Map2.setStyle("-fx-background-color: transparent;");
@@ -266,6 +281,13 @@ public class AdminController extends Controller{
         MapG.setStyle("-fx-background-color: transparent;");
     }
 
+    /**
+     * This function accepts a floor and returns the map of that floor.
+     * @param Nfloor This is the number of the floor.
+     * @return MenuItem returns the map of the floor
+     * @throws InvalidNodeException Throws invalid node exception.
+     * @deprecated This function is never used.
+     */
     public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
         switch(Nfloor){
             case "1":
@@ -320,9 +342,8 @@ public class AdminController extends Controller{
 
    //--------------------------------------------------------------------------------
 
-
-    /*
-    * switchTab2 is called when admin tab is selected, draws admin map to screen
+    /**
+     * switchTab2 is called when admin tab is selected, draws admin map to screen.
      */
     @FXML
     public void switchTab2(){
@@ -361,8 +382,8 @@ public class AdminController extends Controller{
         gc1.setFill(Color.BLUE);
     }
 
-    /*
-    * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
+    /**
+     * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
      */
     @FXML
     public void switchTab1(){
@@ -370,8 +391,9 @@ public class AdminController extends Controller{
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
-    /*
-    * sendServiceRequest sends the service request to the set email in JanitorService.sendEmailServiceRequest
+    /**
+     * sendServiceRequest sends the service request to the set email in JanitorService.sendEmailServiceRequest
+     * @@deprecated This function is never used.
      */
     @FXML
     void sendServiceRequest(){
@@ -382,6 +404,10 @@ public class AdminController extends Controller{
         Main.getJanitorService().sendEmailServiceRequest();
     }
 
+    /**
+     * This function sets the current pathfinding algorithm (DepthFirst, BreadthFirst, Dijkstras or astar)
+     * @param e This the event that triggers the change of the algorithm.
+     */
     @FXML
     void setCurrentAlgorithm(Event e){
         String clickedID = ((MenuItem)e.getSource()).getId();
@@ -403,16 +429,27 @@ public class AdminController extends Controller{
         PFM.setText(clickedID);
     }
 
+    /**
+     * This function resets the kiosk location.
+     */
     @FXML
     void resetKioskLoc(){
         setKioskLoc(2460, 910);
     }
 
+    /**
+     * This function updates the selected map.
+     * @param e This is an event that determines when the maps should refresh.
+     */
     @FXML
     void mapSelected(Event e){
         Main.getControllers().updateAllMaps(e);
     }
 
+    /**
+     * Displays the selected map.
+     * @param e Event e is used to trigger this method.
+     */
     @FXML
     void GetMap(Event e){
         String clickedID = ((MenuItem)e.getSource()).getId();
@@ -452,8 +489,8 @@ public class AdminController extends Controller{
         }
     }
 
-    /*
-    * setKioskLoc sets the default location for the floor
+    /**
+     * setKioskLoc sets the default location for the floor.
      */
     void setKioskLoc(int xCoord, int yCoord) {
         try {
@@ -463,8 +500,8 @@ public class AdminController extends Controller{
         }
     }
 
-    /*
-    * removeNode removes a node from the map
+    /**
+     * removeNode removes a node from the map.
      */
     @FXML
     void removeNode(){
@@ -475,8 +512,8 @@ public class AdminController extends Controller{
         switchTab2();
     }
 
-    /*
-    * addEditNode adds/modifies a node in the map
+    /**
+     * addEditNode adds/modifies a node in the map
      */
     @FXML
     void addEditNode(){
@@ -540,6 +577,9 @@ public class AdminController extends Controller{
         resize();
     }
 
+    /**
+     * This resizes the entire user interface.
+     */
     public void resize(){
         if(Zoom<=1){
             XTrans = 0;

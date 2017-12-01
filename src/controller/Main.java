@@ -35,7 +35,12 @@ public class Main extends Application {
     public static ControllerListener controllers;
 
 
-
+    /**
+     * Main function of the program
+     * @param args Accepts parameter args, which is an array of strings.
+     * @throws SQLException Throws SQL Exception.
+     * @throws ClassNotFoundException Throws Class Not Found Exception.
+     */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up service request
         janitorService = new JanitorService();
@@ -159,9 +164,12 @@ public class Main extends Application {
         javafx.application.Application.launch(args);
     }
 
-    //this sets the stage for the application,
-    //running the fxml file to open the UI
-    //and handing control to the controller
+    /**
+     * Start method, sets up the initial stage for the application, runs the fxml file
+     * to open the UI and passes the control to the main Controller
+     * @param primaryStage This is the primary stage of the application
+     * @throws Exception Throws Exception exception.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -189,13 +197,19 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Getter for the AdminScene
+     * @return Scene This returns the adminScene.
+     */
     public static Scene getAdminScene() {
         return adminScene;
     }
 
-    //do a graceful exit: when the close button is clicked at the top of the map
-    //add everything to the database tables,
-    //recreate the csv files, allowing for persistence
+    /**
+     * Perform a graceful exit when the close button is clicked at the top of the map.
+     * Adds everything to the database tables, recreate the csv files, allowing for persistence
+     * @throws SQLException Throws SQL Exception
+     */
     @Override
     public void stop() throws SQLException {
         for (NodeObj n : nodeMap.getNodes()) {
@@ -223,47 +237,91 @@ public class Main extends Application {
 
 //this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
+
+    /**
+     * Getter for Kiosk. Needed to allow access to the Controller
+     * @return NodeObj This returns the kiosk.
+     */
     public static NodeObj getKiosk() {
         return kiosk;
     }
 
+    /**
+     * Getter for NodeMap. Needed to allow access to the Controller
+     * @return ListOfNodeObj  This returns the nodeMap.
+     */
     public static ListOfNodeObjs getNodeMap() {
         return nodeMap;
     }
 
+    /**
+     * Getter for PatientScene. Needed to allow access to the Controller
+     * @return Scene This returns the patientScene.
+     */
     public static Scene getPatientScene() {
         return patientScene;
     }
 
+    /**
+     * Getter for currStage. Needed to allow access to the Controller
+     * @return Stage This returns the currStage.
+     */
     public static Stage getCurrStage() {
         return currStage;
     }
 
+    /**
+     * Getter for parentRoot. Needed to allow access to the Controller
+     * @return Parent This returns the parentRoot.
+     */
     public static Parent getParentRoot() {
         return parentRoot;
     }
 
+    /**
+     * Getter for Service. Needed to allow access to the Controller
+     * @return Scene This returns the Service.
+     */
     public static Scene getService() {
         return Service;
     }
 
+    /**
+     * Getter for employees. Needed to allow access to the Controller
+     * @return ArrayList/Employee  This returns the employees.
+     */
     public static ArrayList<Employee> getEmployees(){
         return employees;
     }
 
+    /**
+     * Setter for kiosk.
+     * @param kiosk This is the new kiosk.
+     */
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
     }
 
+    /**
+     * Getter for janitorService. Needed to allow access to the Controller
+     * @return JanitorService janitorService
+     */
     public static JanitorService getJanitorService() {
         return janitorService;
     }
 
+    /**
+     * Getter for controllers. Needed to allow access to the Controller
+     * @return ControllerListener  This returns the controllers.
+     */
     public static ControllerListener getControllers() {
         return controllers;
     }
 
-    //this runs the service request
+    /**
+     * Sets up the service requests for Janitor
+     * @param janitorService This is the janitor request.
+     */
     public static void setJanitorService(JanitorService janitorService) {
         Main.janitorService = janitorService;
     }

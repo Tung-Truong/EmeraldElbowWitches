@@ -9,9 +9,12 @@ public class EdgeObj {
     public String edgeID;
     private double weight;     // weight of the edge, used in the A* algorithm to find best path
 
-
-    // Overloaded constructor so that edge can take multiple parameters for entry, depending on the situation
-    public EdgeObj(NodeObj nodeA, NodeObj nodeB) {  // takes just two node objects
+    /**
+     * Overloaded constructor so that edge can take multiple parameters for entry, depending on the situation
+     * @param nodeA This is the first node.
+     * @param nodeB This is the second node.
+     */
+    public EdgeObj(NodeObj nodeA, NodeObj nodeB) {
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = this.genWeightFromDistance();
@@ -20,7 +23,13 @@ public class EdgeObj {
         this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
-    public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {   // takes both node objects and the weight of the edge
+    /**
+     * Generates an edge object, from the provided parameters.
+     * @param nodeA This is the first node.
+     * @param nodeB This is the second node.
+     * @param edgeWeight This is the edge weight.
+     */
+    public EdgeObj(NodeObj nodeA, NodeObj nodeB, double edgeWeight) {
         this.nodeA = nodeA;
         this.nodeB = nodeB;
         this.weight = edgeWeight;
@@ -29,13 +38,24 @@ public class EdgeObj {
         this.edgeID = nodeA.node.getNodeID() + "_" + nodeB.node.getNodeID();
     }
 
-    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID) {    // takes just the strings of the nodes' IDs and the edge ID
+    /**
+     * Generates an edge object, from the provided parameters.
+     * @param nodeAStr This is the first node name.
+     * @param nodeBStr This is the second node name.
+     * @param edgeID This is the IDF of the edge, between the two nodes.
+     */
+    public EdgeObj(String nodeAStr, String nodeBStr, String edgeID) {
         this.nodeAStr = nodeAStr;
         this.nodeBStr = nodeBStr;
         this.edgeID = edgeID;
     }
 
-    //find the node that is linked to the input node
+    /**
+     * Finds the node that is linked to the input node
+     * @param node Node to be checked.
+     * @return NodeObj the node that is linked.
+     * @throws InvalidNodeException Thrown if node is not linked to any other node.
+     */
     public NodeObj getOtherNodeObj(NodeObj node) throws InvalidNodeException {
         if (node == this.nodeA)
             return nodeB;
@@ -45,17 +65,28 @@ public class EdgeObj {
             throw new InvalidNodeException("given node not associated with this edge");
     }
 
-    //return the weight of the current edge
+
+    /**
+     * Returns the weight of the current edge.
+     * @return double
+     */
     public double getWeight() {
         return weight;
     }
 
-    //set the weight of the edge to a specific value
+
+    /**
+     * Set the weight of the edge to a specific value.
+     * @param edgeWeight The weight of the edge to be set.
+     */
     public void setWeight(double edgeWeight) {
         weight = edgeWeight;
     }
 
-    // perform mathematical distance between the start and end location nodes (in pixels)
+    /**
+     * Performs mathematical distance between the start and end location nodes (in pixels)
+     * @return double distance between the two nodes.
+     */
     public double genWeightFromDistance() {
         int ax = nodeA.node.getxLoc();
         int ay = nodeA.node.getyLoc();
@@ -65,7 +96,10 @@ public class EdgeObj {
         return Math.abs(Math.sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
     }
 
-    // convert the EdgeEntity to the EdgeObject
+    /**
+     * Converts the EdgeEntity to the EdgeObject.
+     * @return Edge the generated edge.
+     */
     public Edge objToEntity() {
         return new Edge(this.nodeAStr, this.nodeBStr, this.edgeID);
     }

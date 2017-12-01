@@ -86,6 +86,9 @@ public class PatientController extends Controller{
     @FXML
     private ImageView homeScreen;
 
+    /**
+     * Clears home screen from all overlays such as other windows and paths.
+     */
     @FXML
     private void clearHomeScreen(){
         mapContainer.getChildren().remove(homeScreen);
@@ -95,6 +98,9 @@ public class PatientController extends Controller{
 
     ImageLoader mapImage = new ImageLoader();
 
+    /**
+     * Initializes the patient display and shows the map of hte first floor.
+     */
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("Map1");
         currentMap.setImage(m1);
@@ -107,9 +113,10 @@ public class PatientController extends Controller{
     }
 
     @FXML
-    /*
-    * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
+    /**
+     * Called when the map is clicked. Depending on the state, it either pathfinds,
      * or provides some map editing functionality
+     * @param event This is the mouse event that triggers this method.
      */
     void stateHandler(MouseEvent event) {
         //get the mouses location and convert that to the corrected map coordinates for the original image
@@ -140,8 +147,12 @@ public class PatientController extends Controller{
         //far left stair node
     }
 
-    /*
-    * nodeProcess deals with selecting a node when editing the map
+
+    /**
+     * deals with selecting a node when editing the map
+     * @param mousex This is the x coordinate of the mouse.
+     * @param mousey This is the y coordinate of the mouse.
+     * @param currentState This is the current state of the state machine in stateHandler.
      */
     private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
         NodeObj nearestNode = null;
@@ -161,6 +172,13 @@ public class PatientController extends Controller{
 
     /*
     * findPath pathfinds, and draws the route to the screen
+     */
+
+    /**
+     * Finds the path given the mouse direction when the click occurs.
+     * @param mousex This is the x coordinate of the mouse.
+     * @param mousey This is the y coordinate of the mouse.
+     * @throws InvalidNodeException Throws invalid node exception.
      */
     public void findPath(int mousex, int mousey) throws InvalidNodeException{
         //create a new astar object
@@ -198,6 +216,11 @@ public class PatientController extends Controller{
         }
     }
 
+    /**
+     * Finds the path given the node at the destination.
+     * @param dest This is the destination of the path.
+     * @throws InvalidNodeException Throws invalid node exception.
+     */
     public void findPath(NodeObj dest) throws InvalidNodeException{
         //create a new astar object
         if(gc1 == null)
@@ -229,6 +252,9 @@ public class PatientController extends Controller{
         }
     }
 
+    /**
+     * Highlights the floors and dfisplays the floor/building.
+     */
     public void highlightFloors(){
         Map1.setText("45 Francis Floor 1 Center");
         Map2.setText("Shapiro Building Floor 2");
@@ -238,6 +264,12 @@ public class PatientController extends Controller{
         MapG.setText("Ground Floor");
     }
 
+    /**
+     * Gets the map given the floor number.
+     * @param Nfloor This is the number of the floor.
+     * @return MenuItem map of the floor.
+     * @throws InvalidNodeException Throws invalid node exception.
+     */
     public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
         switch(Nfloor){
             case "1":
@@ -264,6 +296,9 @@ public class PatientController extends Controller{
 
     }
 
+    /**
+     * Draws the path on the overlay of the map.
+     */
     public void DrawCurrentFloorPath(){
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
@@ -315,11 +350,17 @@ public class PatientController extends Controller{
         }
     }
 
+    /**
+     * Sets the "flag" of the node at the start of the path.
+     */
     @FXML
     void setStartNodeFlag(){
         this.currentState = CurrentStatus.SETSTARTNODE;
     }
 
+    /**
+     * Sets the "flag" of the node at the end of the path.
+     */
     @FXML
     void setEndNodeFlag(){
         this.currentState = CurrentStatus.SETENDNODE;
@@ -328,16 +369,16 @@ public class PatientController extends Controller{
     //--------------------------------------------------------------------------------
 
 
-    /*
-    * switchTab2 is called when admin tab is selected, draws admin map to screen
+    /**
+     * switchTab2 is called when admin tab is selected, draws admin map to screen
      */
     @FXML
     public void switchTab2(){
         Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
-    /*
-    * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
+    /**
+     * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
      */
     @FXML
     public void switchTab1(){
@@ -357,6 +398,10 @@ public class PatientController extends Controller{
         Main.getControllers().updateAllMaps(e);
     }
 
+    /**
+     * Displays the selected map.
+     * @param e Event e triggers the respective controller.
+     */
     @FXML
     void GetMap(Event e){
         String clickedID = ((MenuItem)e.getSource()).getId();
@@ -396,8 +441,8 @@ public class PatientController extends Controller{
         }
     }
 
-    /*
-    * setKioskLoc sets the default location for the floor
+    /**
+     * setKioskLoc sets the default location for the floor
      */
     void setKioskLoc(int xCoord, int yCoord) {
         try {
@@ -407,8 +452,8 @@ public class PatientController extends Controller{
         }
     }
 
-     /*
-    * setStartNode sets the start node to the node nearest to the given coords in the current building
+     /**
+     * setStartNode sets the start node to the node nearest to the given coords in the current building
      */
     @FXML
     void setStartNode(){
@@ -419,6 +464,9 @@ public class PatientController extends Controller{
         currentState = CurrentStatus.PATIENT;
     }
 
+    /**
+     * Sets the node at the end of the path.
+     */
     @FXML
     void setEndNode(){
         String newEndNodeID = EndNodeID.getText();
@@ -473,6 +521,9 @@ public class PatientController extends Controller{
         resize();
     }
 
+    /**
+     * This resizes the entire user interface.
+     */
     public void resize(){
         if(Zoom<=1){
             XTrans = 0;

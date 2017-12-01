@@ -9,7 +9,11 @@ import java.sql.*;
 public class AddDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    // Generate Nodes from database using CSV files
+    /**
+     * Generate Nodes from database using CSV files
+     * @param addNode Node to be added.
+     * @throws SQLException Throws SQL exception.
+     */
     public static void addNode(Node addNode) throws SQLException {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -30,7 +34,11 @@ public class AddDB {
         }
     }
 
-    // Generate Edges from database using CSV files
+    /**
+     * Generate Edges from database using CSV files
+     * @param addEdge Edge to be added
+     * @throws SQLException Throws SQL exception.
+     */
     public static void addEdge(Edge addEdge) throws SQLException {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -45,6 +53,11 @@ public class AddDB {
         pState.close();
     }
 
+    /**
+     * Adds employee.
+     * @param addEmployee Employee to be added.
+     * @throws SQLException Never thrown.
+     */
     public static void addEmployee(Employee addEmployee) throws SQLException {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);

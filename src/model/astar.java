@@ -10,6 +10,12 @@ public class astar extends PathingAlgorithm {
 
     private ArrayList<NodeObj> GenPath;     // list of node objects generated at the end that show the route - start to finish
 
+    /**
+     * Finds the path given starting and ending nodes.
+     * @param start This is the starting node.
+     * @param goal This is the ending node.
+     * @return boolean If successfully reaching the end node.
+     */
     public boolean pathfind(NodeObj start, NodeObj goal) {
         LinkedList<NodeObj> open_queue = new LinkedList<>();    //open_queue contains all unexplored NodeObjs, starts with just the start NodeObj at the first position
         LinkedList<NodeObj> closed_queue = new LinkedList<>();  //closed_queue contains all explored NodeObjs, which starts empty
@@ -51,7 +57,12 @@ public class astar extends PathingAlgorithm {
         return false;
     }
 
-    //method that checks if the NodeA is on the same floor as nodeB and it is not, return a higher heuristic
+    /**
+     * Checks if the NodeA is on the same floor as nodeB and it is not, return a higher heuristic
+     * @param nodeA This is the first node.
+     * @param nodeB This is the second node
+     * @return double Determines, by whether the two nodes are in the same floor.
+     */
     private double floorDifference(NodeObj nodeA, NodeObj nodeB) {
         if (nodeA.getNode().getFloor().equals(nodeB.getNode().getFloor())) {
             return 0;
@@ -60,7 +71,11 @@ public class astar extends PathingAlgorithm {
         }
     }
 
-    // Helper method to determine the edge with the lowest weight to prioritize
+    /**
+     * Helper method to determine the edge with the lowest weight to prioritize.
+     * @param list List of node objects.
+     * @return NodeObj returns the node object with the lowest weight
+     */
     private NodeObj getLowest(LinkedList<NodeObj> list) {
         double currentHeuristic = Integer.MAX_VALUE;
         NodeObj lowestNode = null;
@@ -73,7 +88,12 @@ public class astar extends PathingAlgorithm {
         return lowestNode;
     }
 
-    //function to add nodes based on their heuristic cost from increasing order
+    /**
+     * Adds nodes based on their heuristic cost from increasing order
+     * @param list List of node objects.
+     * @param node Node object.
+     * @return ArrayList of Node Objects
+     */
     protected ArrayList<NodeObj> addToQueue(ArrayList<NodeObj> list, NodeObj node) {
         for (NodeObj listNode : list) {
             if (listNode.getHeuristic() > node.getHeuristic())

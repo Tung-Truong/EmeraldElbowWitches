@@ -48,6 +48,9 @@ public class ServiceController {
         this.serviceNeeded = service;
     }
 
+    /**
+     * Sets the service request.
+     */
     public void setService() {
         String needed = this.RequestServiceDropdown.getText();
         if(AssignEmployee.getValue().split(" ") == null)
@@ -79,11 +82,18 @@ public class ServiceController {
     }
 
     // FXML Methods
+
+    /**
+     * Returns to admin screen.
+     */
     @FXML
     void BackToAdmin() {
         Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
+    /**
+     * Submits the request that was initialized.
+     */
     @FXML
     void SubmitRequest() {
         try {
@@ -110,7 +120,9 @@ public class ServiceController {
         }
     }
 
-    //these three items handle changing the employyee names available
+    /**
+     * handles changing the maintenance employee names available
+     */
     @FXML
     void MaintenanceItem() {
         AssignEmployee.getItems().clear();
@@ -124,6 +136,9 @@ public class ServiceController {
         RequestServiceDropdown.setText("Maintenance");
     }
 
+    /**
+     * handles changing the cafeteria employee names available
+     */
     @FXML
     void CafeteriaItem() {
         AssignEmployee.getItems().clear();
@@ -136,6 +151,9 @@ public class ServiceController {
         RequestServiceDropdown.setText("Cafeteria");
     }
 
+    /**
+     * handles changing the interpreter employee names available
+     */
     @FXML
     void InterpreterItem() {
         AssignEmployee.getItems().clear();
@@ -149,6 +167,9 @@ public class ServiceController {
         RequestServiceDropdown.setText("Interpreter");
     }
 
+    /**
+     * Adds employees and sets their credentials (email, first and last name, department, language, availability)
+     */
     @FXML
     void AddEmployee(){
         String email = emailOne.getText().trim();
@@ -173,6 +194,9 @@ public class ServiceController {
 
     }
 
+    /**
+     * Auto fills and formats the employee credentials.
+     */
     @FXML
     void AutoFill(){
         foundMOd = new Employee();
@@ -195,6 +219,9 @@ public class ServiceController {
 
     }
 
+    /**
+     * Selects an employee from the list of employees.
+     */
     @FXML
     void SelectEmployee(){
         for (Employee e : Main.getEmployees()) {
@@ -203,6 +230,9 @@ public class ServiceController {
         DeleteEmployee.getItems().addAll(ModifyEmployee.getItems());
     }
 
+    /**
+     * Modifies the selected employee.
+     */
     @FXML
     void ModifyEmployees(){
         foundMOd.setEmail(emailTwo.getText());
@@ -220,6 +250,9 @@ public class ServiceController {
         availTwo.clear();
     }
 
+    /**
+     * Removes the selected employee.
+     */
     @FXML
     void removeEmployee() {
         foundDel = new Employee();
@@ -268,7 +301,9 @@ public class ServiceController {
 
     }
 
-    //function that just sets the menu items to display no employee available if there is none.
+    /**
+     * Sets the menu items to display no employee available if there is none.
+     */
     private void employeeAvailable() {
         if (AssignEmployee.getItems().size() == 0) {
             AssignEmployee.setPromptText("No Employees Currently Available");
