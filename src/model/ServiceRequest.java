@@ -32,11 +32,11 @@ public abstract class ServiceRequest implements IReport {
         properties = new Properties();
 
         // property attributes for replying to the email
-        properties.put("mail.store.protocol", "pop3");
-        properties.put("mail.pop3s.host", "pop.gmail.com");
-        properties.put("mail.pop3s.ssl.trust", "pop.gmail.com");
-        properties.put("mail.pop3s.port", "995");
-        properties.put("mail.pop3s.starttls.enable", "true");
+        properties.put("mail.store.protocol", "imaps");
+        // properties.put("mail.imaps.host", "imap.gmail.com");
+        properties.put("mail.imaps.ssl.trust", "imap.gmail.com");
+        properties.put("mail.imaps.port", "993");
+        properties.put("mail.imaps.starttls.enable", "true");
 
         // property attributes for sending the email
         properties.put("mail.smtp.auth", "true");
@@ -109,7 +109,7 @@ public abstract class ServiceRequest implements IReport {
             int gates = 0;
 
             try {
-                Store store = session.getStore("pop3s");
+                Store store = session.getStore("imaps");
 
                 /*
                     Alright, so here's where we stand, the line below is currently
@@ -120,7 +120,7 @@ public abstract class ServiceRequest implements IReport {
                     , google, and the ssl server or something to that effect to help with searching
                     for a solution
                  */
-                store.connect("pop.gmail.com", 995, username, password);
+                store.connect("imap.gmail.com", username, password);
 
                 Folder folder = store.getFolder("inbox");
 
@@ -131,38 +131,55 @@ public abstract class ServiceRequest implements IReport {
 
                     if (messages.length != 0) {
                         for (int i = 0, n = messages.length; i < n; i++) {
+                            gates = 0;
                             Message message = messages[i];
                             // Get all the information from the message
                             String from = InternetAddress.toString(message.getFrom());
-                            if (from != null && from.equals(email)) {
-                                gates += 1;
+                            if (from != null) {
+                                int begin = from.indexOf("<");
+                                int end = from.indexOf(">");
+                                if (email.equals(from.substring(begin+1, end))){
+                                    gates += 1;
+                                    System.out.println("\n");
+                                    System.out.println("Email to matches email from");
+                                    System.out.println(from.substring(begin+1, end) + " = " + email);
+                                }
                             }
 
                             String to = InternetAddress.toString(message
                                     .getRecipients(Message.RecipientType.TO));
-                            if (to != null && to.equals(username)) {
-                                gates += 1;
+                            if (to != null) {
+                                int begin = from.indexOf("<");
+                                int end = from.indexOf(">");
+                                if (username.equals(to.substring(begin+1, end))){
+                                    gates += 1;
+                                    System.out.println("Email from matches email to");
+                                    System.out.println(to + " = " + username);
+                                }
                             }
 
                             String subject = message.getSubject();
                             if (subject != null && subject.equals("Re: " + messageHeader)) {
                                 gates += 1;
+                                System.out.println("Message header matches");
+                                System.out.println(subject + " = " + "Re: " + messageHeader);
                             }
 
                             Date received = message.getSentDate();
 
                             if (received != null && received.after(sent)) {
                                 gates += 1;
+                                System.out.println("Date is after message was sent");
+                                System.out.println(sent + " < " + received);
                             }
 
                             if (gates == 4){
-                                replyInfo = message.getContent().toString();
+                                // replyInfo = message.getContent().toString();
                                 setActive(false);
                                 break;
                             }
                         }//end of for loop
-                        System.out.println(gates);
-                        
+
                         folder.close(false);
                         store.close();
                     } else {
