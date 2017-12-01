@@ -90,9 +90,9 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="678.0" layoutY="250.0" onAction="#Refresh" prefHeight="100.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Refresh" textFill="WHITE">
+                        <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="600.0" onAction="#Refresh" prefHeight="100.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Refresh" textFill="WHITE">
                            <font>
-                              <Font name="Avenir Next Bold" size="57.0" />
+                              <Font name="Avenir Next Bold" size="40.0" />
                            </font>
                            <effect>
                               <Glow level="1.0" />
