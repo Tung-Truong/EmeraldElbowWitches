@@ -17,8 +17,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
+    public static int sceneWidth = 1400;
+    public static int sceneHeight = 900;
     public static Scene patientScene;
     public static Scene adminScene;
     public static Scene Service;
