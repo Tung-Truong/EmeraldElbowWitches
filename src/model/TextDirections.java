@@ -22,10 +22,14 @@ public class TextDirections {
         Node curNode;
         Node nextNode;
         Node floorNode;
+        Node lastStraightNode;
         String previousMsg = "";
+        Double pixelToFeet = 1.0;
+        Double pathLength = 0.0;
 
         if (path.size() == 2) {
-            return "go straight";
+            pathLength = (path.get(1).getDistance(path.get(0))) / pixelToFeet;
+            return "go straight for " + pathLength + " feet";
         }
         for (int i = 1; i < path.size() - 1; i++) {
 
@@ -46,8 +50,11 @@ public class TextDirections {
                 angle = angleBetweenNodes(lastNode, curNode, nextNode);
                 // if the next node is basically straight ahead
                 if (angle >= 160 || angle <= -160) {
-                    if (!previousMsg.equals("go straight\n" )) {
-                        msg.add("go straight " +curNode.getLongName() + "\n");
+                    if (!previousMsg.equals("go straight\n")) {
+                        //Need to find next turn to get that x and y and then math out the feet
+                        Node nextTurn = findNextTurn(i, path);
+                        pathLength = distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet;
+                        msg.add("go straight  for " + pathLength + " feet" + "\n");
                         previousMsg = "go straight\n";
                     }
                 } else {
@@ -64,17 +71,22 @@ public class TextDirections {
                     // add which direction to turn
 
                     if (angle >= 0) {
-                        dirAng += "right at " + curNode.getLongName() + "\n";
+                        dirAng += "right\n";
+                        dirAng += "go straight for " + distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "right at ";
+
                     } else {
-                        dirAng += "left at " + curNode.getLongName() + "\n";
+                        dirAng += "left\n";
+                        dirAng += "go straight for " + distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "left at ";
+
                     }
                     msg.add(dirAng);
                 }
             }
 
         }
+        msg.add("You have arrived at your location!");
         String txtDir = "";
         for (String s : msg)
             txtDir = txtDir + s;
@@ -118,6 +130,33 @@ public class TextDirections {
             index++;
         }
         return node;
+    }
+
+    //function that calculates distance between two points.
+    double distanceFormula(int Ax, int Ay, int Bx, int By) {
+        double x = (Ax - Bx) ^ 2;
+        double y = (Ay - By) ^ 2;
+        return sqrt(x + y);
+    }
+
+    //function that finds the next turn in the path
+    Node findNextTurn(int currentNode, ArrayList<NodeObj> path) {
+        Node turnNode;
+        float angle;
+        Node lastNode;
+        Node curNode;
+        Node nextNode;
+        for (int i = currentNode; i < path.size(); i++) {
+            lastNode = path.get(i - 1).getNode();
+            curNode = path.get(i).getNode();
+            nextNode = path.get(i + 1).getNode();
+            angle = angleBetweenNodes(lastNode, curNode, nextNode);
+            if (!(angle >= 160 || angle <= -160)) {
+                turnNode = path.get(i).getNode();
+                return turnNode;
+            }
+        }
+        return null;
     }
 
 }
