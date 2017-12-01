@@ -68,7 +68,7 @@ public class AddDB {
         String buildSQLStr = " VALUES ('" + addNode.getNode().getNodeID() + "','" +
                 addNode.getTimesPathed() + "','" + addNode.getAvgPathLen() + "')"; //build the sql template
 
-        String SQL = "INSERT INTO NODETABLE" + buildSQLStr; //insert row into database
+        String SQL = "INSERT INTO NODEINFOTABLE" + buildSQLStr; //insert row into database
         try {
             PreparedStatement pState = connection.prepareStatement(SQL);
             pState.executeUpdate();
