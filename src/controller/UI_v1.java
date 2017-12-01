@@ -160,6 +160,11 @@ public class UI_v1 {
     }
 
     @FXML
+    private void restroomcheck(){
+        mapContainer.getChildren().add(restroomone);
+    }
+
+    @FXML
     /*
     * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
      * or provides some map editing functionality
