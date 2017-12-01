@@ -111,15 +111,6 @@ public abstract class ServiceRequest implements IReport {
             try {
                 Store store = session.getStore("imaps");
 
-                /*
-                    Alright, so here's where we stand, the line below is currently
-                    the source of all of the errors coming through as so I commented
-                    everything else out to focus on this.
-
-                    This problem has to do with authentication certificates between java
-                    , google, and the ssl server or something to that effect to help with searching
-                    for a solution
-                 */
                 store.connect("imap.gmail.com", username, password);
 
                 Folder folder = store.getFolder("inbox");
@@ -140,37 +131,28 @@ public abstract class ServiceRequest implements IReport {
                                 int end = from.indexOf(">");
                                 if (email.equals(from.substring(begin+1, end))){
                                     gates += 1;
-                                    System.out.println("\n");
-                                    System.out.println("Email to matches email from");
-                                    System.out.println(from.substring(begin+1, end) + " = " + email);
                                 }
                             }
 
                             String to = InternetAddress.toString(message
                                     .getRecipients(Message.RecipientType.TO));
                             if (to != null) {
-                                int begin = from.indexOf("<");
-                                int end = from.indexOf(">");
+                                int begin = to.indexOf("<");
+                                int end = to.indexOf(">");
                                 if (username.equals(to.substring(begin+1, end))){
                                     gates += 1;
-                                    System.out.println("Email from matches email to");
-                                    System.out.println(to + " = " + username);
                                 }
                             }
 
                             String subject = message.getSubject();
                             if (subject != null && subject.equals("Re: " + messageHeader)) {
                                 gates += 1;
-                                System.out.println("Message header matches");
-                                System.out.println(subject + " = " + "Re: " + messageHeader);
                             }
 
                             Date received = message.getSentDate();
 
                             if (received != null && received.after(sent)) {
                                 gates += 1;
-                                System.out.println("Date is after message was sent");
-                                System.out.println(sent + " < " + received);
                             }
 
                             if (gates == 4){
