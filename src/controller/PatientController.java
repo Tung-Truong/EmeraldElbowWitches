@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PatientController extends Controller{
 
     private enum CurrentStatus {
-        PATIENT, SETSTARTNODE, SETENDNODE
+        PATIENT, SETSTARTNODE, SETENDNODE, SETSEARCHNODE
     };
 
     public static TextDirections textDirections = new TextDirections();
@@ -46,6 +46,12 @@ public class PatientController extends Controller{
 
     @FXML
     private TextField EndNodeID;
+
+    @FXML
+    private Button SearchForNode;
+
+    @FXML
+    private TextField SearchNodeID;
 
     @FXML
     private AnchorPane mapContainer;
@@ -132,6 +138,9 @@ public class PatientController extends Controller{
             case SETENDNODE:
                 nodeProcess((int)mousex, (int)mousey, currentState);
                 break;
+            case SETSEARCHNODE:
+                nodeProcess((int)mousex, (int)mousey, currentState);
+                break;
         }
 
         //Print to confirm
@@ -152,6 +161,9 @@ public class PatientController extends Controller{
             }else if (currentState.equals(CurrentStatus.SETENDNODE)){
                 nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
                 this.EndNodeID.setText(nearestNode.getNode().getNodeID());
+            }else if (currentState.equals(CurrentStatus.SETSEARCHNODE)) {
+                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+                this.SearchNodeID.setText(nearestNode.getNode().getNodeID());
             }
         }catch(InvalidNodeException e){
             e.printStackTrace();
@@ -325,6 +337,11 @@ public class PatientController extends Controller{
         this.currentState = CurrentStatus.SETENDNODE;
     }
 
+    @FXML
+    void setSearchNodeFlag(){
+        this.currentState = CurrentStatus.SETSEARCHNODE;
+    }
+
     //--------------------------------------------------------------------------------
 
 
@@ -433,6 +450,36 @@ public class PatientController extends Controller{
         System.out.println("Did you get here");
     }
 
+    @FXML
+    void setSearchNode(){
+        String searchNewNodeID = SearchNodeID.getText();
+        NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+        switchTab1();
+        try {
+            if(newSearchNode == null)
+                throw new InvalidNodeException("no node with that ID");
+            Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+            gc1.setFill(Color.DARKRED);
+            gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
+                newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                10,
+                10);
+            Zoom = 0;
+            YTrans = 0;
+            XTrans = 0;
+            resize();
+            //gc.localToParent()
+            Zoom = 2;
+            YTrans = (int)(mapHeight*2);
+            //XTrans = (int)mapWidth;//(int)(mapWidth/2-newSearchNode.node.getxLoc()*mapWidth/3400)/2;
+            resize();
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+        currentState = CurrentStatus.PATIENT;
+        System.out.println("Did you get here");
+    }
+
 
     @FXML
     void Zin() {
@@ -488,6 +535,8 @@ public class PatientController extends Controller{
         currentMap.setTranslateY(YTrans);
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
+        System.out.println(XTrans);
+        System.out.println(YTrans);
     }
 
 }

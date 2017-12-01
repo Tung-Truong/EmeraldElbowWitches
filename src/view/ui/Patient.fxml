@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXPasswordField?>
@@ -21,7 +30,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<AnchorPane prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <SplitPane prefHeight="359.0" prefWidth="287.0">
         <items>
@@ -179,6 +188,24 @@
                                     <TextArea fx:id="directionsBox" layoutX="180.0" layoutY="137.0" prefHeight="245.0" prefWidth="166.0" promptText="Step by step instructions" />
                                                </children>
                                            </AnchorPane>
+                              <Button fx:id="SearchForNode" alignment="CENTER" layoutX="113.0" layoutY="548.0" mnemonicParsing="false" onAction="#setSearchNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Search For Node" textFill="WHITE">
+                                 <effect>
+                                    <InnerShadow color="#0a30ae" />
+                                 </effect>
+                                 <font>
+                                    <Font name="Avenir Book" size="14.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="SearchNodeID" layoutX="114.0" layoutY="586.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
+                              <Button fx:id="setSearchNodeConfirm" layoutX="147.0" layoutY="620.0" mnemonicParsing="false" onAction="#setSearchNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                                        </children>
                                    </Pane>
                            </children>

@@ -13,6 +13,16 @@ public class DeleteDB {
         DEL_NODE = "DELETE FROM NODETABLE WHERE nodeID = '" + delNodeID + "'";
         statement.executeUpdate(DEL_NODE);
         statement.close();
+        delNodeInfo(DEL_NODE);
+    }
+
+    public static void delNodeInfo(String delNodeID) throws SQLException {
+        String DEL_NODE;
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        DEL_NODE = "DELETE FROM NODEINFOTABLE WHERE nodeID = '" + delNodeID + "'";
+        statement.executeUpdate(DEL_NODE);
+        statement.close();
     }
 
     // remove an edge from the database

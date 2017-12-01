@@ -197,6 +197,8 @@ public class ServiceController {
 
     @FXML
     void SelectEmployee(){
+            DeleteEmployee.getItems().clear();
+            ModifyEmployee.getItems().clear();
         for (Employee e : Main.getEmployees()) {
             ModifyEmployee.getItems().addAll(e.getFirstName() + " : " + e.getEmail());
         }

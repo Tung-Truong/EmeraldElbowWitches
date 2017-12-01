@@ -58,7 +58,25 @@ public class AddDB {
         pState.executeUpdate();
         pState.close();
 
-
     }
+
+    public static void addNodeInfo(NodeObj addNode) throws SQLException {
+
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+
+        // Input values from CSV files based on data between commas (Format: nodeID, numOfPathsAcross, avgLength)
+        String buildSQLStr = " VALUES ('" + addNode.getNode().getNodeID() + "','" +
+                addNode.getTimesPathed() + "','" + addNode.getAvgPathLen() + "')"; //build the sql template
+
+        String SQL = "INSERT INTO NODETABLE" + buildSQLStr; //insert row into database
+        try {
+            PreparedStatement pState = connection.prepareStatement(SQL);
+            pState.executeUpdate();
+            pState.close();
+        } catch (SQLSyntaxErrorException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
