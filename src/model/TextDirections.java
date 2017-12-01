@@ -47,7 +47,7 @@ public class TextDirections {
                 // if the next node is basically straight ahead
                 if (angle >= 160 || angle <= -160) {
                     if (!previousMsg.equals("go straight\n" )) {
-                        msg.add("go straight " +curNode.getLongName() + "\n");
+                        msg.add("go straight " + curNode.getShortName() + "\n");
                         previousMsg = "go straight\n";
                     }
                 } else {
