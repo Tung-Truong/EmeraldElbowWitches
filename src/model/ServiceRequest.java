@@ -5,8 +5,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
-import java.io.InputStreamReader;
-import java.io.BufferedReader;
 
 public abstract class ServiceRequest implements IReport {
 
@@ -105,71 +103,74 @@ public abstract class ServiceRequest implements IReport {
         }
     }
 
-    public String resolveRequest(){
+    public void resolveRequest(){
         if(this.isActive){
-            try{
-                int gates = 0;
+            int gates = 0;
 
+            try {
                 Store store = session.getStore("pop3s");
 
-                store.connect("pop.gmail.com", username, password);
+                /*
+                    Alright, so here's where we stand, the line below is currently
+                    the source of all of the errors coming through as so I commented
+                    everything else out to focus on this.
 
-                Folder folder = store.getFolder("inbox");
-
-                if(folder.exists()){
-                    folder.open(Folder.READ_ONLY);
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-                    Message[] messages = folder.getMessages();
-
-                    if (messages.length != 0) {
-                        for (int i = 0, n = messages.length; i < n; i++) {
-                            Message message = messages[i];
-                            // Get all the information from the message
-                            String from = InternetAddress.toString(message.getFrom());
-                            if (from != null && from.equals(email)) {
-                                gates += 1;
-                            }
-
-                            String to = InternetAddress.toString(message
-                                    .getRecipients(Message.RecipientType.TO));
-                            if (to != null && to.equals(username)) {
-                                gates += 1;
-                            }
-
-                            String subject = message.getSubject();
-                            if (subject != null && subject.equals("Re: " + messageHeader)) {
-                                gates += 1;
-                            }
-
-                            Date received = message.getSentDate();
-
-                            if (received != null && received.after(sent)) {
-                                gates += 1;
-                            }
-
-                            if (gates == 4){
-                                replyInfo = message.getContent().toString();
-                                setActive(false);
-                                break;
-                            }
-
-                            return gates + "\n" + message.getFrom() + "\n" + message.getSubject()
-                                    + "\n" + message.getContent().toString();
-                        }//end of for loop
-
-                    } else {
-                        return "There is no msg....";
-                    }
-                }
+                    This problem has to do with authentication certificates between java
+                    , google, and the ssl server or something to that effect to help with searching
+                    for a solution
+                 */
+                store.connect("pop.gmail.com", 995, username, password);
+//
+//                Folder folder = store.getFolder("inbox");
+//
+//                if(folder.exists()){
+//                    folder.open(Folder.READ_ONLY);
+//
+//                    Message[] messages = folder.getMessages();
+//
+//                    if (messages.length != 0) {
+//                        for (int i = 0, n = messages.length; i < n; i++) {
+//                            Message message = messages[i];
+//                            // Get all the information from the message
+//                            String from = InternetAddress.toString(message.getFrom());
+//                            if (from != null && from.equals(email)) {
+//                                gates += 1;
+//                            }
+//
+//                            String to = InternetAddress.toString(message
+//                                    .getRecipients(Message.RecipientType.TO));
+//                            if (to != null && to.equals(username)) {
+//                                gates += 1;
+//                            }
+//
+//                            String subject = message.getSubject();
+//                            if (subject != null && subject.equals("Re: " + messageHeader)) {
+//                                gates += 1;
+//                            }
+//
+//                            Date received = message.getSentDate();
+//
+//                            if (received != null && received.after(sent)) {
+//                                gates += 1;
+//                            }
+//
+//                            if (gates == 4){
+//                                replyInfo = message.getContent().toString();
+//                                setActive(false);
+//                                break;
+//                            }
+//                        }//end of for loop
+//
+//                        folder.close(false);
+//                        store.close();
+//                    } else {
+//                        System.out.println("There is no msg....");
+//                    }
+//                }
             } catch (Exception e){
                 e.printStackTrace();
-                return "help";
             }
-            // do the things
         }
-        return "No active requests";
         // when the refresh button is pressed check for resolutions to request
         // There will also be a resolve button in the UI and if this is pressed remove the request from the active list
     }

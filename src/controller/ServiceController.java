@@ -277,7 +277,12 @@ public class ServiceController {
 
     @FXML
     void Refresh(){
-        NotesTextField.setText(service.resolveRequest());
+        service.resolveRequest();
+        if(service.isActive()){
+            NotesTextField.setText(service.getClass().toString());
+        } else {
+            NotesTextField.setText("No active Requests");
+        }
     }
 
     //function that just sets the menu items to display no employee available if there is none.
