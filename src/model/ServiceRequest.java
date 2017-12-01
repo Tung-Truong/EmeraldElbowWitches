@@ -53,6 +53,10 @@ public abstract class ServiceRequest implements IReport {
         });
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
     // Resets the e-mail account that the message is coming from
     public void setAccountFrom(String username, String password){
         this.username = username;
@@ -101,7 +105,7 @@ public abstract class ServiceRequest implements IReport {
         }
     }
 
-    public void resolveRequest(){
+    public String resolveRequest(){
         if(this.isActive){
             try{
                 int gates = 0;
@@ -135,7 +139,7 @@ public abstract class ServiceRequest implements IReport {
                             }
 
                             String subject = message.getSubject();
-                            if (subject != null && subject.equals("RE:" + messageHeader)) {
+                            if (subject != null && subject.equals("Re: " + messageHeader)) {
                                 gates += 1;
                             }
 
@@ -150,16 +154,22 @@ public abstract class ServiceRequest implements IReport {
                                 setActive(false);
                                 break;
                             }
+
+                            return gates + "\n" + message.getFrom() + "\n" + message.getSubject()
+                                    + "\n" + message.getContent().toString();
                         }//end of for loop
+
                     } else {
-                        System.out.println("There is no msg....");
+                        return "There is no msg....";
                     }
                 }
             } catch (Exception e){
                 e.printStackTrace();
+                return "help";
             }
             // do the things
         }
+        return "No active requests";
         // when the refresh button is pressed check for resolutions to request
         // There will also be a resolve button in the UI and if this is pressed remove the request from the active list
     }

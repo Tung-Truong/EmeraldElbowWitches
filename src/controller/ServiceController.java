@@ -275,6 +275,11 @@ public class ServiceController {
 
     } // LocationDropdown will not be present for the next iteration so there is no real use working with it now
 
+    @FXML
+    void Refresh(){
+        NotesTextField.setText(service.resolveRequest());
+    }
+
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {
         if (AssignEmployee.getItems().size() == 0) {
