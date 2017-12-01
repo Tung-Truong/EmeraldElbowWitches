@@ -50,13 +50,7 @@ public class PatientController extends Controller{
 
     private GraphicsContext gc1 = null;
 
-    private enum CurrentStatus {
-        PATIENT, SETSTARTNODE, SETENDNODE
-    };
-
     public static TextDirections textDirections = new TextDirections();
-
-    private CurrentStatus currentState = CurrentStatus.PATIENT;
 
     private int XTrans = 0;
 
@@ -120,16 +114,14 @@ public class PatientController extends Controller{
 
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("btn_map01");
-        currentMap.setImage(m1);
+         currentMap.setImage(m1);
         currentAlgorithm.setPathAlg(new astar());
-        currentState = CurrentStatus.PATIENT;
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
         setKioskLoc(2460, 910);
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        currentState = CurrentStatus.PATIENT;
     }
 
     @Override

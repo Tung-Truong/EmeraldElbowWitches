@@ -13,7 +13,6 @@
    <children>
       <ImageView fitHeight="1000.0" fitWidth="1750.0">
          <image>
-            <Image url="@EmeraldElbowWitches-master%202/src/view/media/map01.png" />
          </image>
       </ImageView>
       <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
@@ -30,12 +29,12 @@
       </JFXButton>
       <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="670.0">
          <image>
-            <Image url="@out.png" />
+            <Image url="@../media/zoomOut.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="276.0">
          <image>
-            <Image url="@In.png" />
+            <Image url="@../media/zoomIn.png" />
          </image>
       </ImageView>
       <JFXButton layoutX="1632.0" layoutY="111.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="3" textFill="WHITE">
