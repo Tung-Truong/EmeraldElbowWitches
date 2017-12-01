@@ -27,8 +27,7 @@ public class ServiceController {
     private JFXTextField NotesTextField;
 
     @FXML
-    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne,
-    emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo;
+    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne, usernameOne, passwordOne, emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo, usernameTwo, passwordTwo;
 
     @FXML
     private ComboBox<String> AssignEmployee, DeleteEmployee, ModifyEmployee;
@@ -157,8 +156,10 @@ public class ServiceController {
         String dep = depOne.getText().trim();
         String lang = langOne.getText().trim();
         String avail = availOne.getText().trim();
+        String user = usernameOne.getText().trim();
+        String pass = passwordOne.getText().trim();
 
-        Employee e = new Employee(email, first, last, dep, lang, avail);
+        Employee e = new Employee(email, first, last, dep, lang, avail, user, pass);
 
         Main.getEmployees().add(e);
         ModifyEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
@@ -170,6 +171,10 @@ public class ServiceController {
         depOne.clear();
         langOne.clear();
         availOne.clear();
+        usernameOne.clear();
+        passwordOne.clear();
+
+
 
     }
 
@@ -192,6 +197,8 @@ public class ServiceController {
         depTwo.setText(foundMOd.getDepartment());
         langTwo.setText(foundMOd.getLanguage());
         availTwo.setText(foundMOd.getAvailability());
+        usernameTwo.setText(foundMOd.getUsername());
+        passwordTwo.setText(foundMOd.getPassword());
 
     }
 
@@ -211,6 +218,8 @@ public class ServiceController {
         foundMOd.setDepartment(depTwo.getText());
         foundMOd.setLanguage(langTwo.getText());
         foundMOd.setAvailability(availTwo.getText());
+        foundMOd.setUsername(usernameTwo.getText());
+        foundMOd.setPassword(passwordTwo.getText());
 
         emailTwo.clear();
         firstTwo.clear();
@@ -218,6 +227,8 @@ public class ServiceController {
         depTwo.clear();
         langTwo.clear();
         availTwo.clear();
+        usernameTwo.clear();
+        passwordTwo.clear();
     }
 
     @FXML

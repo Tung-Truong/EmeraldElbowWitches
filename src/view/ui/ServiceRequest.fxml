@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
@@ -17,7 +24,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
       <TabPane layoutX="2.0" layoutY="10.0" prefHeight="793.0" prefWidth="1761.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -63,7 +70,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </MenuButton>
-                        <ComboBox fx:id="AssignEmployee" layoutX="460.0" layoutY="550.0" prefHeight="47.0" prefWidth="768.0" promptText="Employees Available" />
+                        <ComboBox fx:id="AssignEmployee" layoutX="580.0" layoutY="533.0" prefHeight="47.0" prefWidth="768.0" promptText="Employees Available" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="364.0" layoutY="22.0" prefHeight="138.0" prefWidth="984.0" text="SERVICE REQUEST" textFill="WHITE">
                            <font>
                               <Font name="Avenir Next Bold" size="96.0" />
@@ -133,7 +140,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="68.0" prefHeight="72.0" prefWidth="316.0" text="ADD EMPLOYEE" textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="192.0" layoutY="51.0" prefHeight="72.0" prefWidth="316.0" text="ADD EMPLOYEE" textFill="WHITE">
                            <font>
                               <Font name="Avenir Next Bold" size="33.0" />
                            </font>
@@ -202,6 +209,26 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
+                        <TextField fx:id="passwordOne" layoutX="201.0" layoutY="168.0" promptText="password">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="usernameOne" layoutX="201.0" layoutY="110.0" promptText="username">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="usernameTwo" layoutX="1036.0" layoutY="479.0" promptText="username">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="passwordTwo" layoutX="1036.0" layoutY="542.0" promptText="password">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
                      </children></AnchorPane>
             </content>
           </Tab>

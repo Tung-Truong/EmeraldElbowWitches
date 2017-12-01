@@ -10,7 +10,7 @@ public class ReadCSV {
 
     final static int NUMROWSNODE = 9;
     final static int NUMROWSEDGE = 3;
-    final static int NUMROWSEMPLOYEE = 6;
+    final static int NUMROWSEMPLOYEE = 8;
     final static String EDGETABLE = "edgeTable";
     final static String NODETABLE = "nodeTable";
     final static String EMPLOYEETABLE = "employeeTable";
