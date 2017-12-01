@@ -50,11 +50,7 @@ public class TextDirections {
                 angle = angleBetweenNodes(lastNode, curNode, nextNode);
                 // if the next node is basically straight ahead
                 if (angle >= 160 || angle <= -160) {
-                    if (!previousMsg.equals("go straight\n")) {
                         //Need to find next turn to get that x and y and then math out the feet
-                        Node nextTurn = findNextTurn(i, path);
-                        pathLength = distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet;
-                        msg.add("go straight  for " + pathLength + " feet" + "\n");
                         previousMsg = "go straight\n";
                     }
                 } else {
