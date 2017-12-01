@@ -24,7 +24,7 @@ public class TextDirections {
         Node floorNode;
         Node lastStraightNode;
         String previousMsg = "";
-        Double pixelToFeet = 1.0;
+        Double pixelToFeet = 1.5;
         Double pathLength = 0.0;
 
         if (path.size() == 2) {
@@ -50,7 +50,11 @@ public class TextDirections {
                 angle = angleBetweenNodes(lastNode, curNode, nextNode);
                 // if the next node is basically straight ahead
                 if (angle >= 160 || angle <= -160) {
+                    if (!previousMsg.equals("go straight\n")) {
                         //Need to find next turn to get that x and y and then math out the feet
+                        Node nextTurn = findNextTurn(i, path);
+                        pathLength = distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet;
+                        msg.add("go straight  for " + pathLength + " feet" + "\n");
                         previousMsg = "go straight\n";
                     }
                 } else {
@@ -67,12 +71,12 @@ public class TextDirections {
                     // add which direction to turn
 
                     if (angle >= 0) {
-                        dirAng += "right\n";
+                        dirAng += "right at " +curNode.getShortName() + "\n";
                         dirAng += "go straight for " + distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "right at ";
 
                     } else {
-                        dirAng += "left\n";
+                        dirAng += "left at " +curNode.getShortName() + "\n";
                         dirAng += "go straight for " + distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "left at ";
 
@@ -130,8 +134,8 @@ public class TextDirections {
 
     //function that calculates distance between two points.
     double distanceFormula(int Ax, int Ay, int Bx, int By) {
-        double x = (Ax - Bx) ^ 2;
-        double y = (Ay - By) ^ 2;
+        double x = Math.pow((Ax - Bx),2);
+        double y = Math.pow((Ay - By),2);
         return sqrt(x + y);
     }
 
