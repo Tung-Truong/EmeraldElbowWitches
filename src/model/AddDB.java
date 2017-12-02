@@ -57,8 +57,6 @@ public class AddDB {
         PreparedStatement pState = connection.prepareStatement(SQL);
         pState.executeUpdate();
         pState.close();
-
-
     }
 
 }
