@@ -19,7 +19,7 @@
          <image>
          </image>
       </ImageView>
-      <Canvas fx:id="gc" height="900.0" onMousePressed="#findPath" width="1400.0" />
+      <Canvas fx:id="gc" height="900.0" onMousePressed="#mousePress" width="1400.0" />
       <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
