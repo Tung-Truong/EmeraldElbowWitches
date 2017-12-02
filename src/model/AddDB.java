@@ -59,4 +59,18 @@ public class AddDB {
         pState.close();
     }
 
+    public static void addRequest(ServiceRequest addService) throws SQLException {
+
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+
+        String buildSQLStr = " VALUES ('" + addService.getAssigned() + "','" +
+                addService.getClass() + "','" + addService.getSent() + "','" + addService.isActive() + "')"; //build the sql template
+
+        String SQL = "INSERT INTO REQUESTTABLE" + buildSQLStr; //insert row into database
+
+        PreparedStatement pState = connection.prepareStatement(SQL);
+        pState.executeUpdate();
+        pState.close();
+    }
+
 }

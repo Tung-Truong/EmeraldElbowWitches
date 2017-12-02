@@ -52,8 +52,17 @@ public abstract class ServiceRequest implements IReport {
         });
     }
 
+    // Getters
     public boolean isActive() {
         return isActive;
+    }
+
+    public Employee getAssigned() {
+        return assigned;
+    }
+
+    public Date getSent() {
+        return sent;
     }
 
     // Resets the e-mail account that the message is coming from
