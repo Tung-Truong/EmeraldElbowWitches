@@ -11,9 +11,11 @@ public class ReadCSV {
     final static int NUMROWSNODE = 9;
     final static int NUMROWSEDGE = 3;
     final static int NUMROWSEMPLOYEE = 6;
+    final static int NUMROWSREQUEST = 4;
     final static String EDGETABLE = "edgeTable";
     final static String NODETABLE = "nodeTable";
     final static String EMPLOYEETABLE = "employeeTable";
+    final static String REQUESTTABLE = "requestTable";
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
@@ -46,6 +48,16 @@ public class ReadCSV {
         String mapEEmployees = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapEEmployeeCSV = new File(mapEEmployees);
         readFile(mapEEmployeeCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
+    }
+
+    /*
+    *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
+     */
+    public static void runRequest(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+        Class.forName(DRIVER);
+        String mapERequests = path; //ex: "src/model/docs/MapEEdges.csv"
+        File mapERequestsCSV = new File(mapERequests);
+        readFile(mapERequestsCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
     }
 
     /*
