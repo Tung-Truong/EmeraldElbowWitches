@@ -9,10 +9,11 @@ public class Employee {
     private String department;
     private String language;
     private String available;
+    private int id;
 
     // Constructor
     public Employee(){
-
+        id = email.hashCode();
     }
     public Employee(String email, String firstName, String lastName, String department, String language, String available){
         this.email = email;
@@ -21,6 +22,7 @@ public class Employee {
         this.department = department;
         this.language = language;
         this.available = available;
+        id = email.hashCode();
     }
 
     // getters--------------------------------------
@@ -46,6 +48,10 @@ public class Employee {
 
     public String getAvailability() {
         return available;
+    }
+
+    public int getId(){
+        return id;
     }
 
     // Setters
