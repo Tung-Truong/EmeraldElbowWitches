@@ -5,7 +5,11 @@ import java.sql.*;
 public class DeleteDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    // remove a node from the database
+    /**
+     * Removes a node from the database.
+     * @param delNodeID This is the node to be deleted.
+     * @throws SQLException Throws an SQL exception.
+     */
     public static void delNode(String delNodeID) throws SQLException {
         String DEL_NODE;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -15,7 +19,11 @@ public class DeleteDB {
         statement.close();
     }
 
-    // remove an edge from the database
+    /**
+     * Removes an edge from the database.
+     * @param delEdgeID This is the edge to be deleted.
+     * @throws SQLException Throws an SQL exception.
+     */
     public static void delEdge(String delEdgeID) throws SQLException {
         String DEL_EDGE = null;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -25,6 +33,11 @@ public class DeleteDB {
         statement.close();
     }
 
+    /**
+     * Removes an employee from the database.
+     * @param delEmployeeEmail This is the employee to be deleted.
+     * @throws SQLException Throws an SQL exception.
+     */
     public static void delEmployee(String delEmployeeEmail) throws SQLException {
         String DEL_EMPLOYEE = null;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);

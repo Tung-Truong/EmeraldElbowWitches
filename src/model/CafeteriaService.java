@@ -49,18 +49,33 @@ public class CafeteriaService extends ServiceRequest {
     }
 
     // Methods
+
+    /**
+     * Adds food item on the menu.
+     * @param food Item menu to be added.
+     */
     public void addMenuItem(String food){
         menu.add(food);
     }
 
+    /**
+     * Removes food item on the menu.
+     * @param food Item menu to be removed.
+     */
     public void removeMenuItem(String food){
         menu.remove(food);
     }
 
+    /**
+     * Counts how many items have been sold.
+     */
     public void sellItem(){
         soldItems++;
     }
 
+    /**
+     * Generates a report, listing the number of items the order contains.
+     */
     public void generateReport(){
         System.out.println("From Cafeteria: ");
         System.out.println("    Items Ordered: " + soldItems);
