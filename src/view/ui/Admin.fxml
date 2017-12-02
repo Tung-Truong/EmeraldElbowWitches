@@ -1,87 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1750.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
-      <ImageView fitHeight="1000.0" fitWidth="1750.0">
+      <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
          </image>
       </ImageView>
+      <Canvas fx:id="gc" height="900.0" width="1400.0" />
       <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
          </font>
          <graphic>
-            <JFXSlider indicatorPosition="RIGHT" prefHeight="35.0" prefWidth="341.0" scaleShape="false">
+            <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" prefHeight="35.0" prefWidth="341.0" scaleShape="false" showTickMarks="true" value="1.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXSlider>
          </graphic>
       </JFXButton>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="670.0">
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="26.0" layoutY="672.0">
          <image>
             <Image url="@../media/zoomOut.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="276.0">
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="291.0">
          <image>
             <Image url="@../media/zoomIn.png" />
          </image>
       </ImageView>
-      <JFXButton layoutX="1632.0" layoutY="111.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="3" textFill="WHITE">
+      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1260.0" layoutY="101.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="3" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1632.0" layoutY="361.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L1" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1260.0" layoutY="351.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L1" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1632.0" layoutY="236.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="1" textFill="WHITE">
+      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1260.0" layoutY="226.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="1" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1632.0" layoutY="175.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="2" textFill="WHITE">
+      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1260.0" layoutY="165.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="2" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1632.0" layoutY="300.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="G" textFill="WHITE">
+      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1260.0" layoutY="290.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="G" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="1632.0" layoutY="423.0" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L2" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1260.0" layoutY="411.0" onAction="#getMap" opacity="0.8" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L2" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1432.0" layoutY="267.0" prefHeight="51.0" prefWidth="363.0" ripplerFill="#1b3766" rotate="270.0" style="-fx-background-color: #1b3766#1b3766;" text="FLOOR" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1592.0" layoutY="34.0" opacity="0.8" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="LOGOUT" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="24.0" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="LOGOUT" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton alignment="BASELINE_LEFT" layoutX="1589.0" layoutY="499.0" prefHeight="47.0" prefWidth="147.0" ripplerFill="#1b3766" style="-fx-background-color: WHITE;" text="EMPLOYEE">
+      <JFXTogglePane fx:id="textTogglePane" layoutX="1240.0" layoutY="480.0" prefHeight="289.0" prefWidth="144.0">
+         <children>
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+            <JFXTextField />
+         </children>
+      </JFXTogglePane>
+      <Label layoutX="1060.0" layoutY="250.0" prefHeight="64.0" prefWidth="363.0" rotate="270.0" text="FLOOR">
          <font>
-            <Font size="14.0" />
+            <Font size="36.0" />
          </font>
-      </JFXButton>
-      <JFXComboBox layoutX="1589.0" layoutY="566.0" prefHeight="44.0" prefWidth="148.0" promptText="  ALGORITHM" style="-fx-background-color: WHITE;" unFocusColor="WHITE" />
+      </Label>
    </children>
 </Pane>

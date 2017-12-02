@@ -2,7 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
@@ -25,19 +25,19 @@
             <Font name="Avenir Next Bold" size="24.0" />
          </font>
          <graphic>
-            <JFXSlider indicatorPosition="RIGHT" prefHeight="35.0" prefWidth="341.0" scaleShape="false">
+            <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" prefHeight="35.0" prefWidth="341.0" scaleShape="false" showTickMarks="true" value="1.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXSlider>
          </graphic>
       </JFXButton>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="670.0">
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="26.0" layoutY="672.0">
          <image>
             <Image url="@../media/zoomOut.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="31.0" layoutY="276.0">
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="291.0">
          <image>
             <Image url="@../media/zoomIn.png" />
          </image>
@@ -72,22 +72,22 @@
             <Font name="Avenir Book" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="24.0" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="LOGIN" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="24.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXToggleButton layoutX="1220.0" layoutY="476.0" prefHeight="66.0" prefWidth="144.0" text="HELP" unToggleLineColor="BLACK">
+      <JFXToggleButton layoutX="1240.0" layoutY="476.0" prefHeight="66.0" prefWidth="144.0" text="HELP" unToggleLineColor="BLACK">
          <font>
             <Font size="18.0" />
          </font>
       </JFXToggleButton>
-      <JFXTogglePane layoutX="1220.0" layoutY="530.0" prefHeight="133.0" prefWidth="144.0">
+      <JFXTogglePane fx:id="textTogglePane" layoutX="1240.0" layoutY="581.0" prefHeight="133.0" prefWidth="144.0" visible="false">
          <children>
-            <JFXTextField prefHeight="149.0" prefWidth="144.0" style="-fx-background-color: WHITE;" />
+            <JFXTextArea fx:id="toggleTextArea" unFocusColor="#ffffff00" />
          </children>
       </JFXTogglePane>
-      <JFXToggleButton layoutX="1220.0" layoutY="677.0" prefHeight="51.0" prefWidth="144.0" text="TEXT" unToggleLineColor="BLACK">
+      <JFXToggleButton fx:id="textToggle" layoutX="1240.0" layoutY="511.0" onMouseReleased="#textToggle" prefHeight="51.0" prefWidth="144.0" text="TEXT" unToggleLineColor="BLACK">
          <font>
             <Font size="18.0" />
          </font>

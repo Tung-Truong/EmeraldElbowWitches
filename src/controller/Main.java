@@ -1,9 +1,11 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 import model.*;
 import model.AddDB;

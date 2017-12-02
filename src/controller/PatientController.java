@@ -1,33 +1,33 @@
 package controller;
 
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import model.ImageLoader;
 import model.InvalidNodeException;
 import model.astar;
-import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 
 public class PatientController extends Controller {
+
+    @FXML
+    private JFXTogglePane textTogglePane;
+
+    @FXML
+    private JFXToggleButton textToggle;
+
+    @FXML
+    private JFXSlider zoomBar;
 
     @FXML
     private ImageView img_Map;
@@ -59,6 +59,9 @@ public class PatientController extends Controller {
     @FXML
     public ImageView currentMap;
 
+    @FXML
+    private JFXTextArea toggleTextArea;
+
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
     private int XTrans = 0;
@@ -70,6 +73,8 @@ public class PatientController extends Controller {
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
+    double startX;
+    double startY;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -196,7 +201,7 @@ public class PatientController extends Controller {
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
                 path = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = path;
-//                directionsBox.setText(textDirections.getTextDirections(path));
+                toggleTextArea.setText(textDirections.getTextDirections(path));
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -207,39 +212,6 @@ public class PatientController extends Controller {
             DrawCurrentFloorPath();
         }
     }
-
-
-    public void findPath(NodeObj dest){
-        //create a new astar object
-        if(gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
-        //get node that corr. to click from ListOfNodeObjects made in main
-        goal = dest;
-        //getStart
-        NodeObj Kiosk = Main.getKiosk();
-        //set the path to null
-        ArrayList<NodeObj> path;
-        if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            //try a*
-            if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
-                path = currentAlgorithm.getPathAlg().getGenPath();
-                currPath = path;
-                //directionsBox.setText(textDirections.getTextDirections(path));
-            } else {
-                try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
-            }
-            DrawCurrentFloorPath();
-        }
-    }
-
 
     @FXML
     void mousePress(MouseEvent event){
@@ -269,6 +241,71 @@ public class PatientController extends Controller {
         redraw();
     }
 
+    @FXML
+    void adminLogin(){
+        Main.getCurrStage().setScene(Main.getAdminScene());
+    }
+
+
+    @FXML
+    void Zin() {
+        System.out.println(zoomBar.getValue());
+        Zoom = zoomBar.getValue();
+        resize();
+
+    }
+
+    @FXML
+    void Tleft() {
+        XTrans+=(int) (200.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tright() {
+        XTrans-=(int) (200.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tup() {
+        YTrans+=(int) (160.0/Zoom);
+        resize();
+    }
+
+    @FXML
+    void Tdown() {
+        YTrans-=(int) (160.0/Zoom);
+        resize();
+    }
+
+    public void resize(){
+        if(Zoom<=1){
+            XTrans = 0;
+            YTrans = 0;
+        }
+        gc.setScaleX(Zoom);
+        gc.setScaleY(Zoom);
+        gc.setTranslateX(XTrans);
+        gc.setTranslateY(YTrans);
+        currentMap.setScaleX(Zoom);
+        currentMap.setScaleY(Zoom);
+        currentMap.setTranslateX(XTrans);
+        currentMap.setTranslateY(YTrans);
+        mapWidth = currentMap.getFitWidth();
+        mapHeight = currentMap.getFitHeight();
+    }
+
+    @FXML
+    public void textToggle() {
+        if (textToggle.isSelected()) {
+            textTogglePane.setVisible(true);
+        }else{
+            textTogglePane.setVisible(false);
+        }
+
+
+    }
 /*    @FXML
     void setEndNode(MouseEvent event){
         double mousex = (5000 * event.getX()) / mapWidth;
