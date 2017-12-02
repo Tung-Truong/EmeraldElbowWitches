@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -71,11 +72,6 @@
             <Font name="Avenir Book" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1060.0" layoutY="255.0" prefHeight="51.0" prefWidth="363.0" ripplerFill="#1b3766" rotate="270.0" style="-fx-background-color: #1b3766#1b3766;" text="FLOOR" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </JFXButton>
       <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="24.0" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
@@ -96,5 +92,10 @@
             <Font size="18.0" />
          </font>
       </JFXToggleButton>
+      <Label layoutX="1060.0" layoutY="250.0" prefHeight="64.0" prefWidth="363.0" rotate="270.0" text="FLOOR">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
