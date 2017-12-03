@@ -3,6 +3,9 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -13,8 +16,10 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,6 +27,9 @@ import static java.lang.Thread.sleep;
 
 
 public class AdminController extends Controller {
+
+    @FXML
+    private JFXButton serviceRequestBtn;
 
     @FXML
     private JFXTogglePane textTogglePane;
@@ -136,9 +144,7 @@ public class AdminController extends Controller {
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
-    double startX;
-    double startY;
-    boolean displayNode = false;
+    public String servReqNodeID;
     NodeObj nodeA = null;
 
     public void initialize(){
@@ -155,6 +161,7 @@ public class AdminController extends Controller {
     private void redraw(){
         nodeInfoPane.setVisible(false);
         edgeInfoPane.setVisible(false);
+        serviceRequestBtn.setVisible(false);
         nodeIDField.clear();
         xLocField.clear();
         yLocField.clear();
@@ -288,6 +295,7 @@ public class AdminController extends Controller {
 
             //now make all fields visible with .setVisibility(true)
             nodeInfoPane.setVisible(true);
+            serviceRequestBtn.setVisible(true);
 
         } catch (InvalidNodeException e) {
             e.printStackTrace();
@@ -394,7 +402,8 @@ public class AdminController extends Controller {
     @FXML
     void pathingHoverStop(MouseEvent event){
         String hoveredID = ((JFXButton)event.getSource()).getId();
-        opacHandler(.5, hoveredID);    }
+        opacHandler(.5, hoveredID);
+    }
 
     void opacHandler(double opacity, String hoveredID){
         switch (hoveredID){
@@ -461,10 +470,21 @@ public class AdminController extends Controller {
     }
 //#4286f4
     @FXML
-    void adminLogin(){
+    void adminLogout(){
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
+    @FXML
+    void makeServiceRequest() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml"));
+        Parent root = servContLoad.load();
+        ServiceController servCont = servContLoad.getController();
+        Stage servStage = new Stage();
+        servStage.setTitle("Service Request");
+        servStage.setScene(new Scene(root, 243, 446));
+        servCont.servLocField.setText(nodeIDField.getText());
+        servStage.show();
+    }
 
     @FXML
     void Zin() {
