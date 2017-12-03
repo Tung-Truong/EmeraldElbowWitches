@@ -92,10 +92,16 @@
             <Font size="18.0" />
          </font>
       </JFXToggleButton>
-      <Label layoutX="1060.0" layoutY="250.0" prefHeight="64.0" prefWidth="363.0" rotate="270.0" text="FLOOR">
+      <Label layoutX="1202.0" layoutY="265.0" prefHeight="44.0" prefWidth="363.0" rotate="90.0" text="FLOOR">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
+      <Label fx:id="floor3Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="118.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="floor2Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="183.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="floor1Label" alignment="CENTER_RIGHT" layoutX="1154.0" layoutY="244.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="310.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="371.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1155.0" layoutY="431.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
    </children>
 </Pane>

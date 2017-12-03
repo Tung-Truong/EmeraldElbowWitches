@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -61,6 +62,24 @@ public class PatientController extends Controller {
 
     @FXML
     private JFXTextArea toggleTextArea;
+
+    @FXML
+    private Label floor3Label;
+
+    @FXML
+    private Label floor2Label;
+
+    @FXML
+    private Label floor1Label;
+
+    @FXML
+    private Label floorGLabel;
+
+    @FXML
+    private Label floorL1Label;
+
+    @FXML
+    private Label floorL2Label;
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -145,7 +164,7 @@ public class PatientController extends Controller {
             btn_map01.setOpacity(.5);
             btn_map02.setOpacity(.5);
             btn_map03.setOpacity(.5);
-            selectFloor(Main.getNodeMap().currentFloor);
+            selectFloor(Main.getNodeMap().currentFloor, 1);
         }else {
             btn_mapL2.setOpacity(.5);
             btn_mapL1.setOpacity(.5);
@@ -153,14 +172,69 @@ public class PatientController extends Controller {
             btn_map01.setOpacity(.5);
             btn_map02.setOpacity(.5);
             btn_map03.setOpacity(.5);
-            for(String floor : Floors){
-                selectFloor(floor);
+            for(int i = 0; i < Floors.size(); i++){
+                selectFloor(Floors.get(i), i+1);
             }
-            selectFloor(Main.getNodeMap().currentFloor);
+            selectFloorWithPath(Main.getNodeMap().currentFloor, 1);
         }
     }
 
-    void selectFloor(String selectedFloor) {
+    void selectFloor(String selectedFloor, int order) {
+
+        switch (selectedFloor) {
+            case "L2":
+                btn_mapL2.setOpacity(1);
+                if(floorL2Label.getText().equals("")){
+                    floorL2Label.setText(order + "");
+                }else {
+                    floorL2Label.setText(floorL2Label.getText() + ", " + order + "");
+                }
+                break;
+            case "L1":
+                btn_mapL1.setOpacity(1);
+                if(floorL1Label.getText().equals("")){
+                    floorL1Label.setText(order + "");
+                }else {
+                    floorL1Label.setText(floorL1Label.getText() + ", " + order + "");
+                }
+                break;
+            case "G":
+                btn_mapG.setOpacity(1);
+                if(floorGLabel.getText().equals("")){
+                    floorGLabel.setText(order + "");
+                }else {
+                    floorGLabel.setText(floorGLabel.getText() + ", " + order + "");
+                }
+                break;
+            case "1":
+                btn_map01.setOpacity(1);
+                if(floor1Label.getText().equals("")){
+                    floor1Label.setText(order + "");
+                }else {
+                    floor1Label.setText(floor1Label.getText() + ", " + order + "");
+                }
+                break;
+            case "2":
+                btn_map02.setOpacity(1);
+                if(floor2Label.getText().equals("")){
+                    floor2Label.setText(order + "");
+                }else {
+                    floor2Label.setText(floor2Label.getText() + ", " + order + "");
+                }
+                break;
+            case "3":
+                btn_map03.setOpacity(1);
+                if(floor3Label.getText().equals("")){
+                    floor3Label.setText(order + "");
+                }else {
+                    floor3Label.setText(floor3Label.getText() + ", " + order + "");
+                }
+                break;
+        }
+    }
+
+    void selectFloorWithPath(String selectedFloor, int order) {
+
         switch (selectedFloor) {
             case "L2":
                 btn_mapL2.setOpacity(1);
@@ -183,7 +257,6 @@ public class PatientController extends Controller {
         }
     }
 
-
     /*
      * setKioskLoc sets the default location for the floor
      */
@@ -196,6 +269,12 @@ public class PatientController extends Controller {
     }
 
     public void DrawCurrentFloorPath() {
+        floorL2Label.setText("");
+        floorL1Label.setText("");
+        floorGLabel.setText("");
+        floor1Label.setText("");
+        floor2Label.setText("");
+        floor3Label.setText("");
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
         Floors = new ArrayList<String>();
@@ -209,8 +288,13 @@ public class PatientController extends Controller {
                             tempDraw.node.getyLoc() * mapHeight / 3400);
                 }
             }
-            if (!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
-                Floors.add(n.node.getFloor());
+            if(Floors.size() > 0) {
+                if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                    Floors.add(n.getNode().getFloor());
+                }
+            }else if (!(n.getNode().getNodeType().equals("ELEV"))){
+                Floors.add(n.getNode().getFloor());
+            }
             tempDraw = n;
         }
 
@@ -230,6 +314,7 @@ public class PatientController extends Controller {
         }
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
+        System.out.println(Floors.toString());
 
 /*
 
