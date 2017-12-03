@@ -3,6 +3,9 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,6 +14,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.*;
 
 import java.util.ArrayList;
@@ -27,6 +31,9 @@ public class AdminController extends Controller {
     @FXML
     private JFXSlider zoomBar;
 
+    /*@FXML
+    private JFXBadge ServBadge;*/
+
     @FXML
     private ImageView img_Map;
 
@@ -41,6 +48,7 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXButton btn_mapG;
+
 
     @FXML
     private JFXButton btn_mapL1;
@@ -149,6 +157,8 @@ public class AdminController extends Controller {
         gc1.setFill(Color.BLUE);
     }
 
+
+
     @FXML
     void changeMap(Event e){
         Main.controllers.updateAllMaps(e);
@@ -206,6 +216,21 @@ public class AdminController extends Controller {
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
+        serviceRequest();
+    }
+
+
+    void serviceRequest(){
+        /*try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/ui/ServiceRequest.fxml"));
+            Parent popupRoot = fxmlLoader.load();
+            Stage ServiceStage = new Stage();
+            ServiceStage.setTitle("Service");
+            ServiceStage.setScene(new Scene(popupRoot, 720, 600));
+            ServiceStage.show();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     @FXML

@@ -29,6 +29,7 @@ public class PatientController extends Controller {
     @FXML
     private JFXSlider zoomBar;
 
+
     @FXML
     private ImageView img_Map;
 
