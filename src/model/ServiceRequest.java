@@ -75,6 +75,10 @@ public abstract class ServiceRequest implements IReport {
         this.isActive = bool;
     }
 
+    public void setAssigned(Employee e){
+        this.assigned = e;
+    }
+
     // Sets the e-mail address that the message is going to
     public void setAccountTo(String email){
         this.email = email;
@@ -148,7 +152,11 @@ public abstract class ServiceRequest implements IReport {
                             if (to != null) {
                                 int begin = to.indexOf("<");
                                 int end = to.indexOf(">");
-                                if (username.equals(to.substring(begin+1, end))){
+                                if (begin >= 0){
+                                    if (username.equals(to.substring(begin+1, end))) {
+                                        gates += 1;
+                                    }
+                                } else if (username.equals(to)){
                                     gates += 1;
                                 }
                             }

@@ -14,7 +14,8 @@ public class ServiceController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
-    private Employee foundMOd, foundDel;
+    private Employee foundMod, foundDel;
+    
 
     @FXML
     private MenuButton FoodDropdown,
@@ -55,9 +56,11 @@ public class ServiceController {
             throw new NullPointerException("No service added");
         String[] requestedEmployee = AssignEmployee.getValue().split(" ");
         String email = "";
+        Employee assign = new Employee();
         for (Employee e : Main.getEmployees()) {
             if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
                 email = e.getEmail();
+                assign = e;
             } else {
                 //TO DO throw an exception because employee was never set
             }
@@ -65,15 +68,18 @@ public class ServiceController {
         if (needed.toUpperCase().equals("INTERPRETER")) {
             service = new InterpreterService();
             // placeholder
+            service.setAssigned(assign);
             service.setAccountTo(email);
             serviceNeeded = "Interpreter";
         } else if (needed.toUpperCase().equals("MAINTENANCE")) {
             service = new JanitorService();
+            service.setAssigned(assign);
             service.setAccountTo(email);
             serviceNeeded = "Janitor";
         } else {
             service = new CafeteriaService();
             // placeholder
+            service.setAssigned(assign);
             service.setAccountTo(email);
             serviceNeeded = "Food";
         }
@@ -87,8 +93,8 @@ public class ServiceController {
 
     @FXML
     void SubmitRequest() {
+        this.setService();
         try {
-            this.setService();
             String location = LocationDropdown.getText();
 
             if (service instanceof JanitorService) {
@@ -98,6 +104,7 @@ public class ServiceController {
             } else {
                 service.setMessageHeader("Food needed in: " + location);
             }
+            
             service.setLocation(LocationDropdown.getText());
             service.setMessageText(NotesTextField.getText());
             service.sendEmailServiceRequest();
@@ -179,23 +186,23 @@ public class ServiceController {
 
     @FXML
     void AutoFill(){
-        foundMOd = new Employee();
+        foundMod = new Employee();
         String name = ModifyEmployee.getValue().split(":")[0].trim();
         String email = ModifyEmployee.getValue().split(":")[1].trim();
 
         for(Employee e: Main.getEmployees()){
             if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
-                foundMOd = e;
+                foundMod = e;
                 break;
             }
         }
 
-        emailTwo.setText(foundMOd.getEmail());
-        firstTwo.setText(foundMOd.getFirstName());
-        lastTwo.setText(foundMOd.getLastName());
-        depTwo.setText(foundMOd.getDepartment());
-        langTwo.setText(foundMOd.getLanguage());
-        availTwo.setText(foundMOd.getAvailability());
+        emailTwo.setText(foundMod.getEmail());
+        firstTwo.setText(foundMod.getFirstName());
+        lastTwo.setText(foundMod.getLastName());
+        depTwo.setText(foundMod.getDepartment());
+        langTwo.setText(foundMod.getLanguage());
+        availTwo.setText(foundMod.getAvailability());
 
     }
 
@@ -211,12 +218,12 @@ public class ServiceController {
 
     @FXML
     void ModifyEmployees(){
-        foundMOd.setEmail(emailTwo.getText());
-        foundMOd.setFirstName(firstTwo.getText());
-        foundMOd.setLastName(lastTwo.getText());
-        foundMOd.setDepartment(depTwo.getText());
-        foundMOd.setLanguage(langTwo.getText());
-        foundMOd.setAvailability(availTwo.getText());
+        foundMod.setEmail(emailTwo.getText());
+        foundMod.setFirstName(firstTwo.getText());
+        foundMod.setLastName(lastTwo.getText());
+        foundMod.setDepartment(depTwo.getText());
+        foundMod.setLanguage(langTwo.getText());
+        foundMod.setAvailability(availTwo.getText());
 
         emailTwo.clear();
         firstTwo.clear();

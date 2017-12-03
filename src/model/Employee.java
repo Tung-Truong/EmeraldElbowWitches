@@ -13,7 +13,6 @@ public class Employee {
 
     // Constructor
     public Employee(){
-        id = email.hashCode();
     }
     public Employee(String email, String firstName, String lastName, String department, String language, String available){
         this.email = email;
@@ -57,6 +56,7 @@ public class Employee {
     // Setters
     public void setEmail(String email){
         this.email = email;
+        id = email.hashCode();
     }
 
     public void setFirstName(String firstName){
