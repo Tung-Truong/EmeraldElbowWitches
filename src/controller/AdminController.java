@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.*;
 
@@ -58,6 +59,36 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXTextArea toggleTextArea;
+
+    @FXML
+    private Pane nodeInfoPane;
+
+    @FXML
+    private JFXTextField nodeTypeField;
+
+    @FXML
+    private JFXTextField shortNameField;
+
+    @FXML
+    private JFXTextField longNameField;
+
+    @FXML
+    private JFXTextField teamField;
+
+    @FXML
+    private JFXTextField buildingField;
+
+    @FXML
+    private JFXTextField floorField;
+
+    @FXML
+    private JFXTextField yLocField;
+
+    @FXML
+    private JFXTextField xLocField;
+
+    @FXML
+    private JFXTextField nodeIDField;
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -119,6 +150,10 @@ public class AdminController extends Controller {
     }
 
     @FXML
+    void changeMap(Event e){
+        Main.controllers.updateAllMaps(e);
+    }
+
     void getMap(Event e) {
         String clickedID = ((JFXButton) e.getSource()).getId();
         switch (clickedID) {
@@ -145,9 +180,9 @@ public class AdminController extends Controller {
         Image map = mapImage.getLoadedMap(clickedID);
         this.currentMap.setImage(map);
         redraw();
-        //AdminController.currentMap.setImage(map);
     }
 
+    @FXML
     void selectNode(MouseEvent event){
         double mousex = (5000 * event.getX()) / mapWidth;
         double mousey = (3400 * event.getY()) / mapHeight;
@@ -155,25 +190,28 @@ public class AdminController extends Controller {
             NodeObj editNode = Main.getNodeMap().getNearestNeighbor((int)mousex, (int)mousey);
 
             //set each of the fields to their values
-            editNode.getNode().getNodeID();
-            editNode.getNode().getxLoc();
-            editNode.getNode().getyLoc();
-            editNode.getNode().getFloor();
-            editNode.getNode().getNodeType();
-            editNode.getNode().getTeam();
-            editNode.getNode().getBuilding();
-            editNode.getNode().getLongName();
-            editNode.getNode().getShortName();
+            nodeIDField.setText(editNode.getNode().getNodeID());
+            xLocField.setText(editNode.getNode().getxLoc() + "");
+            yLocField.setText(editNode.getNode().getyLoc() + "");
+            floorField.setText(editNode.getNode().getFloor());
+            nodeTypeField.setText(editNode.getNode().getNodeType());
+            teamField.setText(editNode.getNode().getTeam());
+            buildingField.setText(editNode.getNode().getBuilding());
+            longNameField.setText(editNode.getNode().getLongName());
+            teamField.setText(editNode.getNode().getShortName());
 
             //now make all fields visible with .setVisibility(true)
-
+            nodeInfoPane.setVisible(true);
 
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
     }
 
-
+    @FXML
+    void adminLogin(){
+        Main.getCurrStage().setScene(Main.getPatientScene());
+    }
 
 
     @FXML

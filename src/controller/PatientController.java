@@ -93,6 +93,13 @@ public class PatientController extends Controller {
     }
 
     @FXML
+    void changeMap(Event e){
+        Main.controllers.updateAllMaps(e);
+        if(currPath != null){
+            DrawCurrentFloorPath();
+        }
+    }
+
     void getMap(Event e) {
         String clickedID = ((JFXButton) e.getSource()).getId();
         switch (clickedID) {
@@ -118,8 +125,7 @@ public class PatientController extends Controller {
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         Image map = mapImage.getLoadedMap(clickedID);
         this.currentMap.setImage(map);
-        //AdminController.currentMap.setImage(map);
-        DrawCurrentFloorPath();
+        redraw();
     }
 
 
