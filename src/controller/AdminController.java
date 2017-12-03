@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -115,6 +116,16 @@ public class AdminController extends Controller {
 
 
     private void redraw(){
+        nodeInfoPane.setVisible(false);
+        nodeIDField.clear();
+        xLocField.clear();
+        yLocField.clear();
+        floorField.clear();
+        nodeTypeField.clear();
+        teamField.clear();
+        buildingField.clear();
+        longNameField.clear();
+        shortNameField.clear();
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -183,11 +194,31 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void selectNode(MouseEvent event){
-        double mousex = (5000 * event.getX()) / mapWidth;
-        double mousey = (3400 * event.getY()) / mapHeight;
+    void mousePress(MouseEvent event){
+        int mousex = (int)((5000 * event.getX()) / mapWidth);
+        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            selectNode(mousex,mousey);
+        }
+    }
+
+    @FXML
+    void createNewNode(int mousex, int mousey){
+        nodeIDField.setText("");
+        xLocField.setText(mousex + "");
+        yLocField.setText(mousey + "");
+        floorField.setText(Main.getNodeMap().currentFloor);
+        teamField.setText("Team E");
+        //now make all fields visible with .setVisibility(true)
+        nodeInfoPane.setVisible(true);
+    }
+
+    @FXML
+    void selectNode(int mousex, int mousey){
         try {
-            NodeObj editNode = Main.getNodeMap().getNearestNeighbor((int)mousex, (int)mousey);
+            NodeObj editNode = Main.getNodeMap().getNearestNeighbor(mousex, mousey);
 
             //set each of the fields to their values
             nodeIDField.setText(editNode.getNode().getNodeID());
@@ -198,7 +229,7 @@ public class AdminController extends Controller {
             teamField.setText(editNode.getNode().getTeam());
             buildingField.setText(editNode.getNode().getBuilding());
             longNameField.setText(editNode.getNode().getLongName());
-            teamField.setText(editNode.getNode().getShortName());
+            shortNameField.setText(editNode.getNode().getShortName());
 
             //now make all fields visible with .setVisibility(true)
             nodeInfoPane.setVisible(true);
@@ -206,6 +237,36 @@ public class AdminController extends Controller {
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void removeNode(){
+        String delNodeID = nodeIDField.getText();
+        Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
+        NodeObj delNodeObj = new NodeObj(delNode);
+        Main.getNodeMap().removeNode(delNodeObj);
+        redraw();
+    }
+
+    @FXML
+    void editNode(){
+        String xLoc = xLocField.getText();
+        String yLoc = yLocField.getText();
+        String floor = floorField.getText();
+        String building = buildingField.getText();
+        String nodeType = nodeTypeField.getText();
+        String longName = longNameField.getText();
+        String shortName = shortNameField.getText();
+        String team = teamField.getText();
+        String nodeID = nodeIDField.getText();
+        Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
+        NodeObj modNodeObj = new NodeObj(modNode);
+        try {
+            Main.getNodeMap().addEditNode(modNodeObj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        redraw();
     }
 
     @FXML

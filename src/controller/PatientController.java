@@ -221,10 +221,10 @@ public class PatientController extends Controller {
 
     @FXML
     void mousePress(MouseEvent event){
-        if(event.getButton() == MouseButton.PRIMARY){
-            findPath(event);
-        }else if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
             setStartNode(event);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            findPath(event);
         }
     }
 
@@ -309,21 +309,5 @@ public class PatientController extends Controller {
         }else{
             textTogglePane.setVisible(false);
         }
-
-
     }
-/*    @FXML
-    void setEndNode(MouseEvent event){
-        double mousex = (5000 * event.getX()) / mapWidth;
-        double mousey = (3400 * event.getY()) / mapHeight;
-        String newEndNodeID = EndNodeID.getText();
-        NodeObj newEndNode = Main.getNodeMap().getNodeObjByID(newEndNodeID);
-        redraw();
-        try {
-            findPath(newEndNode);
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Did you get here");
-    }*/
 }
