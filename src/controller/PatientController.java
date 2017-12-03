@@ -73,12 +73,14 @@ public class PatientController extends Controller {
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
+    ArrayList<String> Floors;
     double startX;
     double startY;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
+        btn_map01.setOpacity(1);
         currentAlgorithm.setPathAlg(new astar());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
@@ -102,30 +104,83 @@ public class PatientController extends Controller {
 
     void getMap(Event e) {
         String clickedID = ((JFXButton) e.getSource()).getId();
+        clearChosenFloor();
         switch (clickedID) {
             case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
+                btn_mapL2.setOpacity(1);
                 break;
             case "btn_mapL1":
                 Main.getNodeMap().setCurrentFloor("L1");
+                btn_mapL1.setOpacity(1);
                 break;
             case "btn_mapG":
                 Main.getNodeMap().setCurrentFloor("G");
+                btn_mapG.setOpacity(1);
                 break;
             case "btn_map01":
                 Main.getNodeMap().setCurrentFloor("1");
+                btn_map01.setOpacity(1);
                 break;
             case "btn_map02":
                 Main.getNodeMap().setCurrentFloor("2");
+                btn_map02.setOpacity(1);
                 break;
             case "btn_map03":
                 Main.getNodeMap().setCurrentFloor("3");
+                btn_map03.setOpacity(1);
                 break;
         }
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         Image map = mapImage.getLoadedMap(clickedID);
         this.currentMap.setImage(map);
         redraw();
+    }
+
+    void clearChosenFloor(){
+        if(Floors == null) {
+            btn_mapL2.setOpacity(.5);
+            btn_mapL1.setOpacity(.5);
+            btn_mapG.setOpacity(.5);
+            btn_map01.setOpacity(.5);
+            btn_map02.setOpacity(.5);
+            btn_map03.setOpacity(.5);
+            selectFloor(Main.getNodeMap().currentFloor);
+        }else {
+            btn_mapL2.setOpacity(.5);
+            btn_mapL1.setOpacity(.5);
+            btn_mapG.setOpacity(.5);
+            btn_map01.setOpacity(.5);
+            btn_map02.setOpacity(.5);
+            btn_map03.setOpacity(.5);
+            for(String floor : Floors){
+                selectFloor(floor);
+            }
+            selectFloor(Main.getNodeMap().currentFloor);
+        }
+    }
+
+    void selectFloor(String selectedFloor) {
+        switch (selectedFloor) {
+            case "L2":
+                btn_mapL2.setOpacity(1);
+                break;
+            case "L1":
+                btn_mapL1.setOpacity(1);
+                break;
+            case "G":
+                btn_mapG.setOpacity(1);
+                break;
+            case "1":
+                btn_map01.setOpacity(1);
+                break;
+            case "2":
+                btn_map02.setOpacity(1);
+                break;
+            case "3":
+                btn_map03.setOpacity(1);
+                break;
+        }
     }
 
 
@@ -143,7 +198,7 @@ public class PatientController extends Controller {
     public void DrawCurrentFloorPath() {
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
-        ArrayList<String> Floors = new ArrayList<String>();
+        Floors = new ArrayList<String>();
         for (NodeObj n : currPath) {
             if (n != goal) {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
@@ -174,6 +229,24 @@ public class PatientController extends Controller {
                     10);
         }
         gc1.setFill(Color.YELLOW);
+        clearChosenFloor();
+
+/*
+
+
+        try {
+            for(String s:Floors) {
+                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
+            }
+            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText(GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
+            if(goal.node.getNodeType().equals("ELEV")){
+                GetMapDropdownFromFloor(goal.node.getFloor()).setText
+                        (GetMapDropdownFromFloor(goal.node.getFloor()).getText() + " [*]");
+            }
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+        */
     }
 
 
