@@ -7,7 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,6 +17,8 @@ import model.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 
 public class AdminController extends Controller {
@@ -91,6 +95,18 @@ public class AdminController extends Controller {
     @FXML
     private JFXTextField nodeIDField;
 
+    @FXML
+    private Pane edgeInfoPane;
+
+    @FXML
+    private JFXTextField weightField;
+
+    @FXML
+    private JFXTextField nodeBField;
+
+    @FXML
+    private JFXTextField nodeAField;
+
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
     private int XTrans = 0;
@@ -104,6 +120,8 @@ public class AdminController extends Controller {
     ImageLoader mapImage = new ImageLoader();
     double startX;
     double startY;
+    boolean displayNode = false;
+    NodeObj nodeA = null;
 
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -117,6 +135,7 @@ public class AdminController extends Controller {
 
     private void redraw(){
         nodeInfoPane.setVisible(false);
+        edgeInfoPane.setVisible(false);
         nodeIDField.clear();
         xLocField.clear();
         yLocField.clear();
@@ -126,6 +145,9 @@ public class AdminController extends Controller {
         buildingField.clear();
         longNameField.clear();
         shortNameField.clear();
+        weightField.clear();
+        nodeAField.clear();
+        nodeBField.clear();
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -205,6 +227,30 @@ public class AdminController extends Controller {
     }
 
     @FXML
+    void clickHandler(MouseEvent event) throws InvalidNodeException {
+        int mousex = (int)((5000 * event.getX()) / mapWidth);
+        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            if(nodeA == null){
+                selectNodeA(event);
+            }else{
+                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
+                    edgeInfoPane.setVisible(false);
+                    selectNode(mousex,mousey);
+                    nodeA = null;
+                }else {
+                    nodeInfoPane.setVisible(false);
+                    selectEdge(event);
+                    nodeA = null;
+
+                }
+            }
+        }
+    }
+
+    @FXML
     void createNewNode(int mousex, int mousey){
         nodeIDField.setText("");
         xLocField.setText(mousex + "");
@@ -218,7 +264,7 @@ public class AdminController extends Controller {
     @FXML
     void selectNode(int mousex, int mousey){
         try {
-            NodeObj editNode = Main.getNodeMap().getNearestNeighbor(mousex, mousey);
+            NodeObj editNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
 
             //set each of the fields to their values
             nodeIDField.setText(editNode.getNode().getNodeID());
@@ -249,7 +295,7 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void editNode(){
+    void addEditNode(){
         String xLoc = xLocField.getText();
         String yLoc = yLocField.getText();
         String floor = floorField.getText();
@@ -268,6 +314,68 @@ public class AdminController extends Controller {
         }
         redraw();
     }
+
+    @FXML
+    void selectNodeA(MouseEvent event){
+        nodeInfoPane.setVisible(false);
+        int mousex = (int)((5000 * event.getX()) / mapWidth);
+        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        try {
+            nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+            nodeAField.setText(nodeA.getNode().getNodeID());
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void selectEdge(MouseEvent event){
+        System.out.println("DRAG RELEASED");
+        int mousex = (int)((5000 * event.getX()) / mapWidth);
+        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        try {
+            String nodeB = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID();
+            nodeBField.setText(nodeB);
+            if (nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)) != null) {
+                weightField.setText(nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)).getWeight() + "");
+            }else{
+                weightField.setText("1");
+            }
+            edgeInfoPane.setVisible(true);
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+        /*
+         *UpdateBorderButton is called when adding or editing. It updates the
+         * node map, and redraws the screen
+         */
+    void addEditEdge() {
+        String NIDA = nodeAField.getText();
+        String NIDB = nodeBField.getText();
+        int eWeight = Integer.parseInt(weightField.getText());
+        EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
+        redraw();
+        gc1.setStroke(Color.RED);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*mapWidth/5000,
+                edgeAB.getNodeA().node.getyLoc()*mapHeight/3400,
+                edgeAB.getNodeB().node.getxLoc()*mapWidth/5000,
+                edgeAB.getNodeB().node.getyLoc()*mapHeight/3400);
+    }
+
+    /*
+     * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
+     */
+    @FXML
+    void removeEdge() {
+        String nodeA = nodeAField.getText();
+        String nodeB = nodeBField.getText();
+        Main.getNodeMap().deleteEdge(nodeA,nodeB);
+        redraw();
+    }
+
 
     @FXML
     void adminLogin(){

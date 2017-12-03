@@ -17,7 +17,7 @@
          <image>
          </image>
       </ImageView>
-      <Canvas fx:id="gc" height="900.0" onMouseReleased="#mousePress" width="1400.0" />
+      <Canvas fx:id="gc" height="900.0" onMousePressed="#clickHandler" onMouseReleased="#clickHandler" width="1400.0" />
       <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
@@ -80,7 +80,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Pane fx:id="nodeInfoPane" layoutX="1142.0" layoutY="504.0" prefHeight="388.0" prefWidth="247.0">
+      <Pane fx:id="nodeInfoPane" layoutX="1142.0" layoutY="504.0" prefHeight="388.0" prefWidth="247.0" visible="false">
          <children>
             <JFXTextField fx:id="nodeTypeField" layoutX="95.0" layoutY="195.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="shortNameField" layoutX="96.0" layoutY="236.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -100,8 +100,20 @@
             <Label layoutY="233.0" prefHeight="27.0" prefWidth="75.0" text="Short Name" />
             <Label layoutY="273.0" prefHeight="27.0" prefWidth="75.0" text="Long Name" />
             <Label layoutX="17.0" layoutY="318.0" prefHeight="27.0" prefWidth="58.0" text="Team" />
-            <JFXButton layoutX="100.0" layoutY="355.0" onAction="#editNode" style="-fx-background-color: #4286f4#4286f4;" text="Add/Edit" textFill="WHITE" />
+            <JFXButton layoutX="100.0" layoutY="355.0" onAction="#addEditNode" style="-fx-background-color: #4286f4#4286f4;" text="Add/Edit" textFill="WHITE" />
             <JFXButton layoutX="180.0" layoutY="355.0" onAction="#removeNode" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane fx:id="edgeInfoPane" layoutX="1143.0" layoutY="502.0" prefHeight="388.0" prefWidth="247.0" visible="false">
+         <children>
+            <JFXTextField fx:id="weightField" layoutX="94.0" layoutY="77.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="nodeBField" layoutX="94.0" layoutY="40.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="nodeAField" layoutX="94.0" layoutY="1.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <Label layoutX="17.0" prefHeight="27.0" prefWidth="58.0" text="Node A" />
+            <Label layoutX="17.0" layoutY="37.0" prefHeight="27.0" prefWidth="58.0" text="Node B" />
+            <Label layoutX="17.0" layoutY="74.0" prefHeight="27.0" prefWidth="58.0" text="Weight" />
+            <JFXButton layoutX="88.0" layoutY="120.0" onAction="#addEditEdge" style="-fx-background-color: #4286f4#4286f4;" text="Add/Edit" textFill="WHITE" />
+            <JFXButton layoutX="168.0" layoutY="120.0" onAction="#removeEdge" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
          </children>
       </Pane>
    </children>

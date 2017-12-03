@@ -134,7 +134,7 @@ public class PatientController extends Controller {
      */
     void setKioskLoc(int xCoord, int yCoord) {
         try {
-            Main.setKiosk(Main.getNodeMap().getNearestNeighbor(xCoord, yCoord));
+            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
