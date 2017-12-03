@@ -10,7 +10,7 @@ import javafx.scene.control.MenuItem;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ServiceController {
+public class ServiceEditController {
     // Attributes
     private String serviceNeeded;
     private ServiceRequest service;
