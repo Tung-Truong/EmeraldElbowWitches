@@ -483,14 +483,14 @@ public class PatientController extends Controller{
                 newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
                 10,
                 10);
-            Zoom = 0;
+           /* Zoom = 0;
             YTrans = 0;
             XTrans = 0;
             resize();
             //gc.localToParent()
-            Zoom = 0;
+            Zoom = 0;*/
             //XTrans = (int)mapWidth;//(int)(mapWidth/2-newSearchNode.node.getxLoc()*mapWidth/3400)/2;
-            resize();
+            //resize();
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }

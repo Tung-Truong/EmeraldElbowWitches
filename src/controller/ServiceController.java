@@ -16,9 +16,9 @@ public class ServiceController {
     private ServiceRequest service;
     private Employee foundMOd, foundDel;
 
-    @FXML
+   /* @FXML
     private MenuButton FoodDropdown,
-            LocationDropdown, RequestServiceDropdown;
+            LocationDropdown, RequestServiceDropdown;*/
 
     @FXML
     private Button removeNodeSelector;
@@ -31,7 +31,7 @@ public class ServiceController {
     emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo;
 
     @FXML
-    private ComboBox<String> AssignEmployee, DeleteEmployee, ModifyEmployee;
+    private ComboBox<String> /*AssignEmployee, */ DeleteEmployee, ModifyEmployee;
 
 
     // Getters
@@ -48,7 +48,7 @@ public class ServiceController {
         this.serviceNeeded = service;
     }
 
-    public void setService() {
+   /* public void setService() {
         String needed = this.RequestServiceDropdown.getText();
         if(AssignEmployee.getValue().split(" ") == null)
             throw new NullPointerException("No service added");
@@ -76,7 +76,7 @@ public class ServiceController {
             service.setAccountTo(email);
             serviceNeeded = "Food";
         }
-    }
+    }*/
 
     // FXML Methods
     @FXML
@@ -84,7 +84,7 @@ public class ServiceController {
         Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
-    @FXML
+    /*@FXML
     void SubmitRequest() {
         try {
             this.setService();
@@ -108,10 +108,10 @@ public class ServiceController {
         catch(NullPointerException e){
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
     //these three items handle changing the employyee names available
-    @FXML
+   /* @FXML
     void MaintenanceItem() {
         AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployees()) {
@@ -147,7 +147,7 @@ public class ServiceController {
         AssignEmployee.setPromptText("Employees Available");
         employeeAvailable();
         RequestServiceDropdown.setText("Interpreter");
-    }
+    }*/
 
     @FXML
     void AddEmployee(){
@@ -239,11 +239,11 @@ public class ServiceController {
 
         ModifyEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
         DeleteEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
-        AssignEmployee.getItems().remove(foundDel.getFirstName() + " " + foundDel.getLastName());
+       // AssignEmployee.getItems().remove(foundDel.getFirstName() + " " + foundDel.getLastName());
 
     }
 
-    @FXML
+   /* @FXML
     void NoodlesItem() {
         FoodDropdown.setText("Noodles");
     }
@@ -268,16 +268,16 @@ public class ServiceController {
     void XrayItem() {
         LocationDropdown.setText("X Ray");
 
-    }
+    }*/
 
     //function that just sets the menu items to display no employee available if there is none.
-    private void employeeAvailable() {
+    /*private void employeeAvailable() {
         if (AssignEmployee.getItems().size() == 0) {
             AssignEmployee.setPromptText("No Employees Currently Available");
             AssignEmployee.setDisable(true);
         } else {
             AssignEmployee.setDisable(false);
         }
-    }
+    }*/
 
 }

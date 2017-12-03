@@ -183,7 +183,7 @@ public class Main extends Application {
 
         this.controllers.addObserver(adminCont);
 
-        Service = new Scene(FXMLLoader.load(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
+        Service = new Scene(FXMLLoader.load(getClass().getClassLoader().getResource("view/ui/ServiceEdit.fxml")), sceneWidth, sceneHeight);
         this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
