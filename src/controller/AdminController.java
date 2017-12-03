@@ -399,6 +399,8 @@ public class AdminController extends Controller{
             case "aStar":
                 this.currentAlgorithm.setPathAlg(new astar());
                 break;
+            case "beamFirst":
+                this.currentAlgorithm.setPathAlg(new BeamFirst());
         }
         PFM.setText(clickedID);
     }

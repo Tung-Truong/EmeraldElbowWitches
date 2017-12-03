@@ -169,6 +169,7 @@
                                     <MenuItem fx:id="breadthFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Breadth-First" />
                                     <MenuItem fx:id="dijkstras" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Djikstra's" />
                                     <MenuItem fx:id="aStar" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="A*" />
+                                     <MenuItem fx:id="beamFirst" mnemonicParsing="false" onAction="#setCurrentAlgorithm" text="Beam-First" />
                                  </items>
                                  <font>
                                     <Font size="11.0" />

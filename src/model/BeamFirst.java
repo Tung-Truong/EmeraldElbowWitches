@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class BeamFirst extends PathingAlgorithm {
     private ArrayList<NodeObj> GenPath;
-    private int beamWidth = 2;
+    private int beamWidth = 10;
 
     public boolean pathfind(NodeObj start, NodeObj goal) {
         ArrayList<NodeObj> explored = new ArrayList<NodeObj>(); // List of explored nodes, or nodes that have been accounted for
@@ -22,18 +22,22 @@ public class BeamFirst extends PathingAlgorithm {
                 return true;
             }
             ArrayList<NodeObj> neighbours = current.getListOfNeighbors();
+            LinkedList<NodeObj> queue2 = new LinkedList<NodeObj>();
             for (int i = 0; i < neighbours.size(); i++) {
                 NodeObj n = neighbours.get(i);
                 n.setHeuristic(n.getDistance(goal) + n.getgCost() + floorDifference(n,current));
                 if (n != null && !explored.contains(n)) {
-                    queue.add(n);
-                    explored.add(n);
+                    queue2.add(n);
                     n.setParent(current);
                 }
-                Collections.sort(queue, new NodeObjComparator());
-                while(queue.size() > beamWidth) {
-                    queue.removeLast();
-                }
+            }
+            Collections.sort(queue2, new NodeObjComparator());
+            while(queue2.size() > beamWidth) {
+                queue2.removeLast();
+            }
+            for (int j = 0; j < queue2.size(); j ++){
+                explored.add(queue2.get(j));
+                queue.add(queue2.get(j));
             }
         }
         return false;
