@@ -216,21 +216,11 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void mousePress(MouseEvent event){
-        int mousex = (int)((5000 * event.getX()) / mapWidth);
-        int mousey = (int)((3400 * event.getY()) / mapHeight);
-        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
-            createNewNode(mousex,mousey);
-        }else if(event.getButton() == MouseButton.PRIMARY){
-            selectNode(mousex,mousey);
-        }
-    }
-
-    @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
         int mousex = (int)((5000 * event.getX()) / mapWidth);
         int mousey = (int)((3400 * event.getY()) / mapHeight);
         if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+            redraw();
             createNewNode(mousex,mousey);
         }else if(event.getButton() == MouseButton.PRIMARY){
             if(nodeA == null){
