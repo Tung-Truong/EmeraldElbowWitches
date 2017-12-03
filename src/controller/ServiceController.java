@@ -102,9 +102,8 @@ public class ServiceController {
             service.setMessageText(NotesTextField.getText());
             service.sendEmailServiceRequest();
 
-            // Header field is not being updated so definitely look into this more
-
             System.out.println("Message sent succesfully");
+            Main.requests.add(service);
         }
         catch(NullPointerException e){
             System.out.println(e.getMessage());
@@ -279,7 +278,7 @@ public class ServiceController {
     void Refresh(){
         service.resolveRequest();
         if(service.isActive()){
-            NotesTextField.setText("Active request: " + service);
+            NotesTextField.setText("Active request: " + Main.requests);
         } else {
             NotesTextField.setText("No active Requests");
         }

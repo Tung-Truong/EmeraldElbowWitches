@@ -17,7 +17,7 @@ public class WriteRequests {
         try {
             Connection conn = DriverManager.getConnection(JDBC_URL);
             String query = "select DISTINCT * from requestTable";
-            String filename = "src/model/docs/Employees.csv";
+            String filename = "src/model/docs/ServiceRequests.csv";
             File file = new File(filename);
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
