@@ -30,6 +30,7 @@ public class Main extends Application {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the employee
     public static ArrayList<Employee> employees;
+    public static ArrayList<ServiceRequest> requests;
     //contains all the messages
     public static JanitorService janitorService;
     public static ControllerListener controllers;
@@ -88,6 +89,7 @@ public class Main extends Application {
                 ReadCSV.runEdge("src/model/docs/MapWedges.csv");
             }
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
+            ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -117,9 +119,6 @@ public class Main extends Application {
         ArrayList<Edge> listOfEdges;
         listOfEdges = QueryDB.getEdges();
 
-        // assigns and saves employees from the database
-        employees = QueryDB.getEmployees();
-
         // create edge objects
         //for every edge in the database
         //create the corrisponding edge object and place it into the corrisponding node
@@ -142,6 +141,12 @@ public class Main extends Application {
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
+
+        // creates and saves list of requests
+        ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
+        listOfRequests = QueryDB.getRequests();
+        requests = listOfRequests;
+
         //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
@@ -207,10 +212,14 @@ public class Main extends Application {
         for (Employee e : employees) {
             AddDB.addEmployee(e);
         }
+        for (ServiceRequest service : requests){
+            AddDB.addRequest(service);
+        }
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
             WriteEmployees.runEmployees();
+            WriteRequests.runRequests();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
