@@ -80,7 +80,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Pane fx:id="nodeInfoPane" layoutX="1142.0" layoutY="504.0" prefHeight="388.0" prefWidth="247.0" visible="false">
+      <Pane fx:id="nodeInfoPane" layoutX="1142.0" layoutY="504.0" prefHeight="388.0" prefWidth="247.0">
          <children>
             <JFXTextField fx:id="nodeTypeField" layoutX="95.0" layoutY="195.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="shortNameField" layoutX="96.0" layoutY="236.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -116,5 +116,35 @@
             <JFXButton layoutX="168.0" layoutY="120.0" onAction="#removeEdge" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
          </children>
       </Pane>
+      <JFXButton fx:id="astarBtn" buttonType="RAISED" layoutX="24.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="26.0" prefWidth="40.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="A*" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="depthBtn" buttonType="RAISED" layoutX="80.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="68.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="D-First" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="breadthBtn" buttonType="RAISED" layoutX="165.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="68.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="B-First" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="dijkstrasBtn" buttonType="RAISED" layoutX="252.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="86.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="Dijkstras" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="beamBtn" buttonType="RAISED" layoutX="355.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="58.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="Beam" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="bestBtn" buttonType="RAISED" layoutX="428.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="54.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="Best" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </Pane>

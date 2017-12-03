@@ -107,6 +107,24 @@ public class AdminController extends Controller {
     @FXML
     private JFXTextField nodeAField;
 
+    @FXML
+    private JFXButton astarBtn;
+
+    @FXML
+    private JFXButton depthBtn;
+
+    @FXML
+    private JFXButton breadthBtn;
+
+    @FXML
+    private JFXButton dijkstrasBtn;
+
+    @FXML
+    private JFXButton beamBtn;
+
+    @FXML
+    private JFXButton bestBtn;
+
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
     private int XTrans = 0;
@@ -129,6 +147,7 @@ public class AdminController extends Controller {
         currentAlgorithm.setPathAlg(new astar());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
+        astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
     }
 
@@ -366,7 +385,81 @@ public class AdminController extends Controller {
         redraw();
     }
 
+    @FXML
+    void pathingHoverStart(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(1, hoveredID);
+    }
 
+    @FXML
+    void pathingHoverStop(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(.5, hoveredID);    }
+
+    void opacHandler(double opacity, String hoveredID){
+        switch (hoveredID){
+            case "astarBtn":
+                astarBtn.setOpacity(opacity);
+                break;
+            case "depthBtn":
+                depthBtn.setOpacity(opacity);
+                break;
+            case "breadthBtn":
+                breadthBtn.setOpacity(opacity);
+                break;
+            case "dijkstrasBtn":
+                dijkstrasBtn.setOpacity(opacity);
+                break;
+            case "beamBtn":
+                beamBtn.setOpacity(opacity);
+                break;
+            case "bestBtn":
+                bestBtn.setOpacity(opacity);
+                break;
+        }
+    }
+
+    @FXML
+    void selectPathAlg(Event event){
+        String clickedID = ((JFXButton)event.getSource()).getId();
+        resetPathBtns();
+        switch (clickedID){
+            case "astarBtn":
+                astarBtn.setStyle("-fx-background-color: #4286f4");
+                this.currentAlgorithm.setPathAlg(new astar());
+                break;
+            case "depthBtn":
+                depthBtn.setStyle("-fx-background-color:  #4286f4");
+                this.currentAlgorithm.setPathAlg(new DepthFirst());
+                break;
+            case "breadthBtn":
+                breadthBtn.setStyle("-fx-background-color:  #4286f4");
+                this.currentAlgorithm.setPathAlg(new BreadthFirst());
+                break;
+            case "dijkstrasBtn":
+                dijkstrasBtn.setStyle("-fx-background-color:  #4286f4");
+                this.currentAlgorithm.setPathAlg(new Dijkstras());
+                break;
+            case "beamBtn":
+                beamBtn.setStyle("-fx-background-color:  #4286f4");
+
+                break;
+            case "bestBtn":
+                bestBtn.setStyle("-fx-background-color:  #4286f4");
+
+                break;
+        }
+    }
+
+    void resetPathBtns(){
+        astarBtn.setStyle("-fx-background-color: #21a047");
+        depthBtn.setStyle("-fx-background-color:  #21a047");
+        breadthBtn.setStyle("-fx-background-color:  #21a047");
+        dijkstrasBtn.setStyle("-fx-background-color:  #21a047");
+        beamBtn.setStyle("-fx-background-color:  #21a047");
+        bestBtn.setStyle("-fx-background-color:  #21a047");
+    }
+//#4286f4
     @FXML
     void adminLogin(){
         Main.getCurrStage().setScene(Main.getPatientScene());
