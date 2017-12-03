@@ -186,6 +186,12 @@
                                        </cursor>
                                     </Button>
                                     <TextArea fx:id="directionsBox" layoutX="180.0" layoutY="137.0" prefHeight="245.0" prefWidth="166.0" promptText="Step by step instructions" />
+                                    <Button fx:id="setSearchNodeConfirm" layoutX="145.0" layoutY="658.0" mnemonicParsing="false" onAction="#setSearchNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Button>
+                                    <JFXComboBox fx:id="SearchOptions" layoutX="146.0" layoutY="612.0" />
                                                </children>
                                            </AnchorPane>
                               <Button fx:id="SearchForNode" alignment="CENTER" layoutX="113.0" layoutY="548.0" mnemonicParsing="false" onAction="#setSearchNodeFlag" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: #134072#134072;" text="Search For Node" textFill="WHITE">
@@ -196,16 +202,11 @@
                                     <Font name="Avenir Book" size="14.0" />
                                  </font>
                               </Button>
-                              <TextField fx:id="SearchNodeID" layoutX="114.0" layoutY="586.0" prefHeight="26.0" prefWidth="134.0" text="NodeID">
+                              <TextField fx:id="SearchNodeID" layoutX="114.0" layoutY="586.0" onKeyTyped="#UpdateSearch" prefHeight="26.0" prefWidth="134.0" text="NodeID">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor>
                               </TextField>
-                              <Button fx:id="setSearchNodeConfirm" layoutX="147.0" layoutY="620.0" mnemonicParsing="false" onAction="#setSearchNode" style="-fx-background-color: #00001F#00001F #00001F#00001F;" text="Confirm" textFill="WHITE">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
                                        </children>
                                    </Pane>
                            </children>

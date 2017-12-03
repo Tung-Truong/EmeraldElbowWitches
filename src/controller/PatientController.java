@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+
 import model.*;
 
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public class PatientController extends Controller{
 
     @FXML
     private Button SearchForNode;
+
+    @FXML
+    private ComboBox<String> SearchOptions;
 
     @FXML
     private TextField SearchNodeID;
@@ -437,6 +441,19 @@ public class PatientController extends Controller{
     }
 
     @FXML
+    void UpdateSearch(){
+        SearchOptions.getItems().clear();
+        ArrayList<NodeObj> SearchNodes = new ArrayList<NodeObj>();
+        String search = SearchNodeID.getText();
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            if(search.length()>2&&(n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
+                SearchNodes.add(n);
+                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+            }
+        }
+    }
+
+    @FXML
     void setEndNode(){
         String newEndNodeID = EndNodeID.getText();
         NodeObj newEndNode = Main.getNodeMap().getNodeObjByID(newEndNodeID);
@@ -452,13 +469,15 @@ public class PatientController extends Controller{
 
     @FXML
     void setSearchNode(){
-        String searchNewNodeID = SearchNodeID.getText();
+        String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
         NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
         switchTab1();
         try {
             if(newSearchNode == null)
                 throw new InvalidNodeException("no node with that ID");
             Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+            Image map = mapImage.getLoadedMap(GetMapDropdownFromFloor(newSearchNode.node.getFloor()).getId());
+            this.currentMap.setImage(map);
             gc1.setFill(Color.DARKRED);
             gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
                 newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
@@ -469,15 +488,13 @@ public class PatientController extends Controller{
             XTrans = 0;
             resize();
             //gc.localToParent()
-            Zoom = 2;
-            YTrans = (int)(mapHeight*2);
+            Zoom = 0;
             //XTrans = (int)mapWidth;//(int)(mapWidth/2-newSearchNode.node.getxLoc()*mapWidth/3400)/2;
             resize();
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
         currentState = CurrentStatus.PATIENT;
-        System.out.println("Did you get here");
     }
 
 
