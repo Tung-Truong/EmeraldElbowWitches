@@ -57,7 +57,7 @@ public class ReadCSV {
         Class.forName(DRIVER);
         String mapERequests = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapERequestsCSV = new File(mapERequests);
-        readFile(mapERequestsCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
+        readFile(mapERequestsCSV, NUMROWSREQUEST, REQUESTTABLE);
     }
 
     /*
