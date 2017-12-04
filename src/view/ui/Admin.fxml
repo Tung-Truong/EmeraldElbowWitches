@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -11,7 +19,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
@@ -145,6 +153,11 @@
       <JFXButton fx:id="bestBtn" buttonType="RAISED" layoutX="428.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="28.0" prefWidth="54.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="Best" textFill="WHITE">
          <font>
             <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="823.0" onAction="#EditEmployees" opacity="0.9" prefHeight="51.0" prefWidth="247.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="EDIT EMPLOYEES" textFill="WHITE">
+         <font>
+            <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
    </children>

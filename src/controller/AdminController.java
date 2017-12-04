@@ -508,6 +508,18 @@ public class AdminController extends Controller {
     }
 
     @FXML
+    void EditEmployees() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceEditRequest.fxml"));
+        Parent root = servContLoad.load();
+        ServiceController servCont = servContLoad.getController();
+        Stage servStage = new Stage();
+        servStage.setTitle("Service Request");
+        servStage.setScene(new Scene(root, mapWidth, mapHeight));
+        servCont.servLocField.setText(nodeIDField.getText());
+        servStage.show();
+    }
+
+    @FXML
     void Zin() {
         System.out.println(zoomBar.getValue());
         Zoom = zoomBar.getValue();
