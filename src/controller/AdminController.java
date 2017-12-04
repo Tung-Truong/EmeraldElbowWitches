@@ -472,11 +472,11 @@ public class AdminController extends Controller {
                 break;
             case "beamBtn":
                 beamBtn.setStyle("-fx-background-color:  #4286f4");
-
+                this.currentAlgorithm.setPathAlg(new BeamFirst());
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-
+                this.currentAlgorithm.setPathAlg(new BestFirst());
                 break;
         }
     }
