@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.canvas.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
@@ -21,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
@@ -95,11 +89,6 @@
             <JFXTextArea fx:id="toggleTextArea" unFocusColor="#ffffff00" />
          </children>
       </JFXTogglePane>
-      <JFXToggleButton fx:id="textToggle" layoutX="1240.0" layoutY="511.0" onMouseReleased="#textToggle" prefHeight="51.0" prefWidth="144.0" text="TEXT" unToggleLineColor="BLACK">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </JFXToggleButton>
       <Label layoutX="1202.0" layoutY="265.0" prefHeight="44.0" prefWidth="363.0" rotate="90.0" text="FLOOR">
          <font>
             <Font size="36.0" />
@@ -115,5 +104,10 @@
       <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="15.0" opacity="0.8" style="-fx-background-color: #4286f4;" />
       <JFXTextField fx:id="SearchNodeID" layoutX="101.0" layoutY="15.0" onKeyTyped="#UpdateSearch" opacity="0.8" style="-fx-background-color: #4286f4;" />
       <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1250.0" layoutY="542.0" onAction="#getTextDirections" prefHeight="30.0" prefWidth="123.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="Text Directions" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </Pane>

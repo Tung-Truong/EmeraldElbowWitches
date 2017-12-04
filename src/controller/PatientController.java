@@ -1,16 +1,20 @@
 package controller;
 
-import Healthcare.HealthCareRun;
-import Healthcare.ServiceException;
+//import Healthcare.HealthCareRun;
+//import Healthcare.ServiceException;
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 import model.ImageLoader;
 import model.InvalidNodeException;
 import model.astar;
@@ -20,9 +24,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PatientController extends Controller{
+
+    @FXML
+    private JFXButton directionsButton;
 
     @FXML
     private JFXTogglePane textTogglePane;
@@ -110,6 +118,7 @@ public class PatientController extends Controller{
     ArrayList<String> Floors;
     double startX;
     double startY;
+    ArrayList<NodeObj> strPath;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -448,13 +457,13 @@ public class PatientController extends Controller{
         //getStart
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
-        ArrayList<NodeObj> path;
+        strPath = new ArrayList<>();
         if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
-                path = currentAlgorithm.getPathAlg().getGenPath();
-                currPath = path;
-                toggleTextArea.setText(textDirections.getTextDirections(path));
+                strPath = currentAlgorithm.getPathAlg().getGenPath();
+                currPath = strPath;
+                toggleTextArea.setText(textDirections.getTextDirections(strPath));
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -475,6 +484,19 @@ public class PatientController extends Controller{
         }
     }
 
+    @FXML
+    void getTextDirections() throws IOException {
+        if(strPath != null) {
+            FXMLLoader dirContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/TextDirections.fxml"));
+            Parent root = dirContLoad.load();
+            TextDirectionsController dirCont = dirContLoad.getController();
+            Stage servStage = new Stage();
+            servStage.setTitle("Text Directions");
+            servStage.setScene(new Scene(root, 192, 550));
+            dirCont.dirArea.setText(textDirections.getTextDirections(strPath));
+            servStage.show();
+        }
+    }
 
     /*
      * setStartNode sets the start node to the node nearest to the given coords in the current building
