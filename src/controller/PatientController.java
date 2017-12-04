@@ -3,6 +3,10 @@ package controller;
 //import Healthcare.HealthCareRun;
 //import Healthcare.ServiceException;
 import com.jfoenix.controls.*;
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.ImageLoader;
 import model.InvalidNodeException;
 import model.astar;
@@ -26,6 +35,7 @@ import model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PatientController extends Controller{
 
@@ -465,6 +475,9 @@ public class PatientController extends Controller{
                 strPath = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = strPath;
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
+                Animation animation = createPathAnimation(convertPath(currPath), Duration.seconds(3));
+
+                animation.play();
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -474,6 +487,59 @@ public class PatientController extends Controller{
             }
             DrawCurrentFloorPath();
         }
+    }
+
+
+    //Functions required for animation fun times
+    private Path convertPath(ArrayList<NodeObj> list){
+        Path path = new Path();
+        ArrayList<NodeObj> reverseList = list;
+        Collections.reverse(reverseList);
+        for (int i = 0; i<(reverseList.size()-1); i++) {
+            path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(),reverseList.get(i).node.getyLoc()),new LineTo(reverseList.get(i+1).node.getxLoc(),reverseList.get(i+1).node.getyLoc()));
+        }
+        path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size()-1).node.getxLoc(),reverseList.get(reverseList.size()-1).node.getyLoc()),new LineTo(reverseList.get(reverseList.size()-1).node.getxLoc(),reverseList.get(reverseList.size()-1).node.getyLoc()));
+        return path;
+    }
+
+    private Animation createPathAnimation(Path path, Duration duration){
+        Circle pen = new Circle(0,0,4);
+
+        PathTransition pathTransition = new PathTransition(duration,path,pen);
+        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            Location oldLocation = null;
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                if (oldValue == Duration.ZERO){
+                    return;
+                }
+                double x = pen.getTranslateX();
+                double y = pen.getTranslateY();
+
+                if(oldLocation == null){
+                    oldLocation = new Location();
+                    oldLocation.x = x;
+                    oldLocation.y = y;
+                    return;
+                }
+
+                gc1.setStroke(Color.RED);
+                gc1.setFill(Color.YELLOW);
+                gc1.setLineWidth(4);
+
+                gc1.strokeLine(oldLocation.x* mapWidth / 5000,oldLocation.y* mapHeight / 3400,x * mapWidth / 5000, y * mapHeight / 3400);
+                oldLocation.x = x;
+                oldLocation.y = y;
+            }
+        });
+
+        return pathTransition;
+
+    }
+
+    public static class Location{
+        double x;
+        double y;
     }
 
     @FXML
