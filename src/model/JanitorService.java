@@ -32,7 +32,7 @@ public class JanitorService extends ServiceRequest{
     }
 
     @Override
-    public void generateReport() {
+    public String generateReport() {
         /*
             Information required:
             - How long did each janitor take?
@@ -40,6 +40,6 @@ public class JanitorService extends ServiceRequest{
             - What location was visited to fulfill this request
             - What type of cleanup was necessary for this request
          */
-        System.out.println("Supplies Used: " + suppliesNeeded);
+        return "Supplies Used: " + suppliesNeeded;
     }
 }

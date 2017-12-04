@@ -290,8 +290,7 @@ public class ServiceController {
             if(serve.getAssigned() != null) {
                 serve.resolveRequest();
                 if (serve.isActive()) {
-                    String info = "Employee ID: " + serve.getAssigned().getId() + "Type: " + serve.getClass().toString() + "Active: " + serve.isActive() + "Date: " + serve.getSent() + "\n";
-                    finalString.concat(info);
+                    serve.generateReport();
                 }
             }
             else {

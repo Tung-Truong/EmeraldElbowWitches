@@ -6,15 +6,18 @@ import java.util.HashMap;
 public class InterpreterService extends ServiceRequest {
 
     // Attributes
-    private ArrayList<String> languages;
-    private ArrayList<String> emails;
-    private HashMap<String, long[]> reportInfo;
+    private ArrayList<String> languages = new ArrayList<String>();
+    private ArrayList<String> emails = new ArrayList<String>();
+    private HashMap<String, long[]> reportInfo = new HashMap<String, long[]>();
 
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
     public InterpreterService(){
         // TODO: get emails from database
+        languages.add("French");
+        languages.add("Dutch");
+        languages.add("Icelandic");
 
         for (String s : getLanguages()){
             reportInfo.put(s, new long[2]);
@@ -52,43 +55,55 @@ public class InterpreterService extends ServiceRequest {
         this.languages.remove(remove);
     }
 
-    public void generateReport(){
-        String report = "";
-        if (isActive()) {
-            // This first part figures out how much time each instance of the Interpreter takes to resolve a request
-            int hours = 0;
-            int minutes = 0;
-            int seconds = 0;
+    public String generateReport(){
+        /*
+            Information required:
+            - How much time did each language take to interpret?
+            - How many interpreters of each language have been requested?
+         */
+        if (!isActive()) {
+            String lang = assigned.getLanguage();
+            String report = "Language: " + lang;
+
+            long diff = 0;
 
             long timeSent = sent.getTime();
             long timeReceived = received.getTime();
 
             long diffSeconds = (timeReceived - timeSent) / 1000;
 
-            while ((diffSeconds - 3600) >= 0){
-                diffSeconds -= 3600;
-                hours ++;
-            }
-            while ((diffSeconds - 60) >= 0){
-                diffSeconds -= 60;
-                minutes ++;
-            }
-            while ((diffSeconds - 1) >= 0){
-                diffSeconds -= 1;
-                seconds ++;
-            }
+            // This part increments the number of interpreters used for the language and time taken for this interpreter
 
-            report.concat(String.format("Time taken to complete task: %02:%02:%02" , hours, minutes, seconds));
+            reportInfo.get(lang)[0] += 1;
+            reportInfo.get(lang)[1] += diffSeconds;
+            diff = reportInfo.get(lang)[1]/reportInfo.get(lang)[0];
+            report.concat("Interpreters Used: " + reportInfo.get(lang)[0] + "\n" + "Average Time Taken: " + findTime(diff));
 
-        /*
-            Information required:
-            - How much time did each interpreter take
-            - How many interpreters of each language have been requested
-         */
-            // this should only be done if the request status is inactive
-            System.out.println("Interpreter's Used: ");
+            return report;
+
         } else {
-            System.out.println("This request has yet to be resolved");
+            return "This request has yet to be resolved";
         }
+    }
+
+    private String findTime(long t){
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+
+        while ((t - 3600) >= 0){
+            t -= 3600;
+            hours ++;
+        }
+        while ((t - 60) >= 0){
+            t -= 60;
+            minutes ++;
+        }
+        while ((t - 1) >= 0){
+            t -= 1;
+            seconds ++;
+        }
+
+        return String.format("%02:%02:%02" , hours, minutes, seconds);
     }
 }

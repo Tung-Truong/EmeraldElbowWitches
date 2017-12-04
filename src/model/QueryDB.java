@@ -94,7 +94,7 @@ public class QueryDB {
             if(tempVals[0] != null){
                 requestList.add(new ServiceRequest() {
                     @Override
-                    public void generateReport() {      }
+                    public String generateReport() {  return "x";  }
                 });
             }
         }

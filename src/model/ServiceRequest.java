@@ -16,7 +16,6 @@ public abstract class ServiceRequest implements IReport {
     private String username = "elbowwitchemerald@gmail.com"; // E-mail corresponding to the sending e-mail address
     private String password = "passwordhuh";
     private boolean isActive;
-    private Employee assigned;
     private String replyInfo;
 
     protected String email;
@@ -25,6 +24,7 @@ public abstract class ServiceRequest implements IReport {
     protected String location;
     protected Date received;
     protected Date sent;
+    protected Employee assigned;
 
     // Constructor
 
