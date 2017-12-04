@@ -157,6 +157,15 @@ public class PatientController extends Controller {
         oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
         if (currPath != null) {
+            if (oldAnimation != null) {
+                oldAnimation.stop();
+                gc1.clearRect(0, 0, mapWidth, mapHeight);
+                redraw();
+                gc.getGraphicsContext2D().setStroke(Color.BLUE);
+            }
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            animation.play();
+            oldAnimation = animation;
             DrawCurrentFloorPath();
         }
     }
@@ -399,7 +408,6 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * mapHeight / 3400,
                                 tempDraw.node.getxLoc() * mapWidth / 5000,
                                 tempDraw.node.getyLoc() * mapHeight / 3400);
-
                     }
                 }
             }
@@ -482,7 +490,7 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000), Main.getKiosk());
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -495,21 +503,25 @@ public class PatientController extends Controller {
         Path path = new Path();
         ArrayList<NodeObj> reverseList = list;
         Collections.reverse(reverseList);
+        int x = 0;
         for (int i = 0; i < (reverseList.size() - 1); i++) {
-            path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(), reverseList.get(i).node.getyLoc()), new LineTo(reverseList.get(i + 1).node.getxLoc(), reverseList.get(i + 1).node.getyLoc()));
+            ArrayList<NodeObj> neighbors = reverseList.get(i).getListOfNeighbors();
+            if (neighbors.contains(reverseList.get(i + 1))) {
+                path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(), reverseList.get(i).node.getyLoc()), new LineTo(reverseList.get(i + 1).node.getxLoc(), reverseList.get(i + 1).node.getyLoc()));
+            }
         }
         path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
         return path;
     }
 
-    private Animation createPathAnimation(Path path, Duration duration, NodeObj start) {
+    private Animation createPathAnimation(Path path, Duration duration) {
         GraphicsContext gc = gc1;
         Circle pen = new Circle(0, 0, 4);
 
         PathTransition pathTransition = new PathTransition(duration, path, pen);
         pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             Location oldLocation = null;
-
+            Location oldOldLocation = null;
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
                 if (oldValue == Duration.ZERO) {
@@ -528,12 +540,26 @@ public class PatientController extends Controller {
                 gc.setStroke(Color.RED);
                 gc.setFill(Color.YELLOW);
                 gc.setLineWidth(4);
+                try {
+                    NodeObj a = Main.getNodeMap().getNearestNeighborFilter((int)oldLocation.x,(int)oldLocation.y);
+                    NodeObj b = Main.getNodeMap().getNearestNeighborFilter((int)x,(int)y);
 
-                if (x != start.node.getxLoc() || y != start.node.getyLoc()) {
-                    gc.strokeLine(oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400, x * mapWidth / 5000, y * mapHeight / 3400);
-                    oldLocation.x = x;
-                    oldLocation.y = y;
+                    if(a.getListOfNeighbors().contains(b)){
+                        gc.strokeLine(oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400, x * mapWidth / 5000, y * mapHeight / 3400);
+                        oldLocation.x = x;
+                        oldLocation.y = y;
+                        oldOldLocation = oldLocation;
+                    }
+                    else if(oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
+                        gc.strokeLine(oldOldLocation.x * mapWidth / 5000, oldOldLocation.y * mapHeight / 3400, oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400);
+                        oldLocation.x = x;
+                        oldLocation.y = y;
+                    }
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
                 }
+                oldLocation.x = x;
+                oldLocation.y = y;
             }
         });
 
@@ -541,11 +567,11 @@ public class PatientController extends Controller {
 
     }
 
-    ArrayList<NodeObj> pathFloorFilter(){
+    ArrayList<NodeObj> pathFloorFilter() {
         ArrayList<NodeObj> filteredPath = new ArrayList<>();
-        for(NodeObj n : currPath){
-            if(n.getNode().getFloor().equals(Main.getNodeMap().currentFloor))
-            filteredPath.add(n);
+        for (NodeObj n : currPath) {
+            if (n.getNode().getFloor().equals(Main.getNodeMap().currentFloor))
+                filteredPath.add(n);
         }
         return filteredPath;
     }
