@@ -145,7 +145,7 @@ public class TextDirections {
         Node lastNode;
         Node curNode;
         Node nextNode;
-        for (int i = currentNode; i < path.size(); i++) {
+        for (int i = currentNode; i < path.size() - 1; i++) {
             lastNode = path.get(i - 1).getNode();
             curNode = path.get(i).getNode();
             nextNode = path.get(i + 1).getNode();
