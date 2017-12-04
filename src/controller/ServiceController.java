@@ -283,12 +283,28 @@ public class ServiceController {
 
     @FXML
     void Refresh(){
-        service.resolveRequest();
-        if(service.isActive()){
-            NotesTextField.setText("Active request: " + Main.requests);
-        } else {
-            NotesTextField.setText("No active Requests");
+        // Printing this stuff is a later order concern so get back to it later
+        String finalString = " ";
+        ArrayList<ServiceRequest> searchInactive = Main.requests;
+        for(ServiceRequest serve : searchInactive) {
+            if(serve.getAssigned() != null) {
+                serve.resolveRequest();
+                if (serve.isActive()) {
+                    String info = "Employee ID: " + serve.getAssigned().getId() + "Type: " + serve.getClass().toString() + "Active: " + serve.isActive() + "Date: " + serve.getSent() + "\n";
+                    finalString.concat(info);
+                }
+            }
+            else {
+                finalString.concat("No active Requests");
+            }
         }
+        for(ServiceRequest s : searchInactive){
+            if (!s.isActive()){
+                Main.requests.remove(s);
+            }
+        }
+
+        NotesTextField.setText("Active Requests: " + Main.requests.size() + Main.requests + finalString);
     }
 
     //function that just sets the menu items to display no employee available if there is none.

@@ -1,5 +1,7 @@
 package model;
 
+import controller.Main;
+
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

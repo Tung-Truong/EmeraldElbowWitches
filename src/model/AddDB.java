@@ -63,9 +63,17 @@ public class AddDB {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-        String buildSQLStr = " VALUES ('" + addService.getAssigned().getId() + "','" +
-                addService.getClass().toString() + "','" + addService.isActive() +
-                "','" + addService.getSent() + "')"; //build the sql template
+        String buildSQLStr = "";
+
+        if (addService.getAssigned() != null) {
+            buildSQLStr = " VALUES ('" + addService.getAssigned().getId() + "','" +
+                    addService.getClass().toString() + "','" + addService.isActive() +
+                    "','" + addService.getSent() + "')"; //build the sql template
+        } else {
+            buildSQLStr = " VALUES ('" + addService.getAssigned() + "','" +
+                    addService.getClass().toString() + "','" + addService.isActive() +
+                    "','" + addService.getSent() + "')"; //build the sql template
+        }
 
         String SQL = "INSERT INTO REQUESTTABLE" + buildSQLStr; //insert row into database
 
