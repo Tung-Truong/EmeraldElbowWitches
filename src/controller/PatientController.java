@@ -154,6 +154,7 @@ public class PatientController extends Controller {
 
     @FXML
     void changeMap(Event e) {
+        oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
         if (currPath != null) {
             DrawCurrentFloorPath();
@@ -481,7 +482,7 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(currPath), Duration.millis(4000), Main.getKiosk());
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000), Main.getKiosk());
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -538,6 +539,15 @@ public class PatientController extends Controller {
 
         return pathTransition;
 
+    }
+
+    ArrayList<NodeObj> pathFloorFilter(){
+        ArrayList<NodeObj> filteredPath = new ArrayList<>();
+        for(NodeObj n : currPath){
+            if(n.getNode().getFloor().equals(Main.getNodeMap().currentFloor))
+            filteredPath.add(n);
+        }
+        return filteredPath;
     }
 
     public static class Location {
