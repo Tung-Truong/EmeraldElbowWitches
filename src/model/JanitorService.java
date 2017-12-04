@@ -40,6 +40,23 @@ public class JanitorService extends ServiceRequest{
             - What location was visited to fulfill this request
             - What type of cleanup was necessary for this request
          */
-        return "Supplies Used: " + suppliesNeeded;
+        if (!isActive()){
+            String lang = assigned.getLanguage();
+            String report = "Language: " + lang;
+
+            long diff = 0;
+
+            long timeSent = sent.getTime();
+            long timeReceived = received.getTime();
+
+            long diffSeconds = (timeReceived - timeSent) / 1000;
+
+            // This part is the meat of the report
+
+
+            return report;
+        } else {
+            return "This request has not yet been resolved";
+        }
     }
 }
