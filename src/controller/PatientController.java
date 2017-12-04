@@ -5,6 +5,7 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -129,6 +130,7 @@ public class PatientController extends Controller{
     double startX;
     double startY;
     ArrayList<NodeObj> strPath;
+    Animation oldAnimation;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -423,23 +425,6 @@ public class PatientController extends Controller{
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
         System.out.println(Floors.toString());
-
-/*
-
-
-        try {
-            for(String s:Floors) {
-                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
-            }
-            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText(GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
-            if(goal.node.getNodeType().equals("ELEV")){
-                GetMapDropdownFromFloor(goal.node.getFloor()).setText
-                        (GetMapDropdownFromFloor(goal.node.getFloor()).getText() + " [*]");
-            }
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-        */
     }
 
 
@@ -472,12 +457,14 @@ public class PatientController extends Controller{
         if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+
                 strPath = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = strPath;
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
-                Animation animation = createPathAnimation(convertPath(currPath), Duration.seconds(3));
 
-                animation.play();
+
+
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -485,6 +472,13 @@ public class PatientController extends Controller{
                     e.printStackTrace();
                 }
             }
+            if(oldAnimation != null){
+                oldAnimation.stop();
+                gc1.clearRect(0,0,mapWidth,mapHeight);
+            }
+            Animation animation = createPathAnimation(convertPath(currPath), Duration.millis(4000));
+            animation.play();
+            oldAnimation = animation;
             DrawCurrentFloorPath();
         }
     }
