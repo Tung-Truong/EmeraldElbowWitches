@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class nodeAlignment {
+public class NodeAlignment {
     private ArrayList<Node> changedNodes;
     private ArrayList<Node> nodesToRemove;
 
