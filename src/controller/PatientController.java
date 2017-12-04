@@ -159,28 +159,41 @@ public class PatientController extends Controller {
     void clearChosenFloor(){
         if(Floors == null) {
             btn_mapL2.setOpacity(.5);
+            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
             btn_mapL1.setOpacity(.5);
+            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
             btn_mapG.setOpacity(.5);
+            btn_mapG.setStyle("-fx-background-color:   #4286f4");
             btn_map01.setOpacity(.5);
+            btn_map01.setStyle("-fx-background-color:   #4286f4");
             btn_map02.setOpacity(.5);
+            btn_map02.setStyle("-fx-background-color:   #4286f4");
             btn_map03.setOpacity(.5);
-            selectFloor(Main.getNodeMap().currentFloor, 1);
+            btn_map03.setStyle("-fx-background-color:   #4286f4");
         }else {
             btn_mapL2.setOpacity(.5);
+            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
             btn_mapL1.setOpacity(.5);
+            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
             btn_mapG.setOpacity(.5);
+            btn_mapG.setStyle("-fx-background-color:   #4286f4");
             btn_map01.setOpacity(.5);
+            btn_map01.setStyle("-fx-background-color:   #4286f4");
             btn_map02.setOpacity(.5);
+            btn_map02.setStyle("-fx-background-color:   #4286f4");
             btn_map03.setOpacity(.5);
-            for(int i = 0; i < Floors.size(); i++){
+            btn_map03.setStyle("-fx-background-color:   #4286f4");
+            /*for(int i = 0; i < Floors.size(); i++){
                 selectFloor(Floors.get(i), i+1);
+            }*/
+            selectFloorWithPath(Main.getNodeMap().currentFloor);
+            for(int i = Floors.size(); i > 0; i--){
+                selectFloor(Floors.get(i-1), (Floors.size()+1)-i);
             }
-            selectFloorWithPath(Main.getNodeMap().currentFloor, 1);
         }
     }
 
     void selectFloor(String selectedFloor, int order) {
-
         switch (selectedFloor) {
             case "L2":
                 btn_mapL2.setOpacity(1);
@@ -233,26 +246,37 @@ public class PatientController extends Controller {
         }
     }
 
-    void selectFloorWithPath(String selectedFloor, int order) {
+    void selectFloorWithPath(String selectedFloor) {
 
         switch (selectedFloor) {
             case "L2":
-                btn_mapL2.setOpacity(1);
+                btn_mapL2.setOpacity(.7);
+                btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
                 break;
             case "L1":
-                btn_mapL1.setOpacity(1);
+                btn_mapL1.setOpacity(.7);
+                btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
             case "G":
-                btn_mapG.setOpacity(1);
+                btn_mapG.setOpacity(.7);
+                btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
             case "1":
-                btn_map01.setOpacity(1);
+                btn_map01.setOpacity(.7);
+                btn_map01.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
             case "2":
-                btn_map02.setOpacity(1);
+                btn_map02.setOpacity(.7);
+                btn_map02.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
             case "3":
-                btn_map03.setOpacity(1);
+                btn_map03.setOpacity(.7);
+                btn_map03.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
         }
     }
