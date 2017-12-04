@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="243.0" style="-fx-background-color: #4286f4#4286f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="243.0" style="-fx-background-color: #4286f4#4286f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
       <Pane layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="243.0" style="-fx-background-color: white;">
          <children>
@@ -23,7 +16,7 @@
             <JFXButton buttonType="RAISED" layoutX="144.0" layoutY="327.0" onAction="#SubmitRequest" prefHeight="27.0" prefWidth="72.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Submit" textFill="#1b3766" />
             <JFXComboBox fx:id="RequestServiceDropdown" focusColor="#4286f4" labelFloat="true" layoutX="35.0" layoutY="28.0" prefHeight="27.0" prefWidth="180.0" promptText="Service" unFocusColor="GREY" />
             <JFXComboBox fx:id="AssignEmployee" focusColor="#4286f4" labelFloat="true" layoutX="35.0" layoutY="193.0" onMouseClicked="#SetServiceType" prefHeight="27.0" prefWidth="180.0" promptText="Employee" unFocusColor="GREY" />
-            <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="35.0" layoutY="327.0" prefHeight="27.0" prefWidth="72.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Cancel" textFill="#1b3766" />
+            <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="35.0" layoutY="327.0" onAction="#close" prefHeight="27.0" prefWidth="72.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Cancel" textFill="#1b3766" />
             <JFXSlider fx:id="urgencyMeter" blockIncrement="0.0" layoutX="34.0" layoutY="263.0" majorTickUnit="5.0" max="5.0" minorTickCount="4" prefHeight="25.0" prefWidth="182.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             <JFXTextField fx:id="NotesTextField" focusColor="#4286f4" layoutX="34.0" layoutY="138.0" prefHeight="27.0" prefWidth="182.0" promptText="Notes" unFocusColor="GREY" />
             <JFXTextField alignment="CENTER" editable="false" focusColor="WHITE" layoutX="34.0" layoutY="287.0" prefHeight="27.0" prefWidth="182.0" text="Urgency" unFocusColor="WHITE">

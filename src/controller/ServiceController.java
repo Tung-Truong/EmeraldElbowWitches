@@ -122,16 +122,6 @@ public class ServiceController {
         employeeAvailable();
     }
 
-    /*void CafeteriaItem() {
-        AssignEmployee.getItems().clear();
-        for (Employee e : Main.getEmployees()) {
-            if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
-                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
-            }
-        }
-        employeeAvailable();
-    }*/
-
     public void setService() throws NullPointerException{//need to search through all employees and find correct ID
         String needed = RequestServiceDropdown.getValue();
         if(AssignEmployee.getValue().split(" ") == null)
@@ -150,7 +140,7 @@ public class ServiceController {
             // placeholder
             service.setAccountTo(email);
             serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase().equals("MAINTENANCE")) {
+        } else if (needed.toUpperCase().equals("JANITOR")) {
             service = new JanitorService();
             service.setAccountTo(email);
             serviceNeeded = "Janitor";
