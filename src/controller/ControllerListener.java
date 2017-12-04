@@ -17,7 +17,7 @@ public class ControllerListener {
 
     public void updateAllMaps(Event e){
         for(Controller c : observers){
-            c.GetMap(e);
+            c.getMap(e);
         }
     }
 }

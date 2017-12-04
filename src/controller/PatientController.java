@@ -1,169 +1,373 @@
 package controller;
 
+import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import model.ImageLoader;
+import model.InvalidNodeException;
+import model.astar;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 
 import java.util.ArrayList;
 
-public class PatientController extends Controller{
 
-    private enum CurrentStatus {
-        PATIENT, SETSTARTNODE, SETENDNODE
-    };
-
-    public static TextDirections textDirections = new TextDirections();
-
-    private CurrentStatus currentState = CurrentStatus.PATIENT;
-
-    private GraphicsContext gc1 = null;
-
-    private int XTrans = 0;
-
-    private int YTrans = 0;
-
-    private double Zoom = 1;
-
-    ArrayList<NodeObj> currPath = null;
-
-    NodeObj goal = null;
-
-    private PathingContainer currentAlgorithm = new PathingContainer();
+public class PatientController extends Controller {
 
     @FXML
-    private TextArea directionsBox;
+    private JFXTogglePane textTogglePane;
 
     @FXML
-    private TextField startNodeID;
+    private JFXToggleButton textToggle;
 
     @FXML
-    private TextField EndNodeID;
+    private JFXSlider zoomBar;
 
     @FXML
-    private AnchorPane mapContainer;
+    private ImageView img_Map;
 
     @FXML
-    public ImageView currentMap;
+    private JFXButton btn_map03;
 
-    double mapWidth;
-    double mapHeight;
+    @FXML
+    private JFXButton btn_map02;
+
+    @FXML
+    private JFXButton btn_map01;
+
+    @FXML
+    private JFXButton btn_mapG;
+
+    @FXML
+    private JFXButton btn_mapL1;
+
+    @FXML
+    private JFXButton btn_mapL2;
 
     @FXML
     private Canvas gc;
 
     @FXML
-    private MenuButton MapDropDown;
-
-    @FXML
-    private MenuItem Map1;
-
-    @FXML
-    private MenuItem Map2;
-
-    @FXML
-    private MenuItem MapL2;
-
-    @FXML
-    private MenuItem MapL1;
-
-    @FXML
-    private MenuItem MapG;
-
-    @FXML
-    private MenuItem Map3;
-
-    @FXML
-    private Button homeScreenButton;
-
-    @FXML
     private ImageView homeScreen;
 
     @FXML
-    private void clearHomeScreen(){
-        mapContainer.getChildren().remove(homeScreen);
-        mapContainer.getChildren().remove(homeScreenButton);
+    public ImageView currentMap;
 
-    }
+    @FXML
+    private JFXTextArea toggleTextArea;
 
+    @FXML
+    private Label floor3Label;
+
+    @FXML
+    private Label floor2Label;
+
+    @FXML
+    private Label floor1Label;
+
+    @FXML
+    private Label floorGLabel;
+
+    @FXML
+    private Label floorL1Label;
+
+    @FXML
+    private Label floorL2Label;
+
+    private GraphicsContext gc1 = null;
+    public static TextDirections textDirections = new TextDirections();
+    private int XTrans = 0;
+    private int YTrans = 0;
+    private double Zoom = 1;
+    ArrayList<NodeObj> currPath = null;
+    NodeObj goal = null;
+    private PathingContainer currentAlgorithm = new PathingContainer();
+    double mapWidth;
+    double mapHeight;
     ImageLoader mapImage = new ImageLoader();
+    ArrayList<String> Floors;
+    double startX;
+    double startY;
 
-    public void initialize(){
-        Image m1 = mapImage.getLoadedMap("Map1");
+    public void initialize() {
+        Image m1 = mapImage.getLoadedMap("btn_map01");
+        selectFloorWithPath("1");
         currentMap.setImage(m1);
+        btn_map01.setOpacity(1);
         currentAlgorithm.setPathAlg(new astar());
-        currentState = CurrentStatus.PATIENT;
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
         setKioskLoc(2460, 910);
-        switchTab1();
+        redraw();
+    }
+
+    private void redraw(){
+        if (gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
     }
 
     @FXML
+    void changeMap(Event e){
+        Main.controllers.updateAllMaps(e);
+        if(currPath != null){
+            DrawCurrentFloorPath();
+        }
+    }
+
+    void getMap(Event e) {
+        String clickedID = ((JFXButton) e.getSource()).getId();
+        clearChosenFloor();
+        switch (clickedID) {
+            case "btn_mapL2":
+                Main.getNodeMap().setCurrentFloor("L2");
+                btn_mapL2.setOpacity(1);
+                break;
+            case "btn_mapL1":
+                Main.getNodeMap().setCurrentFloor("L1");
+                btn_mapL1.setOpacity(1);
+                break;
+            case "btn_mapG":
+                Main.getNodeMap().setCurrentFloor("G");
+                btn_mapG.setOpacity(1);
+                break;
+            case "btn_map01":
+                Main.getNodeMap().setCurrentFloor("1");
+                btn_map01.setOpacity(1);
+                break;
+            case "btn_map02":
+                Main.getNodeMap().setCurrentFloor("2");
+                btn_map02.setOpacity(1);
+                break;
+            case "btn_map03":
+                Main.getNodeMap().setCurrentFloor("3");
+                btn_map03.setOpacity(1);
+                break;
+        }
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        Image map = mapImage.getLoadedMap(clickedID);
+        this.currentMap.setImage(map);
+        redraw();
+    }
+
+    void clearChosenFloor(){
+        if(Floors == null) {
+            btn_mapL2.setOpacity(.5);
+            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
+            btn_mapL1.setOpacity(.5);
+            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
+            btn_mapG.setOpacity(.5);
+            btn_mapG.setStyle("-fx-background-color:   #4286f4");
+            btn_map01.setOpacity(.5);
+            btn_map01.setStyle("-fx-background-color:   #4286f4");
+            btn_map02.setOpacity(.5);
+            btn_map02.setStyle("-fx-background-color:   #4286f4");
+            btn_map03.setOpacity(.5);
+            btn_map03.setStyle("-fx-background-color:   #4286f4");
+        }else {
+            btn_mapL2.setOpacity(.5);
+            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
+            btn_mapL1.setOpacity(.5);
+            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
+            btn_mapG.setOpacity(.5);
+            btn_mapG.setStyle("-fx-background-color:   #4286f4");
+            btn_map01.setOpacity(.5);
+            btn_map01.setStyle("-fx-background-color:   #4286f4");
+            btn_map02.setOpacity(.5);
+            btn_map02.setStyle("-fx-background-color:   #4286f4");
+            btn_map03.setOpacity(.5);
+            btn_map03.setStyle("-fx-background-color:   #4286f4");
+            /*for(int i = 0; i < Floors.size(); i++){
+                selectFloor(Floors.get(i), i+1);
+            }*/
+            selectFloorWithPath(Main.getNodeMap().currentFloor);
+            for(int i = Floors.size(); i > 0; i--){
+                selectFloor(Floors.get(i-1), (Floors.size()+1)-i);
+            }
+        }
+    }
+
+    void selectFloor(String selectedFloor, int order) {
+        switch (selectedFloor) {
+            case "L2":
+                btn_mapL2.setOpacity(1);
+                if(floorL2Label.getText().equals("")){
+                    floorL2Label.setText(order + "");
+                }else {
+                    floorL2Label.setText(floorL2Label.getText() + ", " + order + "");
+                }
+                break;
+            case "L1":
+                btn_mapL1.setOpacity(1);
+                if(floorL1Label.getText().equals("")){
+                    floorL1Label.setText(order + "");
+                }else {
+                    floorL1Label.setText(floorL1Label.getText() + ", " + order + "");
+                }
+                break;
+            case "G":
+                btn_mapG.setOpacity(1);
+                if(floorGLabel.getText().equals("")){
+                    floorGLabel.setText(order + "");
+                }else {
+                    floorGLabel.setText(floorGLabel.getText() + ", " + order + "");
+                }
+                break;
+            case "1":
+                btn_map01.setOpacity(1);
+                if(floor1Label.getText().equals("")){
+                    floor1Label.setText(order + "");
+                }else {
+                    floor1Label.setText(floor1Label.getText() + ", " + order + "");
+                }
+                break;
+            case "2":
+                btn_map02.setOpacity(1);
+                if(floor2Label.getText().equals("")){
+                    floor2Label.setText(order + "");
+                }else {
+                    floor2Label.setText(floor2Label.getText() + ", " + order + "");
+                }
+                break;
+            case "3":
+                btn_map03.setOpacity(1);
+                if(floor3Label.getText().equals("")){
+                    floor3Label.setText(order + "");
+                }else {
+                    floor3Label.setText(floor3Label.getText() + ", " + order + "");
+                }
+                break;
+        }
+    }
+
+    void selectFloorWithPath(String selectedFloor) {
+
+        switch (selectedFloor) {
+            case "L2":
+                btn_mapL2.setOpacity(.7);
+                btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
+                break;
+            case "L1":
+                btn_mapL1.setOpacity(.7);
+                btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
+
+                break;
+            case "G":
+                btn_mapG.setOpacity(.7);
+                btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
+
+                break;
+            case "1":
+                btn_map01.setOpacity(.7);
+                btn_map01.setStyle("-fx-background-color:  #1b5cc4");
+
+                break;
+            case "2":
+                btn_map02.setOpacity(.7);
+                btn_map02.setStyle("-fx-background-color:  #1b5cc4");
+
+                break;
+            case "3":
+                btn_map03.setOpacity(.7);
+                btn_map03.setStyle("-fx-background-color:  #1b5cc4");
+
+                break;
+        }
+    }
+
     /*
-    * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
-     * or provides some map editing functionality
+     * setKioskLoc sets the default location for the floor
      */
-    void stateHandler(MouseEvent event) {
-        //get the mouses location and convert that to the corrected map coordinates for the original image
-        // System.out.println(mapWidth + " " + mapHeight);
+    void setKioskLoc(int xCoord, int yCoord) {
+        try {
+            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DrawCurrentFloorPath() {
+        floorL2Label.setText("");
+        floorL1Label.setText("");
+        floorGLabel.setText("");
+        floor1Label.setText("");
+        floor2Label.setText("");
+        floor3Label.setText("");
+        gc1.setLineWidth(2);
+        NodeObj tempDraw = goal;
+        Floors = new ArrayList<String>();
+        for (NodeObj n : currPath) {
+            if (n != goal) {
+                if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
+                        tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                    gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
+                            n.node.getyLoc() * mapHeight / 3400,
+                            tempDraw.node.getxLoc() * mapWidth / 5000,
+                            tempDraw.node.getyLoc() * mapHeight / 3400);
+                }
+            }
+            if(Floors.size() > 0) {
+                if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                    Floors.add(n.getNode().getFloor());
+                }
+            }else if (!(n.getNode().getNodeType().equals("ELEV"))){
+                Floors.add(n.getNode().getFloor());
+            }
+            tempDraw = n;
+        }
+
+        if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+            gc1.setFill(Color.DARKRED);
+            gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
+                    goal.node.getyLoc() * mapHeight / 3400 - 5,
+                    10,
+                    10);
+        }
+        if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+            gc1.setFill(Color.DARKGREEN);
+            gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                    Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
+                    10,
+                    10);
+        }
+        gc1.setFill(Color.YELLOW);
+        clearChosenFloor();
+        System.out.println(Floors.toString());
+
+/*
+
+
+        try {
+            for(String s:Floors) {
+                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
+            }
+            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText(GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
+            if(goal.node.getNodeType().equals("ELEV")){
+                GetMapDropdownFromFloor(goal.node.getFloor()).setText
+                        (GetMapDropdownFromFloor(goal.node.getFloor()).getText() + " [*]");
+            }
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+        */
+    }
+
+
+    /*
+     * findPath pathfinds, and draws the route to the screen
+     */
+    public void findPath(MouseEvent event){
+        //create a new astar object
 
         double mousex = (5000 * event.getX()) / mapWidth;
         double mousey = (3400 * event.getY()) / mapHeight;
-
-        switch (currentState){
-            case PATIENT:
-                try {
-                    findPath((int) Math.floor(mousex), (int) Math.floor(mousey));
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case SETSTARTNODE:
-                nodeProcess((int)mousex, (int)mousey, currentState);
-                break;
-            case SETENDNODE:
-                nodeProcess((int)mousex, (int)mousey, currentState);
-                break;
-        }
-
-        //Print to confirm
-
-        //convert click resolution to map ratio
-        //far left stair node
-    }
-
-    /*
-    * nodeProcess deals with selecting a node when editing the map
-     */
-    private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
-        NodeObj nearestNode = null;
-        try {
-            if (currentState.equals(CurrentStatus.SETSTARTNODE)){
-                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
-                this.startNodeID.setText(nearestNode.getNode().getNodeID());
-            }else if (currentState.equals(CurrentStatus.SETENDNODE)){
-                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex,mousey);
-                this.EndNodeID.setText(nearestNode.getNode().getNodeID());
-            }
-        }catch(InvalidNodeException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    /*
-    * findPath pathfinds, and draws the route to the screen
-     */
-    public void findPath(int mousex, int mousey) throws InvalidNodeException{
-        //create a new astar object
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -186,7 +390,7 @@ public class PatientController extends Controller{
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
                 path = currentAlgorithm.getPathAlg().getGenPath();
                 currPath = path;
-                directionsBox.setText(textDirections.getTextDirections(path));
+                toggleTextArea.setText(textDirections.getTextDirections(path));
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -198,254 +402,45 @@ public class PatientController extends Controller{
         }
     }
 
-    public void findPath(NodeObj dest) throws InvalidNodeException{
-        //create a new astar object
-        if(gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
-        //get node that corr. to click from ListOfNodeObjects made in main
-            goal = dest;
-        //getStart
-        NodeObj Kiosk = Main.getKiosk();
-        //set the path to null
-        ArrayList<NodeObj> path;
-        if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            //try a*
-            if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
-                path = currentAlgorithm.getPathAlg().getGenPath();
-                currPath = path;
-                directionsBox.setText(textDirections.getTextDirections(path));
-            } else {
-                try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
-            }
-            DrawCurrentFloorPath();
+    @FXML
+    void mousePress(MouseEvent event){
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+            setStartNode(event);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            findPath(event);
         }
     }
 
-    public void highlightFloors(){
-        Map1.setText("45 Francis Floor 1 Center");
-        Map2.setText("Shapiro Building Floor 2");
-        Map3.setText("Floor 3");
-        MapL1.setText("Floor L1");
-        MapL2.setText("Floor L2");
-        MapG.setText("Ground Floor");
-    }
 
-    public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
-        switch(Nfloor){
-            case "1":
-                return Map1;
-
-            case "2":
-                return Map2;
-
-            case "3":
-                return Map3;
-
-            case "L1":
-                return MapL1;
-
-            case "L2":
-                return MapL2;
-
-            case "G":
-                return MapG;
-
-            default:
-                throw new InvalidNodeException("Node does not have a correct floor ID");
-        }
-
-    }
-
-    public void DrawCurrentFloorPath(){
-        gc1.setLineWidth(2);
-        NodeObj tempDraw = goal;
-        ArrayList<String> Floors = new ArrayList<String>();
-        for(NodeObj n: currPath) {
-            if (n != goal) {
-                if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
-                        tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                    gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
-                            n.node.getyLoc() * mapHeight / 3400,
-                            tempDraw.node.getxLoc() * mapWidth / 5000,
-                            tempDraw.node.getyLoc() * mapHeight / 3400);
-                }
-            }
-            if(!(Floors.contains(n.node.getFloor()) || n.node.getNodeType().equals("ELEV")))
-                Floors.add(n.node.getFloor());
-            tempDraw = n;
-        }
-
-        if(goal.node.getFloor().equals(Main.getNodeMap().currentFloor)){
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(goal.node.getxLoc()*mapWidth/5000 - 5,
-                    goal.node.getyLoc()*mapHeight/3400 - 5,
-                    10,
-                    10);
-        }
-        if(Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)){
-            gc1.setFill(Color.DARKGREEN);
-            gc1.fillOval(Main.getKiosk().node.getxLoc()*mapWidth/5000 - 5,
-                    Main.getKiosk().node.getyLoc()*mapHeight/3400 - 5,
-                    10,
-                    10);
-        }
-        gc1.setFill(Color.YELLOW);
-
-        highlightFloors();
+    /*
+     * setStartNode sets the start node to the node nearest to the given coords in the current building
+     */
+    @FXML
+    void setStartNode(MouseEvent event){
+        double mousex = (5000 * event.getX()) / mapWidth;
+        double mousey = (3400 * event.getY()) / mapHeight;
+        String newStartNodeID = null;
         try {
-            for(String s:Floors) {
-                GetMapDropdownFromFloor(s).setText(GetMapDropdownFromFloor(s).getText() + " [*]");
-            }
-            GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).setText
-                    (GetMapDropdownFromFloor(Main.getKiosk().node.getFloor()).getText() + " [Start]");
-            if(goal.node.getNodeType().equals("ELEV")){
-                GetMapDropdownFromFloor(goal.node.getFloor()).setText
-                        (GetMapDropdownFromFloor(goal.node.getFloor()).getText() + " [*]");
-            }
+            newStartNodeID = Main.getNodeMap().getNearestNeighborFilter((int)mousex,(int)mousey).getNode().getNodeID();
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void setStartNodeFlag(){
-        this.currentState = CurrentStatus.SETSTARTNODE;
-    }
-
-    @FXML
-    void setEndNodeFlag(){
-        this.currentState = CurrentStatus.SETENDNODE;
-    }
-
-    //--------------------------------------------------------------------------------
-
-
-    /*
-    * switchTab2 is called when admin tab is selected, draws admin map to screen
-     */
-    @FXML
-    public void switchTab2(){
-        Main.getCurrStage().setScene(Main.getAdminScene());
-    }
-
-    /*
-    * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
-     */
-    @FXML
-    public void switchTab1(){
-        if(gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        currentState = CurrentStatus.PATIENT;
-    }
-
-    @FXML
-    void resetKioskLoc(){
-        setKioskLoc(2460, 910);
-    }
-
-    @FXML
-    void mapSelected(Event e){
-        Main.getControllers().updateAllMaps(e);
-    }
-
-    @FXML
-    void GetMap(Event e){
-        String clickedID = ((MenuItem)e.getSource()).getId();
-        switch(clickedID){
-            case "MapL2":
-                MapDropDown.setText("Floor L2");
-                Main.getNodeMap().setCurrentFloor("L2");
-                break;
-            case "MapL1":
-                MapDropDown.setText("Floor L1");
-                Main.getNodeMap().setCurrentFloor("L1");
-                break;
-            case "MapG":
-                MapDropDown.setText("Ground Floor");
-                Main.getNodeMap().setCurrentFloor("G");
-                break;
-            case "Map1":
-                MapDropDown.setText("Floor 1");
-                Main.getNodeMap().setCurrentFloor("1");
-                break;
-            case "Map2":
-                MapDropDown.setText("Floor 2");
-                Main.getNodeMap().setCurrentFloor("2");
-                break;
-            case "Map3":
-                MapDropDown.setText("Floor 3");
-                Main.getNodeMap().setCurrentFloor("3");
-                break;
-        }
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        Image map = mapImage.getLoadedMap(clickedID);
-        this.currentMap.setImage(map);
-        //AdminController.currentMap.setImage(map);
-
-        if(((currentState == CurrentStatus.PATIENT) || (currentState == CurrentStatus.SETSTARTNODE) || (currentState == CurrentStatus.SETENDNODE)) && (currPath!=null)){
-            DrawCurrentFloorPath();
-        }
-    }
-
-    /*
-    * setKioskLoc sets the default location for the floor
-     */
-    void setKioskLoc(int xCoord, int yCoord) {
-        try {
-            Main.setKiosk(Main.getNodeMap().getNearestNeighbor(xCoord, yCoord));
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-    }
-
-     /*
-    * setStartNode sets the start node to the node nearest to the given coords in the current building
-     */
-    @FXML
-    void setStartNode(){
-        String newStartNodeID = startNodeID.getText();
         NodeObj newStartNode = Main.getNodeMap().getNodeObjByID(newStartNodeID);
         Main.setKiosk(newStartNode);
-        switchTab1();
-        currentState = CurrentStatus.PATIENT;
+        redraw();
     }
 
     @FXML
-    void setEndNode(){
-        String newEndNodeID = EndNodeID.getText();
-        NodeObj newEndNode = Main.getNodeMap().getNodeObjByID(newEndNodeID);
-        switchTab1();
-        try {
-            findPath(newEndNode);
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-        currentState = CurrentStatus.PATIENT;
-        System.out.println("Did you get here");
+    void adminLogin(){
+        Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
 
     @FXML
     void Zin() {
-        Zoom+=.5;
+        System.out.println(zoomBar.getValue());
+        Zoom = zoomBar.getValue();
         resize();
-    }
-
-    @FXML
-    void Zout() {
-        if(Zoom>1) {
-            Zoom -= .5;
-            resize();
-        }
 
     }
 
@@ -490,4 +485,12 @@ public class PatientController extends Controller{
         mapHeight = currentMap.getFitHeight();
     }
 
+    @FXML
+    public void textToggle() {
+        if (textToggle.isSelected()) {
+            textTogglePane.setVisible(true);
+        }else{
+            textTogglePane.setVisible(false);
+        }
+    }
 }

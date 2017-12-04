@@ -173,7 +173,7 @@ public class ListOfNodeObjs {
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeBID)) {
-                            if (eWeight < 0)
+                            if (eWeight > 0)
                                 e.setWeight(eWeight);
                             else
                                 e.setWeight(e.genWeightFromDistance());
@@ -189,7 +189,7 @@ public class ListOfNodeObjs {
                 for (EdgeObj e : n.getListOfEdgeObjs()) {
                     try {
                         if (e.getOtherNodeObj(n).node.getNodeID().equals(nodeAID)) {
-                            if (eWeight < 0)
+                            if (eWeight > 0)
                                 e.setWeight(eWeight);
                             else
                                 e.setWeight(e.genWeightFromDistance());

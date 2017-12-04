@@ -1,9 +1,11 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 import model.*;
 import model.AddDB;
@@ -17,8 +19,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
+    public static int sceneWidth = 1400;
+    public static int sceneHeight = 900;
     public static Scene patientScene;
     public static Scene adminScene;
     public static Scene Service;
@@ -183,7 +185,6 @@ public class Main extends Application {
 
         this.controllers.addObserver(adminCont);
 
-        Service = new Scene(FXMLLoader.load(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
         this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
