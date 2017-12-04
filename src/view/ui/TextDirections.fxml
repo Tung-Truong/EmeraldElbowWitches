@@ -16,20 +16,20 @@
          </font>
       </JFXButton>
       <JFXTextArea fx:id="dirArea" focusColor="#ffffff00" layoutY="42.0" prefHeight="258.0" prefWidth="192.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-      <JFXToggleButton layoutX="-1.0" layoutY="287.0" prefHeight="33.0" prefWidth="192.0" text="Send Text Message" textFill="WHITE" unToggleLineColor="BLACK">
+      <JFXToggleButton fx:id="sendText" layoutX="-1.0" layoutY="287.0" prefHeight="33.0" prefWidth="192.0" text="Send Text Message" textFill="WHITE" unToggleLineColor="BLACK">
          <font>
             <Font size="12.0" />
          </font>
       </JFXToggleButton>
-      <JFXToggleButton layoutX="-2.0" layoutY="316.0" prefHeight="27.0" prefWidth="145.0" text="Send Email" textFill="WHITE" unToggleLineColor="BLACK">
+      <JFXToggleButton fx:id="sendEmail" layoutX="-2.0" layoutY="316.0" prefHeight="27.0" prefWidth="145.0" text="Send Email" textFill="WHITE" unToggleLineColor="BLACK">
          <font>
             <Font size="12.0" />
          </font>
       </JFXToggleButton>
-      <JFXTextField focusColor="#4286f4" layoutX="15.0" layoutY="451.0" prefHeight="27.0" prefWidth="162.0" promptText="Email Address" style="-fx-background-color: white;" unFocusColor="GREY" />
-      <JFXButton buttonType="RAISED" layoutX="120.0" layoutY="507.0" prefHeight="27.0" prefWidth="58.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Send" textFill="#1b3766" />
-      <JFXComboBox focusColor="#4286f4" layoutX="15.0" layoutY="410.0" prefHeight="27.0" prefWidth="162.0" promptText="Carrier" style="-fx-background-color: white;" unFocusColor="GREY" />
-      <JFXTextField focusColor="#4286f4" layoutX="15.0" layoutY="371.0" prefHeight="27.0" prefWidth="162.0" promptText="Phone Number" style="-fx-background-color: white;" unFocusColor="GREY" />
+      <JFXTextField fx:id="emailField" focusColor="#4286f4" layoutX="15.0" layoutY="451.0" prefHeight="27.0" prefWidth="162.0" promptText="Email Address" style="-fx-background-color: white;" unFocusColor="GREY" />
+      <JFXButton fx:id="sendTextDirections" buttonType="RAISED" layoutX="120.0" layoutY="507.0" onAction="#sendMessage" prefHeight="27.0" prefWidth="58.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Send" textFill="#1b3766" />
+      <JFXComboBox fx:id="carrierList" focusColor="#4286f4" layoutX="15.0" layoutY="410.0" prefHeight="27.0" prefWidth="162.0" promptText="Carrier" style="-fx-background-color: white;" unFocusColor="GREY" />
+      <JFXTextField fx:id="phoneNumField" focusColor="#4286f4" layoutX="15.0" layoutY="371.0" prefHeight="27.0" prefWidth="162.0" promptText="Phone Number" style="-fx-background-color: white;" unFocusColor="GREY" />
       <JFXButton fx:id="closeButton" buttonType="RAISED" layoutX="15.0" layoutY="507.0" onAction="#close" prefHeight="27.0" prefWidth="58.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Close" textFill="#1b3766" />
    </children>
 </Pane>

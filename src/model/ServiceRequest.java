@@ -5,7 +5,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public abstract class ServiceRequest implements IReport {
+public class ServiceRequest implements IReport {
 
     // Attributes
     private Properties properties;
@@ -77,5 +77,10 @@ public abstract class ServiceRequest implements IReport {
             mex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void generateReport() {
+
     }
 }
