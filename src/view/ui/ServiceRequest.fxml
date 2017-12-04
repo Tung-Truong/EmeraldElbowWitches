@@ -101,6 +101,17 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
+                        <JFXButton fx:id="resolveButton" onAction="#resolve" buttonType="RAISED" layoutX="250.0" layoutY="400.0" prefHeight="100.0" prefWidth="100.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Resolve" textFill="WHITE">
+                           <font>
+                              <Font name="Avenir Next Bold" size="10.0" />
+                           </font>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
                      </children>
                   </Pane>
                </content>

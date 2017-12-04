@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import org.junit.Test;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -21,9 +23,6 @@ public class ServiceController {
     private MenuButton FoodDropdown,
             LocationDropdown, RequestServiceDropdown;
     // LocationDropdown will not be present for the next iteration so there is no real use working with it now
-
-    @FXML
-    private Button removeNodeSelector;
 
     @FXML
     private JFXTextField NotesTextField;
@@ -282,6 +281,14 @@ public class ServiceController {
     } // LocationDropdown will not be present for the next iteration so there is no real use working with it now
 
     @FXML
+    void resolve(){
+        if (Main.requests.size() > 0) {
+            Main.requests.get(0).setActive(false);
+            Main.requests.remove(0);
+        }
+    }
+
+    @FXML
     void Refresh(){
         // Printing this stuff is a later order concern so get back to it later
         String finalString = " ";
@@ -303,7 +310,7 @@ public class ServiceController {
             }
         }
 
-        NotesTextField.setText("Active Requests: " + Main.requests.get(0).generateReport());
+        NotesTextField.setText("Active Requests: " + Main.requests.size() + " " + Main.requests);
     }
 
     //function that just sets the menu items to display no employee available if there is none.
