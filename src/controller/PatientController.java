@@ -70,6 +70,9 @@ public class PatientController extends Controller{
     private ImageView homeScreen;
 
     @FXML
+    private JFXButton SearchPath;
+
+    @FXML
     public ImageView currentMap;
 
     @FXML
@@ -333,12 +336,12 @@ public class PatientController extends Controller{
     }
 
     public void DrawCurrentFloorPath() {
-        HealthCareRun health = new HealthCareRun();
+        /*HealthCareRun health = new HealthCareRun();
         try {
             health.run(100,500,100,100,"view/stylesheets/default.css","","");
         } catch (ServiceException e) {
             e.printStackTrace();
-        }
+        }*/
 
         floorL2Label.setText("");
         floorL1Label.setText("");
@@ -411,7 +414,7 @@ public class PatientController extends Controller{
      */
     public void findPath(MouseEvent event){
         //create a new astar object
-
+        SearchPath.setVisible(false);
         double mousex = (5000 * event.getX()) / mapWidth;
         double mousey = (3400 * event.getY()) / mapHeight;
         if(gc1 == null)
@@ -506,13 +509,52 @@ public class PatientController extends Controller{
                         newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
                         10,
                         10);
+                SearchPath.setVisible(true);
+                SearchPath.setText(searchNewNodeID);
+                SearchPath.setLayoutX(newSearchNode.node.getxLoc()*mapWidth/5000);
+                SearchPath.setLayoutY(newSearchNode.node.getyLoc()*mapHeight/3400);
             } catch (InvalidNodeException exc) {
                 exc.printStackTrace();
             }
         }
 
+    }
 
-
+    //Straight up garbage
+    //this seriously sucks
+    @FXML
+    void PathToHere() {
+        //create a new astar object
+        SearchPath.setVisible(false);
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(2);
+        gc1.setStroke(Color.BLUE);
+        gc1.setFill(Color.RED);
+        //get node that corr. to click from ListOfNodeObjects made in main
+        if(Main.getNodeMap().getNodeObjByID(SearchPath.getText())!=null) {
+            goal = Main.getNodeMap().getNodeObjByID(SearchPath.getText());
+            //getStart
+            NodeObj Kiosk = Main.getKiosk();
+            //set the path to null
+            ArrayList<NodeObj> path;
+            if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+                //try a*
+                if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+                    path = currentAlgorithm.getPathAlg().getGenPath();
+                    currPath = path;
+                    toggleTextArea.setText(textDirections.getTextDirections(path));
+                } else {
+                    try {
+                        throw new InvalidNodeException("this is not accessable with the current map");
+                    } catch (InvalidNodeException e) {
+                        e.printStackTrace();
+                    }
+                }
+                DrawCurrentFloorPath();
+            }
+        }
     }
 
     @FXML
