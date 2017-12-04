@@ -457,7 +457,7 @@ public class PatientController extends Controller{
     void setSearchNode(){
         String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
         NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-        switchTab1();
+        redraw();
         try {
             if(newSearchNode == null)
                 throw new InvalidNodeException("no node with that ID");
@@ -480,7 +480,6 @@ public class PatientController extends Controller{
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
-        currentState = CurrentStatus.PATIENT;
     }
 
     @FXML

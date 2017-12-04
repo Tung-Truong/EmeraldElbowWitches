@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
@@ -13,7 +21,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
@@ -103,5 +111,8 @@
       <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="310.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
       <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="371.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
       <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1155.0" layoutY="431.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
+      <JFXButton fx:id="SearchForNode" layoutX="20.0" layoutY="19.0" />
+      <JFXComboBox fx:id="SearchOptions" layoutX="268.0" layoutY="15.0" />
+      <JFXTextField fx:id="SearchNodeID" layoutX="96.0" layoutY="19.0" onKeyTyped="#setSearchNode" />
    </children>
 </Pane>
