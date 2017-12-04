@@ -509,13 +509,12 @@ public class AdminController extends Controller {
 
     @FXML
     void EditEmployees() throws IOException {
-        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceEditRequest.fxml"));
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceEdit.fxml"));
         Parent root = servContLoad.load();
-        ServiceController servCont = servContLoad.getController();
+        ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
         servStage.setScene(new Scene(root, mapWidth, mapHeight));
-        servCont.servLocField.setText(nodeIDField.getText());
         servStage.show();
     }
 
