@@ -10,7 +10,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -34,16 +33,6 @@
             </JFXSlider>
          </graphic>
       </JFXButton>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="26.0" layoutY="672.0">
-         <image>
-            <Image url="@../media/zoomOut.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="291.0">
-         <image>
-            <Image url="@../media/zoomIn.png" />
-         </image>
-      </ImageView>
       <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1260.0" layoutY="101.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
@@ -109,5 +98,9 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <JFXButton layoutX="34.0" layoutY="676.0" onAction="#Tup" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #4286f4;" text="U" />
+      <JFXButton layoutX="61.0" layoutY="701.0" onAction="#Tright" style="-fx-background-color: #4286f4;" text="R" />
+      <JFXButton layoutX="9.0" layoutY="701.0" onAction="#Tleft" style="-fx-background-color: #4286f4;" text="L" />
+      <JFXButton layoutX="33.0" layoutY="727.0" onAction="#Tdown" style="-fx-background-color: #4286f4;" text="D" />
    </children>
 </Pane>
