@@ -17,13 +17,14 @@ public abstract class ServiceRequest implements IReport {
     private String password = "passwordhuh";
     private boolean isActive;
     private Employee assigned;
-    private Date sent;
     private String replyInfo;
 
     protected String email;
     protected String messageText;
     protected String messageHeader;
     protected String location;
+    protected Date received;
+    protected Date sent;
 
     // Constructor
 
@@ -168,7 +169,7 @@ public abstract class ServiceRequest implements IReport {
                                 gates += 1;
                             }
 
-                            Date received = message.getSentDate();
+                            received = message.getSentDate();
 
                             if (received != null && received.after(sent)) {
                                 gates += 1;
