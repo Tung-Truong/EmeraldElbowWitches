@@ -98,6 +98,7 @@ public class PatientController extends Controller {
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
+        selectFloorWithPath("1");
         currentMap.setImage(m1);
         btn_map01.setOpacity(1);
         currentAlgorithm.setPathAlg(new astar());
