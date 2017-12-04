@@ -130,7 +130,11 @@ public class PatientController extends Controller{
         mapHeight = currentMap.getFitHeight();
         setKioskLoc(2460, 910);
         redraw();
-
+        for(NodeObj n : Main.getNodeMap().getNodes()){
+            if(!n.node.getNodeType().equals("HALL")){
+                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+            }
+        }
     }
 
     private void redraw(){
@@ -520,12 +524,18 @@ public class PatientController extends Controller{
     @FXML
     void UpdateSearch(){
         SearchOptions.getItems().clear();
+
         ArrayList<NodeObj> SearchNodes = new ArrayList<NodeObj>();
         String search = SearchNodeID.getText();
         for(NodeObj n: Main.getNodeMap().getNodes()){
             if(search.length()>2&&(n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
                 SearchNodes.add(n);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+            }
+            else if (search.length() == 0){
+                if(!n.node.getNodeType().equals("HALL")){
+                    SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+                }
             }
         }
     }
@@ -558,8 +568,6 @@ public class PatientController extends Controller{
 
     }
 
-    //Straight up garbage
-    //this seriously sucks
     @FXML
     void PathToHere() {
         //create a new astar object
