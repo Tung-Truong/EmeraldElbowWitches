@@ -236,6 +236,21 @@ public class PatientController extends Controller{
         }
     }
 
+    void resetFloorButtons(){
+        btn_mapL2.setOpacity(.5);
+        btn_mapL1.setOpacity(.5);
+        btn_mapG.setOpacity(.5);
+        btn_map01.setOpacity(.5);
+        btn_map02.setOpacity(.5);
+        btn_map03.setOpacity(.5);
+        floorL2Label.setText("");
+        floorL1Label.setText("");
+        floorGLabel.setText("");
+        floor1Label.setText("");
+        floor2Label.setText("");
+        floor3Label.setText("");
+    }
+
     void selectFloor(String selectedFloor, int order) {
         switch (selectedFloor) {
             case "L2":
