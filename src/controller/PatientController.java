@@ -2,6 +2,7 @@ package controller;
 
 //import Healthcare.HealthCareRun;
 //import Healthcare.ServiceException;
+
 import com.jfoenix.controls.*;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
@@ -38,7 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PatientController extends Controller{
+public class PatientController extends Controller {
 
     @FXML
     private JFXButton directionsButton;
@@ -145,16 +146,16 @@ public class PatientController extends Controller{
 
     }
 
-    private void redraw(){
+    private void redraw() {
         if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
     }
 
     @FXML
-    void changeMap(Event e){
+    void changeMap(Event e) {
         Main.controllers.updateAllMaps(e);
-        if(currPath != null){
+        if (currPath != null) {
             DrawCurrentFloorPath();
         }
     }
@@ -188,11 +189,11 @@ public class PatientController extends Controller{
                 btn_map03.setOpacity(1);
                 break;
             case "SearchForNode":
-                String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
+                String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
                 NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
                 redraw();
                 try {
-                    if(newSearchNode == null)
+                    if (newSearchNode == null)
                         throw new InvalidNodeException("no node with that ID");
                     Floors = null;
                     clearChosenFloor();
@@ -201,8 +202,8 @@ public class PatientController extends Controller{
                     Image map = mapImage.getLoadedMap("btn_map" + newSearchNode.node.getFloor());
                     this.currentMap.setImage(map);
                     gc1.setFill(Color.DARKRED);
-                    gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
-                            newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                    gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
+                            newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
                             10,
                             10);
                 } catch (InvalidNodeException exc) {
@@ -211,7 +212,7 @@ public class PatientController extends Controller{
                 break;
         }
 
-        if(!clickedID.equals("SearchForNode")){
+        if (!clickedID.equals("SearchForNode")) {
             Image map = mapImage.getLoadedMap(clickedID);
             this.currentMap.setImage(map);
             redraw();
@@ -220,8 +221,8 @@ public class PatientController extends Controller{
 
     }
 
-    void clearChosenFloor(){
-        if(Floors == null) {
+    void clearChosenFloor() {
+        if (Floors == null) {
             btn_mapL2.setOpacity(.5);
             btn_mapL2.setStyle("-fx-background-color:   #4286f4");
             btn_mapL1.setOpacity(.5);
@@ -234,7 +235,7 @@ public class PatientController extends Controller{
             btn_map02.setStyle("-fx-background-color:   #4286f4");
             btn_map03.setOpacity(.5);
             btn_map03.setStyle("-fx-background-color:   #4286f4");
-        }else {
+        } else {
             btn_mapL2.setOpacity(.5);
             btn_mapL2.setStyle("-fx-background-color:   #4286f4");
             btn_mapL1.setOpacity(.5);
@@ -251,13 +252,13 @@ public class PatientController extends Controller{
                 selectFloor(Floors.get(i), i+1);
             }*/
             selectFloorWithPath(Main.getNodeMap().currentFloor);
-            for(int i = Floors.size(); i > 0; i--){
-                selectFloor(Floors.get(i-1), (Floors.size()+1)-i);
+            for (int i = Floors.size(); i > 0; i--) {
+                selectFloor(Floors.get(i - 1), (Floors.size() + 1) - i);
             }
         }
     }
 
-    void resetFloorButtons(){
+    void resetFloorButtons() {
         btn_mapL2.setOpacity(.5);
         btn_mapL1.setOpacity(.5);
         btn_mapG.setOpacity(.5);
@@ -276,49 +277,49 @@ public class PatientController extends Controller{
         switch (selectedFloor) {
             case "L2":
                 btn_mapL2.setOpacity(1);
-                if(floorL2Label.getText().equals("")){
+                if (floorL2Label.getText().equals("")) {
                     floorL2Label.setText(order + "");
-                }else {
+                } else {
                     floorL2Label.setText(floorL2Label.getText() + ", " + order + "");
                 }
                 break;
             case "L1":
                 btn_mapL1.setOpacity(1);
-                if(floorL1Label.getText().equals("")){
+                if (floorL1Label.getText().equals("")) {
                     floorL1Label.setText(order + "");
-                }else {
+                } else {
                     floorL1Label.setText(floorL1Label.getText() + ", " + order + "");
                 }
                 break;
             case "G":
                 btn_mapG.setOpacity(1);
-                if(floorGLabel.getText().equals("")){
+                if (floorGLabel.getText().equals("")) {
                     floorGLabel.setText(order + "");
-                }else {
+                } else {
                     floorGLabel.setText(floorGLabel.getText() + ", " + order + "");
                 }
                 break;
             case "1":
                 btn_map01.setOpacity(1);
-                if(floor1Label.getText().equals("")){
+                if (floor1Label.getText().equals("")) {
                     floor1Label.setText(order + "");
-                }else {
+                } else {
                     floor1Label.setText(floor1Label.getText() + ", " + order + "");
                 }
                 break;
             case "2":
                 btn_map02.setOpacity(1);
-                if(floor2Label.getText().equals("")){
+                if (floor2Label.getText().equals("")) {
                     floor2Label.setText(order + "");
-                }else {
+                } else {
                     floor2Label.setText(floor2Label.getText() + ", " + order + "");
                 }
                 break;
             case "3":
                 btn_map03.setOpacity(1);
-                if(floor3Label.getText().equals("")){
+                if (floor3Label.getText().equals("")) {
                     floor3Label.setText(order + "");
-                }else {
+                } else {
                     floor3Label.setText(floor3Label.getText() + ", " + order + "");
                 }
                 break;
@@ -392,17 +393,20 @@ public class PatientController extends Controller{
             if (n != goal) {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                         tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                    gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
-                            n.node.getyLoc() * mapHeight / 3400,
-                            tempDraw.node.getxLoc() * mapWidth / 5000,
-                            tempDraw.node.getyLoc() * mapHeight / 3400);
+                    if (n != Main.getKiosk()) {
+                        gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
+                                n.node.getyLoc() * mapHeight / 3400,
+                                tempDraw.node.getxLoc() * mapWidth / 5000,
+                                tempDraw.node.getyLoc() * mapHeight / 3400);
+
+                    }
                 }
             }
-            if(Floors.size() > 0) {
+            if (Floors.size() > 0) {
                 if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
                     Floors.add(n.getNode().getFloor());
                 }
-            }else if (!(n.getNode().getNodeType().equals("ELEV"))){
+            } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
                 Floors.add(n.getNode().getFloor());
             }
             tempDraw = n;
@@ -431,13 +435,13 @@ public class PatientController extends Controller{
     /*
      * findPath pathfinds, and draws the route to the screen
      */
-    public void findPath(MouseEvent event){
+    public void findPath(MouseEvent event) {
         directionsButton.setVisible(true);
         //create a new astar object
         SearchPath.setVisible(false);
         double mousex = (5000 * event.getX()) / mapWidth;
         double mousey = (3400 * event.getY()) / mapHeight;
-        if(gc1 == null)
+        if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
@@ -454,7 +458,7 @@ public class PatientController extends Controller{
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         strPath = new ArrayList<>();
-        if(!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -464,7 +468,6 @@ public class PatientController extends Controller{
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
 
 
-
             } else {
                 try {
                     throw new InvalidNodeException("this is not accessable with the current map");
@@ -472,11 +475,13 @@ public class PatientController extends Controller{
                     e.printStackTrace();
                 }
             }
-            if(oldAnimation != null){
+            if (oldAnimation != null) {
                 oldAnimation.stop();
-                gc1.clearRect(0,0,mapWidth,mapHeight);
+                gc1.clearRect(0, 0, mapWidth, mapHeight);
+                redraw();
+                gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(currPath), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(currPath), Duration.millis(4000), Main.getKiosk());
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -485,45 +490,49 @@ public class PatientController extends Controller{
 
 
     //Functions required for animation fun times
-    private Path convertPath(ArrayList<NodeObj> list){
+    private Path convertPath(ArrayList<NodeObj> list) {
         Path path = new Path();
         ArrayList<NodeObj> reverseList = list;
         Collections.reverse(reverseList);
-        for (int i = 0; i<(reverseList.size()-1); i++) {
-            path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(),reverseList.get(i).node.getyLoc()),new LineTo(reverseList.get(i+1).node.getxLoc(),reverseList.get(i+1).node.getyLoc()));
+        for (int i = 0; i < (reverseList.size() - 1); i++) {
+            path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(), reverseList.get(i).node.getyLoc()), new LineTo(reverseList.get(i + 1).node.getxLoc(), reverseList.get(i + 1).node.getyLoc()));
         }
-        path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size()-1).node.getxLoc(),reverseList.get(reverseList.size()-1).node.getyLoc()),new LineTo(reverseList.get(reverseList.size()-1).node.getxLoc(),reverseList.get(reverseList.size()-1).node.getyLoc()));
+        path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
         return path;
     }
 
-    private Animation createPathAnimation(Path path, Duration duration){
-        Circle pen = new Circle(0,0,4);
+    private Animation createPathAnimation(Path path, Duration duration, NodeObj start) {
+        GraphicsContext gc = gc1;
+        Circle pen = new Circle(0, 0, 4);
 
-        PathTransition pathTransition = new PathTransition(duration,path,pen);
+        PathTransition pathTransition = new PathTransition(duration, path, pen);
         pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             Location oldLocation = null;
+
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                if (oldValue == Duration.ZERO){
+                if (oldValue == Duration.ZERO) {
                     return;
                 }
                 double x = pen.getTranslateX();
                 double y = pen.getTranslateY();
 
-                if(oldLocation == null){
+                if (oldLocation == null) {
                     oldLocation = new Location();
                     oldLocation.x = x;
                     oldLocation.y = y;
                     return;
                 }
 
-                gc1.setStroke(Color.RED);
-                gc1.setFill(Color.YELLOW);
-                gc1.setLineWidth(4);
+                gc.setStroke(Color.RED);
+                gc.setFill(Color.YELLOW);
+                gc.setLineWidth(4);
 
-                gc1.strokeLine(oldLocation.x* mapWidth / 5000,oldLocation.y* mapHeight / 3400,x * mapWidth / 5000, y * mapHeight / 3400);
-                oldLocation.x = x;
-                oldLocation.y = y;
+                if (x != start.node.getxLoc() || y != start.node.getyLoc()) {
+                    gc.strokeLine(oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400, x * mapWidth / 5000, y * mapHeight / 3400);
+                    oldLocation.x = x;
+                    oldLocation.y = y;
+                }
             }
         });
 
@@ -531,23 +540,23 @@ public class PatientController extends Controller{
 
     }
 
-    public static class Location{
+    public static class Location {
         double x;
         double y;
     }
 
     @FXML
-    void mousePress(MouseEvent event){
-        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+    void mousePress(MouseEvent event) {
+        if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
             setStartNode(event);
-        }else if(event.getButton() == MouseButton.PRIMARY){
+        } else if (event.getButton() == MouseButton.PRIMARY) {
             findPath(event);
         }
     }
 
     @FXML
     void getTextDirections() throws IOException {
-        if(strPath != null) {
+        if (strPath != null) {
             FXMLLoader dirContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/TextDirections.fxml"));
             Parent root = dirContLoad.load();
             TextDirectionsController dirCont = dirContLoad.getController();
@@ -563,12 +572,12 @@ public class PatientController extends Controller{
      * setStartNode sets the start node to the node nearest to the given coords in the current building
      */
     @FXML
-    void setStartNode(MouseEvent event){
+    void setStartNode(MouseEvent event) {
         double mousex = (5000 * event.getX()) / mapWidth;
         double mousey = (3400 * event.getY()) / mapHeight;
         String newStartNodeID = null;
         try {
-            newStartNodeID = Main.getNodeMap().getNearestNeighborFilter((int)mousex,(int)mousey).getNode().getNodeID();
+            newStartNodeID = Main.getNodeMap().getNearestNeighborFilter((int) mousex, (int) mousey).getNode().getNodeID();
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
@@ -578,12 +587,12 @@ public class PatientController extends Controller{
     }
 
     @FXML
-    void UpdateSearch(){
+    void UpdateSearch() {
         SearchOptions.getItems().clear();
         ArrayList<NodeObj> SearchNodes = new ArrayList<NodeObj>();
         String search = SearchNodeID.getText();
-        for(NodeObj n: Main.getNodeMap().getNodes()){
-            if(search.length()>2&&(n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
+        for (NodeObj n : Main.getNodeMap().getNodes()) {
+            if (search.length() > 2 && (n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
                 SearchNodes.add(n);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
@@ -591,8 +600,8 @@ public class PatientController extends Controller{
     }
 
     @FXML
-    void setSearchNode(Event e){
-        if(((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
+    void setSearchNode(Event e) {
+        if (((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
             String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
             NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
             try {
@@ -603,14 +612,14 @@ public class PatientController extends Controller{
                 Main.controllers.updateAllMaps(e);
                 ((JFXButton) e.getSource()).setId("SearchForNode");
                 gc1.setFill(Color.DARKRED);
-                gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
-                        newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
+                        newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
                         10,
                         10);
                 SearchPath.setVisible(true);
                 SearchPath.setText(searchNewNodeID);
-                SearchPath.setLayoutX(newSearchNode.node.getxLoc()*mapWidth/5000);
-                SearchPath.setLayoutY(newSearchNode.node.getyLoc()*mapHeight/3400);
+                SearchPath.setLayoutX(newSearchNode.node.getxLoc() * mapWidth / 5000);
+                SearchPath.setLayoutY(newSearchNode.node.getyLoc() * mapHeight / 3400);
             } catch (InvalidNodeException exc) {
                 exc.printStackTrace();
             }
@@ -624,14 +633,14 @@ public class PatientController extends Controller{
     void PathToHere() {
         //create a new astar object
         SearchPath.setVisible(false);
-        if(gc1 == null)
+        if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
         gc1.setFill(Color.RED);
         //get node that corr. to click from ListOfNodeObjects made in main
-        if(Main.getNodeMap().getNodeObjByID(SearchPath.getText())!=null) {
+        if (Main.getNodeMap().getNodeObjByID(SearchPath.getText()) != null) {
             goal = Main.getNodeMap().getNodeObjByID(SearchPath.getText());
             //getStart
             NodeObj Kiosk = Main.getKiosk();
@@ -656,7 +665,7 @@ public class PatientController extends Controller{
     }
 
     @FXML
-    void adminLogin(){
+    void adminLogin() {
         Main.getCurrStage().setScene(Main.getAdminScene());
     }
 
@@ -670,30 +679,30 @@ public class PatientController extends Controller{
 
     @FXML
     void Tleft() {
-        XTrans+=(int) (200.0/Zoom);
+        XTrans += (int) (200.0 / Zoom);
         resize();
     }
 
     @FXML
     void Tright() {
-        XTrans-=(int) (200.0/Zoom);
+        XTrans -= (int) (200.0 / Zoom);
         resize();
     }
 
     @FXML
     void Tup() {
-        YTrans+=(int) (160.0/Zoom);
+        YTrans += (int) (160.0 / Zoom);
         resize();
     }
 
     @FXML
     void Tdown() {
-        YTrans-=(int) (160.0/Zoom);
+        YTrans -= (int) (160.0 / Zoom);
         resize();
     }
 
-    public void resize(){
-        if(Zoom<=1){
+    public void resize() {
+        if (Zoom <= 1) {
             XTrans = 0;
             YTrans = 0;
         }
@@ -713,7 +722,7 @@ public class PatientController extends Controller{
     public void textToggle() {
         if (textToggle.isSelected()) {
             textTogglePane.setVisible(true);
-        }else{
+        } else {
             textTogglePane.setVisible(false);
         }
     }
