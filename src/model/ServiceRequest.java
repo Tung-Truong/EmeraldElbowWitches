@@ -195,4 +195,25 @@ public abstract class ServiceRequest implements IReport {
         // when the refresh button is pressed check for resolutions to request
         // There will also be a resolve button in the UI and if this is pressed remove the request from the active list
     }
+
+    public String findTime(long t){
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+
+        while ((t - 3600) >= 0){
+            t -= 3600;
+            hours ++;
+        }
+        while ((t - 60) >= 0){
+            t -= 60;
+            minutes ++;
+        }
+        while ((t - 1) >= 0){
+            t -= 1;
+            seconds ++;
+        }
+
+        return String.format("%02:%02:%02" , hours, minutes, seconds);
+    }
 }

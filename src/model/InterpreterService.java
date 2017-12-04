@@ -76,25 +76,4 @@ public class InterpreterService extends ServiceRequest {
             return "This request has yet to be resolved";
         }
     }
-
-    private String findTime(long t){
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
-
-        while ((t - 3600) >= 0){
-            t -= 3600;
-            hours ++;
-        }
-        while ((t - 60) >= 0){
-            t -= 60;
-            minutes ++;
-        }
-        while ((t - 1) >= 0){
-            t -= 1;
-            seconds ++;
-        }
-
-        return String.format("%02:%02:%02" , hours, minutes, seconds);
-    }
 }
