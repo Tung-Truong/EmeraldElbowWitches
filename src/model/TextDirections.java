@@ -38,16 +38,6 @@ public class TextDirections {
             nextNode = path.get(i + 1).getNode();
             floorNode = path.get(i + 1).getNode();
 
-<<<<<<< HEAD
-            // if the next node is a staircase
-            if(nextNode.getNodeType() == "STAI")
-                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
-            else if(nextNode.getNodeType() == "ELEV")
-                msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
-            else {
-=======
->>>>>>> textDirections
-
             // if the next node is a staircase
             if (nextNode.getNodeType().equals("STAI") && floorNode.getFloor() != nextNode.getFloor()) {
                 msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
