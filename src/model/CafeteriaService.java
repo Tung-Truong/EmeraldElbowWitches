@@ -1,14 +1,14 @@
 package model;
 
-import controller.Main;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CafeteriaService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
-    private ArrayList<String> emails = new ArrayList<String>();
+    private HashMap<String, long[]> valItem = new HashMap<String, long[]>();
+    private String itemSold;
     private int soldItems = 0;
 
     // TODO: have each menu item have an associated number of items sold and who delivered them
@@ -19,9 +19,10 @@ public class CafeteriaService extends ServiceRequest {
         menu.add("Noodles");
         menu.add("Tea");
         menu.add("Pie");
+        // fill in more food things later
 
-        for(Employee e: Main.employees){
-            emails.add(e.getEmail());
+        for (String s : menu){
+            valItem.put(s, new long[2]);
         }
 
     }
@@ -31,10 +32,6 @@ public class CafeteriaService extends ServiceRequest {
         return this.menu;
     }
 
-    public ArrayList<String> getEmails() {
-        return this.emails;
-    }
-
     public int getSoldItems() {
         return soldItems;
     }
@@ -42,10 +39,6 @@ public class CafeteriaService extends ServiceRequest {
     // Setters
     public void setMenu(ArrayList<String> items){
         this.menu = items;
-    }
-
-    public void setEmails(ArrayList<String> emails) {
-        this.emails = emails;
     }
 
     // Methods
@@ -61,8 +54,33 @@ public class CafeteriaService extends ServiceRequest {
         soldItems++;
     }
 
-    public void generateReport(){
-        System.out.println("From Cafeteria: ");
-        System.out.println("    Items Ordered: " + soldItems);
+    public String generateReport(){
+        /*
+            Information required:
+            - How long did it  take for this request to be fulfilled
+            - What foods were delivered/ordered
+         */
+        if (!isActive()){
+            String report = "Item Sold: " + itemSold;
+
+            long diff = 0;
+
+            long timeSent = sent.getTime();
+            long timeReceived = received.getTime();
+
+            long diffSeconds = (timeReceived - timeSent) / 1000;
+
+            // This part increments the number of interpreters used for the language and time taken for this interpreter
+
+            valItem.get(itemSold)[0] += 1;
+            valItem.get(itemSold)[1] += diffSeconds;
+            diff = valItem.get(itemSold)[1]/valItem.get(itemSold)[0];
+            report.concat(itemSold + "s Sold: " + valItem.get(itemSold)[0] + "\n" + "Average Time Taken: " + findTime(diff));
+
+            return report;
+        }
+        else {
+            return "This request has yet to be resolved";
+        }
     }
 }

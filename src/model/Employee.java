@@ -9,10 +9,10 @@ public class Employee {
     private String department;
     private String language;
     private String available;
+    private int id;
 
     // Constructor
     public Employee(){
-
     }
     public Employee(String email, String firstName, String lastName, String department, String language, String available){
         this.email = email;
@@ -21,6 +21,7 @@ public class Employee {
         this.department = department;
         this.language = language;
         this.available = available;
+        id = email.hashCode();
     }
 
     // getters--------------------------------------
@@ -48,9 +49,14 @@ public class Employee {
         return available;
     }
 
+    public int getId(){
+        return id;
+    }
+
     // Setters
     public void setEmail(String email){
         this.email = email;
+        id = email.hashCode();
     }
 
     public void setFirstName(String firstName){

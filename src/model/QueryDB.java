@@ -8,6 +8,7 @@ public class QueryDB {
     public static final String GET_NODES = "select DISTINCT * from nodeTable";
     public static final String GET_EDGES = "select DISTINCT * from edgeTable";
     public static final String GET_EMPLOYEES = "select DISTINCT * from employeeTable";
+    public static final String GET_REQUESTS = "select DISTINCT * from requestTable";
 
     public static ArrayList<Node> getNodes() throws SQLException {
         ArrayList<Node> nodeList = new ArrayList<Node>();
@@ -76,5 +77,33 @@ public class QueryDB {
             connection.close();
         }
         return employeeList;
+    }
+
+    public static ArrayList<ServiceRequest> getRequests() throws SQLException{
+        ArrayList<ServiceRequest> requestList = new ArrayList<ServiceRequest>();
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(GET_REQUESTS);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        int columnCount = resultSetMetaData.getColumnCount();
+        while(resultSet.next()){
+            String[] tempVals = new String[columnCount];
+            for(int colInd = 1; colInd < columnCount+1; colInd++){
+                tempVals[colInd-1] = resultSet.getString(colInd);
+            }
+            if(tempVals[0] != null){
+                requestList.add(new ServiceRequest() {
+                    @Override
+                    public String generateReport() {  return "x";  }
+                });
+            }
+        }
+        if(statement != null){
+            statement.close();
+        }
+        if(connection != null){
+            connection.close();
+        }
+        return requestList;
     }
 }

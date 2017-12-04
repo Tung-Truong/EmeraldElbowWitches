@@ -560,7 +560,9 @@ public class PatientController extends Controller {
                         oldLocation.y = y;
                     }
                 } catch (InvalidNodeException e) {
-                    e.printStackTrace();
+                    e.getMessage();
+                }catch (NullPointerException e) {
+                    e.getMessage();
                 }
                 oldLocation.x = x;
                 oldLocation.y = y;
@@ -703,6 +705,16 @@ public class PatientController extends Controller {
                         e.printStackTrace();
                     }
                 }
+                
+                if (oldAnimation != null) {
+                    oldAnimation.stop();
+                    gc1.clearRect(0, 0, mapWidth, mapHeight);
+                    redraw();
+                    gc.getGraphicsContext2D().setStroke(Color.BLUE);
+                }
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                animation.play();
+                oldAnimation = animation;
                 DrawCurrentFloorPath();
             }
         }

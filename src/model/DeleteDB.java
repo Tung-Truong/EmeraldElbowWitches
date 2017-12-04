@@ -43,4 +43,13 @@ public class DeleteDB {
         statement.executeUpdate(DEL_EMPLOYEE);
         statement.close();
     }
+
+    public static void delRequest(Date delRequest) throws SQLException {
+        String DEL_REQUEST = null;
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        DEL_REQUEST = "DELETE FROM REQUESTTABLE WHERE date = '" + delRequest + "'";
+        statement.executeUpdate(DEL_REQUEST);
+        statement.close();
+    }
 }
