@@ -7,7 +7,6 @@ public class InterpreterService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> languages = new ArrayList<String>();
-    private ArrayList<String> emails = new ArrayList<String>();
     private HashMap<String, long[]> reportInfo = new HashMap<String, long[]>();
 
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
@@ -29,17 +28,9 @@ public class InterpreterService extends ServiceRequest {
         return this.languages;
     }
 
-    public ArrayList<String> getEmails() {
-        return this.emails;
-    }
-
     // Setters
     public void setLanguages(ArrayList<String> languages){
         this.languages = languages;
-    }
-
-    public void setEmails(ArrayList<String> emails){
-        this.emails = emails;
     }
 
     // Methods

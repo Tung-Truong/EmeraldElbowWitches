@@ -303,7 +303,7 @@ public class ServiceController {
             }
         }
 
-        NotesTextField.setText("Active Requests: " + Main.requests.size() + Main.requests + finalString);
+        NotesTextField.setText("Active Requests: " + Main.requests.get(0).generateReport());
     }
 
     //function that just sets the menu items to display no employee available if there is none.
