@@ -437,6 +437,7 @@ public class PatientController extends Controller{
      * findPath pathfinds, and draws the route to the screen
      */
     public void findPath(MouseEvent event){
+        directionsButton.setVisible(true);
         //create a new astar object
         SearchPath.setVisible(false);
         double mousex = (5000 * event.getX()) / mapWidth;

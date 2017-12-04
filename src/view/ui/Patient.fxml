@@ -104,7 +104,7 @@
       <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="15.0" opacity="0.8" style="-fx-background-color: #4286f4;" />
       <JFXTextField fx:id="SearchNodeID" layoutX="101.0" layoutY="15.0" onKeyTyped="#UpdateSearch" opacity="0.8" style="-fx-background-color: #4286f4;" />
       <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
-      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1250.0" layoutY="542.0" onAction="#getTextDirections" prefHeight="30.0" prefWidth="123.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="Text Directions" textFill="WHITE">
+      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1250.0" layoutY="542.0" onAction="#getTextDirections" prefHeight="30.0" prefWidth="123.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="Text Directions" textFill="WHITE" visible="false">
          <font>
             <Font size="14.0" />
          </font>
