@@ -8,16 +8,17 @@ public class BestFirst extends PathingAlgorithm {
 
     public boolean pathfind(NodeObj start, NodeObj goal) {
 
-
         ArrayList<NodeObj> explored = new ArrayList<NodeObj>(); // List of explored nodes, or nodes that have been accounted for
         LinkedList<NodeObj> queue = new LinkedList<NodeObj>();  // List of nodes that have not been explored yet
 
         queue.add(start);
         explored.add(start);
 
-        while (!queue.isEmpty()) {
+        while (queue.size() > 0) {
             //checks if the current node is the goal
-            NodeObj current = queue.remove();
+            NodeObj current = getLowest(queue);
+            queue.remove(current);
+            explored.add(current);
             if (current.node.getNodeID().equals(goal.node.getNodeID())) {
                 explored.add(current);
                 GenPath = constructPath(goal, start);
@@ -25,23 +26,18 @@ public class BestFirst extends PathingAlgorithm {
             }
 
             ArrayList<NodeObj> neighbours = current.getListOfNeighbors(); //list of neighboring nodes
-            LinkedList<NodeObj> queue2 = new LinkedList<NodeObj>();// temporary queue? for keeping nodes that are being explored
 
-            double currentHeuristic = Integer.MAX_VALUE;
-            NodeObj lowestNode = null;
 
             for (NodeObj node : neighbours) {
-                if (node.getHeuristic() < currentHeuristic) {
-                    currentHeuristic = node.getHeuristic();
-                    lowestNode = node;
+                if(!explored.contains(node)){
+                    if(!queue.contains(node)){
+                        node.setHeuristic(node.getDistance(goal));
+                        node.setParent(current);
+                        queue.add(node);
+                    }
                 }
             }
-            queue2.add(lowestNode);
 
-            for (int j = 0; j < queue2.size(); j++) {
-                explored.add(queue2.get(j));
-                queue.add(queue2.get(j));
-            }
         }
         return false;
     }
@@ -60,5 +56,18 @@ public class BestFirst extends PathingAlgorithm {
         } else {
             return 50000;
         }
+    }
+
+    // Helper method to determine the edge with the lowest weight to prioritize
+    private NodeObj getLowest(LinkedList<NodeObj> list) {
+        double currentHeuristic = Integer.MAX_VALUE;
+        NodeObj lowestNode = null;
+        for (NodeObj node : list) {
+            if (node.getHeuristic() < currentHeuristic) {
+                currentHeuristic = node.getHeuristic();
+                lowestNode = node;
+            }
+        }
+        return lowestNode;
     }
 }
