@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class ListOfNodeObjs {
 
+
+
     private ArrayList<NodeObj> nodes;
     public String currentFloor;
 

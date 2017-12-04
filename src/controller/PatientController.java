@@ -3,6 +3,7 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,13 +14,13 @@ import model.InvalidNodeException;
 import model.astar;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 
 import java.util.ArrayList;
 
-
-public class PatientController extends Controller {
+public class PatientController extends Controller{
 
     @FXML
     private JFXTogglePane textTogglePane;
@@ -29,6 +30,15 @@ public class PatientController extends Controller {
 
     @FXML
     private JFXSlider zoomBar;
+
+    @FXML
+    private JFXButton SearchForNode;
+
+    @FXML
+    private JFXComboBox<String> SearchOptions;
+
+    @FXML
+    private JFXTextField SearchNodeID;
 
     @FXML
     private ImageView img_Map;
@@ -431,10 +441,52 @@ public class PatientController extends Controller {
     }
 
     @FXML
+    void UpdateSearch(){
+        SearchOptions.getItems().clear();
+        ArrayList<NodeObj> SearchNodes = new ArrayList<NodeObj>();
+        String search = SearchNodeID.getText();
+        for(NodeObj n: Main.getNodeMap().getNodes()){
+            if(search.length()>2&&(n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
+                SearchNodes.add(n);
+                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+            }
+        }
+    }
+
+    @FXML
+    void setSearchNode(){
+        String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
+        NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+        switchTab1();
+        try {
+            if(newSearchNode == null)
+                throw new InvalidNodeException("no node with that ID");
+            Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+            Image map = mapImage.getLoadedMap(GetMapDropdownFromFloor(newSearchNode.node.getFloor()).getId());
+            this.currentMap.setImage(map);
+            gc1.setFill(Color.DARKRED);
+            gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
+                    newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                    10,
+                    10);
+           /* Zoom = 0;
+            YTrans = 0;
+            XTrans = 0;
+            resize();
+            //gc.localToParent()
+            Zoom = 0;*/
+            //XTrans = (int)mapWidth;//(int)(mapWidth/2-newSearchNode.node.getxLoc()*mapWidth/3400)/2;
+            //resize();
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+        currentState = CurrentStatus.PATIENT;
+    }
+
+    @FXML
     void adminLogin(){
         Main.getCurrStage().setScene(Main.getAdminScene());
     }
-
 
     @FXML
     void Zin() {

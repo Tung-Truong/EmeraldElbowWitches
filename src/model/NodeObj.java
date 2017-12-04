@@ -8,6 +8,8 @@ public class NodeObj {
     private NodeObj parent;
     private double gCost;
     private ArrayList<EdgeObj> listOfEdgeObjs;
+    private int timesPathed = 0;
+    private double avgPathLen = 0;
 
     public NodeObj(Node myNode) {
         node = myNode;
@@ -128,5 +130,21 @@ public class NodeObj {
         int bx = node.getxLoc();
         int by = node.getyLoc();
         return Math.abs(Math.sqrt(((ax - bx) * (ax - bx)) + ((ay - by) * (ay - by))));
+    }
+
+    public int getTimesPathed() {
+        return timesPathed;
+    }
+
+    public void setTimesPathed(int timesPathed) {
+        this.timesPathed = timesPathed;
+    }
+
+    public double getAvgPathLen() {
+        return avgPathLen;
+    }
+
+    public void setAvgPathLen(double avgPathLen) {
+        this.avgPathLen = avgPathLen;
     }
 }
