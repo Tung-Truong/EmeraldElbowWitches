@@ -252,8 +252,8 @@ public class AdminController extends Controller {
             case "btn_map03":
                 Main.getNodeMap().setCurrentFloor("3");
                 btn_map03.setStyle("-fx-background-color:  #1b5cc4");
-
                 break;
+
         }
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         Image map = mapImage.getLoadedMap(clickedID);

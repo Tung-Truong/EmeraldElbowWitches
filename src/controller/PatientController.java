@@ -1,5 +1,7 @@
 package controller;
 
+import Healthcare.HealthCareRun;
+import Healthcare.ServiceException;
 import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -116,6 +118,7 @@ public class PatientController extends Controller{
         mapHeight = currentMap.getFitHeight();
         setKioskLoc(2460, 910);
         redraw();
+
     }
 
     private void redraw(){
@@ -160,11 +163,37 @@ public class PatientController extends Controller{
                 Main.getNodeMap().setCurrentFloor("3");
                 btn_map03.setOpacity(1);
                 break;
+            case "SearchForNode":
+                String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
+                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                redraw();
+                try {
+                    if(newSearchNode == null)
+                        throw new InvalidNodeException("no node with that ID");
+                    Floors = null;
+                    clearChosenFloor();
+                    redraw();
+                    Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+                    Image map = mapImage.getLoadedMap("btn_map" + newSearchNode.node.getFloor());
+                    this.currentMap.setImage(map);
+                    gc1.setFill(Color.DARKRED);
+                    gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
+                            newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                            10,
+                            10);
+                } catch (InvalidNodeException exc) {
+                    exc.printStackTrace();
+                }
+                break;
         }
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        Image map = mapImage.getLoadedMap(clickedID);
-        this.currentMap.setImage(map);
-        redraw();
+
+        if(!clickedID.equals("SearchForNode")){
+            Image map = mapImage.getLoadedMap(clickedID);
+            this.currentMap.setImage(map);
+            redraw();
+        }
+
+
     }
 
     void clearChosenFloor(){
@@ -304,6 +333,13 @@ public class PatientController extends Controller{
     }
 
     public void DrawCurrentFloorPath() {
+        HealthCareRun health = new HealthCareRun();
+        try {
+            health.run(100,500,100,100,"view/stylesheets/default.css","","");
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
         floorL2Label.setText("");
         floorL1Label.setText("");
         floorGLabel.setText("");
@@ -454,32 +490,29 @@ public class PatientController extends Controller{
     }
 
     @FXML
-    void setSearchNode(){
-        String searchNewNodeID =  SearchOptions.getValue().split(":")[0].trim();
-        NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-        redraw();
-        try {
-            if(newSearchNode == null)
-                throw new InvalidNodeException("no node with that ID");
-            Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
-            Image map = mapImage.getLoadedMap(GetMapDropdownFromFloor(newSearchNode.node.getFloor()).getId());
-            this.currentMap.setImage(map);
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
-                    newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
-                    10,
-                    10);
-           /* Zoom = 0;
-            YTrans = 0;
-            XTrans = 0;
-            resize();
-            //gc.localToParent()
-            Zoom = 0;*/
-            //XTrans = (int)mapWidth;//(int)(mapWidth/2-newSearchNode.node.getxLoc()*mapWidth/3400)/2;
-            //resize();
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
+    void setSearchNode(Event e){
+        if(((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
+            String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
+            NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+            try {
+                if (newSearchNode == null)
+                    throw new InvalidNodeException("no node with that ID");
+                getMap(e);
+                ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                Main.controllers.updateAllMaps(e);
+                ((JFXButton) e.getSource()).setId("SearchForNode");
+                gc1.setFill(Color.DARKRED);
+                gc1.fillOval(newSearchNode.node.getxLoc()*mapWidth/5000 - 5,
+                        newSearchNode.node.getyLoc()*mapHeight/3400 - 5,
+                        10,
+                        10);
+            } catch (InvalidNodeException exc) {
+                exc.printStackTrace();
+            }
         }
+
+
+
     }
 
     @FXML

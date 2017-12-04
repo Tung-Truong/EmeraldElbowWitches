@@ -111,8 +111,8 @@
       <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="310.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
       <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="371.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
       <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1155.0" layoutY="431.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <JFXButton fx:id="SearchForNode" layoutX="20.0" layoutY="19.0" />
-      <JFXComboBox fx:id="SearchOptions" layoutX="268.0" layoutY="15.0" />
-      <JFXTextField fx:id="SearchNodeID" layoutX="96.0" layoutY="19.0" onKeyTyped="#setSearchNode" />
+      <JFXButton fx:id="SearchForNode" layoutX="20.0" layoutY="15.0" onAction="#setSearchNode" opacity="0.8" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" text="CONFIRM" textFill="WHITE" />
+      <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="15.0" opacity="0.8" style="-fx-background-color: #4286f4;" />
+      <JFXTextField fx:id="SearchNodeID" layoutX="101.0" layoutY="15.0" onKeyTyped="#UpdateSearch" opacity="0.8" style="-fx-background-color: #4286f4;" />
    </children>
 </Pane>
