@@ -461,8 +461,9 @@ public class PatientController extends Controller {
                     10,
                     10);
             endImage.setVisible(true);
-            endImage.setX(Main.getKiosk().node.getxLoc());
-            endImage.setY(Main.getKiosk().node.getyLoc());
+            // the 8 and 13 below are magic numbers, probably to account for the image not being symmetrical
+            endImage.setX(goal.node.getxLoc() * mapWidth / 5000 - 8 - endImage.getFitWidth()/2);
+            endImage.setY(goal.node.getyLoc() * mapHeight / 3400 - 13 - endImage.getFitHeight());
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);

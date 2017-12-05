@@ -114,7 +114,7 @@
             <Image url="@../media/start.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="endImage" fitHeight="89.0" fitWidth="200.0" layoutX="183.0" layoutY="230.0" visible="false">
+      <ImageView fx:id="endImage" fitHeight="35.0" fitWidth="81.0" layoutX="8.0" layoutY="8.0" visible="false">
          <image>
             <Image url="@../media/end.png" />
          </image>
