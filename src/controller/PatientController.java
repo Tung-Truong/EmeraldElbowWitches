@@ -437,7 +437,13 @@ public class PatientController extends Controller {
                             10,
                             10);
                     gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
-                            n.node.getyLoc() * mapHeight / 3400 - 5);/*
+                            n.node.getyLoc() * mapHeight / 3400 - 5);
+                    Image img = null;
+                    img = new Image("File://src/view/media/arriveup.gif");
+                    Double h = leaveDown.getFitHeight();
+                    Double w = leaveDown.getFitWidth();
+                    gc1.drawImage(img,n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45,n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
+                    /*
                     Double h = leaveDown.getFitHeight();
                     Double w = leaveDown.getFitWidth();
                     leaveUp.setVisible(true);
@@ -453,13 +459,12 @@ public class PatientController extends Controller {
                             10);
                     gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
                             n.node.getyLoc() * mapHeight / 3400 - 5);
-  /*                  Double h = leaveDown.getFitHeight();
+                /*    Double h = leaveDown.getFitHeight();
                     Double w = leaveDown.getFitWidth();
                     leaveDown.setVisible(true);
                     leaveDown.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
                     leaveDown.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-*/
-                }
+                */}
             }
             if (Floors.size() > 0) {
                 if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
