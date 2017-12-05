@@ -158,6 +158,7 @@ public class PatientController extends Controller {
 
     @FXML
     void changeMap(Event e) {
+        resetFloorButtons();
         oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
         if (currPath != null) {
@@ -236,32 +237,19 @@ public class PatientController extends Controller {
     }
 
     void clearChosenFloor() {
-        if (Floors == null) {
-            btn_mapL2.setOpacity(.5);
-            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
-            btn_mapL1.setOpacity(.5);
-            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
-            btn_mapG.setOpacity(.5);
-            btn_mapG.setStyle("-fx-background-color:   #4286f4");
-            btn_map01.setOpacity(.5);
-            btn_map01.setStyle("-fx-background-color:   #4286f4");
-            btn_map02.setOpacity(.5);
-            btn_map02.setStyle("-fx-background-color:   #4286f4");
-            btn_map03.setOpacity(.5);
-            btn_map03.setStyle("-fx-background-color:   #4286f4");
-        } else {
-            btn_mapL2.setOpacity(.5);
-            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
-            btn_mapL1.setOpacity(.5);
-            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
-            btn_mapG.setOpacity(.5);
-            btn_mapG.setStyle("-fx-background-color:   #4286f4");
-            btn_map01.setOpacity(.5);
-            btn_map01.setStyle("-fx-background-color:   #4286f4");
-            btn_map02.setOpacity(.5);
-            btn_map02.setStyle("-fx-background-color:   #4286f4");
-            btn_map03.setOpacity(.5);
-            btn_map03.setStyle("-fx-background-color:   #4286f4");
+        btn_mapL2.setOpacity(.5);
+        btn_mapL2.setStyle("-fx-background-color:   #4286f4");
+        btn_mapL1.setOpacity(.5);
+        btn_mapL1.setStyle("-fx-background-color:   #4286f4");
+        btn_mapG.setOpacity(.5);
+        btn_mapG.setStyle("-fx-background-color:   #4286f4");
+        btn_map01.setOpacity(.5);
+        btn_map01.setStyle("-fx-background-color:   #4286f4");
+        btn_map02.setOpacity(.5);
+        btn_map02.setStyle("-fx-background-color:   #4286f4");
+        btn_map03.setOpacity(.5);
+        btn_map03.setStyle("-fx-background-color:   #4286f4");
+        if (Floors != null) {
             /*for(int i = 0; i < Floors.size(); i++){
                 selectFloor(Floors.get(i), i+1);
             }*/
@@ -514,7 +502,11 @@ public class PatientController extends Controller {
                 path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(), reverseList.get(i).node.getyLoc()), new LineTo(reverseList.get(i + 1).node.getxLoc(), reverseList.get(i + 1).node.getyLoc()));
             }
         }
-        path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
+        try {
+            path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("wat. somehow fixes the last floor selected showing as selected bug");
+        }
         return path;
     }
 
@@ -554,7 +546,7 @@ public class PatientController extends Controller {
                         oldLocation.y = y;
                         oldOldLocation = oldLocation;
                     }
-                    else if(oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
+                    else if(oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
                         gc.strokeLine(oldOldLocation.x * mapWidth / 5000, oldOldLocation.y * mapHeight / 3400, oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;

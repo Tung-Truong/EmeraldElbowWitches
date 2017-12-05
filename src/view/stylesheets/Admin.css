@@ -1,3 +1,7 @@
 .testPanel{
     -fx-background-color: #235782;
 }
+
+.upButton{
+    -fx-image: url(/view/media/arrowUp.png);
+}
