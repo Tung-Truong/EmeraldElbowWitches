@@ -116,13 +116,9 @@ public class PatientController extends Controller {
     @FXML
     private Label floorL2Label;
 
-    private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
-    double mapWidth;
-    double mapHeight;
-    ImageLoader mapImage = new ImageLoader();
     ArrayList<String> Floors;
     double startX;
     double startY;
@@ -133,15 +129,19 @@ public class PatientController extends Controller {
 //    private int YTrans = single.getYTrans();
 //    private double Zoom = single.getZoom();
 //    private PathingContainer currentAlgorithm = new PathingContainer();
+//    private GraphicsContext gc1 = null;
+//    double mapWidth;
+//    double mapHeight;
+//    ImageLoader mapImage = new ImageLoader();
 
     public void initialize() {
-        Image m1 = mapImage.getLoadedMap("btn_map01");
+        Image m1 = single.getMapImage().getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
         btn_map01.setOpacity(1);
         single.getAlgorithm().setPathAlg(new astar());
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
         setKioskLoc(2460, 910);
         redraw();
         for(NodeObj n : Main.getNodeMap().getNodes()){
@@ -152,9 +152,9 @@ public class PatientController extends Controller {
     }
 
     private void redraw() {
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        if (single.getGc() == null)
+            single.setGc(gc.getGraphicsContext2D());
+        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
     }
 
     @FXML
@@ -165,7 +165,7 @@ public class PatientController extends Controller {
         if (currPath != null) {
             if (oldAnimation != null) {
                 oldAnimation.stop();
-                gc1.clearRect(0, 0, mapWidth, mapHeight);
+                single.getGc().clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
@@ -215,11 +215,11 @@ public class PatientController extends Controller {
                     clearChosenFloor();
                     redraw();
                     Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
-                    Image map = mapImage.getLoadedMap("btn_map" + newSearchNode.node.getFloor());
+                    Image map = single.getMapImage().getLoadedMap("btn_map" + newSearchNode.node.getFloor());
                     this.currentMap.setImage(map);
-                    gc1.setFill(Color.DARKRED);
-                    gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
-                            newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
+                    single.getGc().setFill(Color.DARKRED);
+                    single.getGc().fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                            newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                             10,
                             10);
                 } catch (InvalidNodeException exc) {
@@ -229,7 +229,7 @@ public class PatientController extends Controller {
         }
 
         if (!clickedID.equals("SearchForNode")) {
-            Image map = mapImage.getLoadedMap(clickedID);
+            Image map = single.getMapImage().getLoadedMap(clickedID);
             this.currentMap.setImage(map);
             redraw();
         }
@@ -389,7 +389,7 @@ public class PatientController extends Controller {
         floor1Label.setText("");
         floor2Label.setText("");
         floor3Label.setText("");
-        gc1.setLineWidth(2);
+        single.getGc().setLineWidth(2);
         NodeObj tempDraw = goal;
         Floors = new ArrayList<String>();
         for (NodeObj n : currPath) {
@@ -397,10 +397,10 @@ public class PatientController extends Controller {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                         tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
                     if (n != Main.getKiosk()) {
-                        gc1.strokeLine(n.node.getxLoc() * mapWidth / 5000,
-                                n.node.getyLoc() * mapHeight / 3400,
-                                tempDraw.node.getxLoc() * mapWidth / 5000,
-                                tempDraw.node.getyLoc() * mapHeight / 3400);
+                        single.getGc().strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
+                                n.node.getyLoc() * single.getMapHeight() / 3400,
+                                tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
+                                tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
                     }
                 }
             }
@@ -415,20 +415,20 @@ public class PatientController extends Controller {
         }
 
         if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
-                    goal.node.getyLoc() * mapHeight / 3400 - 5,
+            single.getGc().setFill(Color.DARKRED);
+            single.getGc().fillOval(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                    goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKGREEN);
-            gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
-                    Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
+            single.getGc().setFill(Color.DARKGREEN);
+            single.getGc().fillOval(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                    Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
         }
-        gc1.setFill(Color.YELLOW);
+        single.getGc().setFill(Color.YELLOW);
         clearChosenFloor();
         System.out.println(Floors.toString());
     }
@@ -441,14 +441,14 @@ public class PatientController extends Controller {
         directionsButton.setVisible(true);
         //create a new astar object
         SearchPath.setVisible(false);
-        double mousex = (5000 * event.getX()) / mapWidth;
-        double mousey = (3400 * event.getY()) / mapHeight;
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
+        double mousex = (5000 * event.getX()) / single.getMapWidth();
+        double mousey = (3400 * event.getY()) / single.getMapHeight();
+        if (single.getGc() == null)
+            single.setGc(gc.getGraphicsContext2D());
+        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        single.getGc().setLineWidth(2);
+        single.getGc().setStroke(Color.BLUE);
+        single.getGc().setFill(Color.RED);
         //get node that corr. to click from ListOfNodeObjects made in main
         try {
             goal = Main.getNodeMap().getNearestNeighborFilter
@@ -463,7 +463,7 @@ public class PatientController extends Controller {
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
-                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+                single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
                 strPath = single.getAlgorithm().getPathAlg().getGenPath();
                 currPath = strPath;
@@ -479,7 +479,7 @@ public class PatientController extends Controller {
             }
             if (oldAnimation != null) {
                 oldAnimation.stop();
-                gc1.clearRect(0, 0, mapWidth, mapHeight);
+                single.getGc().clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
@@ -512,7 +512,7 @@ public class PatientController extends Controller {
     }
 
     private Animation createPathAnimation(Path path, Duration duration) {
-        GraphicsContext gc = gc1;
+        GraphicsContext gc = single.getGc();
         Circle pen = new Circle(0, 0, 4);
 
         PathTransition pathTransition = new PathTransition(duration, path, pen);
@@ -542,13 +542,13 @@ public class PatientController extends Controller {
                     NodeObj b = Main.getNodeMap().getNearestNeighborFilter((int)x,(int)y);
 
                     if(a.getListOfNeighbors().contains(b)){
-                        gc.strokeLine(oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400, x * mapWidth / 5000, y * mapHeight / 3400);
+                        gc.strokeLine(oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400, x * single.getMapWidth() / 5000, y * single.getMapHeight() / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;
                         oldOldLocation = oldLocation;
                     }
                     else if(oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
-                        gc.strokeLine(oldOldLocation.x * mapWidth / 5000, oldOldLocation.y * mapHeight / 3400, oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400);
+                        gc.strokeLine(oldOldLocation.x * single.getMapWidth() / 5000, oldOldLocation.y * single.getMapHeight() / 3400, oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;
                     }
@@ -608,8 +608,8 @@ public class PatientController extends Controller {
      */
     @FXML
     void setStartNode(MouseEvent event) {
-        double mousex = (5000 * event.getX()) / mapWidth;
-        double mousey = (3400 * event.getY()) / mapHeight;
+        double mousex = (5000 * event.getX()) / single.getMapWidth();
+        double mousey = (3400 * event.getY()) / single.getMapHeight();
         String newStartNodeID = null;
         try {
             newStartNodeID = Main.getNodeMap().getNearestNeighborFilter((int) mousex, (int) mousey).getNode().getNodeID();
@@ -654,15 +654,15 @@ public class PatientController extends Controller {
                     ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
                     Main.controllers.updateAllMaps(e);
                     ((JFXButton) e.getSource()).setId("SearchForNode");
-                    gc1.setFill(Color.DARKRED);
-                    gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
-                            newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
+                    single.getGc().setFill(Color.DARKRED);
+                    single.getGc().fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                            newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                             10,
                             10);
                     SearchPath.setVisible(true);
                     SearchPath.setText(searchNewNodeID);
-                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * mapWidth / 5000);
-                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * mapHeight / 3400);
+                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000);
+                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * single.getMapHeight() / 3400);
                 } catch (InvalidNodeException exc) {
                     exc.printStackTrace();
                 }
@@ -677,12 +677,12 @@ public class PatientController extends Controller {
     void PathToHere() {
         //create a new astar object
         SearchPath.setVisible(false);
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
+        if (single.getGc() == null)
+            single.setGc(gc.getGraphicsContext2D());
+        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        single.getGc().setLineWidth(2);
+        single.getGc().setStroke(Color.BLUE);
+        single.getGc().setFill(Color.RED);
         //get node that corr. to click from ListOfNodeObjects made in main
         if (Main.getNodeMap().getNodeObjByID(SearchPath.getText()) != null) {
             goal = Main.getNodeMap().getNodeObjByID(SearchPath.getText());
@@ -706,7 +706,7 @@ public class PatientController extends Controller {
                 
                 if (oldAnimation != null) {
                     oldAnimation.stop();
-                    gc1.clearRect(0, 0, mapWidth, mapHeight);
+                    single.getGc().clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
                     redraw();
                     gc.getGraphicsContext2D().setStroke(Color.BLUE);
                 }
@@ -768,8 +768,8 @@ public class PatientController extends Controller {
         currentMap.setScaleY(single.getZoom());
         currentMap.setTranslateX(single.getXTrans());
         currentMap.setTranslateY(single.getYTrans());
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
     }
 
     @FXML

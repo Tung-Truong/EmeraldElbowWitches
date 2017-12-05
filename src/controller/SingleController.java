@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.scene.canvas.GraphicsContext;
+import model.ImageLoader;
 import model.PathingAlgorithm;
 import model.PathingContainer;
 
@@ -12,6 +14,10 @@ public class SingleController {
     private int YTrans = 0;
     private double Zoom = 1;
     private PathingContainer algorithm = new PathingContainer();
+    private GraphicsContext gc = null;
+    double mapWidth;
+    double mapHeight;
+    ImageLoader mapImage = new ImageLoader();
 
     public static SingleController getController(){
         return control;
@@ -39,6 +45,22 @@ public class SingleController {
         return algorithm;
     }
 
+    public double getMapHeight() {
+        return mapHeight;
+    }
+
+    public double getMapWidth() {
+        return mapWidth;
+    }
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
+
+    public ImageLoader getMapImage() {
+        return mapImage;
+    }
+
     public void setZoom(double zoom) {
         Zoom = zoom;
     }
@@ -49,6 +71,22 @@ public class SingleController {
 
     public void setYTrans(int yTrans) {
         YTrans = yTrans;
+    }
+
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+
+    public void setMapHeight(double mapHeight) {
+        this.mapHeight = mapHeight;
+    }
+
+    public void setMapWidth(double mapWidth) {
+        this.mapWidth = mapWidth;
+    }
+
+    public void setMapImage(ImageLoader mapImage) {
+        this.mapImage = mapImage;
     }
 
     public void addX(int add){
