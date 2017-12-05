@@ -204,7 +204,8 @@ public class ServiceRequest implements IReport {
                     }
                 }
             } catch (Exception e){
-                e.printStackTrace();
+                e.getMessage();
+                System.out.println("Did Not Refresh");
             }
         }
         // when the refresh button is pressed check for resolutions to request
