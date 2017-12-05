@@ -124,5 +124,10 @@
             <Image url="@../media/leavedown.gif" />
          </image>
       </ImageView>
+      <ImageView fx:id="leaveUp" visible="false">
+         <image>
+            <Image url="@../media/leaveup.gif" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
