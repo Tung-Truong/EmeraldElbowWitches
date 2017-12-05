@@ -135,9 +135,6 @@ public class AdminController extends Controller {
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
-    private int XTrans = 0;
-    private int YTrans = 0;
-    private double Zoom = 1;
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
     private PathingContainer currentAlgorithm = new PathingContainer();
@@ -146,6 +143,10 @@ public class AdminController extends Controller {
     ImageLoader mapImage = new ImageLoader();
     public String servReqNodeID;
     NodeObj nodeA = null;
+    private SingleController single = SingleController.getController();
+//    private int XTrans = single.getXTrans();
+//    private int YTrans = single.getYTrans();
+//    private double Zoom = single.getZoom();
 
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -521,48 +522,48 @@ public class AdminController extends Controller {
     @FXML
     void Zin() {
         System.out.println(zoomBar.getValue());
-        Zoom = zoomBar.getValue();
+        single.setZoom(zoomBar.getValue());
         resize();
 
     }
 
     @FXML
     void Tleft() {
-        XTrans+=(int) (200.0/Zoom);
+        single.addX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tright() {
-        XTrans-=(int) (200.0/Zoom);
+        single.subX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tup() {
-        YTrans+=(int) (160.0/Zoom);
+        single.addY((int) (160.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tdown() {
-        YTrans-=(int) (160.0/Zoom);
+        single.subY((int) (160.0 / single.getZoom()));
         resize();
     }
 
-    public void resize(){
-        if(Zoom<=1){
-            XTrans = 0;
-            YTrans = 0;
+    public void resize() {
+        if (single.getZoom() <= 1) {
+            single.setXTrans(0);
+            single.setYTrans(0);
         }
-        gc.setScaleX(Zoom);
-        gc.setScaleY(Zoom);
-        gc.setTranslateX(XTrans);
-        gc.setTranslateY(YTrans);
-        currentMap.setScaleX(Zoom);
-        currentMap.setScaleY(Zoom);
-        currentMap.setTranslateX(XTrans);
-        currentMap.setTranslateY(YTrans);
+        gc.setScaleX(single.getZoom());
+        gc.setScaleY(single.getZoom());
+        gc.setTranslateX(single.getXTrans());
+        gc.setTranslateY(single.getYTrans());
+        currentMap.setScaleX(single.getZoom());
+        currentMap.setScaleY(single.getZoom());
+        currentMap.setTranslateX(single.getXTrans());
+        currentMap.setTranslateY(single.getYTrans());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
     }
