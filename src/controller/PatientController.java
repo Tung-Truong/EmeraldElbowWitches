@@ -471,8 +471,8 @@ public class PatientController extends Controller {
                     10,
                     10);
             startImage.setVisible(true);
-            startImage.setX(Main.getKiosk().node.getxLoc());
-            startImage.setY(Main.getKiosk().node.getyLoc());
+            startImage.setX(Main.getKiosk().node.getxLoc()*mapWidth/5000 -5 );
+            startImage.setY(Main.getKiosk().node.getyLoc()*mapHeight/3400 - 5);
 
         }
         gc1.setFill(Color.YELLOW);
