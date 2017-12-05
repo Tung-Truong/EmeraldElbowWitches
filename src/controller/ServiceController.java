@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
-    private String serviceNeeded;
+//    private String serviceNeeded;
     private ServiceRequest service;
+    private SingleController single = SingleController.getController();
 
     @FXML
     public JFXTextField servLocField;
@@ -43,18 +44,18 @@ public class ServiceController {
         RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter");//, "cafeteria");
     }
 
-    public String getServiceNeeded() {
-        return this.serviceNeeded;
-    }
+//    public String getServiceNeeded() {
+//        return this.serviceNeeded;
+//    }
 
     public ServiceRequest getService() {
         return this.service;
     }
 
     // Setters
-    public void setServiceNeeded(String service) throws NullPointerException {
-        this.serviceNeeded = service;
-    }
+//    public void setServiceNeeded(String service) throws NullPointerException {
+//        this.serviceNeeded = service;
+//    }
 
     @FXML
     void close(){
@@ -163,11 +164,11 @@ public class ServiceController {
             service = new InterpreterService();
             // placeholder
             service.setAccountTo(email);
-            serviceNeeded = "Interpreter";
+            single.setServiceNeeded("Interpreter");
         } else if (needed.toUpperCase().equals("JANITOR")) {
             service = new JanitorService();
             service.setAccountTo(email);
-            serviceNeeded = "Janitor";
+            single.setServiceNeeded("Janitor");
         } /*else {
             service = new CafeteriaService();
             // placeholder

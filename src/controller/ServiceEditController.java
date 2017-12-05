@@ -12,9 +12,10 @@ import java.util.ArrayList;
 
 public class ServiceEditController {
     // Attributes
-    private String serviceNeeded;
+    // private String serviceNeeded;
     private ServiceRequest service;
     private Employee foundMOd, foundDel;
+    private SingleController single =  SingleController.getController();
 
    /* @FXML
     private MenuButton FoodDropdown,
@@ -35,18 +36,18 @@ public class ServiceEditController {
 
 
     // Getters
-    public String getServiceNeeded() {
-        return this.serviceNeeded;
-    }
+//    public String getServiceNeeded() {
+//        return this.serviceNeeded;
+//    }
 
     public ServiceRequest getService() {
         return this.service;
     }
 
     // Setters
-    public void setServiceNeeded(String service) throws NullPointerException {
-        this.serviceNeeded = service;
-    }
+//    public void setServiceNeeded(String service) throws NullPointerException {
+//        this.serviceNeeded = service;
+//    }
 
    /* public void setService() {
         String needed = this.RequestServiceDropdown.getText();

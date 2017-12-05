@@ -18,6 +18,7 @@ public class SingleController {
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
+    private String serviceNeeded;
 
     public static SingleController getController(){
         return control;
@@ -61,6 +62,10 @@ public class SingleController {
         return mapImage;
     }
 
+    public String getServiceNeeded() {
+        return serviceNeeded;
+    }
+
     public void setZoom(double zoom) {
         Zoom = zoom;
     }
@@ -85,8 +90,8 @@ public class SingleController {
         this.mapWidth = mapWidth;
     }
 
-    public void setMapImage(ImageLoader mapImage) {
-        this.mapImage = mapImage;
+    public void setServiceNeeded(String serviceNeeded) {
+        this.serviceNeeded = serviceNeeded;
     }
 
     public void addX(int add){
