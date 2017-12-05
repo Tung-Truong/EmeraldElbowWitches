@@ -427,6 +427,8 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * mapHeight / 3400,
                                 tempDraw.node.getxLoc() * mapWidth / 5000,
                                 tempDraw.node.getyLoc() * mapHeight / 3400);
+                        gc1.fillText("Start",Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                                Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5);
                     }
                 } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
                     gc1.setFill(Color.BLACK);
@@ -434,12 +436,14 @@ public class PatientController extends Controller {
                             n.node.getyLoc() * mapHeight / 3400 - 5,
                             10,
                             10);
+                    gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
+                            n.node.getyLoc() * mapHeight / 3400 - 5);/*
                     Double h = leaveDown.getFitHeight();
                     Double w = leaveDown.getFitWidth();
                     leaveUp.setVisible(true);
                     leaveUp.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
                     leaveUp.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-
+*/
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
                     gc1.setFill(Color.GOLD);
@@ -447,12 +451,14 @@ public class PatientController extends Controller {
                             n.node.getyLoc() * mapHeight / 3400 - 5,
                             10,
                             10);
-                    Double h = leaveDown.getFitHeight();
+                    gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
+                            n.node.getyLoc() * mapHeight / 3400 - 5);
+  /*                  Double h = leaveDown.getFitHeight();
                     Double w = leaveDown.getFitWidth();
                     leaveDown.setVisible(true);
                     leaveDown.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
                     leaveDown.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-
+*/
                 }
             }
             if (Floors.size() > 0) {
@@ -473,25 +479,27 @@ public class PatientController extends Controller {
                     goal.node.getyLoc() * mapHeight / 3400 - 5,
                     10,
                     10);
+            gc1.fillText("End",goal.node.getxLoc() * mapWidth / 5000 - 5,
+                    goal.node.getyLoc() * mapHeight / 3400 - 5);/*
             Double h = endImage.getFitHeight();
             Double w = endImage.getFitWidth();
             endImage.setVisible(true);
             // the 8 and 13 below are magic numbers, probably to account for the image not being symmetrical
             endImage.setX(goal.node.getxLoc() * mapWidth / 5000 - 8 - endImage.getFitWidth() / 2);
             endImage.setY(goal.node.getyLoc() * mapHeight / 3400 - 13 - endImage.getFitHeight());
-        }
+        */}
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);
             gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
                     Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
                     10,
-                    10);
+                    10);/*
             Double h = startImage.getFitHeight();
             Double w = startImage.getFitWidth();
             startImage.setVisible(true);
             startImage.setX(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - w / 2 - 4);
             startImage.setY(Main.getKiosk().node.getyLoc() * mapHeight / 3400 - h + 4);
-
+*/
         }
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
