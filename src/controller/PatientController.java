@@ -642,26 +642,31 @@ public class PatientController extends Controller {
     @FXML
     void setSearchNode(Event e) {
         if (((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
+            try{
             String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
-            NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-            try {
-                if (newSearchNode == null)
-                    throw new InvalidNodeException("no node with that ID");
-                getMap(e);
-                ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
-                Main.controllers.updateAllMaps(e);
-                ((JFXButton) e.getSource()).setId("SearchForNode");
-                gc1.setFill(Color.DARKRED);
-                gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
-                        newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
-                        10,
-                        10);
-                SearchPath.setVisible(true);
-                SearchPath.setText(searchNewNodeID);
-                SearchPath.setLayoutX(newSearchNode.node.getxLoc() * mapWidth / 5000);
-                SearchPath.setLayoutY(newSearchNode.node.getyLoc() * mapHeight / 3400);
-            } catch (InvalidNodeException exc) {
-                exc.printStackTrace();
+
+                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                try {
+                    if (newSearchNode == null)
+                        throw new InvalidNodeException("no node with that ID");
+                    getMap(e);
+                    ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                    Main.controllers.updateAllMaps(e);
+                    ((JFXButton) e.getSource()).setId("SearchForNode");
+                    gc1.setFill(Color.DARKRED);
+                    gc1.fillOval(newSearchNode.node.getxLoc() * mapWidth / 5000 - 5,
+                            newSearchNode.node.getyLoc() * mapHeight / 3400 - 5,
+                            10,
+                            10);
+                    SearchPath.setVisible(true);
+                    SearchPath.setText(searchNewNodeID);
+                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * mapWidth / 5000);
+                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * mapHeight / 3400);
+                } catch (InvalidNodeException exc) {
+                    exc.printStackTrace();
+                }
+            }catch (NullPointerException exc){
+                exc.getMessage();
             }
         }
 
