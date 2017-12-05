@@ -158,6 +158,7 @@ public class PatientController extends Controller {
 
     @FXML
     void changeMap(Event e) {
+        resetFloorButtons();
         oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
         if (currPath != null) {
@@ -236,32 +237,19 @@ public class PatientController extends Controller {
     }
 
     void clearChosenFloor() {
-        if (Floors == null) {
-            btn_mapL2.setOpacity(.5);
-            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
-            btn_mapL1.setOpacity(.5);
-            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
-            btn_mapG.setOpacity(.5);
-            btn_mapG.setStyle("-fx-background-color:   #4286f4");
-            btn_map01.setOpacity(.5);
-            btn_map01.setStyle("-fx-background-color:   #4286f4");
-            btn_map02.setOpacity(.5);
-            btn_map02.setStyle("-fx-background-color:   #4286f4");
-            btn_map03.setOpacity(.5);
-            btn_map03.setStyle("-fx-background-color:   #4286f4");
-        } else {
-            btn_mapL2.setOpacity(.5);
-            btn_mapL2.setStyle("-fx-background-color:   #4286f4");
-            btn_mapL1.setOpacity(.5);
-            btn_mapL1.setStyle("-fx-background-color:   #4286f4");
-            btn_mapG.setOpacity(.5);
-            btn_mapG.setStyle("-fx-background-color:   #4286f4");
-            btn_map01.setOpacity(.5);
-            btn_map01.setStyle("-fx-background-color:   #4286f4");
-            btn_map02.setOpacity(.5);
-            btn_map02.setStyle("-fx-background-color:   #4286f4");
-            btn_map03.setOpacity(.5);
-            btn_map03.setStyle("-fx-background-color:   #4286f4");
+        btn_mapL2.setOpacity(.5);
+        btn_mapL2.setStyle("-fx-background-color:   #4286f4");
+        btn_mapL1.setOpacity(.5);
+        btn_mapL1.setStyle("-fx-background-color:   #4286f4");
+        btn_mapG.setOpacity(.5);
+        btn_mapG.setStyle("-fx-background-color:   #4286f4");
+        btn_map01.setOpacity(.5);
+        btn_map01.setStyle("-fx-background-color:   #4286f4");
+        btn_map02.setOpacity(.5);
+        btn_map02.setStyle("-fx-background-color:   #4286f4");
+        btn_map03.setOpacity(.5);
+        btn_map03.setStyle("-fx-background-color:   #4286f4");
+        if (Floors != null) {
             /*for(int i = 0; i < Floors.size(); i++){
                 selectFloor(Floors.get(i), i+1);
             }*/
