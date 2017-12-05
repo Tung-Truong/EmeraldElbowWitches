@@ -554,7 +554,7 @@ public class PatientController extends Controller {
                         oldLocation.y = y;
                         oldOldLocation = oldLocation;
                     }
-                    else if(oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
+                    else if(oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
                         gc.strokeLine(oldOldLocation.x * mapWidth / 5000, oldOldLocation.y * mapHeight / 3400, oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;
