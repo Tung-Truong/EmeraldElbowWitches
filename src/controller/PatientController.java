@@ -116,6 +116,20 @@ public class PatientController extends Controller {
     @FXML
     private Label floorL2Label;
 
+    @FXML
+    private ImageView startImage;
+
+    @FXML
+    private ImageView endImage;
+
+    @FXML
+    private ImageView leaveUp;
+
+    @FXML
+    private ImageView leaveDown;
+
+
+
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
     private int XTrans = 0;
@@ -414,12 +428,27 @@ public class PatientController extends Controller {
                                 tempDraw.node.getyLoc() * mapHeight / 3400);
                     }
                 }
+                else if(n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())){
+                    gc1.setFill(Color.BLACK);
+                    gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 5,
+                            n.node.getyLoc() * mapHeight / 3400 - 5,
+                            10,
+                            10);
+                }
+                else if(!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())){
+                    gc1.setFill(Color.GOLD);
+                    gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 5,
+                            n.node.getyLoc() * mapHeight / 3400 - 5,
+                            10,
+                            10);
+                }
             }
             if (Floors.size() > 0) {
                 if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
                     Floors.add(n.getNode().getFloor());
                 }
             } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
                 Floors.add(n.getNode().getFloor());
             }
             tempDraw = n;
@@ -431,6 +460,9 @@ public class PatientController extends Controller {
                     goal.node.getyLoc() * mapHeight / 3400 - 5,
                     10,
                     10);
+            endImage.setVisible(true);
+            endImage.setX(Main.getKiosk().node.getxLoc());
+            endImage.setY(Main.getKiosk().node.getyLoc());
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);
@@ -438,6 +470,10 @@ public class PatientController extends Controller {
                     Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
                     10,
                     10);
+            startImage.setVisible(true);
+            startImage.setX(Main.getKiosk().node.getxLoc());
+            startImage.setY(Main.getKiosk().node.getyLoc());
+
         }
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
@@ -474,6 +510,7 @@ public class PatientController extends Controller {
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
             if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+                
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
                 strPath = currentAlgorithm.getPathAlg().getGenPath();
@@ -554,7 +591,7 @@ public class PatientController extends Controller {
                         oldLocation.y = y;
                         oldOldLocation = oldLocation;
                     }
-                    else if(oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
+                    else if(oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
                         gc.strokeLine(oldOldLocation.x * mapWidth / 5000, oldOldLocation.y * mapHeight / 3400, oldLocation.x * mapWidth / 5000, oldLocation.y * mapHeight / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;

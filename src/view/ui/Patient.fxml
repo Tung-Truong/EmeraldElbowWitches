@@ -109,5 +109,20 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <ImageView fx:id="startImage" fitHeight="89.0" fitWidth="200.0" layoutX="111.0" layoutY="207.0" visible="false">
+         <image>
+            <Image url="@../media/start.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="endImage" fitHeight="89.0" fitWidth="200.0" layoutX="183.0" layoutY="230.0" visible="false">
+         <image>
+            <Image url="@../media/end.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="leaveDown" layoutX="481.0" layoutY="220.0" visible="false">
+         <image>
+            <Image url="@../media/leavedown.gif" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
