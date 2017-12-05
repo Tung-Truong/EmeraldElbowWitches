@@ -436,12 +436,9 @@ public class PatientController extends Controller {
                             10);
                     Double h = leaveDown.getFitHeight();
                     Double w = leaveDown.getFitWidth();
-                    leaveDown.setVisible(true);
-                    leaveDown.setX(tempDraw.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
-                    leaveDown.setY(tempDraw.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-                    leaveDown.setVisible(true);
-                    leaveDown.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
-                    leaveDown.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
+                    leaveUp.setVisible(true);
+                    leaveUp.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
+                    leaveUp.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
 
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -455,9 +452,7 @@ public class PatientController extends Controller {
                     leaveDown.setVisible(true);
                     leaveDown.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
                     leaveDown.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-                    leaveDown.setVisible(true);
-                    leaveDown.setX(tempDraw.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
-                    leaveDown.setY(tempDraw.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
+
                 }
             }
             if (Floors.size() > 0) {
