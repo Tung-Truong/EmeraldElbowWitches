@@ -470,9 +470,13 @@ public class PatientController extends Controller {
                     Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
                     10,
                     10);
+            Double h = startImage.getFitHeight();
+            Double w = startImage.getFitWidth();
             startImage.setVisible(true);
             startImage.setX(Main.getKiosk().node.getxLoc()*mapWidth/5000 -5 );
             startImage.setY(Main.getKiosk().node.getyLoc()*mapHeight/3400 - 5);
+            startImage.setX(Main.getKiosk().node.getxLoc()*mapWidth/5000 - w/2 -4);
+            startImage.setY(Main.getKiosk().node.getyLoc()*mapHeight/3400 - h + 4);
 
         }
         gc1.setFill(Color.YELLOW);
@@ -625,6 +629,7 @@ public class PatientController extends Controller {
     @FXML
     void mousePress(MouseEvent event) {
         if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
+            oldAnimation.stop();
             setStartNode(event);
         } else if (event.getButton() == MouseButton.PRIMARY) {
             findPath(event);

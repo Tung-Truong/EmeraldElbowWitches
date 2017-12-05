@@ -109,7 +109,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <ImageView fx:id="startImage" fitHeight="89.0" fitWidth="200.0" layoutX="111.0" layoutY="207.0">
+      <ImageView fx:id="startImage" fitHeight="89.0" fitWidth="144.0" layoutX="3.0" layoutY="-3.0">
          <image>
             <Image url="@../media/start.png" />
          </image>
