@@ -132,6 +132,7 @@ public class PatientController extends Controller {
     double startY;
     ArrayList<NodeObj> strPath;
     Animation oldAnimation;
+    SingleController single = SingleController.getController();
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -141,7 +142,7 @@ public class PatientController extends Controller {
         currentAlgorithm.setPathAlg(new astar());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
-        setKioskLoc(2460, 910);
+        single.setKioskLoc(2460, 910);
         redraw();
         for(NodeObj n : Main.getNodeMap().getNodes()){
             if(!n.node.getNodeType().equals("HALL")){
@@ -362,17 +363,17 @@ public class PatientController extends Controller {
                 break;
         }
     }
-
-    /*
-     * setKioskLoc sets the default location for the floor
-     */
-    void setKioskLoc(int xCoord, int yCoord) {
-        try {
-            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-    }
+// Currently in Singleton
+//    /*
+//     * setKioskLoc sets the default location for the floor
+//     */
+//    void setKioskLoc(int xCoord, int yCoord) {
+//        try {
+//            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
+//        } catch (InvalidNodeException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void DrawCurrentFloorPath() {
         /*HealthCareRun health = new HealthCareRun();
