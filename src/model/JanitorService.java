@@ -12,6 +12,7 @@ public class JanitorService extends ServiceRequest{
 
     // Constructors
     public JanitorService (){
+        classType = this.getClass().toString();
         used ++;
         this.setAccountTo(janitorEmail);
     }

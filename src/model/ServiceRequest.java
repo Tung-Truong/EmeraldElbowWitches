@@ -16,7 +16,6 @@ public class ServiceRequest implements IReport {
     private String username = "elbowwitchemerald@gmail.com"; // E-mail corresponding to the sending e-mail address
     private String password = "passwordhuh";
     private boolean isActive;
-    private String replyInfo;
 
     protected String email;
     protected String messageText;
@@ -25,10 +24,26 @@ public class ServiceRequest implements IReport {
     protected Date received;
     protected Date sent;
     protected Employee assigned;
+    protected String classType;
 
     // Constructor
 
     // Sets up attributes in order to send emails
+    /*
+        Info Format:
+        34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
+     */
+    public ServiceRequest(String id, String type, String active, String submitted){
+        isActive = Boolean.parseBoolean(active);
+        for (Employee e : Main.employees){
+            if(Long.parseLong(id) == e.getId()){
+                assigned = e;
+            }
+        }
+        sent = new Date(Date.parse(submitted));
+
+        classType = type;
+    }
     public ServiceRequest(){
         isActive = true;
 
