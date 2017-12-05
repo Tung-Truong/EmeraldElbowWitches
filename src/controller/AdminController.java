@@ -32,6 +32,15 @@ public class AdminController extends Controller {
     private JFXButton serviceRequestBtn;
 
     @FXML
+    private JFXButton addEditBtn;
+
+    @FXML
+    private JFXButton editEmployeesBtn;
+
+    @FXML
+    private JFXButton removeNodeBtn;
+
+    @FXML
     private JFXTogglePane textTogglePane;
 
     @FXML
@@ -132,6 +141,24 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXButton bestBtn;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+
+
+
+
+
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -426,8 +453,8 @@ public class AdminController extends Controller {
         opacHandler(.5, hoveredID);
     }
 
-    void opacHandler(double opacity, String hoveredID){
-        switch (hoveredID){
+    void opacHandler(double opacity, String hoveredID) {
+        switch (hoveredID) {
             case "astarBtn":
                 astarBtn.setOpacity(opacity);
                 break;
@@ -446,7 +473,31 @@ public class AdminController extends Controller {
             case "bestBtn":
                 bestBtn.setOpacity(opacity);
                 break;
-        }
+            case "editEmployeesBtn":
+                editEmployeesBtn.setOpacity(opacity);
+                 break;
+            case "serviceRequestBtn":
+                serviceRequestBtn.setOpacity(opacity);
+                break;
+            case "addEditBtn":
+                addEditBtn.setOpacity(opacity);
+                break;
+            case "removeNodeBtn":
+                removeNodeBtn.setOpacity(opacity);
+                break;
+            case "Tup":
+                Tup.setOpacity(opacity);
+                break;
+            case "Tdown":
+                Tdown.setOpacity(opacity);
+                break;
+            case "Tleft":
+                Tleft.setOpacity(opacity);
+                break;
+            case "Tright":
+                Tright.setOpacity(opacity);
+                break;
+    }
     }
 
     @FXML
