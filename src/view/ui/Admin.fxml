@@ -88,7 +88,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Pane fx:id="nodeInfoPane" layoutX="1093.0" layoutY="504.0" prefHeight="388.0" prefWidth="296.0">
+      <Pane fx:id="nodeInfoPane" layoutX="1102.0" layoutY="548.0" prefHeight="388.0" prefWidth="296.0">
          <children>
             <JFXTextField fx:id="nodeTypeField" layoutX="130.0" layoutY="198.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="shortNameField" layoutX="131.0" layoutY="239.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -108,9 +108,9 @@
             <Label layoutX="35.0" layoutY="236.0" prefHeight="27.0" prefWidth="75.0" text="Short Name" />
             <Label layoutX="35.0" layoutY="276.0" prefHeight="27.0" prefWidth="75.0" text="Long Name" />
             <Label layoutX="52.0" layoutY="321.0" prefHeight="27.0" prefWidth="58.0" text="Team" />
-            <JFXButton layoutX="135.0" layoutY="358.0" onAction="#addEditNode" style="-fx-background-color: #21a047;" text="Add/Edit" textFill="WHITE" />
-            <JFXButton layoutX="215.0" layoutY="358.0" onAction="#removeNode" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
-            <JFXButton fx:id="serviceRequestBtn" layoutY="358.0" onAction="#makeServiceRequest" prefHeight="27.0" prefWidth="119.0" style="-fx-background-color: #4286f4;" text="Service Request" textFill="WHITE" />
+            <JFXButton layoutX="-20.0" layoutY="174.0" onAction="#addEditNode" rotate="-90.0" style="-fx-background-color: #21a047;" text="Add/Edit" textFill="WHITE" />
+            <JFXButton layoutX="-14.0" layoutY="107.0" onAction="#removeNode" rotate="-90.0" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
+            <JFXButton fx:id="serviceRequestBtn" layoutX="-42.0" layoutY="269.0" onAction="#makeServiceRequest" prefHeight="27.0" prefWidth="119.0" rotate="-90.0" style="-fx-background-color: #4286f4;" text="Service Request" textFill="WHITE" />
          </children>
       </Pane>
       <Pane fx:id="edgeInfoPane" layoutX="1143.0" layoutY="502.0" prefHeight="388.0" prefWidth="247.0" visible="false">
@@ -160,5 +160,11 @@
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="1125.0" layoutY="473.0" onAction="#RemoveRequest" prefHeight="33.0" prefWidth="269.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="Remove Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="CurrRequ" layoutX="1125.0" layoutY="505.0" onMouseClicked="#MyRequests" prefHeight="35.0" prefWidth="270.0" promptText="My Requests" style="-fx-background-color: #4286f4#4286f4;" />
    </children>
 </Pane>

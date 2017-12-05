@@ -264,6 +264,14 @@ public class Main extends Application {
         return employees;
     }
 
+    public static ArrayList<ServiceRequest> getRequestList(){
+        return requests;
+    }
+
+    public void removeRequestList(ServiceRequest req){
+        requests.remove(req);
+    }
+
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
     }
@@ -279,6 +287,8 @@ public class Main extends Application {
     public static Employee getCurrUser() {
         return currUser;
     }
+
+
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;

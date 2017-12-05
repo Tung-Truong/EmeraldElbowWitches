@@ -72,21 +72,24 @@ public class ServiceController {
                 service.setMessageHeader("Supplies needed at: " + location);
             } else if (service instanceof InterpreterService) {
                 service.setMessageHeader("Interpreter needed at: " + location);
-            } else {
+            }/* else {
                 service.setMessageHeader("Food needed in: " + location);
-            }
+            }*/
             service.setLocation(servLocField.getText());
 
             service.setMessageText(NotesTextField.getText());
             service.sendEmailServiceRequest();
 
-            // Header field is not being updated so definitely look into this more
-
-            System.out.println("Message sent succesfully");
+            service.toString();
+            System.out.println("add");
+            System.out.println(Main.getRequestList().size());
             Main.requests.add(service);
+            System.out.println(Main.getRequestList().size());
+            System.out.println("Message sent succesfully");
+            close();
         }
         catch(NullPointerException e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -146,7 +149,7 @@ public class ServiceController {
         employeeAvailable();
     }
 
-    public void setService() throws NullPointerException{//need to search through all employees and find correct ID
+    /*public void setService() throws NullPointerException{//need to search through all employees and find correct ID
         String needed = RequestServiceDropdown.getValue();
         if(AssignEmployee.getValue().split(" ") == null)
             throw new NullPointerException("No service added");
@@ -168,15 +171,15 @@ public class ServiceController {
             service = new JanitorService();
             service.setAccountTo(email);
             serviceNeeded = "Janitor";
-        } /*else {
+        } else {
             service = new CafeteriaService();
             // placeholder
             service.setAccountTo(email);
-            serviceNeeded = "Food";*/
-        }
+            serviceNeeded = "Food";
+        }*/
 
-        /* public void setService() {
-        String needed = this.RequestServiceDropdown.getText();
+        public void setService() throws NullPointerException{
+        String needed = this.RequestServiceDropdown.getValue();
         if(AssignEmployee.getValue().split(" ") == null)
             throw new NullPointerException("No service added");
         String[] requestedEmployee = AssignEmployee.getValue().split(" ");
@@ -196,19 +199,24 @@ public class ServiceController {
             service.setAssigned(assign);
             service.setAccountTo(email);
             serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase().equals("MAINTENANCE")) {
+        } else if (needed.toUpperCase().equals("JANITOR")) {
             service = new JanitorService();
+            System.out.println("righthrt");
+            System.out.println("" + assign.getId());
             service.setAssigned(assign);
             service.setAccountTo(email);
+            System.out.println("" + service.getAssigned().getId());
             serviceNeeded = "Janitor";
-        } else {
+        }
+
+        /*else {
             service = new CafeteriaService();
             // placeholder
             service.setAssigned(assign);
             service.setAccountTo(email);
             serviceNeeded = "Food";
-        }
-    }*/
+        }*/
+    }
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {

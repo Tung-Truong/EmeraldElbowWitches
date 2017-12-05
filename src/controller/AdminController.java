@@ -65,6 +65,9 @@ public class AdminController extends Controller {
     private Canvas gc;
 
     @FXML
+    private JFXComboBox<String> CurrRequ;
+
+    @FXML
     private ImageView homeScreen;
 
     @FXML
@@ -502,7 +505,7 @@ public class AdminController extends Controller {
         ServiceController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, 380, 358));
+        servStage.setScene(new Scene(root, 243, 446));
         servCont.servLocField.setText(nodeIDField.getText());
         servStage.show();
     }
@@ -516,6 +519,61 @@ public class AdminController extends Controller {
         servStage.setTitle("Service Request");
         servStage.setScene(new Scene(root, mapWidth, mapHeight));
         servStage.show();
+    }
+
+    @FXML
+    void MyRequests() {
+        CurrRequ.getItems().clear();
+        Refresh();
+        Employee currEmp = Main.getCurrUser();
+        System.out.println(Main.getRequestList().size());
+        for (ServiceRequest aserv : Main.getRequestList()) {
+            try {
+                if (currEmp.getId() == aserv.getAssigned().getId()) {
+                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " : " + aserv.getSent().toString());
+                }
+            }
+            catch (NullPointerException e){
+                e.getMessage();
+            }
+        }
+
+    }
+
+    @FXML
+    void RemoveRequest() {
+    }
+
+    /*@FXML
+    void resolve(){
+        if (Main.requests.size() > 0) {
+            Main.requests.get(0).setActive(false);
+            Main.requests.remove(0);
+        }
+    }*/
+
+    void Refresh(){
+        // Printing this stuff is a later order concern so get back to it later
+        String finalString = " ";
+        ArrayList<ServiceRequest> searchInactive = new ArrayList<ServiceRequest>();
+        searchInactive.addAll(Main.requests);
+
+        for(ServiceRequest serve : searchInactive) {
+            if(serve.getAssigned() != null) {
+                serve.resolveRequest();
+                if (serve.isActive()) {
+                    serve.generateReport();
+                }
+            }
+            else {
+                finalString.concat("No active Requests");
+            }
+        }
+        for(ServiceRequest s : searchInactive){
+            if (!s.isActive()){
+                Main.requests.remove(s);
+            }
+        }
     }
 
     @FXML
