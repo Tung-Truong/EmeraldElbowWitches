@@ -137,7 +137,6 @@ public class AdminController extends Controller {
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
-    private PathingContainer currentAlgorithm = new PathingContainer();
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
@@ -147,11 +146,12 @@ public class AdminController extends Controller {
 //    private int XTrans = single.getXTrans();
 //    private int YTrans = single.getYTrans();
 //    private double Zoom = single.getZoom();
+//    private PathingContainer currentAlgorithm = new PathingContainer();
 
     public void initialize(){
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
-        currentAlgorithm.setPathAlg(new astar());
+        single.getAlgorithm().setPathAlg(new astar());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
         astarBtn.setStyle("-fx-background-color: #4286f4");
@@ -457,27 +457,27 @@ public class AdminController extends Controller {
         switch (clickedID){
             case "astarBtn":
                 astarBtn.setStyle("-fx-background-color: #4286f4");
-                this.currentAlgorithm.setPathAlg(new astar());
+                this.single.getAlgorithm().setPathAlg(new astar());
                 break;
             case "depthBtn":
                 depthBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new DepthFirst());
+                this.single.getAlgorithm().setPathAlg(new DepthFirst());
                 break;
             case "breadthBtn":
                 breadthBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BreadthFirst());
+                this.single.getAlgorithm().setPathAlg(new BreadthFirst());
                 break;
             case "dijkstrasBtn":
                 dijkstrasBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new Dijkstras());
+                this.single.getAlgorithm().setPathAlg(new Dijkstras());
                 break;
             case "beamBtn":
                 beamBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BeamFirst());
+                this.single.getAlgorithm().setPathAlg(new BeamFirst());
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BestFirst());
+                this.single.getAlgorithm().setPathAlg(new BestFirst());
                 break;
         }
     }

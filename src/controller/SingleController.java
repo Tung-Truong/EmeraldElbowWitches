@@ -1,6 +1,7 @@
 package controller;
 
-import model.InvalidNodeException;
+import model.PathingAlgorithm;
+import model.PathingContainer;
 
 public class SingleController {
     private static SingleController control = new SingleController();
@@ -10,6 +11,7 @@ public class SingleController {
     private int XTrans = 0;
     private int YTrans = 0;
     private double Zoom = 1;
+    private PathingContainer algorithm = new PathingContainer();
 
     public static SingleController getController(){
         return control;
@@ -20,13 +22,6 @@ public class SingleController {
             ControllerListener
             Controller
      */
-    public void setKioskLoc(int xCoord, int yCoord) {
-        try {
-            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-    }
 
     public double getZoom() {
         return Zoom;
@@ -38,6 +33,10 @@ public class SingleController {
 
     public int getYTrans() {
         return YTrans;
+    }
+
+    public PathingContainer getAlgorithm() {
+        return algorithm;
     }
 
     public void setZoom(double zoom) {

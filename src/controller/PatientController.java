@@ -120,7 +120,6 @@ public class PatientController extends Controller {
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
-    private PathingContainer currentAlgorithm = new PathingContainer();
     double mapWidth;
     double mapHeight;
     ImageLoader mapImage = new ImageLoader();
@@ -133,16 +132,17 @@ public class PatientController extends Controller {
 //    private int XTrans = single.getXTrans();
 //    private int YTrans = single.getYTrans();
 //    private double Zoom = single.getZoom();
+//    private PathingContainer currentAlgorithm = new PathingContainer();
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
         btn_map01.setOpacity(1);
-        currentAlgorithm.setPathAlg(new astar());
+        single.getAlgorithm().setPathAlg(new astar());
         mapWidth = currentMap.getFitWidth();
         mapHeight = currentMap.getFitHeight();
-        single.setKioskLoc(2460, 910);
+        setKioskLoc(2460, 910);
         redraw();
         for(NodeObj n : Main.getNodeMap().getNodes()){
             if(!n.node.getNodeType().equals("HALL")){
@@ -367,13 +367,13 @@ public class PatientController extends Controller {
 //    /*
 //     * setKioskLoc sets the default location for the floor
 //     */
-//    void setKioskLoc(int xCoord, int yCoord) {
-//        try {
-//            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
-//        } catch (InvalidNodeException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    void setKioskLoc(int xCoord, int yCoord) {
+        try {
+            Main.setKiosk(Main.getNodeMap().getNearestNeighborFilter(xCoord, yCoord));
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void DrawCurrentFloorPath() {
         /*HealthCareRun health = new HealthCareRun();
@@ -462,10 +462,10 @@ public class PatientController extends Controller {
         strPath = new ArrayList<>();
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             //try a*
-            if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
+            if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
-                strPath = currentAlgorithm.getPathAlg().getGenPath();
+                strPath = single.getAlgorithm().getPathAlg().getGenPath();
                 currPath = strPath;
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
 
@@ -692,8 +692,8 @@ public class PatientController extends Controller {
             ArrayList<NodeObj> path;
             if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
                 //try a*
-                if (currentAlgorithm.getPathAlg().pathfind(Kiosk, goal)) {
-                    path = currentAlgorithm.getPathAlg().getGenPath();
+                if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
+                    path = single.getAlgorithm().getPathAlg().getGenPath();
                     currPath = path;
                     toggleTextArea.setText(textDirections.getTextDirections(path));
                 } else {
