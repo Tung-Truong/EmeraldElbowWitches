@@ -92,7 +92,7 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getString(colInd);
             }
             if(tempVals[0] != null){
-                requestList.add(new ServiceRequest() {
+                requestList.add(new ServiceRequest(tempVals[0], tempVals[1], tempVals[2], tempVals[3]) {
                     @Override
                     public String generateReport() {  return "x";  }
                 });

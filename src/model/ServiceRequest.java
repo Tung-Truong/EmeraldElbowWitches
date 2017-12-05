@@ -33,10 +33,10 @@ public class ServiceRequest implements IReport {
         Info Format:
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
-    public ServiceRequest(long id, String type, boolean active, String submitted){
-        isActive = active;
+    public ServiceRequest(String id, String type, String active, String submitted){
+        isActive = Boolean.parseBoolean(active);
         for (Employee e : Main.employees){
-            if(id == e.getId()){
+            if(Long.parseLong(id) == e.getId()){
                 assigned = e;
             }
         }
