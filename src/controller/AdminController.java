@@ -22,6 +22,7 @@ import model.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static java.lang.Thread.sleep;
 
@@ -530,7 +531,7 @@ public class AdminController extends Controller {
         for (ServiceRequest aserv : Main.getRequestList()) {
             try {
                 if (currEmp.getId() == aserv.getAssigned().getId()) {
-                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " : " + aserv.getSent().toString());
+                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " | " + aserv.getSent().toString());
                 }
             }
             catch (NullPointerException e){
@@ -542,15 +543,30 @@ public class AdminController extends Controller {
 
     @FXML
     void RemoveRequest() {
-    }
+        try{
+        ServiceRequest serv = null;
+        String reqDate = CurrRequ.getValue().substring(CurrRequ.getValue().indexOf('|') + 2).trim();
+        for (ServiceRequest aserv : Main.getRequestList()) {
+            try {
+                System.out.println(aserv.getSent().toString());
+                System.out.println(reqDate);
+                if (aserv.getSent().toString().trim().equals(reqDate)) {
 
-    /*@FXML
-    void resolve(){
-        if (Main.requests.size() > 0) {
-            Main.requests.get(0).setActive(false);
-            Main.requests.remove(0);
+                    aserv.setActive(false);
+                    serv = aserv;
+                }
+            } catch (NullPointerException e) {
+                e.getMessage();
+            }
         }
-    }*/
+
+        if (serv != null) {
+            Main.requests.remove(serv);
+        }
+        }catch (NullPointerException e) {
+            e.getMessage();
+        }
+    }
 
     void Refresh(){
         // Printing this stuff is a later order concern so get back to it later
