@@ -434,6 +434,13 @@ public class PatientController extends Controller {
                             n.node.getyLoc() * mapHeight / 3400 - 5,
                             10,
                             10);
+                    Double h = leaveDown.getFitHeight();
+                    Double w = leaveDown.getFitWidth();
+                    leaveDown.setVisible(true);
+                    leaveDown.setX(n.node.getxLoc()*mapWidth / 5000 - w/2 - 45);
+                    leaveDown.setY(n.node.getyLoc()*mapHeight / 3400 - h/2 - 35);
+
+
                 }
                 else if(!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())){
                     gc1.setFill(Color.GOLD);
@@ -441,6 +448,12 @@ public class PatientController extends Controller {
                             n.node.getyLoc() * mapHeight / 3400 - 5,
                             10,
                             10);
+                    Double h = leaveDown.getFitHeight();
+                    Double w = leaveDown.getFitWidth();
+                    leaveDown.setVisible(true);
+                    leaveDown.setX(n.node.getxLoc()*mapWidth / 5000 - w/2);
+                    leaveDown.setY(n.node.getyLoc()*mapHeight / 3400 - h/2);
+
                 }
             }
             if (Floors.size() > 0) {
@@ -460,6 +473,8 @@ public class PatientController extends Controller {
                     goal.node.getyLoc() * mapHeight / 3400 - 5,
                     10,
                     10);
+            Double h = endImage.getFitHeight();
+            Double w = endImage.getFitWidth();
             endImage.setVisible(true);
             // the 8 and 13 below are magic numbers, probably to account for the image not being symmetrical
             endImage.setX(goal.node.getxLoc() * mapWidth / 5000 - 8 - endImage.getFitWidth()/2);
@@ -474,8 +489,6 @@ public class PatientController extends Controller {
             Double h = startImage.getFitHeight();
             Double w = startImage.getFitWidth();
             startImage.setVisible(true);
-            startImage.setX(Main.getKiosk().node.getxLoc()*mapWidth/5000 -5 );
-            startImage.setY(Main.getKiosk().node.getyLoc()*mapHeight/3400 - 5);
             startImage.setX(Main.getKiosk().node.getxLoc()*mapWidth/5000 - w/2 -4);
             startImage.setY(Main.getKiosk().node.getyLoc()*mapHeight/3400 - h + 4);
 

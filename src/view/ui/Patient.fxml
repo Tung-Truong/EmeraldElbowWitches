@@ -109,7 +109,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <ImageView fx:id="startImage" fitHeight="89.0" fitWidth="144.0" layoutX="3.0" layoutY="-3.0">
+      <ImageView fx:id="startImage" fitHeight="89.0" fitWidth="144.0" layoutX="3.0" layoutY="-3.0" visible="false">
          <image>
             <Image url="@../media/start.png" />
          </image>
@@ -119,7 +119,7 @@
             <Image url="@../media/end.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="leaveDown" layoutX="481.0" layoutY="220.0" visible="false">
+      <ImageView fx:id="leaveDown" layoutX="3.0" layoutY="4.0" visible="false">
          <image>
             <Image url="@../media/leavedown.gif" />
          </image>
