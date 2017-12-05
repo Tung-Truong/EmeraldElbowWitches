@@ -41,8 +41,31 @@ public class ServiceRequest implements IReport {
             }
         }
         sent = new Date(Date.parse(submitted));
+        email = assigned.getEmail();
+        messageHeader = type;
 
-        classType = type;
+
+        properties = new Properties();
+
+        // property attributes for replying to the email
+        properties.put("mail.store.protocol", "imaps");
+        // properties.put("mail.imaps.host", "imap.gmail.com");
+        properties.put("mail.imaps.ssl.trust", "imap.gmail.com");
+        properties.put("mail.imaps.port", "993");
+        properties.put("mail.imaps.starttls.enable", "true");
+
+        // property attributes for sending the email
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+        session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
     }
     public ServiceRequest(){
         isActive = true;
@@ -110,6 +133,10 @@ public class ServiceRequest implements IReport {
         this.messageHeader = header;
     }
 
+    public String getMessageHeader(){
+        return this.messageHeader;
+    }
+
     public void setLocation(String location) { this.location = location;}
 
     public boolean sendEmailServiceRequest(){
@@ -164,6 +191,9 @@ public class ServiceRequest implements IReport {
                                     gates += 1;
                                 }
                             }
+                            System.out.println(email);
+
+
 
                             String to = InternetAddress.toString(message
                                     .getRecipients(Message.RecipientType.TO));
@@ -179,16 +209,23 @@ public class ServiceRequest implements IReport {
                                 }
                             }
 
+                            System.out.println(username);
+
                             String subject = message.getSubject();
                             if (subject != null && subject.equals("Re: " + messageHeader)) {
                                 gates += 1;
                             }
+
+                            System.out.println(messageHeader);
 
                             received = message.getSentDate();
 
                             if (received != null && received.after(sent)) {
                                 gates += 1;
                             }
+                            System.out.println(received);
+                            System.out.println(sent);
+                            System.out.println(received.after(sent));
 
                             if (gates == 4){
                                 // replyInfo = message.getContent().toString();
@@ -204,7 +241,7 @@ public class ServiceRequest implements IReport {
                     }
                 }
             } catch (Exception e){
-                e.getMessage();
+                e.printStackTrace();
                 System.out.println("Did Not Refresh");
             }
         }

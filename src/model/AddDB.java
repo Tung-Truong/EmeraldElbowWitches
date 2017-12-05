@@ -67,11 +67,11 @@ public class AddDB {
 
         if (addService.getAssigned() != null) {
             buildSQLStr = " VALUES ('" + addService.getAssigned().getId() + "','" +
-                    addService.getClass().toString() + "','" + addService.isActive() +
+                    addService.getMessageHeader() + "','" + addService.isActive() +
                     "','" + addService.getSent() + "')"; //build the sql template
         } else {
             buildSQLStr = " VALUES ('" + addService.getAssigned() + "','" +
-                    addService.getClass().toString() + "','" + addService.isActive() +
+                    addService.getMessageHeader() + "','" + addService.isActive() +
                     "','" + addService.getSent() + "')"; //build the sql template
         }
 
