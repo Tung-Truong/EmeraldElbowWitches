@@ -36,6 +36,7 @@ public class Main extends Application {
     //contains all the messages
     public static JanitorService janitorService;
     public static ControllerListener controllers;
+    public static Employee currUser;
 
 
 
@@ -166,6 +167,8 @@ public class Main extends Application {
         javafx.application.Application.launch(args);
     }
 
+
+
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
@@ -271,6 +274,14 @@ public class Main extends Application {
 
     public static ControllerListener getControllers() {
         return controllers;
+    }
+
+    public static Employee getCurrUser() {
+        return currUser;
+    }
+
+    public static void setCurrUser(Employee currUser) {
+        Main.currUser = currUser;
     }
 
     //this runs the service request

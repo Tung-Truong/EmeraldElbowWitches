@@ -9,18 +9,23 @@ public class Employee {
     private String department;
     private String language;
     private String available;
+    private String username;
+    private String password;
     private int id;
 
     // Constructor
     public Employee(){
     }
-    public Employee(String email, String firstName, String lastName, String department, String language, String available){
+    public Employee(String email, String firstName, String lastName, String department, String language, String
+            available, String username, String password){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.language = language;
         this.available = available;
+        this.username = username;
+        this.password = password;
         id = email.hashCode();
     }
 
@@ -53,6 +58,14 @@ public class Employee {
         return id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     // Setters
     public void setEmail(String email){
         this.email = email;
@@ -77,5 +90,13 @@ public class Employee {
 
     public void setAvailability(String available){
         this.available = available;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 }

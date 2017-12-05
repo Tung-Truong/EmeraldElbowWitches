@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="358.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LogInController">
+   <children>
+      <Pane prefHeight="358.0" prefWidth="395.0" style="-fx-background-color: #498cd8 #498cd8;">
+         <children>
+            <JFXTextField fx:id="UsernameField" layoutX="39.0" layoutY="116.0" prefHeight="48.0" prefWidth="309.0" promptText="username" unFocusColor="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="PasswordField" layoutX="38.0" layoutY="211.0" prefHeight="48.0" prefWidth="313.0" promptText="password" unFocusColor="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </JFXPasswordField>
+            <Label alignment="CENTER" layoutX="56.0" layoutY="37.0" prefHeight="55.0" prefWidth="270.0" text="STAFF LOGIN" textFill="WHITE">
+               <font>
+                  <Font name="Avenir Next Bold" size="38.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="50.0" layoutY="290.0" onAction="#cancel" prefHeight="48.0" prefWidth="105.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Cancel" textFill="#1b3766" />
+            <JFXButton buttonType="RAISED" layoutX="220.0" layoutY="290.0" onAction="#SubmitRequest" prefHeight="48.0" prefWidth="111.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Submit" textFill="#1b3766" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -718,8 +718,13 @@ public class PatientController extends Controller {
     }
 
     @FXML
-    void adminLogin() {
-        Main.getCurrStage().setScene(Main.getAdminScene());
+    void adminLogin() throws IOException{
+        FXMLLoader LogIn = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/login.fxml"));
+        Parent root = LogIn.load();
+        Stage servStage = new Stage();
+        servStage.setTitle("Login");
+        servStage.setScene(new Scene(root, 380, 358));
+        servStage.show();
     }
 
     @FXML

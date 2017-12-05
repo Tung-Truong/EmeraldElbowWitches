@@ -27,8 +27,8 @@ public class ServiceEditController {
     private JFXTextField NotesTextField;
 
     @FXML
-    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne,
-    emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo;
+    private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne, usernameOne, passwordOne,
+    emailTwo, firstTwo, lastTwo, depTwo, langTwo, usernameTwo, passwordTwo, availTwo;
 
     @FXML
     private ComboBox<String> /*AssignEmployee, */ DeleteEmployee, ModifyEmployee;
@@ -154,8 +154,10 @@ public class ServiceEditController {
         String dep = depOne.getText().trim();
         String lang = langOne.getText().trim();
         String avail = availOne.getText().trim();
+        String user = usernameOne.getText().trim();
+        String pass = passwordOne.getText().trim();
 
-        Employee e = new Employee(email, first, last, dep, lang, avail);
+        Employee e = new Employee(email, first, last, dep, lang, avail, user, pass);
 
         Main.getEmployees().add(e);
         ModifyEmployee.getItems().add(e.getFirstName() + " : " + e.getEmail());
@@ -167,6 +169,8 @@ public class ServiceEditController {
         depOne.clear();
         langOne.clear();
         availOne.clear();
+        usernameOne.clear();
+        passwordOne.clear();
 
     }
 
@@ -191,6 +195,9 @@ public class ServiceEditController {
             depTwo.setText(foundMOd.getDepartment());
             langTwo.setText(foundMOd.getLanguage());
             availTwo.setText(foundMOd.getAvailability());
+            usernameTwo.setText(foundMOd.getUsername());
+            passwordTwo.setText(foundMOd.getPassword());
+
         }
         catch (NullPointerException e){
             e.getMessage();
@@ -224,6 +231,8 @@ public class ServiceEditController {
         depTwo.clear();
         langTwo.clear();
         availTwo.clear();
+        usernameTwo.clear();
+        passwordTwo.clear();
     }
 
     @FXML

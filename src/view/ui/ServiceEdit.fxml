@@ -59,7 +59,7 @@
                   <Font size="24.0" />
                </font>
             </TextField>
-            <JFXButton buttonType="RAISED" layoutX="201.0" layoutY="617.0" onAction="#AddEmployee" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="201.0" layoutY="718.0" onAction="#AddEmployee" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
                <font>
                   <Font name="Avenir Next Bold" size="43.0" />
                </font>
@@ -108,7 +108,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <JFXButton id="backbutton" buttonType="RAISED" layoutX="547.0" layoutY="617.0" onAction="#ModifyEmployees" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+      <JFXButton id="backbutton" buttonType="RAISED" layoutX="547.0" layoutY="718.0" onAction="#ModifyEmployees" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="43.0" />
          </font>
@@ -141,6 +141,26 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
+      <TextField fx:id="passwordTwo" layoutX="547.0" layoutY="655.0" promptText="password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="usernameTwo" layoutX="547.0" layoutY="592.0" promptText="username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="usernameOne" layoutX="203.0" layoutY="592.0" promptText="username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="passwordOne" layoutX="203.0" layoutY="655.0" promptText="password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
    </children>
    <effect>
       <InnerShadow height="255.0" radius="68.5" />

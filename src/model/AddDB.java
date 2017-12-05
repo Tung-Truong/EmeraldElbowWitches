@@ -50,7 +50,7 @@ public class AddDB {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
         String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
-                addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "')"; //build the sql template
+                addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "','" + addEmployee.getUsername() + "','" + addEmployee.getPassword() + "')"; //build the sql template
 
         String SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
 

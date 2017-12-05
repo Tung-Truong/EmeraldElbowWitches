@@ -1,19 +1,18 @@
-email, firstName, lastName, department, language, availability
-kgrant@wpi.edu,Bojack,Horseman,janitor,,T
-pcpp@mail.park,PC,Principal,janitor,,T
-ttruoed,Tung,tung,janitor,,T
-pcaroline@gmail.com,Princess,Caroline,interpret,French,F
-wwong2@wpi.edu,Wilson,Wong,interpret,Icelandic,T
-tgwiles@wpi.edu,Thomas,Wiles,interpret,Swedish,T
-gfreeMan@cake.gov,Gordon,Freeman,cafeteria,,F
-butcherwoman@ahs.org,Agnes,Howell,interpret,Dutch,T
-khroberts@wpi.edu,Karsten,Roberts,interpret,Icelandic,T
-pcaroline@gmail.com,Princess,Caroline,interpret,French,T
-wwong2@wpi.edu,Wilson,Wong,janitor,,T
-tgwiles@wpi.edu,Thomas,Wiles,janitor,,T
-bhorse@gmail.com,Bojack,Horseman,janitor,,T
-wwong2@wpi.edu,Wilson,Wong,cafeteria,,T
-tgwiles@wpi.edu,Thomas,Wiles,cafeteria,,T
-kgrant@wpi.edu,Bo,Horseman,janitor,,T
-vampress116@gmail.com,Princess,Caroline,interpret,French,F
-bstill@mov.edu,Ben,Stiller,cafeteria,,F
+email, firstName, lastName, department, language, availability, username, password
+kgrant@wpi.edu,Bojack,Horseman,janitor,,T,Grant,password
+pcaroline@gmail.com,Princess,Caroline,interpret,French,F,Carol,password
+cjdembski@wpi.edu,Clayton,Dembski,janitor,,T,cabincabin,qwerty
+wwong2@wpi.edu,Wilson,Wong,interpret,Icelandic,T,W0ng,password
+bstill@mov.edu,Ben,Stiller,cafeteria,,F,Ben,password
+tgwiles@wpi.edu,Thomas,Wiles,interpret,Swedish,T,Thom,password
+khroberts@wpi.edu,Karsten,Roberts,interpret,Icelandic,T,Karst,password
+tgwiles@wpi.edu,Thomas,Wiles,cafeteria,,T,Thom,password
+wwong2@wpi.edu,Wilson,Wong,cafeteria,,T,W0ng,password
+jaja@gmail.com,Asuh,Dude,janitor,Russian,T,waddup,bro
+gfreeMan@cake.gov,Gordon,Freeman,cafeteria,,F,Gord,password
+bhorse@gmail.com,Bojack,Horseman,janitor,,T,Boja,password
+butcherwoman@ahs.org,Agnes,Howell,interpret,Dutch,T,Agnes,password
+tgwiles@wpi.edu,Thomas,Wiles,janitor,,T,Thom,password
+vampress116@gmail.com,Princess,Caroline,interpret,French,F,Vamp,password
+pcpp@mail.park,PC,Principal,janitor,,T,PC,password
+wwong2@wpi.edu,Wilson,Wong,janitor,,T,W0ng,password

@@ -502,7 +502,7 @@ public class AdminController extends Controller {
         ServiceController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, 243, 446));
+        servStage.setScene(new Scene(root, 380, 358));
         servCont.servLocField.setText(nodeIDField.getText());
         servStage.show();
     }
