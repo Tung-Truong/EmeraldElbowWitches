@@ -15,6 +15,8 @@ public class CafeteriaService extends ServiceRequest {
 
     // Constructor
     public CafeteriaService() {
+        classType = this.getClass().toString();
+
         menu.add("Cake");
         menu.add("Noodles");
         menu.add("Tea");
