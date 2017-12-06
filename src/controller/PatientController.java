@@ -729,6 +729,7 @@ public class PatientController extends Controller {
 
     @FXML
     void Zin() {
+        SearchPath.setVisible(false);
         System.out.println(zoomBar.getValue());
         Zoom = zoomBar.getValue();
         resize();
@@ -760,6 +761,7 @@ public class PatientController extends Controller {
     }
 
     public void resize() {
+        SearchPath.setVisible(false);
         if (Zoom <= 1) {
             XTrans = 0;
             YTrans = 0;
