@@ -41,7 +41,7 @@ public class ServiceController {
     private JFXButton cancelButton;
 
     public void initialize(){
-        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter");//, "cafeteria");
+        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare");//, "cafeteria");
     }
 
 //    public String getServiceNeeded() {
@@ -61,6 +61,13 @@ public class ServiceController {
     void close(){
         Stage stage = (Stage)cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    void onServiceTypeSelection(){
+        if((RequestServiceDropdown.getValue() != null) && (RequestServiceDropdown.getValue().equals("Healthcare"))){ //can be implemented to launch different API for different service requests
+            System.out.println("SHIT JUST GOT CALLED");
+        }
     }
 
     @FXML
