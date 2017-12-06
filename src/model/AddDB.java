@@ -8,6 +8,8 @@ import java.sql.*;
 
 public class AddDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
+    public static int interpreters;
+
 
     // Generate Nodes from database using CSV files
     public static void addNode(Node addNode) throws SQLException {
@@ -58,6 +60,48 @@ public class AddDB {
         pState.executeUpdate();
         pState.close();
     }
+
+    public static void addJanitorStatistic(JanitorStatistic addStatistic) throws SQLException {
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+
+        String buildSQLStr = " VALUES ('" + addStatistic.getNumOfSupplies() + "')"; //build the sql template
+
+        String SQL = "INSERT INTO JANITORSTATISTICTABLE" + buildSQLStr; //insert row into database
+
+        PreparedStatement pState = connection.prepareStatement(SQL);
+        pState.executeUpdate();
+        pState.close();
+    }
+
+    public static void addCafeteriaStatistic(CafeteriaStatistic addStatistic) throws SQLException {
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+
+        String buildSQLStr = " VALUES (" + addStatistic.getNumOfOrders() + ")"; //build the sql template
+
+        String SQL = "INSERT INTO CAFETERIASTATISTICTABLE" + buildSQLStr; //insert row into database
+
+        PreparedStatement pState = connection.prepareStatement(SQL);
+        pState.executeUpdate();
+        pState.close();
+    }
+
+    public static void addInterpreterStatistic(InterpreterStatistic addStatistic) throws SQLException {
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        String buildSQLStr = "";
+
+        if(InterpreterService.getLanguages().contains(addStatistic.getLanguage())) {
+            buildSQLStr = " VALUES ('" + addStatistic.getLanguage() + "','" + (addStatistic.getNumOfInterpreters() + interpreters) + "','" + addStatistic.getAvgTimeTaken() + "')"; //build the sql template
+        }
+        String SQL = "INSERT INTO INTERPRETERSTATISTICTABLE" + buildSQLStr; //insert row into database
+
+        addStatistic.setNumOfInterpreters(addStatistic.getNumOfInterpreters() + interpreters);
+
+        PreparedStatement pState = connection.prepareStatement(SQL);
+        pState.executeUpdate();
+        pState.close();
+    }
+
+
 
     public static void addRequest(ServiceRequest addService) throws SQLException {
 

@@ -270,7 +270,7 @@ public class ServiceRequest implements IReport {
         return String.format("%02:%02:%02" , hours, minutes, seconds);
     }
 
-    public String generateReport(){
-        return null;
+    public void generateReport(){
+        
     }
 }

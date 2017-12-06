@@ -1,5 +1,8 @@
 package model;
 
+
+import controller.Main;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,33 +59,17 @@ public class CafeteriaService extends ServiceRequest {
         soldItems++;
     }
 
-    public String generateReport(){
+    public void generateReport(){
         /*
             Information required:
             - How long did it  take for this request to be fulfilled
             - What foods were delivered/ordered
          */
-        if (!isActive()){
-            String report = "Item Sold: " + itemSold;
 
-            long diff = 0;
-
-            long timeSent = sent.getTime();
-            long timeReceived = received.getTime();
-
-            long diffSeconds = (timeReceived - timeSent) / 1000;
-
-            // This part increments the number of interpreters used for the language and time taken for this interpreter
-
-            valItem.get(itemSold)[0] += 1;
-            valItem.get(itemSold)[1] += diffSeconds;
-            diff = valItem.get(itemSold)[1]/valItem.get(itemSold)[0];
-            report.concat(itemSold + "s Sold: " + valItem.get(itemSold)[0] + "\n" + "Average Time Taken: " + findTime(diff));
-
-            return report;
-        }
-        else {
-            return "This request has yet to be resolved";
+        try {
+            AddDB.addCafeteriaStatistic(new CafeteriaStatistic(getSoldItems()));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

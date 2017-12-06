@@ -1,3 +1,9 @@
 employeeId, requestType, isActive, timeSubmitted
+<<<<<<< HEAD
 1877316204,Supplies needed at: Amazing,true,Tue Dec 05 03:00:54 EST 2017
 1877316204,Supplies needed at: AHALL00301,true,Tue Dec 05 03:52:08 EST 2017
+=======
+-1091722323,class model.InterpreterService,true,Tue Dec 05 23:40:38 EST 2017
+-1091722323,class model.CafeteriaService,true,Tue Dec 05 23:28:49 EST 2017
+null,class model.QueryDB$1,true,null
+>>>>>>> 50178231a31de988ecd04fd7e77fd895074cbcba

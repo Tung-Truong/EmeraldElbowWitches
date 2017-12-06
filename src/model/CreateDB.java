@@ -3,10 +3,12 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CreateDB {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
+    public static final int NUM_OF_STATS = 4;  // determines how many statistic columns will be created upon run
 
     public static void run() throws ClassNotFoundException, SQLException {
         Class.forName(DRIVER);
@@ -15,7 +17,9 @@ public class CreateDB {
         connection.createStatement().execute("create table edgeTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
         connection.createStatement().execute("create table employeeTable(email VARCHAR(255), firstName VARCHAR(255), lastName VARCHAR(255), department VARCHAR(255), language VARCHAR(255), availability VARCHAR(255), username VARCHAR(255), password VARCHAR(255))");
         connection.createStatement().execute("create table requestTable(employeeId VARCHAR(255), requestType VARCHAR(255), isActive VARCHAR(255), timeSubmitted VARCHAR(255))");
-        connection.createStatement().execute("create table nodeInfoTable(nodeID VARCHAR(255), numOfPathsAcross VARCHAR(255), avgLength VARCHAR(255))");
-        System.out.print("The table has been built!");
+        connection.createStatement().execute("create table janitorStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
+        connection.createStatement().execute("create table cafeteriaStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
+        connection.createStatement().execute("create table interpreterStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
+        System.out.print("The database has been built!");
     }
 }

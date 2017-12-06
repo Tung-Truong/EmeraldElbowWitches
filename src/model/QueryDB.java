@@ -9,6 +9,9 @@ public class QueryDB {
     public static final String GET_EDGES = "select DISTINCT * from edgeTable";
     public static final String GET_EMPLOYEES = "select DISTINCT * from employeeTable";
     public static final String GET_REQUESTS = "select DISTINCT * from requestTable";
+    public static final String GET_JANITOR_STATISTICS = "select DISTINCT * from janitorStatisticTable";
+    public static final String GET_CAFETERIA_STATISTICS = "select DISTINCT * from cafeteriaStatisticTable";
+    public static final String GET_INTERPRETER_STATISTICS = "select DISTINCT * from interpreterStatisticTable";
 
     public static ArrayList<Node> getNodes() throws SQLException {
         ArrayList<Node> nodeList = new ArrayList<Node>();
@@ -63,8 +66,8 @@ public class QueryDB {
         int columnCount = resultSetMetaData.getColumnCount();
         while(resultSet.next()){
             String[] tempVals = new String[columnCount];
-            for(int colInd = 1; colInd < columnCount+1; colInd++){
-                tempVals[colInd-1] = resultSet.getString(colInd);
+            for(int colInd = 1; colInd < columnCount + 1; colInd++){
+                tempVals[colInd - 1] = resultSet.getString(colInd);
             }
             if(tempVals[0] != null){
                 employeeList.add(new Employee(tempVals[0], tempVals[1], tempVals[2],tempVals[3], tempVals[4],
@@ -95,7 +98,7 @@ public class QueryDB {
             if(tempVals[0] != null && !tempVals[1].equals("class model.QueryDB$1")){
                 requestList.add(new ServiceRequest(tempVals[0], tempVals[1], tempVals[2], tempVals[3]) {
                     @Override
-                    public String generateReport() {  return "x";  }
+                    public void generateReport() {}
                 });
             }
         }
@@ -106,5 +109,80 @@ public class QueryDB {
             connection.close();
         }
         return requestList;
+    }
+
+    public static ArrayList<JanitorStatistic> getJanitorStatistics() throws SQLException{
+        ArrayList<JanitorStatistic> statisticList = new ArrayList<JanitorStatistic>();
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(GET_JANITOR_STATISTICS);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        int columnCount = resultSetMetaData.getColumnCount();
+        while(resultSet.next()){
+            int[] tempVals = new int[columnCount];
+            for(int colInd = 1; colInd < columnCount+1; colInd++){
+                tempVals[colInd-1] = resultSet.getInt(colInd);
+            }
+            if(tempVals[0] != 0){
+                statisticList.add(new JanitorStatistic(tempVals[0]));
+            }
+        }
+        if(statement != null){
+            statement.close();
+        }
+        if(connection != null){
+            connection.close();
+        }
+        return statisticList;
+    }
+
+    public static ArrayList<CafeteriaStatistic> getCafeteriaStatistics() throws SQLException{
+        ArrayList<CafeteriaStatistic> statisticList = new ArrayList<CafeteriaStatistic>();
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(GET_CAFETERIA_STATISTICS);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        int columnCount = resultSetMetaData.getColumnCount();
+        while(resultSet.next()){
+            int[] tempVals = new int[columnCount];
+            for(int colInd = 1; colInd < columnCount+1; colInd++){
+                tempVals[colInd-1] = resultSet.getInt(colInd);
+            }
+            if(tempVals[0] != 0){
+                statisticList.add(new CafeteriaStatistic(tempVals[0]));
+            }
+        }
+        if(statement != null){
+            statement.close();
+        }
+        if(connection != null){
+            connection.close();
+        }
+        return statisticList;
+    }
+
+    public static ArrayList<InterpreterStatistic> getInterpreterStatistics() throws SQLException{
+        ArrayList<InterpreterStatistic> statisticList = new ArrayList<InterpreterStatistic>();
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(GET_INTERPRETER_STATISTICS);
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        int columnCount = resultSetMetaData.getColumnCount();
+        while(resultSet.next()){
+            int[] tempVals = new int[columnCount];
+            for(int colInd = 1; colInd < columnCount+1; colInd++){
+                tempVals[colInd-1] = resultSet.getInt(colInd);
+            }
+            if(tempVals[0] != 0){
+                statisticList.add(new InterpreterStatistic(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]));
+            }
+        }
+        if(statement != null){
+            statement.close();
+        }
+        if(connection != null){
+            connection.close();
+        }
+        return statisticList;
     }
 }

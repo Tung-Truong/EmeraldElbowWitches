@@ -1,8 +1,13 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class JanitorService extends ServiceRequest{
+
+    public static JanitorStatistic numSuppliesUsed;
+    public static int numSupplies;
 
     // Attributes
     private ArrayList<String> suppliesNeeded;
@@ -19,6 +24,7 @@ public class JanitorService extends ServiceRequest{
 
     // Getters
     public ArrayList<String> getSuppliesNeeded(){
+        numSupplies += 1;
         return this.suppliesNeeded;
     }
 
@@ -35,8 +41,11 @@ public class JanitorService extends ServiceRequest{
         this.janitorEmail = mail;
     }
 
-    @Override
-    public String generateReport() {
+    public int getNumSuppliesUsed() {
+        return numSupplies;
+    }
+
+    public void generateReport() {
         /*
             Information required:
             - How long did each janitor take?
@@ -44,22 +53,10 @@ public class JanitorService extends ServiceRequest{
             - What location was visited to fulfill this request
             - What type of cleanup was necessary for this request (Not sure how to find this)
          */
-        if (!isActive()){
-            String report = "Janitorial Report: ";
-
-            long timeSent = sent.getTime();
-            long timeReceived = received.getTime();
-
-            long diffSeconds = (timeReceived - timeSent) / 1000;
-
-            // This part is the meat of the report
-            totalTime += diffSeconds;
-
-            report.concat("Average time taken: " + findTime(totalTime/used) + " at " + location);
-
-            return report;
-        } else {
-            return "This request has not yet been resolved";
+        try {
+            AddDB.addJanitorStatistic(new JanitorStatistic(getNumSuppliesUsed()));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
