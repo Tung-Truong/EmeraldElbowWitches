@@ -17,9 +17,9 @@ public class CreateDB {
         connection.createStatement().execute("create table edgeTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
         connection.createStatement().execute("create table employeeTable(email VARCHAR(255), firstName VARCHAR(255), lastName VARCHAR(255), department VARCHAR(255), language VARCHAR(255), availability VARCHAR(255), username VARCHAR(255), password VARCHAR(255))");
         connection.createStatement().execute("create table requestTable(employeeId VARCHAR(255), requestType VARCHAR(255), isActive VARCHAR(255), timeSubmitted VARCHAR(255))");
-        connection.createStatement().execute("create table janitorStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
-        connection.createStatement().execute("create table cafeteriaStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
-        connection.createStatement().execute("create table interpreterStatisticTable(edgeID VARCHAR(255), startNode VARCHAR(255), endNode VARCHAR(255))");
+        connection.createStatement().execute("create table janitorStatisticTable(numSupplies VARCHAR(255), timeTaken VARCHAR(255))");
+        connection.createStatement().execute("create table cafeteriaStatisticTable(food VARCHAR(255), numOrders VARCHAR(255), timeTaken VARCHAR(255))");
+        connection.createStatement().execute("create table interpreterStatisticTable(lang VARCHAR(255), numInterpret VARCHAR(255), timeTaken VARCHAR(255))");
         System.out.print("The database has been built!");
     }
 }

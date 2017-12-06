@@ -22,9 +22,11 @@ public class WriteStatistics {
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            fw.append("# of Supplies Used \n");
+            fw.append("# of Supplies Used,average time to resolve \n");
             while (rs.next()) {
                     fw.append(rs.getString(1));
+                    fw.append(',');
+                    fw.append(rs.getString(2));
                     fw.append('\n');
             }
             fw.flush();
@@ -47,9 +49,13 @@ public class WriteStatistics {
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            fw.append("# of Orders\n");
+            fw.append("Food,# of Orders,average time taken\n");
             while (rs.next()) {
                 fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
                 fw.append('\n');
             }
             fw.flush();

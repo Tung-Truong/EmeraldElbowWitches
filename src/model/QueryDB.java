@@ -124,7 +124,7 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getInt(colInd);
             }
             if(tempVals[0] != 0){
-                statisticList.add(new JanitorStatistic(tempVals[0]));
+                statisticList.add(new JanitorStatistic(tempVals[0], tempVals[1]));
             }
         }
         if(statement != null){
@@ -149,7 +149,7 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getInt(colInd);
             }
             if(tempVals[0] != 0){
-                statisticList.add(new CafeteriaStatistic(tempVals[0]));
+                statisticList.add(new CafeteriaStatistic(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]));
             }
         }
         if(statement != null){
