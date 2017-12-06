@@ -482,7 +482,7 @@ public class PatientController extends Controller {
         clearChosenFloor();
         System.out.println(Floors.toString());
     }
-    
+
 
     @FXML
     void ourWebsite() throws IOException {
