@@ -184,13 +184,15 @@ public class ServiceRequest implements IReport {
                             Message message = messages[i];
                             // Get all the information from the message
                             String from = InternetAddress.toString(message.getFrom());
-                            if (from != null) {
-                                int begin = from.indexOf("<");
-                                int end = from.indexOf(">");
-                                if (email.equals(from.substring(begin+1, end))){
-                                    gates += 1;
+                            try {
+                                if (from != null) {
+                                    int begin = from.indexOf("<");
+                                    int end = from.indexOf(">");
+                                    if (email.equals(from.substring(begin + 1, end))) {
+                                        gates += 1;
+                                    }
                                 }
-                            }
+
                             System.out.println(email);
 
 
@@ -207,6 +209,9 @@ public class ServiceRequest implements IReport {
                                 } else if (username.equals(to)){
                                     gates += 1;
                                 }
+                            }
+                            }catch (StringIndexOutOfBoundsException e){
+                                e.getMessage();
                             }
 
                             System.out.println(username);

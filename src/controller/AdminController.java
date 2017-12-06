@@ -36,6 +36,9 @@ public class AdminController extends Controller {
     private JFXButton addEditBtn;
 
     @FXML
+    private JFXButton RemoveButton;
+
+    @FXML
     private JFXButton editEmployeesBtn;
 
     @FXML
@@ -470,50 +473,57 @@ public class AdminController extends Controller {
     }
 
     void opacHandler(double opacity, String hoveredID) {
-        switch (hoveredID) {
-            case "astarBtn":
-                astarBtn.setOpacity(opacity);
-                break;
-            case "depthBtn":
-                depthBtn.setOpacity(opacity);
-                break;
-            case "breadthBtn":
-                breadthBtn.setOpacity(opacity);
-                break;
-            case "dijkstrasBtn":
-                dijkstrasBtn.setOpacity(opacity);
-                break;
-            case "beamBtn":
-                beamBtn.setOpacity(opacity);
-                break;
-            case "bestBtn":
-                bestBtn.setOpacity(opacity);
-                break;
-            case "editEmployeesBtn":
-                editEmployeesBtn.setOpacity(opacity);
-                 break;
-            case "serviceRequestBtn":
-                serviceRequestBtn.setOpacity(opacity);
-                break;
-            case "addEditBtn":
-                addEditBtn.setOpacity(opacity);
-                break;
-            case "removeNodeBtn":
-                removeNodeBtn.setOpacity(opacity);
-                break;
-            case "Tup":
-                Tup.setOpacity(opacity);
-                break;
-            case "Tdown":
-                Tdown.setOpacity(opacity);
-                break;
-            case "Tleft":
-                Tleft.setOpacity(opacity);
-                break;
-            case "Tright":
-                Tright.setOpacity(opacity);
-                break;
-    }
+        try {
+            switch (hoveredID) {
+                case "astarBtn":
+                    astarBtn.setOpacity(opacity);
+                    break;
+                case "depthBtn":
+                    depthBtn.setOpacity(opacity);
+                    break;
+                case "breadthBtn":
+                    breadthBtn.setOpacity(opacity);
+                    break;
+                case "dijkstrasBtn":
+                    dijkstrasBtn.setOpacity(opacity);
+                    break;
+                case "beamBtn":
+                    beamBtn.setOpacity(opacity);
+                    break;
+                case "bestBtn":
+                    bestBtn.setOpacity(opacity);
+                    break;
+                case "editEmployeesBtn":
+                    editEmployeesBtn.setOpacity(opacity);
+                    break;
+                case "serviceRequestBtn":
+                    serviceRequestBtn.setOpacity(opacity);
+                    break;
+                case "addEditBtn":
+                    addEditBtn.setOpacity(opacity);
+                    break;
+                case "removeNodeBtn":
+                    removeNodeBtn.setOpacity(opacity);
+                    break;
+                case "RemoveButton":
+                    RemoveButton.setOpacity(opacity);
+                    break;
+                case "Tup":
+                    Tup.setOpacity(opacity);
+                    break;
+                case "Tdown":
+                    Tdown.setOpacity(opacity);
+                    break;
+                case "Tleft":
+                    Tleft.setOpacity(opacity);
+                    break;
+                case "Tright":
+                    Tright.setOpacity(opacity);
+                    break;
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -589,6 +599,7 @@ public class AdminController extends Controller {
     void MyRequests() {
         CurrRequ.getItems().clear();
         Refresh();
+        System.out.println("IBEHERE");
         Employee currEmp = Main.getCurrUser();
         System.out.println(Main.getRequestList().size());
         for (ServiceRequest aserv : Main.getRequestList()) {
