@@ -64,7 +64,7 @@ public class AddDB {
     public static void addJanitorStatistic(JanitorStatistic addStatistic) throws SQLException {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-        String buildSQLStr = " VALUES ('" + addStatistic.getNumOfSupplies() + "')"; //build the sql template
+        String buildSQLStr = " VALUES ('" + addStatistic.getNumOfSupplies() + addStatistic.getAvgTime() + "')"; //build the sql template
 
         String SQL = "INSERT INTO JANITORSTATISTICTABLE" + buildSQLStr; //insert row into database
 
@@ -76,7 +76,7 @@ public class AddDB {
     public static void addCafeteriaStatistic(CafeteriaStatistic addStatistic) throws SQLException {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-        String buildSQLStr = " VALUES (" + addStatistic.getNumOfOrders() + ")"; //build the sql template
+        String buildSQLStr = " VALUES (" + addStatistic.getFoodType() + addStatistic.getNumOfOrders() + addStatistic.getAvgTime() + ")"; //build the sql template
 
         String SQL = "INSERT INTO CAFETERIASTATISTICTABLE" + buildSQLStr; //insert row into database
 

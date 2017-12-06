@@ -3,22 +3,28 @@ package model;
 public class CafeteriaStatistic {
 
     // Attributes
-    int numOfOrders;
+    private String foodType;
+    private long numOfOrders;
+    private long avgTime;
 
 
     // Constructors
-    public CafeteriaStatistic(int numOfOrders){
-        this.numOfOrders = numOfOrders;
+    public CafeteriaStatistic(String food, long num, long avg){
+        foodType = food;
+        numOfOrders = num;
+        avgTime = avg;
     }
 
     // getters--------------------------------------
-    public int getNumOfOrders() {
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public long getNumOfOrders() {
         return numOfOrders;
     }
 
-    // Setters
-    public void setNumOfOrders(int numOfSupplies) {
-        this.numOfOrders = numOfOrders;
+    public long getAvgTime() {
+        return avgTime;
     }
-
 }

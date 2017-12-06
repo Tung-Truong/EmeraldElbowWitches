@@ -56,7 +56,6 @@ public class InterpreterService extends ServiceRequest {
             - How much time did each language take to interpret?
             - How many interpreters of each language have been requested?
          */
-
         String lang = "";
         long diff = 0;
 
@@ -66,18 +65,21 @@ public class InterpreterService extends ServiceRequest {
             } else {
                 lang = assigned.getLanguage();
 
-                diff = 0;
-
                 long timeSent = sent.getTime();
                 long timeReceived = received.getTime();
 
                 long diffSeconds = (timeReceived - timeSent) / 1000;
 
                 // This part increments the number of interpreters used for the language and time taken for this interpreter
+                long tempUsed = 0;
+                long tempAvg = 0;
 
                 reportInfo.get(lang)[0] += 1;
-                reportInfo.get(lang)[1] += diffSeconds;
-                diff = reportInfo.get(lang)[1] / reportInfo.get(lang)[0];
+
+                tempUsed = reportInfo.get(lang)[0];
+                tempAvg = reportInfo.get(lang)[1];
+
+                reportInfo.get(lang)[1] = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
 
                 try {
                     InterpreterStatistic curStat = new InterpreterStatistic(lang, reportInfo.get(lang)[0], reportInfo.get(lang)[1]);
