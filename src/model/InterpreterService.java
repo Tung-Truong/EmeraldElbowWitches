@@ -9,7 +9,7 @@ public class InterpreterService extends ServiceRequest {
     // Attributes
     private static ArrayList<String> languages = new ArrayList<String>();
     private ArrayList<String> emails = new ArrayList<String>();
-    private HashMap<String, long[]> reportInfo = new HashMap<String, long[]>();
+    public InterpreterStatistic statistic = InterpreterStatistic.getStats();
 
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
@@ -22,9 +22,9 @@ public class InterpreterService extends ServiceRequest {
         languages.add("Dutch");
         languages.add("Icelandic");
 
-        for (String s : getLanguages()){
-            reportInfo.put(s, new long[2]);
-        }
+//        for (String s : getLanguages()){
+//            statistic.setData(s, 0, 0);
+//        }
     }
 
     // Getters
@@ -73,20 +73,21 @@ public class InterpreterService extends ServiceRequest {
                 // This part increments the number of interpreters used for the language and time taken for this interpreter
                 long tempUsed = 0;
                 long tempAvg = 0;
+                long newAvg = 0;
 
-                reportInfo.get(lang)[0] += 1;
+                tempUsed = statistic.getNumOfInterpreters() + 1;
+                tempAvg = statistic.getAvgTimeTaken();
 
-                tempUsed = reportInfo.get(lang)[0];
-                tempAvg = reportInfo.get(lang)[1];
-
-                reportInfo.get(lang)[1] = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
+                newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
 
                 try {
-                    InterpreterStatistic curStat = new InterpreterStatistic(lang, reportInfo.get(lang)[0], reportInfo.get(lang)[1]);
-                    AddDB.addInterpreterStatistic(curStat);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } catch (NullPointerException n) {
+                    statistic.setData(lang, tempUsed, newAvg);
+                    // AddDB.addInterpreterStatistic(); add at the very end of the program
+                }
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+                catch (NullPointerException n) {
                     n.printStackTrace();
                 }
             }

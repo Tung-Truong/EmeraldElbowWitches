@@ -1,17 +1,27 @@
 package model;
 
+import java.util.HashMap;
+
 public class InterpreterStatistic {
 
     // Attributes
     String language;
-    long numOfInterpreters;
-    long avgTimeTaken;
-
+    long numOfInterpreters = 0;
+    long avgTimeTaken = 0;
+    private static InterpreterStatistic stats = new InterpreterStatistic();
+    private HashMap<String, long[]> values = new HashMap<String, long[]>();
     // Constructors
-    public InterpreterStatistic(String language, long numOfInterpreters, long avgTimeTaken){
-        this.language= language;
-        this.numOfInterpreters = numOfInterpreters;
-        this.avgTimeTaken = avgTimeTaken;
+//    public InterpreterStatistic(String language, long numOfInterpreters, long avgTimeTaken){
+//        this.language= language;
+//        this.numOfInterpreters = numOfInterpreters;
+//        this.avgTimeTaken = avgTimeTaken;
+//    }
+    private InterpreterStatistic(){
+
+    }
+
+    public static InterpreterStatistic getStats() {
+        return stats;
     }
 
     // getters--------------------------------------
@@ -26,16 +36,15 @@ public class InterpreterStatistic {
     }
 
     // Setters
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setNumOfInterpreters(long numOfSupplies) {
-        this.numOfInterpreters = numOfInterpreters;
-    }
-
-    public void setAvgTimeTaken(long avgTimeTaken) {
-        this.avgTimeTaken = avgTimeTaken;
+    public void setData(String lang, long used, long taken){
+        if (values.containsKey(lang)){
+            values.replace(lang, new long[]{used, taken});
+            numOfInterpreters = used;
+        } else {
+            values.put(lang, new long[]{used, taken});
+            avgTimeTaken = taken;
+            numOfInterpreters = used;
+        }
     }
 
 
