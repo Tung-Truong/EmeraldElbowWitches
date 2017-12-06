@@ -66,33 +66,34 @@ public class CafeteriaService extends ServiceRequest {
             - What foods were delivered/ordered
          */
         String food = "";
-
-        for (String item : menu){
-            if(item.equals(itemSold)){
-                food = item;
+        if(!isActive()) {
+            for (String item : menu) {
+                if (item.equals(itemSold)) {
+                    food = item;
+                }
             }
-        }
 
-        long timeSent = sent.getTime();
-        long timeReceived = received.getTime();
+            long timeSent = sent.getTime();
+            long timeReceived = received.getTime();
 
-        long diffSeconds = (timeReceived - timeSent) / 1000;
+            long diffSeconds = (timeReceived - timeSent) / 1000;
 
-        long tempUsed = 0;
-        long tempAvg = 0;
+            long tempUsed = 0;
+            long tempAvg = 0;
 
-        valItem.get(food)[0] += 1;
+            valItem.get(food)[0] += 1;
 
-        tempUsed = valItem.get(food)[0];
-        tempAvg = valItem.get(food)[1];
+            tempUsed = valItem.get(food)[0];
+            tempAvg = valItem.get(food)[1];
 
-        valItem.get(food)[1] = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
+            valItem.get(food)[1] = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
 
-        // Food, Number of requests for that food, Average time taken to fulfill request for that food
-        try {
-            AddDB.addCafeteriaStatistic(new CafeteriaStatistic(food, valItem.get(food)[0], valItem.get(food)[1]));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            // Food, Number of requests for that food, Average time taken to fulfill request for that food
+            try {
+                AddDB.addCafeteriaStatistic(new CafeteriaStatistic(food, valItem.get(food)[0], valItem.get(food)[1]));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
