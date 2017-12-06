@@ -10,8 +10,12 @@ public class WriteNodes {
     final static String NODETABLE = "nodeTable";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    /*
-    * runNodes takes all rows from the NODETABLE in our database and saves it to our node csv file.
+
+    /**
+     * Takes all rows from the NODETABLE in our database and saves it to our node csv file.
+     * @throws IOException Throws IO exception.
+     * @throws SQLException Throws SQL exception.
+     * @throws ClassNotFoundException Throws class not found exception.
      */
     public static void runNodes() throws IOException, SQLException, ClassNotFoundException {
         try {

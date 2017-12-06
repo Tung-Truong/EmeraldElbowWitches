@@ -9,8 +9,10 @@ import java.util.ArrayList;
 public class WriteEdges {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    /*
-    * runEdges takes all rows from the EDGETABLE in our database and saves it to our edge csv file.
+    /**
+     * Takes all rows from the EDGETABLE in our database and saves it to our edge csv file.
+     * @throws IOException            Throws IO exception.
+     * @throws SQLException           Throws SQL exception.
      */
     public static void runEdges() throws SQLException, IOException {
         try {

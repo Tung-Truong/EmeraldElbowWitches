@@ -9,8 +9,11 @@ import java.util.ArrayList;
 public class WriteRequests {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-    /*
-    * runEdges takes all rows from the REQUESTTABLE in our database and saves it to our edge csv file.
+    /**
+     * Uses the getParent function of nodes and adds the parent to the path and stops when the parent is the start node.
+     * @param goal Ending node.
+     * @param start Starting node.
+     * @return ArrayList of Node objects.
      */
     public static void runRequests() throws SQLException, IOException {
 

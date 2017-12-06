@@ -10,8 +10,12 @@ public class TextDirections {
 
     }
 
-    //creates text directions given an arraylist of nodes
-    public String getTextDirections(ArrayList<NodeObj> pat) {
+
+    /**
+     * Creates text directions given an arraylist of nodes.
+     * @param pat List of nodes containing path.
+     * @return String Text directions.
+     */    public String getTextDirections(ArrayList<NodeObj> pat) {
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         for (NodeObj n : pat)
             path.add(0, n);
@@ -95,7 +99,13 @@ public class TextDirections {
         return txtDir;
     }
 
-    //function that calculates the angles between three nodes using angle math
+    /**
+     * Calculates the angles between three nodes using angle math.
+     * @param lastNode Previous nodes
+     * @param curNode Current nodes
+     * @param nextNode Next nodes
+     * @return int The angle between the nodes.
+     */
     int angleBetweenNodes(Node lastNode, Node curNode, Node nextNode) {
 
         int DxCurrLast = curNode.getxLoc() - lastNode.getxLoc();
@@ -118,8 +128,13 @@ public class TextDirections {
 
     }
 
-    //function that takes in the path and gets the next hallway node
-    Node nextHallwayNode(ArrayList<NodeObj> path, int start) {
+
+    /**
+     * Takes in the path and gets the next hallway node.
+     * @param path List of node objects containing the path.
+     * @param start Start point of the loop.
+     * @return Node The node position in a straight hallway.
+     */    Node nextHallwayNode(ArrayList<NodeObj> path, int start) {
         Node node = path.get(start).getNode();
         int index = 1;
         while (!node.getNodeType().equals("HALL")) {
@@ -133,15 +148,26 @@ public class TextDirections {
         return node;
     }
 
-    //function that calculates distance between two points.
-    double distanceFormula(int Ax, int Ay, int Bx, int By) {
+
+    /**
+     * Calculates distance between two points.
+     * @param Ax X component of first node.
+     * @param Ay Y component of first node.
+     * @param Bx X component of second node.
+     * @param By Y component of second node.
+     * @return
+     */    double distanceFormula(int Ax, int Ay, int Bx, int By) {
         double x = Math.pow((Ax - Bx),2);
         double y = Math.pow((Ay - By),2);
         return sqrt(x + y);
     }
 
-    //function that finds the next turn in the path
-    Node findNextTurn(int currentNode, ArrayList<NodeObj> path) {
+    /**
+     * Finds the next turn in the path.
+     * @param currentNode Current node.
+     * @param path List of nodes containing the path.
+     * @return Node The next node in a turn.
+     */    Node findNextTurn(int currentNode, ArrayList<NodeObj> path) {
         Node turnNode;
         float angle;
         Node lastNode;

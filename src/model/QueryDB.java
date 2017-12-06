@@ -10,6 +10,11 @@ public class QueryDB {
     public static final String GET_EMPLOYEES = "select DISTINCT * from employeeTable";
     public static final String GET_REQUESTS = "select DISTINCT * from requestTable";
 
+    /**
+     * Gets the array of list of nodes from the database.
+     * @return ArrayList of Node
+     * @throws SQLException Throws SQL exception.
+     */
     public static ArrayList<Node> getNodes() throws SQLException {
         ArrayList<Node> nodeList = new ArrayList<Node>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -29,6 +34,11 @@ public class QueryDB {
         return nodeList;
     }
 
+    /**
+     * Gets the array of list of edges from the database.
+     * @return ArrayList of Edge
+     * @throws SQLException Throws SQL exception.
+     */
     public static ArrayList<Edge> getEdges() throws SQLException {
         ArrayList<Edge> edgeList = new ArrayList<Edge>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
@@ -54,6 +64,11 @@ public class QueryDB {
         return edgeList;
     }
 
+    /**
+     * Gets the array of list of employees from the database.
+     * @return ArrayList of Employee.
+     * @throws SQLException Throws SQL exception.
+     */
     public static ArrayList<Employee> getEmployees() throws SQLException{
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);

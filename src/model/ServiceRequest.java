@@ -120,15 +120,25 @@ public class ServiceRequest implements IReport {
         this.assigned = e;
     }
 
-    // Sets the e-mail address that the message is going to
-    public void setAccountTo(String email){
+    /**
+     * Sets the e-mail address that the message is going to.
+     * @param email Receiver email.
+     */    public void setAccountTo(String email){
         this.email = email;
     }
 
+    /**
+     * Sets the text of the email to be sent.
+     * @param message Message body.
+     */
     public void setMessageText(String message){
         this.messageText = message;
     }
 
+    /**
+     * Sets the header of the message.
+     * @param header Header to be set.
+     */
     public void setMessageHeader(String header){
         this.messageHeader = header;
     }
@@ -139,6 +149,10 @@ public class ServiceRequest implements IReport {
 
     public void setLocation(String location) { this.location = location;}
 
+    /**
+     * Sends an email service request.
+     * @return boolean True if message successfully sent.
+     */
     public boolean sendEmailServiceRequest(){
 
         try {
@@ -162,6 +176,10 @@ public class ServiceRequest implements IReport {
         }
     }
 
+    /**
+     * Sends a message with content explaining what happened and
+     * removes request from unsolved, when resolved bottun is pressed.
+     */
     public void resolveRequest(){
         if(this.isActive){
             int gates = 0;
@@ -270,6 +288,9 @@ public class ServiceRequest implements IReport {
         return String.format("%02:%02:%02" , hours, minutes, seconds);
     }
 
+    /**
+     * Generates report from requested service.
+     */
     public String generateReport(){
         return null;
     }

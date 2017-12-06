@@ -19,9 +19,12 @@ public class ReadCSV {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
-
-    /*
-    *runNode reads a csv file containing a list of nodes from the given path into our table of Node in the database
+    /**
+     * Reads a csv file containing a list of nodes from the given path into our table of Node in the database.
+     * @param path Path for navigation.
+     * @throws ClassNotFoundException Throws class not found exception.
+     * @throws SQLException Throws SQL exception.
+     * @throws FileNotFoundException Throws file not found exception.
      */
     public static void runNode(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
@@ -30,8 +33,12 @@ public class ReadCSV {
         readFile(mapENodesCSV, NUMROWSNODE, NODETABLE);
     }
 
-    /*
-    *runEdge reads a csv file containing a list of nodes from the given path into our table of Edge in the the database
+    /**
+     * Reads a csv file containing a list of nodes from the given path into our table of Edge in the the database.
+     * @param path Path for navigation.
+     * @throws ClassNotFoundException Throws class not found exception.
+     * @throws SQLException Throws SQL exception.
+     * @throws FileNotFoundException Throws file not found exception.
      */
     public static void runEdge(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
@@ -40,8 +47,12 @@ public class ReadCSV {
         readFile(mapEEdgesCSV, NUMROWSEDGE, EDGETABLE);
     }
 
-    /*
-    *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
+    /**
+     * Reads a csv file containing a list of employees from the given path into our table of Employees in the the database.
+     * @param path Path for navigation.
+     * @throws ClassNotFoundException Throws class not found exception.
+     * @throws SQLException Throws SQL exception.
+     * @throws FileNotFoundException Throws file not found exception.
      */
     public static void runEmployee(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Class.forName(DRIVER);
@@ -50,8 +61,15 @@ public class ReadCSV {
         readFile(mapEEmployeeCSV, NUMROWSEMPLOYEE, EMPLOYEETABLE);
     }
 
-    /*
-    *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
+    /**
+     * takes a generic file to read, number of expected columns, and the destination table,
+     * and reads all data from the file into the database.
+     * @param fileToRead File to be read.
+     * @param numColExpected Number expected of columns.
+     * @param destTable Destination table.
+     * @throws ClassNotFoundException Throws class not found exception.
+     * @throws SQLException Throws SQL exception.
+     * @throws FileNotFoundException Throws file not found exception.
      */
     public static void runRequest(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
         Class.forName(DRIVER);
