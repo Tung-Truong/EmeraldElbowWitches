@@ -2,7 +2,6 @@ package model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class InterpreterService extends ServiceRequest {
 

@@ -1,7 +1,5 @@
 package model;
 
-
-import controller.Main;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,25 +8,19 @@ public class CafeteriaService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> menu = new ArrayList<String>();
-    private HashMap<String, long[]> valItem = new HashMap<String, long[]>();
+    private CafeteriaStatistic caff = CafeteriaStatistic.getCafe();
     private String itemSold;
-    private int soldItems = 0;
 
     // TODO: have each menu item have an associated number of items sold and who delivered them
 
     // Constructor
     public CafeteriaService() {
-        classType = this.getClass().toString();
 
         menu.add("Cake");
         menu.add("Noodles");
         menu.add("Tea");
         menu.add("Pie");
         // fill in more food things later
-
-        for (String s : menu){
-            valItem.put(s, new long[2]);
-        }
 
     }
 
@@ -37,13 +29,15 @@ public class CafeteriaService extends ServiceRequest {
         return this.menu;
     }
 
-    public int getSoldItems() {
-        return soldItems;
-    }
+    public String getItemSold() { return itemSold; }
 
     // Setters
     public void setMenu(ArrayList<String> items){
         this.menu = items;
+    }
+
+    public void setItemSold(String item) {
+        itemSold = item;
     }
 
     // Methods
@@ -53,10 +47,6 @@ public class CafeteriaService extends ServiceRequest {
 
     public void removeMenuItem(String food){
         menu.remove(food);
-    }
-
-    public void sellItem(){
-        soldItems++;
     }
 
     public void generateReport(){
@@ -80,17 +70,17 @@ public class CafeteriaService extends ServiceRequest {
 
             long tempUsed = 0;
             long tempAvg = 0;
+            long newAvg = 0;
 
-            valItem.get(food)[0] += 1;
+            tempUsed = caff.getNumOfOrders() + 1;
+            tempAvg = caff.getAvgTime();
 
-            tempUsed = valItem.get(food)[0];
-            tempAvg = valItem.get(food)[1];
-
-            valItem.get(food)[1] = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
+            newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
 
             // Food, Number of requests for that food, Average time taken to fulfill request for that food
             try {
-                AddDB.addCafeteriaStatistic(new CafeteriaStatistic(food, valItem.get(food)[0], valItem.get(food)[1]));
+                caff.setData(food, tempUsed, newAvg);
+                AddDB.addCafeteriaStatistic(caff);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
