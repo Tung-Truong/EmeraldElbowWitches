@@ -37,7 +37,9 @@ public class NodeAlignment {
         astar path = new astar();
         path.pathfind(start, end);
         nodes = path.getGenPath();
-
+        System.out.println(nodes.size());
+        nodes.remove(nodes.size() - 1);
+        System.out.println(nodes.size());
         //if the slope of the line is undefinited, just set all the nodes x coord to be the same as the start x coord
         if (slope >= 999 || slope < -999){
             for (NodeObj node:nodes) {
@@ -59,16 +61,16 @@ public class NodeAlignment {
         else{
 
             if(slope < 0){
-                perpSlope = Math.pow(slope, -1)* -1;
+                perpSlope = Math.pow(slope, -1.0)* -1;
             } else {
-                perpSlope = Math.pow(slope, -1);
+                perpSlope = Math.pow(slope, -1.0);
             }
 
-            b = (int) (starty - startx*slope);
+            b = (int) (starty - (startx*slope));
             for (NodeObj node: nodes) {
-                perpB = (int) (node.node.getyLoc() - node.node.getxLoc()*perpSlope);
-                int newX = (int) (-(b-perpB)/(slope-perpSlope));
-                int newY = (int) (slope*newX - b);
+                perpB = (int) (node.node.getyLoc() - (node.node.getxLoc()*perpSlope));
+                int newX = (int) ((b-perpB)/(-slope+perpSlope));
+                int newY = (int) (slope*newX + b);
                 System.out.println("" + "   " + node + "   " + perpB + "   " + newX + "   " + newY);
                 node.node.setLoc(newX,newY);
                 System.out.println(" " + node);
