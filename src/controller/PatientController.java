@@ -426,12 +426,10 @@ public class PatientController extends Controller {
             if (n != goal) {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                         tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                    if (n != Main.getKiosk()) {
                         gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
                                 n.node.getyLoc() * single.getMapHeight() / 3400,
                                 tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
                                 tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
-                    }
                 }
             }
             if (Floors.size() > 0) {
