@@ -167,9 +167,11 @@ public class AdminController extends Controller {
     public String servReqNodeID;
     NodeObj nodeA = null;
     private SingleController single = SingleController.getController();
+    private ImageLoader mapImage = new ImageLoader();
+    private GraphicsContext gc1 = null;
 
     public void initialize(){
-        Image m1 = single.getMapImage().getLoadedMap("btn_map01");
+        Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
         single.getAlgorithm().setPathAlg(new astar());
         single.setMapWidth(currentMap.getFitWidth());
@@ -195,15 +197,15 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if(single.getGc() == null)
-            single.setGc(gc.getGraphicsContext2D());
-        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        single.getGc().setLineWidth(2);
-        single.getGc().setFill(Color.BLACK);
+        if(gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(2);
+        gc1.setFill(Color.BLACK);
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
-                single.getGc().setStroke(Color.BLUE);
-                single.getGc().strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                gc1.setStroke(Color.BLUE);
+                gc1.strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
                         e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
                         e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
                         e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
@@ -215,18 +217,18 @@ public class AdminController extends Controller {
         }
 
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
-            single.getGc().setFill(Color.BLACK);
-            single.getGc().fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
+            gc1.setFill(Color.BLACK);
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
                     n.node.getyLoc()*single.getMapHeight()/3400 - 5,
                     10,
                     10);
-            single.getGc().setFill(Color.LIGHTBLUE);
-            single.getGc().fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
+            gc1.setFill(Color.LIGHTBLUE);
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
                     n.node.getyLoc()*single.getMapHeight()/3400 - 4,
                     8,
                     8);
         }
-        single.getGc().setFill(Color.BLUE);
+        gc1.setFill(Color.BLUE);
     }
 
     @FXML
@@ -276,8 +278,8 @@ public class AdminController extends Controller {
                 break;
 
         }
-        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        Image map = single.getMapImage().getLoadedMap(clickedID);
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        Image map = mapImage.getLoadedMap(clickedID);
         this.currentMap.setImage(map);
         redraw();
     }
@@ -438,8 +440,8 @@ public class AdminController extends Controller {
         EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
         redraw();
 
-        single.getGc().setStroke(Color.RED);
-        single.getGc().strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+        gc1.setStroke(Color.RED);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
                 edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
                 edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
                 edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);

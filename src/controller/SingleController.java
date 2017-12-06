@@ -14,10 +14,10 @@ public class SingleController {
     private int YTrans = 0;
     private double Zoom = 1;
     private PathingContainer algorithm = new PathingContainer();
-    private GraphicsContext gc = null;
+    //private GraphicsContext gc = null;
     double mapWidth;
     double mapHeight;
-    ImageLoader mapImage = new ImageLoader();
+    //ImageLoader mapImage = new ImageLoader();
     private String serviceNeeded;
 
     public static SingleController getController(){
@@ -54,13 +54,13 @@ public class SingleController {
         return mapWidth;
     }
 
-    public GraphicsContext getGc() {
-        return gc;
-    }
+//    public GraphicsContext getGc() {
+//        return gc;
+//    }
 
-    public ImageLoader getMapImage() {
-        return mapImage;
-    }
+//    //public ImageLoader getMapImage() {
+//        return mapImage;
+//    }
 
     public String getServiceNeeded() {
         return serviceNeeded;
@@ -78,9 +78,9 @@ public class SingleController {
         YTrans = yTrans;
     }
 
-    public void setGc(GraphicsContext gc) {
-        this.gc = gc;
-    }
+//    public void setGc(GraphicsContext gc) {
+//        this.gc = gc;
+//    }
 
     public void setMapHeight(double mapHeight) {
         this.mapHeight = mapHeight;
