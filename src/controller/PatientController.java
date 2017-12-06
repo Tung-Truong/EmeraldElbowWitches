@@ -35,9 +35,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+
 import javafx.scene.control.Hyperlink;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,6 +48,7 @@ import javafx.scene.web.WebView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -145,7 +148,6 @@ public class PatientController extends Controller {
     private JFXButton toHTML;
 
 
-
     @FXML
     private ImageView startImage;
 
@@ -174,8 +176,8 @@ public class PatientController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         setKioskLoc(2460, 910);
         redraw();
-        for(NodeObj n : Main.getNodeMap().getNodes()){
-            if(!n.node.getNodeType().equals("HALL")){
+        for (NodeObj n : Main.getNodeMap().getNodes()) {
+            if (!n.node.getNodeType().equals("HALL")) {
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
@@ -393,7 +395,8 @@ public class PatientController extends Controller {
                 break;
         }
     }
-// Currently in Singleton
+
+    // Currently in Singleton
 //    /*
 //     * setKioskLoc sets the default location for the floor
 //     */
@@ -426,23 +429,40 @@ public class PatientController extends Controller {
             if (n != goal) {
                 if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                         tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                        gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
-                                n.node.getyLoc() * single.getMapHeight() / 3400,
-                                tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
-                                tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
+                    gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
+                            n.node.getyLoc() * single.getMapHeight() / 3400,
+                            tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
+                            tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
+                } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                    gc1.setFill(Color.BLACK);
+                    if (n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                10,
+                                10);
+                    }
+
+                } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                    gc1.setFill(Color.GOLD);
+                    if (tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                10,
+                                10);
+                    }
                 }
             }
             if (Floors.size() > 0) {
                 if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
                     Floors.add(n.getNode().getFloor());
 
-                    }
-                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
-
-                    Floors.add(n.getNode().getFloor());
                 }
-                tempDraw = n;
+            } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
+                Floors.add(n.getNode().getFloor());
             }
+            tempDraw = n;
+        }
 
         if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKRED);
@@ -461,13 +481,10 @@ public class PatientController extends Controller {
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
         System.out.println(Floors.toString());
-        }
-
-
-
+    }
+    
 
     @FXML
-
     void ourWebsite() throws IOException {
         FXMLLoader servContLoad = new FXMLLoader(this.getClass().getClassLoader().getResource("view/ui/Webpane.fxml"));
         Parent root = (Parent) servContLoad.load();
@@ -483,7 +500,6 @@ public class PatientController extends Controller {
         webStage.setScene(scene);
         webStage.show();
     }
-
 
 
     /*
@@ -557,7 +573,7 @@ public class PatientController extends Controller {
         }
         try {
             path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
-        }catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("wat. somehow fixes the last floor selected showing as selected bug");
         }
         return path;
@@ -571,6 +587,7 @@ public class PatientController extends Controller {
         pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             Location oldLocation = null;
             Location oldOldLocation = null;
+
             @Override
             public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
                 if (oldValue == Duration.ZERO) {
@@ -590,23 +607,22 @@ public class PatientController extends Controller {
                 gc.setFill(Color.YELLOW);
                 gc.setLineWidth(4);
                 try {
-                    NodeObj a = Main.getNodeMap().getNearestNeighborFilter((int)oldLocation.x,(int)oldLocation.y);
-                    NodeObj b = Main.getNodeMap().getNearestNeighborFilter((int)x,(int)y);
+                    NodeObj a = Main.getNodeMap().getNearestNeighborFilter((int) oldLocation.x, (int) oldLocation.y);
+                    NodeObj b = Main.getNodeMap().getNearestNeighborFilter((int) x, (int) y);
 
-                    if(a.getListOfNeighbors().contains(b)){
+                    if (a.getListOfNeighbors().contains(b)) {
                         gc.strokeLine(oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400, x * single.getMapWidth() / 5000, y * single.getMapHeight() / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;
                         oldOldLocation = oldLocation;
-                    }
-                    else if(oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10 ){
+                    } else if (oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10) {
                         gc.strokeLine(oldOldLocation.x * single.getMapWidth() / 5000, oldOldLocation.y * single.getMapHeight() / 3400, oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400);
                         oldLocation.x = x;
                         oldLocation.y = y;
                     }
                 } catch (InvalidNodeException e) {
                     e.getMessage();
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     e.getMessage();
                 }
                 oldLocation.x = x;
@@ -695,8 +711,8 @@ public class PatientController extends Controller {
     @FXML
     void setSearchNode(Event e) {
         if (((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
-            try{
-            String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
+            try {
+                String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
 
                 NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
                 try {
@@ -718,7 +734,7 @@ public class PatientController extends Controller {
                 } catch (InvalidNodeException exc) {
                     exc.printStackTrace();
                 }
-            }catch (NullPointerException exc){
+            } catch (NullPointerException exc) {
                 exc.getMessage();
             }
         }
@@ -770,7 +786,7 @@ public class PatientController extends Controller {
     }
 
     @FXML
-    void adminLogin() throws IOException{
+    void adminLogin() throws IOException {
         FXMLLoader LogIn = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/login.fxml"));
         Parent root = LogIn.load();
         Stage servStage = new Stage();
@@ -813,14 +829,14 @@ public class PatientController extends Controller {
     }
 
     @FXML
-    void pathingHoverStart(MouseEvent event){
-        String hoveredID = ((JFXButton)event.getSource()).getId();
+    void pathingHoverStart(MouseEvent event) {
+        String hoveredID = ((JFXButton) event.getSource()).getId();
         opacHandler(1, hoveredID);
     }
 
     @FXML
-    void pathingHoverStop(MouseEvent event){
-        String hoveredID = ((JFXButton)event.getSource()).getId();
+    void pathingHoverStop(MouseEvent event) {
+        String hoveredID = ((JFXButton) event.getSource()).getId();
         opacHandler(.5, hoveredID);
     }
 
@@ -849,8 +865,6 @@ public class PatientController extends Controller {
                 break;
         }
     }
-
-
 
 
     public void resize() {
