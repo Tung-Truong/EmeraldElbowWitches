@@ -67,7 +67,7 @@
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <Label layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR">
+      <Label alignment="CENTER" layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR">
          <font>
             <Font name="Avenir Next Bold" size="82.0" />
          </font>
