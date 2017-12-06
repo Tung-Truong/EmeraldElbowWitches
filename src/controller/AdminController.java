@@ -395,6 +395,7 @@ public class AdminController extends Controller {
                 for (NodeObj node : nodesToBeChanged) {
                     Main.getNodeMap().addEditNode(node);
                 }
+                redraw();
 
 
             } else if (nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)) != null) {
