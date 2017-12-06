@@ -6,7 +6,12 @@ import java.util.Stack;
 public class DepthFirst extends PathingAlgorithm {
     private ArrayList<NodeObj> GenPath;
 
-    //depth first search using a stack that takes in a start node and goal node. It goes until it runs out of nodes to explore, or the popped node is the goal
+    /**
+     * Depth first search using a stack that takes in a start node and goal node. It goes until it runs out of nodes to explore, or the popped node is the goal
+     * @param start Origin node for the path.
+     * @param goal Destination node for the path.
+     * @return boolean Returns true when path is complete.
+     */
     public boolean pathfind(NodeObj start, NodeObj goal) {
         ArrayList<NodeObj> explored = new ArrayList<NodeObj>();
         Stack<NodeObj> stack = new Stack<NodeObj>();

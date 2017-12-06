@@ -6,7 +6,12 @@ import java.util.*;
 public class Dijkstras extends PathingAlgorithm {
     private ArrayList<NodeObj> GenPath;
 
-
+    /**
+     * Finds a path from start to goal using the Dijkstras algorithm.
+     * @param start Origin node for the path.
+     * @param goal Destination node for the path.
+     * @return boolean Returns true when path is complete.
+     */
     public boolean pathfind(NodeObj start, NodeObj goal) {
         LinkedList<NodeObj> open_queue = new LinkedList<>();
         Set<NodeObj> closed_queue = new HashSet<>();
@@ -39,6 +44,11 @@ public class Dijkstras extends PathingAlgorithm {
         return false;
     }
 
+    /**
+     * This method finds the node with the lowest weight from an array of nodes.
+     * @param list This is an arrya list of node objects.
+     * @return NodeObj Returns the node with the lowest weight.
+     */
     private NodeObj getLowest(LinkedList<NodeObj> list) {
         double currentGCost = Integer.MAX_VALUE;
         NodeObj lowestNode = null;

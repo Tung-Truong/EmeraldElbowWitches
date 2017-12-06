@@ -8,6 +8,11 @@ public class CreateDB {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
+    /**
+     * Creates the database.
+     * @throws ClassNotFoundException Thrown if the class is not found.
+     * @throws SQLException Throws an SQL exception.
+     */
     public static void run() throws ClassNotFoundException, SQLException {
         Class.forName(DRIVER);
         Connection connection = DriverManager.getConnection(JDBC_URL);
