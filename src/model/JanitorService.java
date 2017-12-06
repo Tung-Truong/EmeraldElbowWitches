@@ -6,25 +6,18 @@ import java.util.ArrayList;
 
 public class JanitorService extends ServiceRequest{
 
-    public static JanitorStatistic numSuppliesUsed;
-    public static int numSupplies;
-
     // Attributes
     private ArrayList<String> suppliesNeeded;
     private String janitorEmail = "kgrant@wpi.edu";
-    private long avgTime = 0;
-    private int used = 0;
+    public JanitorStatistic soap = JanitorStatistic.getSoap();
 
     // Constructors
     public JanitorService (){
-        classType = this.getClass().toString();
-        used ++;
         this.setAccountTo(janitorEmail);
     }
 
     // Getters
     public ArrayList<String> getSuppliesNeeded(){
-        numSupplies += 1;
         return this.suppliesNeeded;
     }
 
@@ -41,10 +34,6 @@ public class JanitorService extends ServiceRequest{
         this.janitorEmail = mail;
     }
 
-    public int getNumSuppliesUsed() {
-        return numSupplies;
-    }
-
     public void generateReport() {
         /*
             Information required:
@@ -59,13 +48,16 @@ public class JanitorService extends ServiceRequest{
 
             long diffSeconds = (timeReceived - timeSent) / 1000;
             // This part increments the number of interpreters used for the language and time taken for this interpreter
-            long tempUsed = used;
-            long tempAvg = avgTime;
+            int tempUsed = 0;
+            long tempAvg = 0;
+            long newAvg = 0;
 
-            avgTime = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
+            newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
 
             try {
-                AddDB.addJanitorStatistic(new JanitorStatistic(getNumSuppliesUsed(), avgTime));
+                soap.setNumOfSupplies(tempUsed);
+                soap.setAvgTime(newAvg);
+                AddDB.addJanitorStatistic(soap);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

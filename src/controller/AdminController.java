@@ -624,6 +624,7 @@ public class AdminController extends Controller {
 
             if (serv != null) {
                 Main.requests.remove(serv);
+                serv.setReceived();
                 serv.generateReport();
             }
         } catch (NullPointerException e) {

@@ -33,9 +33,9 @@ public class Main extends Application {
     //contains all the employee
     public static ArrayList<Employee> employees;
     public static ArrayList<ServiceRequest> requests;
-    public static ArrayList<CafeteriaStatistic> cafeteriaStat;
-    public static ArrayList<JanitorStatistic> janitorStat;
-    public static ArrayList<InterpreterStatistic> interpreterStat;
+    public static CafeteriaStatistic cafeteriaStat;
+    public static JanitorStatistic janitorStat;
+    public static InterpreterStatistic interpreterStat;
     //contains all the messages
     public static JanitorService janitorService;
     public static CafeteriaService cafeteriaService;
@@ -162,17 +162,11 @@ public class Main extends Application {
         listOfRequests = QueryDB.getRequests();
         requests = listOfRequests;
 
-        ArrayList<CafeteriaStatistic> listOfCafStats = new ArrayList<CafeteriaStatistic>();
-        listOfCafStats = QueryDB.getCafeteriaStatistics();
-        cafeteriaStat = listOfCafStats;
+        cafeteriaStat = QueryDB.getCafeteriaStatistics();
 
-        ArrayList<JanitorStatistic> listOfJanStats = new ArrayList<JanitorStatistic>();
-        listOfJanStats = QueryDB.getJanitorStatistics();
-        janitorStat = listOfJanStats;
+        janitorStat = QueryDB.getJanitorStatistics();
 
-        ArrayList<InterpreterStatistic> listOfInterStats = new ArrayList<InterpreterStatistic>();
-        listOfInterStats = QueryDB.getInterpreterStatistics();
-        interpreterStat = listOfInterStats;
+        interpreterStat = QueryDB.getInterpreterStatistics();
 
         //set up service request
         janitorService = new JanitorService();

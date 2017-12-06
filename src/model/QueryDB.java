@@ -111,8 +111,8 @@ public class QueryDB {
         return requestList;
     }
 
-    public static ArrayList<JanitorStatistic> getJanitorStatistics() throws SQLException{
-        ArrayList<JanitorStatistic> statisticList = new ArrayList<JanitorStatistic>();
+    public static JanitorStatistic getJanitorStatistics() throws SQLException{
+        JanitorStatistic statisticList = JanitorStatistic.getSoap();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_JANITOR_STATISTICS);
@@ -124,7 +124,8 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getInt(colInd);
             }
             if(tempVals[0] != 0){
-                statisticList.add(new JanitorStatistic(tempVals[0], tempVals[1]));
+                statisticList.setNumOfSupplies(tempVals[0]);
+                statisticList.setAvgTime(tempVals[1]);
             }
         }
         if(statement != null){
@@ -136,8 +137,8 @@ public class QueryDB {
         return statisticList;
     }
 
-    public static ArrayList<CafeteriaStatistic> getCafeteriaStatistics() throws SQLException{
-        ArrayList<CafeteriaStatistic> statisticList = new ArrayList<CafeteriaStatistic>();
+    public static CafeteriaStatistic getCafeteriaStatistics() throws SQLException{
+        CafeteriaStatistic statisticList = CafeteriaStatistic.getCafe();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_CAFETERIA_STATISTICS);
@@ -149,7 +150,7 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getInt(colInd);
             }
             if(tempVals[0] != 0){
-                statisticList.add(new CafeteriaStatistic(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]));
+                statisticList.setData(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]);
             }
         }
         if(statement != null){
@@ -161,8 +162,8 @@ public class QueryDB {
         return statisticList;
     }
 
-    public static ArrayList<InterpreterStatistic> getInterpreterStatistics() throws SQLException{
-        ArrayList<InterpreterStatistic> statisticList = new ArrayList<InterpreterStatistic>();
+    public static InterpreterStatistic getInterpreterStatistics() throws SQLException{
+        InterpreterStatistic statistic = InterpreterStatistic.getStats();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_INTERPRETER_STATISTICS);
@@ -171,10 +172,10 @@ public class QueryDB {
         while(resultSet.next()){
             int[] tempVals = new int[columnCount];
             for(int colInd = 1; colInd < columnCount+1; colInd++){
-                tempVals[colInd-1] = resultSet.getInt(colInd);
+               tempVals[colInd-1] = resultSet.getInt(colInd);
             }
             if(tempVals[0] != 0){
-                statisticList.add(new InterpreterStatistic(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]));
+                InterpreterStatistic.getStats().setData(Integer.toString(tempVals[0]), tempVals[1], tempVals[2]);
             }
         }
         if(statement != null){
@@ -183,6 +184,6 @@ public class QueryDB {
         if(connection != null){
             connection.close();
         }
-        return statisticList;
+        return statistic;
     }
 }
