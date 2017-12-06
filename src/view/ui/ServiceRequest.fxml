@@ -4,11 +4,11 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="243.0" style="-fx-background-color: #4286f4#4286f4;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0" prefWidth="243.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceController">
    <children>
       <Pane layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="243.0" style="-fx-background-color: white;">
          <children>
@@ -26,13 +26,14 @@
             </JFXTextField>
          </children>
       </Pane>
-      <JFXButton alignment="CENTER" blendMode="OVERLAY" buttonType="RAISED" prefHeight="67.0" prefWidth="243.0" ripplerFill="BLACK" style="-fx-background-color: #8080ff; -fx-border-color: white; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 1; -fx-opacity: 1;" text="SERVICE REQUEST" textFill="WHITE" textOverrun="CLIP">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </JFXButton>
+      <Pane prefHeight="79.0" prefWidth="243.0" style="-fx-background-color: #1b3766#1b3766;">
+         <children>
+            <Label layoutX="31.0" layoutY="27.0" text="SERVICE REQUEST" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </Pane>

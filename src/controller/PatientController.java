@@ -34,10 +34,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
-
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.scene.control.Hyperlink;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 public class PatientController extends Controller {
 
@@ -115,6 +128,23 @@ public class PatientController extends Controller {
 
     @FXML
     private Label floorL2Label;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+    @FXML
+    private JFXButton toHTML;
+
+
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -433,6 +463,27 @@ public class PatientController extends Controller {
     }
 
 
+
+    @FXML
+
+    void ourWebsite() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(this.getClass().getClassLoader().getResource("view/ui/Webpane.fxml"));
+        Parent root = (Parent) servContLoad.load();
+        Scene scene = new Scene(root, 1000, 1000);
+
+
+        WebView oursite = (WebView) scene.lookup("#website");
+        WebEngine webEngine = oursite.getEngine();
+        webEngine.load("https://cs3733-about-us.herokuapp.com");
+
+        Stage webStage = new Stage();
+        webStage.setTitle("Team E Website");
+        webStage.setScene(scene);
+        webStage.show();
+    }
+
+
+
     /*
      * findPath pathfinds, and draws the route to the screen
      */
@@ -702,7 +753,7 @@ public class PatientController extends Controller {
                         e.printStackTrace();
                     }
                 }
-                
+
                 if (oldAnimation != null) {
                     oldAnimation.stop();
                     gc1.clearRect(0, 0, mapWidth, mapHeight);
@@ -760,6 +811,47 @@ public class PatientController extends Controller {
         resize();
     }
 
+    @FXML
+    void pathingHoverStart(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(1, hoveredID);
+    }
+
+    @FXML
+    void pathingHoverStop(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(.5, hoveredID);
+    }
+
+    void opacHandler(double opacity, String hoveredID) {
+        switch (hoveredID) {
+            case "Tup":
+                Tup.setOpacity(opacity);
+                break;
+            case "Tdown":
+                Tdown.setOpacity(opacity);
+                break;
+            case "Tleft":
+                Tleft.setOpacity(opacity);
+                break;
+            case "Tright":
+                Tright.setOpacity(opacity);
+                break;
+            case "SearchForNode":
+                SearchForNode.setOpacity(opacity);
+                break;
+            case "directionsButton":
+                directionsButton.setOpacity(opacity);
+                break;
+            case "toHTML":
+                toHTML.setOpacity(opacity);
+                break;
+        }
+    }
+
+
+
+
     public void resize() {
         SearchPath.setVisible(false);
         if (Zoom <= 1) {
@@ -787,3 +879,4 @@ public class PatientController extends Controller {
         }
     }
 }
+
