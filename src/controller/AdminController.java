@@ -33,6 +33,15 @@ public class AdminController extends Controller {
     private JFXButton serviceRequestBtn;
 
     @FXML
+    private JFXButton addEditBtn;
+
+    @FXML
+    private JFXButton editEmployeesBtn;
+
+    @FXML
+    private JFXButton removeNodeBtn;
+
+    @FXML
     private JFXTogglePane textTogglePane;
 
     @FXML
@@ -139,6 +148,24 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXToggleButton nodeAlignmentToggle;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+
+
+
+
+
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -271,21 +298,20 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
-        int mousex = (int) ((5000 * event.getX()) / mapWidth);
-        int mousey = (int) ((3400 * event.getY()) / mapHeight);
-
-        if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
+        int mousex = (int)((5000 * event.getX()) / mapWidth);
+        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
             redraw();
-            createNewNode(mousex, mousey);
-        } else if (event.getButton() == MouseButton.PRIMARY) {
-            if (nodeA == null) {
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            if(nodeA == null){
                 selectNodeA(event);
-            } else {
-                if (nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey).getNode().getNodeID())) {
+            }else{
+                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
                     edgeInfoPane.setVisible(false);
-                    selectNode(mousex, mousey);
+                    selectNode(mousex,mousey);
                     nodeA = null;
-                } else {
+                }else {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
@@ -293,7 +319,6 @@ public class AdminController extends Controller {
                 }
             }
         }
-
     }
 
     @FXML
@@ -395,6 +420,7 @@ public class AdminController extends Controller {
                 for (NodeObj node : nodesToBeChanged) {
                     Main.getNodeMap().addEditNode(node);
                 }
+                redraw();
 
                 redraw();
 
@@ -472,7 +498,31 @@ public class AdminController extends Controller {
             case "bestBtn":
                 bestBtn.setOpacity(opacity);
                 break;
-        }
+            case "editEmployeesBtn":
+                editEmployeesBtn.setOpacity(opacity);
+                 break;
+            case "serviceRequestBtn":
+                serviceRequestBtn.setOpacity(opacity);
+                break;
+            case "addEditBtn":
+                addEditBtn.setOpacity(opacity);
+                break;
+            case "removeNodeBtn":
+                removeNodeBtn.setOpacity(opacity);
+                break;
+            case "Tup":
+                Tup.setOpacity(opacity);
+                break;
+            case "Tdown":
+                Tdown.setOpacity(opacity);
+                break;
+            case "Tleft":
+                Tleft.setOpacity(opacity);
+                break;
+            case "Tright":
+                Tright.setOpacity(opacity);
+                break;
+    }
     }
 
     @FXML
@@ -516,7 +566,6 @@ public class AdminController extends Controller {
         bestBtn.setStyle("-fx-background-color:  #21a047");
     }
 
-    //#4286f4
     @FXML
     void adminLogout() {
         Main.getCurrStage().setScene(Main.getPatientScene());

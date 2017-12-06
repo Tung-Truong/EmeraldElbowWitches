@@ -5,7 +5,6 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
@@ -21,86 +20,122 @@
          </image>
       </ImageView>
       <Canvas fx:id="gc" height="900.0" onMousePressed="#mousePress" width="1400.0" />
-      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="400.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
          </font>
-         <graphic>
-            <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" prefHeight="35.0" prefWidth="341.0" scaleShape="false" showTickMarks="true" value="1.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXSlider>
-         </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1260.0" layoutY="101.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
+      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L1" textFill="WHITE">
+         <font>
+            <Font name="Avenir Book" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="1" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="2" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="G" textFill="WHITE">
+         <font>
+            <Font name="Avenir Book" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L2" textFill="WHITE">
+         <font>
+            <Font name="Avenir Book" size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1260.0" layoutY="351.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="L1" textFill="WHITE">
-         <font>
-            <Font name="Avenir Book" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1260.0" layoutY="226.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="1" textFill="WHITE">
-         <font>
-            <Font name="System Font" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1260.0" layoutY="165.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="2" textFill="WHITE">
-         <font>
-            <Font name="System Font" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1260.0" layoutY="290.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="G" textFill="WHITE">
-         <font>
-            <Font name="Avenir Book" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1260.0" layoutY="411.0" onAction="#changeMap" opacity="0.5" prefHeight="51.0" prefWidth="103.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="L2" textFill="WHITE">
-         <font>
-            <Font name="Avenir Book" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="24.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="LOGIN" textFill="WHITE">
-         <font>
-            <Font name="System Font" size="24.0" />
-         </font>
-      </JFXButton>
-      <JFXToggleButton layoutX="1240.0" layoutY="476.0" prefHeight="66.0" prefWidth="144.0" text="HELP" unToggleLineColor="BLACK">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </JFXToggleButton>
+      <JFXButton fx:id="toHTML" buttonType="RAISED" layoutX="1220.0" layoutY="469.0" onAction="#ourWebsite" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="36.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="OUR TEAM" textFill="WHITE" />
       <JFXTogglePane fx:id="textTogglePane" layoutX="1240.0" layoutY="581.0" prefHeight="133.0" prefWidth="144.0" visible="false">
          <children>
             <JFXTextArea fx:id="toggleTextArea" unFocusColor="#ffffff00" />
          </children>
       </JFXTogglePane>
-      <Label layoutX="1202.0" layoutY="265.0" prefHeight="44.0" prefWidth="363.0" rotate="90.0" text="FLOOR">
+      <Label layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR">
          <font>
-            <Font size="36.0" />
+            <Font name="Avenir Next Bold" size="82.0" />
          </font>
       </Label>
-      <Label fx:id="floor3Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="118.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <Label fx:id="floor2Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="183.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <Label fx:id="floor1Label" alignment="CENTER_RIGHT" layoutX="1154.0" layoutY="244.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="310.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1156.0" layoutY="371.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1155.0" layoutY="431.0" prefHeight="30.0" prefWidth="100.0" textAlignment="RIGHT" />
-      <JFXButton fx:id="SearchForNode" layoutX="20.0" layoutY="15.0" onAction="#setSearchNode" opacity="0.8" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" text="CONFIRM" textFill="WHITE" />
-      <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="15.0" opacity="0.8" style="-fx-background-color: #4286f4;" />
-      <JFXTextField fx:id="SearchNodeID" layoutX="101.0" layoutY="15.0" onKeyTyped="#UpdateSearch" opacity="0.8" style="-fx-background-color: #4286f4;" />
-      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
-      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1250.0" layoutY="542.0" onAction="#getTextDirections" prefHeight="30.0" prefWidth="123.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="Text Directions" textFill="WHITE" visible="false">
+      <Label fx:id="floor3Label" alignment="CENTER_RIGHT" layoutX="1136.0" layoutY="80.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="floor2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="128.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="floor1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="177.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="229.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="287.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="343.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <JFXButton fx:id="SearchForNode" buttonType="RAISED" layoutX="416.0" layoutY="10.0" onAction="#setSearchNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" stylesheets="@../stylesheets/UI.css" text="CONFIRM" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="34.0" layoutY="676.0" onAction="#Tup" prefHeight="27.0" prefWidth="27.0" style="-fx-background-color: #4286f4;" text="U" />
-      <JFXButton layoutX="61.0" layoutY="701.0" onAction="#Tright" style="-fx-background-color: #4286f4;" text="R" />
-      <JFXButton layoutX="9.0" layoutY="701.0" onAction="#Tleft" style="-fx-background-color: #4286f4;" text="L" />
-      <JFXButton layoutX="33.0" layoutY="727.0" onAction="#Tdown" style="-fx-background-color: #4286f4;" text="D" />
+      <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" style="-fx-background-color: #4286f4;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="10.0" opacity="0.8" prefHeight="51.0" prefWidth="132.0" style="-fx-background-color: #4286f4;" />
+      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1220.0" layoutY="404.0" onAction="#getTextDirections" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="44.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" stylesheets="@../stylesheets/UI.css" text="TEXT DIRECTIONS" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="Tup" buttonType="RAISED" layoutX="37.0" layoutY="766.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▲" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="37.0" layoutY="850.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" onMouseReleased="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXSlider>
+
    </children>
 </Pane>

@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="972.0" prefWidth="1457.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceEditController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="972.0" prefWidth="1457.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceEditController">
    <children>
       <Pane layoutX="2.0" layoutY="798.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="1457.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;" />
   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

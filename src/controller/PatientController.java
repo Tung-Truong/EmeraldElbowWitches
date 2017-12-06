@@ -34,10 +34,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
-
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.scene.control.Hyperlink;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 public class PatientController extends Controller {
 
@@ -115,6 +128,31 @@ public class PatientController extends Controller {
 
     @FXML
     private Label floorL2Label;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+    @FXML
+    private JFXButton toHTML;
+
+
+
+    @FXML
+    private ImageView startImage;
+
+    @FXML
+    private ImageView endImage;
+
+
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -400,37 +438,82 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * mapHeight / 3400,
                                 tempDraw.node.getxLoc() * mapWidth / 5000,
                                 tempDraw.node.getyLoc() * mapHeight / 3400);
+                        gc1.fillText("Start", Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                                Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5);
+                    }
+                } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                    gc1.setFill(Color.BLACK);
+                    if(n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 5,
+                                n.node.getyLoc() * mapHeight / 3400 - 5,
+                                10,
+                                10);
+                    }
+
+                } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                    gc1.setFill(Color.GOLD);
+                    if(tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 5,
+                                n.node.getyLoc() * mapHeight / 3400 - 5,
+                                10,
+                                10);
                     }
                 }
             }
             if (Floors.size() > 0) {
                 if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
                     Floors.add(n.getNode().getFloor());
-                }
-            } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
-                Floors.add(n.getNode().getFloor());
-            }
-            tempDraw = n;
-        }
 
-        if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
-                    goal.node.getyLoc() * mapHeight / 3400 - 5,
-                    10,
-                    10);
+                    }
+                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
+                    Floors.add(n.getNode().getFloor());
+                }
+                tempDraw = n;
+            }
+
+            if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKRED);
+                gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
+                        goal.node.getyLoc() * mapHeight / 3400 - 5,
+                        10,
+                        10);
+                gc1.fillText("End", goal.node.getxLoc() * mapWidth / 5000 - 5,
+                        goal.node.getyLoc() * mapHeight / 3400 - 5);
+            }
+            if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKGREEN);
+                gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                        Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
+                        10,
+                        10);
+            }
+            gc1.setFill(Color.YELLOW);
+            clearChosenFloor();
+            System.out.println(Floors.toString());
         }
-        if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKGREEN);
-            gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
-                    Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
-                    10,
-                    10);
-        }
-        gc1.setFill(Color.YELLOW);
-        clearChosenFloor();
-        System.out.println(Floors.toString());
+    
+
+
+
+    @FXML
+
+    void ourWebsite() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(this.getClass().getClassLoader().getResource("view/ui/Webpane.fxml"));
+        Parent root = (Parent) servContLoad.load();
+        Scene scene = new Scene(root, 1000, 1000);
+
+
+        WebView oursite = (WebView) scene.lookup("#website");
+        WebEngine webEngine = oursite.getEngine();
+        webEngine.load("https://cs3733-about-us.herokuapp.com");
+
+        Stage webStage = new Stage();
+        webStage.setTitle("Team E Website");
+        webStage.setScene(scene);
+        webStage.show();
     }
+
 
 
     /*
@@ -582,6 +665,7 @@ public class PatientController extends Controller {
     @FXML
     void mousePress(MouseEvent event) {
         if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
+            oldAnimation.stop();
             setStartNode(event);
         } else if (event.getButton() == MouseButton.PRIMARY) {
             findPath(event);
@@ -624,15 +708,14 @@ public class PatientController extends Controller {
     void UpdateSearch() {
         SearchOptions.getItems().clear();
 
-        ArrayList<NodeObj> SearchNodes = new ArrayList<NodeObj>();
+        ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
         for (NodeObj n : Main.getNodeMap().getNodes()) {
             if (search.length() > 2 && (n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
                 SearchNodes.add(n);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
-            }
-            else if (search.length() == 0){
-                if(!n.node.getNodeType().equals("HALL")){
+            } else if (search.length() == 0) {
+                if (!n.node.getNodeType().equals("HALL")) {
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
             }
@@ -702,7 +785,6 @@ public class PatientController extends Controller {
                         e.printStackTrace();
                     }
                 }
-                
                 if (oldAnimation != null) {
                     oldAnimation.stop();
                     gc1.clearRect(0, 0, mapWidth, mapHeight);
@@ -729,6 +811,7 @@ public class PatientController extends Controller {
 
     @FXML
     void Zin() {
+        SearchPath.setVisible(false);
         System.out.println(zoomBar.getValue());
         Zoom = zoomBar.getValue();
         resize();
@@ -759,7 +842,49 @@ public class PatientController extends Controller {
         resize();
     }
 
+    @FXML
+    void pathingHoverStart(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(1, hoveredID);
+    }
+
+    @FXML
+    void pathingHoverStop(MouseEvent event){
+        String hoveredID = ((JFXButton)event.getSource()).getId();
+        opacHandler(.5, hoveredID);
+    }
+
+    void opacHandler(double opacity, String hoveredID) {
+        switch (hoveredID) {
+            case "Tup":
+                Tup.setOpacity(opacity);
+                break;
+            case "Tdown":
+                Tdown.setOpacity(opacity);
+                break;
+            case "Tleft":
+                Tleft.setOpacity(opacity);
+                break;
+            case "Tright":
+                Tright.setOpacity(opacity);
+                break;
+            case "SearchForNode":
+                SearchForNode.setOpacity(opacity);
+                break;
+            case "directionsButton":
+                directionsButton.setOpacity(opacity);
+                break;
+            case "toHTML":
+                toHTML.setOpacity(opacity);
+                break;
+        }
+    }
+
+
+
+
     public void resize() {
+        SearchPath.setVisible(false);
         if (Zoom <= 1) {
             XTrans = 0;
             YTrans = 0;
