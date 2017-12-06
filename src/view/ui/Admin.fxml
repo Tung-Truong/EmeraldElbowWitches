@@ -8,7 +8,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -173,5 +172,6 @@
       </JFXButton>
        <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="440.0" onAction="#RemoveRequest" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" text="REMOVE REQUEST" textFill="WHITE" />
        <JFXComboBox fx:id="CurrRequ" layoutX="1221.0" layoutY="489.0" onAction="#MyRequests" prefHeight="27.0" prefWidth="144.0" promptText="MY REQUESTS" style="-fx-background-color: white;" />
+      <JFXToggleButton fx:id="nodeAlignmentToggle" layoutX="117.0" layoutY="798.0" text="Node Alignment" />
    </children>
 </Pane>
