@@ -8,23 +8,17 @@ public class InterpreterService extends ServiceRequest {
 
     // Attributes
     private static ArrayList<String> languages = new ArrayList<String>();
-    private ArrayList<String> emails = new ArrayList<String>();
     public InterpreterStatistic statistic = InterpreterStatistic.getStats();
 
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
     public InterpreterService(){
-        classType = this.getClass().toString();
 
-        // TODO: get emails from database
         languages.add("French");
         languages.add("Dutch");
         languages.add("Icelandic");
 
-//        for (String s : getLanguages()){
-//            statistic.setData(s, 0, 0);
-//        }
     }
 
     // Getters
@@ -57,7 +51,6 @@ public class InterpreterService extends ServiceRequest {
             - How many interpreters of each language have been requested?
          */
         String lang = "";
-        long diff = 0;
 
         if (!isActive()) {
             if(assigned.getLanguage() == null) {
@@ -82,12 +75,10 @@ public class InterpreterService extends ServiceRequest {
 
                 try {
                     statistic.setData(lang, tempUsed, newAvg);
-                    // AddDB.addInterpreterStatistic(); add at the very end of the program
-                }
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-                catch (NullPointerException n) {
+                    AddDB.addInterpreterStatistic(statistic); //add at the very end of the program
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException n) {
                     n.printStackTrace();
                 }
             }

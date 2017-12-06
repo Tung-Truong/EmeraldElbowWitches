@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class InterpreterStatistic {
 
@@ -33,6 +34,10 @@ public class InterpreterStatistic {
 
     public long getAvgTimeTaken() {
         return avgTimeTaken;
+    }
+
+    public Set<String> getLanguages(){
+        return stats.values.keySet();
     }
 
     // Setters
