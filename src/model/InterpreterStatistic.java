@@ -44,6 +44,7 @@ public class InterpreterStatistic {
     public void setData(String lang, long used, long taken){
         if (values.containsKey(lang)){
             values.replace(lang, new long[]{used, taken});
+            avgTimeTaken = taken;
             numOfInterpreters = used;
         } else {
             values.put(lang, new long[]{used, taken});

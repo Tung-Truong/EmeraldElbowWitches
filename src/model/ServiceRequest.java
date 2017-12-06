@@ -145,7 +145,11 @@ public class ServiceRequest implements IReport {
     }
 
     public void setReceived(){
-        received = new Date(sent.getTime() + 5000);
+        received = new Date();
+    }
+
+    public void setReceived(long part){
+        received = new Date(sent.getTime() + part);
     }
 
     public boolean sendEmailServiceRequest(){

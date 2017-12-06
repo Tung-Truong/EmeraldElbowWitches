@@ -15,17 +15,17 @@ public class InterpreterServiceTest {
 
         ida.setAssigned(frenchFry);
         ida.setSent();
-        ida.setReceived();
+        ida.setReceived(35000);
         ida.setActive(false);
         ida.generateReport();
 
         ima.setAssigned(frenchFry);
         ima.setSent();
-        ima.setReceived();
+        ima.setReceived(5000);
         ima.setActive(false);
         ima.generateReport();
 
-        assertEquals(ima.statistic.avgTimeTaken, 5);
+        assertEquals(ima.statistic.avgTimeTaken, 20);
     }
 
     @Test

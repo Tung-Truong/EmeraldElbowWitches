@@ -44,6 +44,7 @@ public class CafeteriaStatistic {
     public void setData(String food, long used, long taken){
         if (values.containsKey(food)){
             values.replace(food, new long[]{used, taken});
+            avgTime = taken;
             numOfOrders = used;
         } else {
             values.put(food, new long[]{used, taken});

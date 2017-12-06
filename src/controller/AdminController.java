@@ -662,6 +662,11 @@ public class AdminController extends Controller {
         for (ServiceRequest s : searchInactive) {
             if (!s.isActive()) {
                 Main.requests.remove(s);
+                try {
+                    DeleteDB.delRequest(s.getSent().toString());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -44,7 +44,7 @@ public class DeleteDB {
         statement.close();
     }
 
-    public static void delRequest(Date delRequest) throws SQLException {
+    public static void delRequest(String delRequest) throws SQLException {
         String DEL_REQUEST = null;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
