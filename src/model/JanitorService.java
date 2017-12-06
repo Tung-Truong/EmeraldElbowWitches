@@ -1,8 +1,13 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class JanitorService extends ServiceRequest{
+
+    public static JanitorStatistic numSuppliesUsed;
+    public static int numSupplies;
 
     // Attributes
     private ArrayList<String> suppliesNeeded;
@@ -15,6 +20,7 @@ public class JanitorService extends ServiceRequest{
 
     // Getters
     public ArrayList<String> getSuppliesNeeded(){
+        numSupplies += 1;
         return this.suppliesNeeded;
     }
 
@@ -31,8 +37,11 @@ public class JanitorService extends ServiceRequest{
         this.janitorEmail = mail;
     }
 
-    @Override
-    public String generateReport() {
+    public int getNumSuppliesUsed() {
+        return numSupplies;
+    }
+
+    public void generateReport() {
         /*
             Information required:
             - How long did each janitor take?
@@ -40,6 +49,11 @@ public class JanitorService extends ServiceRequest{
             - What location was visited to fulfill this request
             - What type of cleanup was necessary for this request
          */
-        return "Supplies Used: " + suppliesNeeded;
+
+        try {
+            AddDB.addJanitorStatistic(new JanitorStatistic(getNumSuppliesUsed()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

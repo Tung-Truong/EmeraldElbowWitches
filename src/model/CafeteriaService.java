@@ -2,6 +2,7 @@ package model;
 
 import controller.Main;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CafeteriaService extends ServiceRequest {
@@ -15,12 +16,12 @@ public class CafeteriaService extends ServiceRequest {
 
     // Constructor
     public CafeteriaService() {
-        menu.add("Cake");
-        menu.add("Noodles");
-        menu.add("Tea");
-        menu.add("Pie");
+        this.menu.add("Cake");
+        this.menu.add("Noodles");
+        this.menu.add("Tea");
+        this.menu.add("Pie");
 
-        for(Employee e: Main.employees){
+        for(Employee e : Main.employees){
             emails.add(e.getEmail());
         }
 
@@ -61,13 +62,17 @@ public class CafeteriaService extends ServiceRequest {
         soldItems++;
     }
 
-    public String generateReport(){
+    public void generateReport(){
         /*
             Information required:
             - How long did it  take for this request to be fulfilled
             - What foods were delivered/ordered
          */
-        //System.out.println("From Cafeteria: ");
-        return "    Items Ordered: " + soldItems;
+
+        try {
+            AddDB.addCafeteriaStatistic(new CafeteriaStatistic(getSoldItems()));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

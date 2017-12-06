@@ -31,15 +31,18 @@ public class Main extends Application {
     //contains all the employee
     public static ArrayList<Employee> employees;
     public static ArrayList<ServiceRequest> requests;
+    public static ArrayList<CafeteriaStatistic> cafeteriaStat;
+    public static ArrayList<JanitorStatistic> janitorStat;
+    public static ArrayList<InterpreterStatistic> interpreterStat;
     //contains all the messages
     public static JanitorService janitorService;
+    public static CafeteriaService cafeteriaService;
+    public static InterpreterService interpreterService;
     public static ControllerListener controllers;
 
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        //set up service request
-        janitorService = new JanitorService();
         //set up space for database
         File test = new File("mapDB");
         Class.forName(DRIVER);
@@ -47,6 +50,8 @@ public class Main extends Application {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
+
+
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -62,6 +67,7 @@ public class Main extends Application {
         try {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
+            File statsCSVTest = new File("src/model/docs/Statistics.csv");
             if(nodeCSVTest.exists() && edgeCSVTest.exists()){           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
                 ReadCSV.runEdge("src/model/docs/Edges.csv");
@@ -90,6 +96,11 @@ public class Main extends Application {
             }
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
             ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
+            if(statsCSVTest.exists()) {
+                ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
+                ReadCSV.runCafeteriaStatistic("src/model/docs/CalendarStatistics.csv");
+                ReadCSV.runInterpreterStatistic("src/model/docs/InterpreterStatistics.csv");
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -137,6 +148,7 @@ public class Main extends Application {
             }
         }
 
+
         //creates and saves the list of employees
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
@@ -146,6 +158,27 @@ public class Main extends Application {
         ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
         listOfRequests = QueryDB.getRequests();
         requests = listOfRequests;
+
+        ArrayList<CafeteriaStatistic> listOfCafStats = new ArrayList<CafeteriaStatistic>();
+        listOfCafStats = QueryDB.getCafeteriaStatistics();
+        cafeteriaStat = listOfCafStats;
+
+        ArrayList<JanitorStatistic> listOfJanStats = new ArrayList<JanitorStatistic>();
+        listOfJanStats = QueryDB.getJanitorStatistics();
+        janitorStat = listOfJanStats;
+
+        ArrayList<InterpreterStatistic> listOfInterStats = new ArrayList<InterpreterStatistic>();
+        listOfInterStats = QueryDB.getInterpreterStatistics();
+        interpreterStat = listOfInterStats;
+
+        //set up service request
+        janitorService = new JanitorService();
+        cafeteriaService = new CafeteriaService();
+        interpreterService = new InterpreterService();
+
+        interpreterService.generateReport();
+        janitorService.generateReport();
+        cafeteriaService.generateReport();
 
         //get the kiosk for the assigned floor
         try {
@@ -220,6 +253,9 @@ public class Main extends Application {
             WriteEdges.runEdges();
             WriteEmployees.runEmployees();
             WriteRequests.runRequests();
+            WriteStatistics.runJanitorStatistic();
+            WriteStatistics.runCafeteriaStatistic();
+            WriteStatistics.runInterpreterStatistic();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
