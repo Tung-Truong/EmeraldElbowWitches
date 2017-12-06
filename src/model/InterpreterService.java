@@ -1,33 +1,28 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class InterpreterService extends ServiceRequest {
 
     // Attributes
-    private ArrayList<String> languages = new ArrayList<String>();
-    private HashMap<String, long[]> reportInfo = new HashMap<String, long[]>();
+    private static ArrayList<String> languages = new ArrayList<String>();
+    public InterpreterStatistic statistic = InterpreterStatistic.getStats();
 
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
     public InterpreterService(){
-        classType = this.getClass().toString();
 
-        // TODO: get emails from database
         languages.add("French");
         languages.add("Dutch");
         languages.add("Icelandic");
 
-        for (String s : getLanguages()){
-            reportInfo.put(s, new long[2]);
-        }
     }
 
     // Getters
-    public ArrayList<String> getLanguages() {
-        return this.languages;
+    public static ArrayList<String> getLanguages() {
+        return languages;
     }
 
     // Setters
@@ -48,34 +43,46 @@ public class InterpreterService extends ServiceRequest {
         this.languages.remove(remove);
     }
 
-    public String generateReport(){
+    public void generateReport(){
         /*
             Information required:
             - How much time did each language take to interpret?
             - How many interpreters of each language have been requested?
          */
+        String lang = "";
+
         if (!isActive()) {
-            String lang = assigned.getLanguage();
-            String report = "Language: " + lang;
+            if(assigned.getLanguage() == null) {
 
-            long diff = 0;
+            } else {
+                lang = assigned.getLanguage();
 
-            long timeSent = sent.getTime();
-            long timeReceived = received.getTime();
+                long timeSent = sent.getTime();
+                long timeReceived = received.getTime();
 
-            long diffSeconds = (timeReceived - timeSent) / 1000;
+                long diffSeconds = (timeReceived - timeSent) / 1000;
 
-            // This part increments the number of interpreters used for the language and time taken for this interpreter
+                // This part increments the number of interpreters used for the language and time taken for this interpreter
+                long tempUsed = 0;
+                long tempAvg = 0;
+                long newAvg = 0;
 
-            reportInfo.get(lang)[0] += 1;
-            reportInfo.get(lang)[1] += diffSeconds;
-            diff = reportInfo.get(lang)[1]/reportInfo.get(lang)[0];
-            report.concat("Interpreters Used: " + reportInfo.get(lang)[0] + "\n" + "Average Time Taken: " + findTime(diff));
+                tempUsed = statistic.getNumOfInterpreters() + 1;
+                tempAvg = statistic.getAvgTimeTaken();
 
-            return report;
+                newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
 
-        } else {
-            return "This request has yet to be resolved";
+                try {
+                    statistic.setData(lang, tempUsed, newAvg);
+                    AddDB.addInterpreterStatistic(statistic); //add at the very end of the program
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException n) {
+                    n.printStackTrace();
+                }
+            }
         }
+
+
     }
 }

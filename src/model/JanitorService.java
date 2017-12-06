@@ -1,19 +1,18 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 
 public class JanitorService extends ServiceRequest{
 
     // Attributes
     private ArrayList<String> suppliesNeeded;
     private String janitorEmail = "kgrant@wpi.edu";
-    private long totalTime = 0;
-    private int used = 0;
+    public JanitorStatistic soap = JanitorStatistic.getSoap();
 
     // Constructors
     public JanitorService (){
-        classType = this.getClass().toString();
-        used ++;
         this.setAccountTo(janitorEmail);
     }
 
@@ -35,8 +34,7 @@ public class JanitorService extends ServiceRequest{
         this.janitorEmail = mail;
     }
 
-    @Override
-    public String generateReport() {
+    public void generateReport() {
         /*
             Information required:
             - How long did each janitor take?
@@ -44,22 +42,25 @@ public class JanitorService extends ServiceRequest{
             - What location was visited to fulfill this request
             - What type of cleanup was necessary for this request (Not sure how to find this)
          */
-        if (!isActive()){
-            String report = "Janitorial Report: ";
-
+        if (!isActive()) {
             long timeSent = sent.getTime();
             long timeReceived = received.getTime();
 
             long diffSeconds = (timeReceived - timeSent) / 1000;
+            // This part increments the number of interpreters used for the language and time taken for this interpreter
+            int tempUsed = 0;
+            long tempAvg = 0;
+            long newAvg = 0;
 
-            // This part is the meat of the report
-            totalTime += diffSeconds;
+            newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
 
-            report.concat("Average time taken: " + findTime(totalTime/used) + " at " + location);
-
-            return report;
-        } else {
-            return "This request has not yet been resolved";
+            try {
+                soap.setNumOfSupplies(tempUsed);
+                soap.setAvgTime(newAvg);
+                AddDB.addJanitorStatistic(soap);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

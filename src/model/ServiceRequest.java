@@ -139,6 +139,15 @@ public class ServiceRequest implements IReport {
 
     public void setLocation(String location) { this.location = location;}
 
+    // Remove these two methods after testing, they are solely here for testing purposes
+    public void setSent(){
+        sent = new Date();
+    }
+
+    public void setReceived(){
+        received = new Date(sent.getTime() + 5000);
+    }
+
     public boolean sendEmailServiceRequest(){
 
         try {
@@ -275,7 +284,7 @@ public class ServiceRequest implements IReport {
         return String.format("%02:%02:%02" , hours, minutes, seconds);
     }
 
-    public String generateReport(){
-        return null;
+    public void generateReport(){
+
     }
 }
