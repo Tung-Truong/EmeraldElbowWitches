@@ -492,7 +492,7 @@ public class PatientController extends Controller {
             clearChosenFloor();
             System.out.println(Floors.toString());
         }
-    }
+    
 
 
 
