@@ -152,12 +152,6 @@ public class PatientController extends Controller {
     @FXML
     private ImageView endImage;
 
-    @FXML
-    private ImageView leaveUp;
-
-    @FXML
-    private ImageView leaveDown;
-
 
     private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
@@ -432,8 +426,6 @@ public class PatientController extends Controller {
         floor2Label.setText("");
         floor3Label.setText("");
         gc1.setLineWidth(2);
-        leaveDown.setVisible(false);
-        leaveUp.setVisible(false);
         NodeObj tempDraw = goal;
         Floors = new ArrayList<String>();
         for (NodeObj n : currPath) {
@@ -445,7 +437,7 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * mapHeight / 3400,
                                 tempDraw.node.getxLoc() * mapWidth / 5000,
                                 tempDraw.node.getyLoc() * mapHeight / 3400);
-                        gc1.fillText("Start",Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                        gc1.fillText("Start", Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
                                 Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5);
                     }
                 } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -456,18 +448,6 @@ public class PatientController extends Controller {
                             10);
                     gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
                             n.node.getyLoc() * mapHeight / 3400 - 5);
-                    Image img = null;
-                    img = new Image("File://src/view/media/arriveup.gif");
-                    Double h = leaveDown.getFitHeight();
-                    Double w = leaveDown.getFitWidth();
-                    gc1.drawImage(img,n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45,n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-                    /*
-                    Double h = leaveDown.getFitHeight();
-                    Double w = leaveDown.getFitWidth();
-                    leaveUp.setVisible(true);
-                    leaveUp.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
-                    leaveUp.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-*/
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
                     gc1.setFill(Color.GOLD);
@@ -477,43 +457,39 @@ public class PatientController extends Controller {
                             10);
                     gc1.fillText("Go to floor " + n.node.getFloor(), n.node.getxLoc() * mapWidth / 5000 - 30,
                             n.node.getyLoc() * mapHeight / 3400 - 5);
-                /*    Double h = leaveDown.getFitHeight();
-                    Double w = leaveDown.getFitWidth();
-                    leaveDown.setVisible(true);
-                    leaveDown.setX(n.node.getxLoc() * mapWidth / 5000 - w / 2 - 45);
-                    leaveDown.setY(n.node.getyLoc() * mapHeight / 3400 - h / 2 - 35);
-                */}
-            }
-            if (Floors.size() > 0) {
-                if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
-                    Floors.add(n.getNode().getFloor());
-
                 }
-            } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+                if (Floors.size() > 0) {
+                    if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                        Floors.add(n.getNode().getFloor());
 
-                Floors.add(n.getNode().getFloor());
+                    }
+                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
+                    Floors.add(n.getNode().getFloor());
+                }
+                tempDraw = n;
             }
-            tempDraw = n;
-        }
 
-        if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
-                    goal.node.getyLoc() * mapHeight / 3400 - 5,
-                    10,
-                    10);
-            gc1.fillText("End",goal.node.getxLoc() * mapWidth / 5000 - 5,
-                    goal.node.getyLoc() * mapHeight / 3400 - 5);}
-        if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKGREEN);
-            gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
-                    Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
-                    10,
-                    10);
+            if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKRED);
+                gc1.fillOval(goal.node.getxLoc() * mapWidth / 5000 - 5,
+                        goal.node.getyLoc() * mapHeight / 3400 - 5,
+                        10,
+                        10);
+                gc1.fillText("End", goal.node.getxLoc() * mapWidth / 5000 - 5,
+                        goal.node.getyLoc() * mapHeight / 3400 - 5);
+            }
+            if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKGREEN);
+                gc1.fillOval(Main.getKiosk().node.getxLoc() * mapWidth / 5000 - 5,
+                        Main.getKiosk().node.getyLoc() * mapHeight / 3400 - 5,
+                        10,
+                        10);
+            }
+            gc1.setFill(Color.YELLOW);
+            clearChosenFloor();
+            System.out.println(Floors.toString());
         }
-        gc1.setFill(Color.YELLOW);
-        clearChosenFloor();
-        System.out.println(Floors.toString());
     }
 
 
