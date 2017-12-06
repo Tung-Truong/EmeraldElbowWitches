@@ -161,32 +161,19 @@ public class AdminController extends Controller {
     @FXML
     private JFXButton Tdown;
 
-
-
-
-
-
-
-    private GraphicsContext gc1 = null;
     public static TextDirections textDirections = new TextDirections();
-    private int XTrans = 0;
-    private int YTrans = 0;
-    private double Zoom = 1;
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
-    private PathingContainer currentAlgorithm = new PathingContainer();
-    double mapWidth;
-    double mapHeight;
-    ImageLoader mapImage = new ImageLoader();
     public String servReqNodeID;
     NodeObj nodeA = null;
+    private SingleController single = SingleController.getController();
 
-    public void initialize() {
-        Image m1 = mapImage.getLoadedMap("btn_map01");
+    public void initialize(){
+        Image m1 = single.getMapImage().getLoadedMap("btn_map01");
         currentMap.setImage(m1);
-        currentAlgorithm.setPathAlg(new astar());
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
+        single.getAlgorithm().setPathAlg(new astar());
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
     }
@@ -208,18 +195,18 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setFill(Color.BLACK);
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
-            for (EdgeObj e : n.getListOfEdgeObjs()) {
-                gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc() * mapWidth / 5000,
-                        e.getNodeA().node.getyLoc() * mapHeight / 3400,
-                        e.getNodeB().node.getxLoc() * mapWidth / 5000,
-                        e.getNodeB().node.getyLoc() * mapHeight / 3400);
+        if(single.getGc() == null)
+            single.setGc(gc.getGraphicsContext2D());
+        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        single.getGc().setLineWidth(2);
+        single.getGc().setFill(Color.BLACK);
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            for(EdgeObj e: n.getListOfEdgeObjs()){
+                single.getGc().setStroke(Color.BLUE);
+                single.getGc().strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                        e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -227,19 +214,19 @@ public class AdminController extends Controller {
 
         }
 
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
-            gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 5,
-                    n.node.getyLoc() * mapHeight / 3400 - 5,
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            single.getGc().setFill(Color.BLACK);
+            single.getGc().fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 5,
                     10,
                     10);
-            gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc() * mapWidth / 5000 - 4,
-                    n.node.getyLoc() * mapHeight / 3400 - 4,
+            single.getGc().setFill(Color.LIGHTBLUE);
+            single.getGc().fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 4,
                     8,
                     8);
         }
-        gc1.setFill(Color.BLUE);
+        single.getGc().setFill(Color.BLUE);
     }
 
     @FXML
@@ -289,8 +276,8 @@ public class AdminController extends Controller {
                 break;
 
         }
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        Image map = mapImage.getLoadedMap(clickedID);
+        single.getGc().clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        Image map = single.getMapImage().getLoadedMap(clickedID);
         this.currentMap.setImage(map);
         redraw();
     }
@@ -298,8 +285,8 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
-        int mousex = (int)((5000 * event.getX()) / mapWidth);
-        int mousey = (int)((3400 * event.getY()) / mapHeight);
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
         if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
             redraw();
             createNewNode(mousex,mousey);
@@ -390,8 +377,8 @@ public class AdminController extends Controller {
     @FXML
     void selectNodeA(MouseEvent event) {
         nodeInfoPane.setVisible(false);
-        int mousex = (int) ((5000 * event.getX()) / mapWidth);
-        int mousey = (int) ((3400 * event.getY()) / mapHeight);
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
         try {
             nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             nodeAField.setText(nodeA.getNode().getNodeID());
@@ -403,8 +390,10 @@ public class AdminController extends Controller {
     @FXML
     void selectEdge(MouseEvent event) {
         System.out.println("DRAG RELEASED");
-        int mousex = (int) ((5000 * event.getX()) / mapWidth);
-        int mousey = (int) ((3400 * event.getY()) / mapHeight);
+
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+
         try {
             NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             String nodeB = nodeEnd.getNode().getNodeID();
@@ -448,11 +437,13 @@ public class AdminController extends Controller {
         int eWeight = Integer.parseInt(weightField.getText());
         EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
         redraw();
-        gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc() * mapWidth / 5000,
-                edgeAB.getNodeA().node.getyLoc() * mapHeight / 3400,
-                edgeAB.getNodeB().node.getxLoc() * mapWidth / 5000,
-                edgeAB.getNodeB().node.getyLoc() * mapHeight / 3400);
+
+        single.getGc().setStroke(Color.RED);
+        single.getGc().strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+
     }
 
     /*
@@ -532,27 +523,27 @@ public class AdminController extends Controller {
         switch (clickedID) {
             case "astarBtn":
                 astarBtn.setStyle("-fx-background-color: #4286f4");
-                this.currentAlgorithm.setPathAlg(new astar());
+                this.single.getAlgorithm().setPathAlg(new astar());
                 break;
             case "depthBtn":
                 depthBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new DepthFirst());
+                this.single.getAlgorithm().setPathAlg(new DepthFirst());
                 break;
             case "breadthBtn":
                 breadthBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BreadthFirst());
+                this.single.getAlgorithm().setPathAlg(new BreadthFirst());
                 break;
             case "dijkstrasBtn":
                 dijkstrasBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new Dijkstras());
+                this.single.getAlgorithm().setPathAlg(new Dijkstras());
                 break;
             case "beamBtn":
                 beamBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BeamFirst());
+                this.single.getAlgorithm().setPathAlg(new BeamFirst());
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-                this.currentAlgorithm.setPathAlg(new BestFirst());
+                this.single.getAlgorithm().setPathAlg(new BestFirst());
                 break;
         }
     }
@@ -590,7 +581,7 @@ public class AdminController extends Controller {
         ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, mapWidth, mapHeight));
+        servStage.setScene(new Scene(root, single.getMapWidth(), single.getMapHeight()));
         servStage.show();
     }
 
@@ -665,50 +656,50 @@ public class AdminController extends Controller {
     @FXML
     void Zin() {
         System.out.println(zoomBar.getValue());
-        Zoom = zoomBar.getValue();
+        single.setZoom(zoomBar.getValue());
         resize();
 
     }
 
     @FXML
     void Tleft() {
-        XTrans += (int) (200.0 / Zoom);
+        single.addX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tright() {
-        XTrans -= (int) (200.0 / Zoom);
+        single.subX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tup() {
-        YTrans += (int) (160.0 / Zoom);
+        single.addY((int) (160.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tdown() {
-        YTrans -= (int) (160.0 / Zoom);
+        single.subY((int) (160.0 / single.getZoom()));
         resize();
     }
 
     public void resize() {
-        if (Zoom <= 1) {
-            XTrans = 0;
-            YTrans = 0;
+        if (single.getZoom() <= 1) {
+            single.setXTrans(0);
+            single.setYTrans(0);
         }
-        gc.setScaleX(Zoom);
-        gc.setScaleY(Zoom);
-        gc.setTranslateX(XTrans);
-        gc.setTranslateY(YTrans);
-        currentMap.setScaleX(Zoom);
-        currentMap.setScaleY(Zoom);
-        currentMap.setTranslateX(XTrans);
-        currentMap.setTranslateY(YTrans);
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
+        gc.setScaleX(single.getZoom());
+        gc.setScaleY(single.getZoom());
+        gc.setTranslateX(single.getXTrans());
+        gc.setTranslateY(single.getYTrans());
+        currentMap.setScaleX(single.getZoom());
+        currentMap.setScaleY(single.getZoom());
+        currentMap.setTranslateX(single.getXTrans());
+        currentMap.setTranslateY(single.getYTrans());
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
     }
 
 
