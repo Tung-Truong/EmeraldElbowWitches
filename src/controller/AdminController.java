@@ -422,7 +422,6 @@ public class AdminController extends Controller {
                 }
                 redraw();
 
-
             } else if (nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)) != null) {
                 weightField.setText(nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)).getWeight() + "");
             } else {

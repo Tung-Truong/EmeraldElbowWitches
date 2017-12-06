@@ -98,7 +98,7 @@
                </font></JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="edgeInfoPane" layoutX="1143.0" layoutY="502.0" prefHeight="388.0" prefWidth="247.0" visible="false">
+      <Pane fx:id="edgeInfoPane" layoutX="1120.0" layoutY="540.0" prefHeight="245.0" prefWidth="247.0" visible="false">
          <children>
             <JFXTextField fx:id="weightField" layoutX="94.0" layoutY="77.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="nodeBField" layoutX="94.0" layoutY="40.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
