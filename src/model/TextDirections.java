@@ -9,6 +9,14 @@ public class TextDirections {
     public TextDirections() {
 
     }
+    //To Do: Create a new String that holds either nothing or a tab
+    //add this string to all add msg parts
+    //after changing floors change the string to be a tab
+    //change back to a space when changing floors
+    //then repeat until out of floors
+    // use nextNode and current node floor to figure out when floors are changing
+    //also add an int that keeps track of which step it is and add that to the msg statements.
+
 
     //creates text directions given an arraylist of nodes
     public String getTextDirections(ArrayList<NodeObj> pat) {
