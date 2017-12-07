@@ -1,6 +1,6 @@
 package controller;
 
-import javafx.scene.control.*;
+import HealthAPI.HealthCareRun;
 import model.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -8,13 +8,6 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import org.junit.Test;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
@@ -66,7 +59,13 @@ public class ServiceController {
     @FXML
     void onServiceTypeSelection(){
         if((RequestServiceDropdown.getValue() != null) && (RequestServiceDropdown.getValue().equals("Healthcare"))){ //can be implemented to launch different API for different service requests
-            System.out.println("SHIT JUST GOT CALLED");
+            HealthCareRun health = new HealthCareRun();
+            try {
+                health.run(-500,-500,600,350,"view/stylesheets/default.css","","");
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

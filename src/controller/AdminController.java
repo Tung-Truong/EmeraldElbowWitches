@@ -591,7 +591,7 @@ public class AdminController extends Controller {
         ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, single.getMapWidth(), single.getMapHeight()));
+        servStage.setScene(new Scene(root, single.getMapWidth()-100, single.getMapHeight()-50));
         servStage.show();
     }
 
