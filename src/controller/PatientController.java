@@ -443,6 +443,7 @@ public class PatientController extends Controller {
         SearchPath.setVisible(false);
         double mousex = (5000 * event.getX()) / single.getMapWidth();
         double mousey = (3400 * event.getY()) / single.getMapHeight();
+
         if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -453,6 +454,9 @@ public class PatientController extends Controller {
         try {
             goal = Main.getNodeMap().getNearestNeighborFilter
                     ((int) Math.floor(mousex), (int) Math.floor(mousey));
+            //sets startx and starty = use in reversePath;
+            startX = (int) Math.floor(mousex);
+            startY = (int) Math.floor(mousey);
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
@@ -478,10 +482,7 @@ public class PatientController extends Controller {
                 }
             }
             if (oldAnimation != null) {
-                oldAnimation.stop();
-                gc1.clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
-                redraw();
-                gc.getGraphicsContext2D().setStroke(Color.BLUE);
+                resetAnimations(oldAnimation);
             }
             Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
             animation.play();
@@ -489,6 +490,59 @@ public class PatientController extends Controller {
             DrawCurrentFloorPath();
         }
     }
+
+    //function that gets called when the reversePath FUnction is called
+    @FXML
+    public void reversePath() {
+        directionsButton.setVisible(true);
+        //create a new astar object
+        SearchPath.setVisible(false);
+        if (gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(2);
+        gc1.setStroke(Color.BLUE);
+        gc1.setFill(Color.RED);
+        //get node that corr. to click from ListOfNodeObjects made in main
+        try {
+            goal = Main.getNodeMap().getNearestNeighborFilter
+                    ((int) Math.floor(startX), (int) Math.floor(startY));
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+        //getStart
+        NodeObj Kiosk = Main.getKiosk();
+        //set the path to null
+        strPath = new ArrayList<>();
+        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+            //try a*
+            if (single.getAlgorithm().getPathAlg().pathfind(goal,Kiosk)) {
+                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+
+                strPath = single.getAlgorithm().getPathAlg().getGenPath();
+                currPath = strPath;
+                Collections.reverse(currPath);
+                toggleTextArea.setText(textDirections.getTextDirections(strPath));
+
+
+            } else {
+                try {
+                    throw new InvalidNodeException("this is not accessable with the current map");
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (oldAnimation != null) {
+                resetAnimations(oldAnimation);
+            }
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            animation.play();
+            oldAnimation = animation;
+            DrawCurrentFloorPath();
+        }
+    }
+
+
 
 
     //Functions required for animation fun times
@@ -563,6 +617,15 @@ public class PatientController extends Controller {
         });
         return pathTransition;
     }
+
+    //function to reset animations
+    private void resetAnimations(Animation animation){
+        animation.stop();
+        gc1.clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
+        redraw();
+        gc.getGraphicsContext2D().setStroke(Color.BLUE);
+    }
+
 
     ArrayList<NodeObj> pathFloorFilter() {
         ArrayList<NodeObj> filteredPath = new ArrayList<>();
@@ -702,10 +765,7 @@ public class PatientController extends Controller {
                     }
                 }
                 if (oldAnimation != null) {
-                    oldAnimation.stop();
-                    gc1.clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
-                    redraw();
-                    gc.getGraphicsContext2D().setStroke(Color.BLUE);
+                    resetAnimations(oldAnimation);
                 }
                 Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
                 animation.play();
