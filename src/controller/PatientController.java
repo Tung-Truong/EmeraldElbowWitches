@@ -530,7 +530,7 @@ public class PatientController extends Controller {
         ArrayList<NodeObj> reversedPath = new ArrayList<>();
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             if (reversePath.isSelected()) {
-                if (single.getAlgorithm().getPathAlg().pathfind(goal, Kiosk)) {
+                if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                     gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
                     strPath = single.getAlgorithm().getPathAlg().getGenPath();
