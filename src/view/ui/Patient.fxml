@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
@@ -136,6 +137,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXSlider>
+      <JFXToggleButton fx:id="reversePath" layoutX="594.0" layoutY="7.0" text="ReversePath" />
 
    </children>
 </Pane>

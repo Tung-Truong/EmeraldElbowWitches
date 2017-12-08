@@ -138,7 +138,7 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(4000));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -360,62 +360,122 @@ public class PatientController extends Controller {
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
         Floors = new ArrayList<String>();
-        for (NodeObj n : currPath) {
-            if (n != goal) {
-                if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
-                        tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                    gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
-                            n.node.getyLoc() * single.getMapHeight() / 3400,
-                            tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
-                            tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
-                } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
-                    gc1.setFill(Color.BLACK);
-                    if (n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                        gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
-                                n.node.getyLoc() * single.mapHeight / 3400 - 5,
-                                10,
-                                10);
-                    }
+        if(reversePath.isSelected()){
+            for (NodeObj n : currPath) {
+                if (n != goal) {
+                    if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
+                            tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
+                                n.node.getyLoc() * single.getMapHeight() / 3400,
+                                tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
+                                tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
+                    } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                        gc1.setFill(Color.BLACK);
+                        if (n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                    10,
+                                    10);
+                        }
 
-                } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
-                    gc1.setFill(Color.GOLD);
-                    if (tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                        gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
-                                n.node.getyLoc() * single.mapHeight / 3400 - 5,
-                                10,
-                                10);
+                    } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                        gc1.setFill(Color.GOLD);
+                        if (tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                    10,
+                                    10);
+                        }
                     }
                 }
-            }
-            if (Floors.size() > 0) {
-                if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                if (Floors.size() > 0) {
+                    if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                        Floors.add(n.getNode().getFloor());
+
+                    }
+                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
                     Floors.add(n.getNode().getFloor());
-
                 }
-            } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
-
-                Floors.add(n.getNode().getFloor());
+                tempDraw = n;
             }
-            tempDraw = n;
-        }
 
-        if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKRED);
-            gc1.fillOval(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                    goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
-                    10,
-                    10);
+            if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKGREEN);
+                gc1.fillOval(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                        goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                        10,
+                        10);
+            }
+            if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKRED);
+                gc1.fillOval(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                        Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                        10,
+                        10);
+            }
+            gc1.setFill(Color.YELLOW);
+            clearChosenFloor();
+            System.out.println(Floors.toString());
         }
-        if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-            gc1.setFill(Color.DARKGREEN);
-            gc1.fillOval(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                    Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
-                    10,
-                    10);
+        else {
+            for (NodeObj n : currPath) {
+                if (n != goal) {
+                    if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
+                            tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                        gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
+                                n.node.getyLoc() * single.getMapHeight() / 3400,
+                                tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
+                                tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
+                    } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                        gc1.setFill(Color.BLACK);
+                        if (n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                    10,
+                                    10);
+                        }
+
+                    } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
+                        gc1.setFill(Color.GOLD);
+                        if (tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
+                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
+                                    10,
+                                    10);
+                        }
+                    }
+                }
+                if (Floors.size() > 0) {
+                    if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
+                        Floors.add(n.getNode().getFloor());
+
+                    }
+                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
+
+                    Floors.add(n.getNode().getFloor());
+                }
+                tempDraw = n;
+            }
+
+            if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKRED);
+                gc1.fillOval(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                        goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                        10,
+                        10);
+            }
+            if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
+                gc1.setFill(Color.DARKGREEN);
+                gc1.fillOval(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                        Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                        10,
+                        10);
+            }
+            gc1.setFill(Color.YELLOW);
+            clearChosenFloor();
+            System.out.println(Floors.toString());
         }
-        gc1.setFill(Color.YELLOW);
-        clearChosenFloor();
-        System.out.println(Floors.toString());
     }
 
 
@@ -467,15 +527,16 @@ public class PatientController extends Controller {
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         strPath = new ArrayList<>();
+        ArrayList<NodeObj> reversedPath = new ArrayList<>();
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
             if (reversePath.isSelected()) {
                 if (single.getAlgorithm().getPathAlg().pathfind(goal, Kiosk)) {
                     gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
                     strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                    currPath = strPath;
-                    Collections.reverse(currPath);
-                    toggleTextArea.setText(textDirections.getTextDirections(strPath));
+                    reversedPath = strPath;
+                    Collections.reverse(reversedPath);
+                    toggleTextArea.setText(textDirections.getTextDirections(reversedPath));
 
                 } else {
                     try {
@@ -487,9 +548,10 @@ public class PatientController extends Controller {
                 if (oldAnimation != null) {
                     resetAnimations(oldAnimation);
                 }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter(reversedPath)), Duration.millis(4000));
                 animation.play();
                 oldAnimation = animation;
+                System.out.print("reverseeee");
                 DrawCurrentFloorPath();
             } else {
                 //try a*
@@ -511,7 +573,7 @@ public class PatientController extends Controller {
                 if (oldAnimation != null) {
                     resetAnimations(oldAnimation);
                 }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(4000));
                 animation.play();
                 oldAnimation = animation;
                 DrawCurrentFloorPath();
@@ -605,9 +667,9 @@ public class PatientController extends Controller {
     }
 
 
-    ArrayList<NodeObj> pathFloorFilter() {
+    private ArrayList<NodeObj> pathFloorFilter(ArrayList<NodeObj> path) {
         ArrayList<NodeObj> filteredPath = new ArrayList<>();
-        for (NodeObj n : currPath) {
+        for (NodeObj n : path) {
             if (n.getNode().getFloor().equals(Main.getNodeMap().currentFloor))
                 filteredPath.add(n);
         }
@@ -745,7 +807,7 @@ public class PatientController extends Controller {
                 if (oldAnimation != null) {
                     resetAnimations(oldAnimation);
                 }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(4000));
                 animation.play();
                 oldAnimation = animation;
                 DrawCurrentFloorPath();
