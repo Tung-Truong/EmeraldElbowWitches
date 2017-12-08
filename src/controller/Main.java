@@ -44,7 +44,6 @@ public class Main extends Application {
     public static Employee currUser;
 
 
-
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
         File test = new File("mapDB");
@@ -53,7 +52,6 @@ public class Main extends Application {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
-
 
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
@@ -71,10 +69,10 @@ public class Main extends Application {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
             File statsCSVTest = new File("src/model/docs/Statistics.csv");
-            if(nodeCSVTest.exists() && edgeCSVTest.exists()){           //if map has been edited, load edited files
+            if (nodeCSVTest.exists() && edgeCSVTest.exists()) {           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
                 ReadCSV.runEdge("src/model/docs/Edges.csv");
-            }else {
+            } else {
                 ReadCSV.runNode("src/model/docs/MapAnodes.csv");
                 ReadCSV.runNode("src/model/docs/MapBnodes.csv");
                 ReadCSV.runNode("src/model/docs/MapCnodes.csv");
@@ -99,7 +97,7 @@ public class Main extends Application {
             }
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
             ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
-            if(statsCSVTest.exists()) {
+            if (statsCSVTest.exists()) {
                 ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
                 ReadCSV.runCafeteriaStatistic("src/model/docs/CalendarStatistics.csv");
                 ReadCSV.runInterpreterStatistic("src/model/docs/InterpreterStatistics.csv");
@@ -195,7 +193,6 @@ public class Main extends Application {
     }
 
 
-
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
@@ -243,7 +240,7 @@ public class Main extends Application {
         for (Employee e : employees) {
             AddDB.addEmployee(e);
         }
-        for (ServiceRequest service : requests){
+        for (ServiceRequest service : requests) {
             AddDB.addRequest(service);
         }
         try {
@@ -264,7 +261,7 @@ public class Main extends Application {
 
     }
 
-//this allows for access from main by the controller
+    //this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
     public static NodeObj getKiosk() {
         return kiosk;
@@ -290,15 +287,15 @@ public class Main extends Application {
         return Service;
     }
 
-    public static ArrayList<Employee> getEmployees(){
+    public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    public static ArrayList<ServiceRequest> getRequestList(){
+    public static ArrayList<ServiceRequest> getRequestList() {
         return requests;
     }
 
-    public void removeRequestList(ServiceRequest req){
+    public void removeRequestList(ServiceRequest req) {
         requests.remove(req);
     }
 
@@ -317,8 +314,6 @@ public class Main extends Application {
     public static Employee getCurrUser() {
         return currUser;
     }
-
-
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
