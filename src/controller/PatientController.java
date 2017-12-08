@@ -88,6 +88,9 @@ public class PatientController extends Controller {
     @FXML
     private Label floor3Label, floor2Label, floor1Label, floorGLabel, floorL1Label, floorL2Label;
 
+    @FXML
+    private JFXToggleButton reversePath;
+
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -465,82 +468,57 @@ public class PatientController extends Controller {
         //set the path to null
         strPath = new ArrayList<>();
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            //try a*
-            if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
-                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+            if (reversePath.isSelected()) {
+                if (single.getAlgorithm().getPathAlg().pathfind(goal, Kiosk)) {
+                    gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
-                strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                currPath = strPath;
-                toggleTextArea.setText(textDirections.getTextDirections(strPath));
+                    strPath = single.getAlgorithm().getPathAlg().getGenPath();
+                    currPath = strPath;
+                    Collections.reverse(currPath);
+                    toggleTextArea.setText(textDirections.getTextDirections(strPath));
 
-
-            } else {
-                try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
+                } else {
+                    try {
+                        throw new InvalidNodeException("this is not accessable with the current map");
+                    } catch (InvalidNodeException e) {
+                        e.printStackTrace();
+                    }
                 }
+                if (oldAnimation != null) {
+                    resetAnimations(oldAnimation);
+                }
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                animation.play();
+                oldAnimation = animation;
+                DrawCurrentFloorPath();
+            } else {
+                //try a*
+                if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
+                    gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+
+                    strPath = single.getAlgorithm().getPathAlg().getGenPath();
+                    currPath = strPath;
+                    toggleTextArea.setText(textDirections.getTextDirections(strPath));
+
+
+                } else {
+                    try {
+                        throw new InvalidNodeException("this is not accessable with the current map");
+                    } catch (InvalidNodeException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (oldAnimation != null) {
+                    resetAnimations(oldAnimation);
+                }
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                animation.play();
+                oldAnimation = animation;
+                DrawCurrentFloorPath();
             }
-            if (oldAnimation != null) {
-                resetAnimations(oldAnimation);
-            }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
-            animation.play();
-            oldAnimation = animation;
-            DrawCurrentFloorPath();
         }
     }
 
-    //function that gets called when the reversePath FUnction is called
-    @FXML
-    public void reversePath() {
-        directionsButton.setVisible(true);
-        //create a new astar object
-        SearchPath.setVisible(false);
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
-        //get node that corr. to click from ListOfNodeObjects made in main
-        try {
-            goal = Main.getNodeMap().getNearestNeighborFilter
-                    ((int) Math.floor(startX), (int) Math.floor(startY));
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-        //getStart
-        NodeObj Kiosk = Main.getKiosk();
-        //set the path to null
-        strPath = new ArrayList<>();
-        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            //try a*
-            if (single.getAlgorithm().getPathAlg().pathfind(goal,Kiosk)) {
-                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-
-                strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                currPath = strPath;
-                Collections.reverse(currPath);
-                toggleTextArea.setText(textDirections.getTextDirections(strPath));
-
-
-            } else {
-                try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (oldAnimation != null) {
-                resetAnimations(oldAnimation);
-            }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
-            animation.play();
-            oldAnimation = animation;
-            DrawCurrentFloorPath();
-        }
-    }
 
 
 
