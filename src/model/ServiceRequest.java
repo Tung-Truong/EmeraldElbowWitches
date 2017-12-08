@@ -187,7 +187,7 @@ public class ServiceRequest implements IReport {
                 Folder folder = store.getFolder("inbox");
 
                 if(folder.exists()){
-                    folder.open(Folder.READ_ONLY);
+                    folder.open(Folder.READ_WRITE);
 
                     Message[] messages = folder.getMessages();
 
@@ -207,8 +207,6 @@ public class ServiceRequest implements IReport {
                                 }
 
                             System.out.println(email);
-
-
 
                             String to = InternetAddress.toString(message
                                     .getRecipients(Message.RecipientType.TO));
@@ -248,6 +246,7 @@ public class ServiceRequest implements IReport {
                             if (gates == 4){
                                 // replyInfo = message.getContent().toString();
                                 setActive(false);
+                                message.setFlag(Flags.Flag.DELETED, true);
                                 break;
                             }
                         }//end of for loop
