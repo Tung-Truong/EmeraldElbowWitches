@@ -13,11 +13,9 @@ public class InterpreterService extends ServiceRequest {
 
     // Constructors
     public InterpreterService(){
-
         languages.add("French");
         languages.add("Dutch");
         languages.add("Icelandic");
-
     }
 
     // Getters
