@@ -1,11 +1,8 @@
 package controller;
 
 import HealthAPI.HealthCareRun;
+import com.jfoenix.controls.*;
 import model.*;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
@@ -29,6 +26,13 @@ public class ServiceController {
 
     @FXML
     private JFXSlider urgencyMeter;
+
+    @FXML
+    private JFXDatePicker DateChoice;
+
+    @FXML
+    private JFXTimePicker TimeChoice;
+
 
     @FXML
     private JFXButton cancelButton;
@@ -132,7 +136,7 @@ public class ServiceController {
         employeeAvailable();
     }
 
-    @FXML
+    //@FXML
     void CafeteriaItem() {
         AssignEmployee.getItems().clear();
 
