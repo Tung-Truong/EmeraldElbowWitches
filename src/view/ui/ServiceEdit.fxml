@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="972.0" prefWidth="1457.0" style="-fx-background-color: #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8 #498cd8#498cd8;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceEditController">
+   <children>
+      <Pane layoutX="2.0" layoutY="798.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="203.0" prefWidth="1457.0" style="-fx-background-color: #214c91#214c91 #214c91#214c91;" />
+  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="emailOne" layoutX="201.0" layoutY="226.0" promptText="email">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="firstOne" layoutX="201.0" layoutY="286.0" promptText="first name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="langOne" layoutX="201.0" layoutY="470.0" promptText="language">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="lastOne" layoutX="201.0" layoutY="348.0" promptText="last name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="depOne" layoutX="201.0" layoutY="407.0" promptText="department">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="availOne" layoutX="201.0" layoutY="532.0" promptText="availability">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <JFXButton buttonType="RAISED" layoutX="201.0" layoutY="718.0" onAction="#AddEmployee" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+               <font>
+                  <Font name="Avenir Next Bold" size="43.0" />
+               </font>
+               <effect>
+                  <Glow level="1.0" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="193.0" layoutY="68.0" prefHeight="72.0" prefWidth="316.0" text="ADD EMPLOYEE" textFill="WHITE">
+               <font>
+                  <Font name="Avenir Next Bold" size="33.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ComboBox fx:id="ModifyEmployee" layoutX="540.0" layoutY="146.0" onAction="#AutoFill" onMouseClicked="#SelectEmployee" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+      <TextField fx:id="emailTwo" layoutX="542.0" layoutY="227.0" promptText="email">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="firstTwo" layoutX="544.0" layoutY="288.0" promptText="first name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="lastTwo" layoutX="543.0" layoutY="349.0" promptText="last name">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="depTwo" layoutX="544.0" layoutY="409.0" promptText="department">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="langTwo" layoutX="547.0" layoutY="471.0" promptText="language">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="availTwo" layoutX="547.0" layoutY="534.0" promptText="availability">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <JFXButton id="backbutton" buttonType="RAISED" layoutX="547.0" layoutY="718.0" onAction="#ModifyEmployees" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="Avenir Next Bold" size="43.0" />
+         </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="60.0" prefHeight="72.0" prefWidth="364.0" text="MODIFY EMPLOYEE" textFill="WHITE">
+         <font>
+            <Font name="Avenir Next Bold" size="33.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="870.0" layoutY="58.0" prefHeight="72.0" prefWidth="364.0" text="REMOVE" textFill="WHITE">
+         <font>
+            <Font name="Avenir Next Bold" size="33.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="DeleteEmployee" layoutX="903.0" layoutY="145.0" onMouseClicked="#SelectEmployee" prefHeight="58.0" prefWidth="311.0" promptText="Employees" />
+      <JFXButton id="backbutton" buttonType="RAISED" layoutX="908.0" layoutY="222.0" onAction="#removeEmployee" prefHeight="78.0" prefWidth="307.0" ripplerFill="WHITE" style="-fx-background-color: #00001F#00001F;" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="Avenir Next Bold" size="43.0" />
+         </font>
+         <effect>
+            <Glow level="1.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <TextField fx:id="passwordTwo" layoutX="547.0" layoutY="655.0" promptText="password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="usernameTwo" layoutX="547.0" layoutY="592.0" promptText="username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="usernameOne" layoutX="203.0" layoutY="592.0" promptText="username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="passwordOne" layoutX="203.0" layoutY="655.0" promptText="password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+   </children>
+   <effect>
+      <InnerShadow height="255.0" radius="68.5" />
+   </effect>
+</Pane>

@@ -1,37 +1,33 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class InterpreterService extends ServiceRequest {
 
     // Attributes
-    private ArrayList<String> languages;
-    private ArrayList<String> emails;
-    private int interpretersUsed = 0;
+    private static ArrayList<String> languages = new ArrayList<String>();
+    public InterpreterStatistic statistic = InterpreterStatistic.getStats();
+
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
     public InterpreterService(){
-        // TODO: get emails from database
-        interpretersUsed ++;
+
+        languages.add("French");
+        languages.add("Dutch");
+        languages.add("Icelandic");
+
     }
 
     // Getters
-    public ArrayList<String> getLanguages() {
-        return this.languages;
-    }
-
-    public ArrayList<String> getEmails() {
-        return this.emails;
+    public static ArrayList<String> getLanguages() {
+        return languages;
     }
 
     // Setters
     public void setLanguages(ArrayList<String> languages){
         this.languages = languages;
-    }
-
-    public void setEmails(ArrayList<String> emails){
-        this.emails = emails;
     }
 
     // Methods
@@ -48,6 +44,45 @@ public class InterpreterService extends ServiceRequest {
     }
 
     public void generateReport(){
-        System.out.println("Interpreter's Used: " + interpretersUsed);
+        /*
+            Information required:
+            - How much time did each language take to interpret?
+            - How many interpreters of each language have been requested?
+         */
+        String lang = "";
+
+        if (!isActive()) {
+            if(assigned.getLanguage() == null) {
+
+            } else {
+                lang = assigned.getLanguage();
+
+                long timeSent = sent.getTime();
+                long timeReceived = received.getTime();
+
+                long diffSeconds = (timeReceived - timeSent) / 1000;
+
+                // This part increments the number of interpreters used for the language and time taken for this interpreter
+                long tempUsed = 0;
+                long tempAvg = 0;
+                long newAvg = 0;
+
+                tempUsed = statistic.getNumOfInterpreters() + 1;
+                tempAvg = statistic.getAvgTimeTaken();
+
+                newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
+
+                try {
+                    statistic.setData(lang, tempUsed, newAvg);
+                    AddDB.addInterpreterStatistic(statistic); //add at the very end of the program
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException n) {
+                    n.printStackTrace();
+                }
+            }
+        }
+
+
     }
 }

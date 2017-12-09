@@ -1,344 +1,217 @@
 package controller;
 
+import com.jfoenix.controls.*;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.*;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class AdminController extends Controller{
+import static java.lang.Thread.sleep;
 
-    private enum CurrentStatus {
-       ADMIN, ADDNODE, REMOVENODE, MODIFYBORDERS, SERVICEREQUEST,
-    }
 
-    private CurrentStatus currentState = CurrentStatus.ADMIN;
-
-    private GraphicsContext gc1 = null;
-
-    private int XTrans = 0;
-
-    private int YTrans = 0;
-
-    private double Zoom = 1;
-
-    private int counterForEdges = 0;
-
-    private PathingContainer currentAlgorithm = new PathingContainer();
-
+public class AdminController extends Controller {
 
     @FXML
-    private MenuButton PFM;
+    private JFXButton serviceRequestBtn;
 
     @FXML
-    private TextField serviceNodeID;
+    private JFXButton addEditBtn;
 
     @FXML
-    private AnchorPane mapContainer;
+    private JFXButton RemoveButton;
 
     @FXML
-    public ImageView currentMap;
+    private JFXButton editEmployeesBtn;
 
-    double mapWidth;
-    double mapHeight;
+    @FXML
+    private JFXButton removeNodeBtn;
+
+    @FXML
+    private JFXTogglePane textTogglePane;
+
+    @FXML
+    private JFXToggleButton textToggle;
+
+    @FXML
+    private JFXSlider zoomBar;
+
+    @FXML
+    private ImageView img_Map;
+
+    @FXML
+    private JFXButton btn_map03;
+
+    @FXML
+    private JFXButton btn_map02;
+
+    @FXML
+    private JFXButton btn_map01;
+
+    @FXML
+    private JFXButton btn_mapG;
+
+    @FXML
+    private JFXButton btn_mapL1;
+
+    @FXML
+    private JFXButton btn_mapL2;
 
     @FXML
     private Canvas gc;
 
     @FXML
-    private MenuButton MapDropDown;
-
-    @FXML
-    private MenuItem Map1;
-
-    @FXML
-    private MenuItem Map2;
-
-    @FXML
-    private MenuItem MapL2;
-
-    @FXML
-    private MenuItem MapL1;
-
-    @FXML
-    private MenuItem MapG;
-
-    @FXML
-    private MenuItem Map3;
-
-    @FXML
-    private TextField edgeWeight;
-
-    @FXML
-    private TextField edgeNodeA;
-
-    @FXML
-    private TextField edgeNodeB;
-
-    @FXML
-    private TextField Xloc;
-
-    @FXML
-    private TextField Yloc;
-
-    @FXML
-    private TextField Floor;
-
-    @FXML
-    private TextField Building;
-
-    @FXML
-    private TextField NodeType;
-
-    @FXML
-    private TextField ShortName;
-
-    @FXML
-    private TextField LongName;
-
-    @FXML
-    private TextField Team;
-
-    @FXML
-    private TextField NodeId;
-
-    @FXML
-    private TextField removeNode;
-
-    @FXML
-    private Button homeScreenButton;
+    private JFXComboBox<String> CurrRequ;
 
     @FXML
     private ImageView homeScreen;
 
     @FXML
-    private TextArea MessageTestBox;
+    public ImageView currentMap;
 
     @FXML
-    private void clearHomeScreen(){
-        mapContainer.getChildren().remove(homeScreen);
-        mapContainer.getChildren().remove(homeScreenButton);
+    private JFXTextArea toggleTextArea;
 
-    }
+    @FXML
+    private Pane nodeInfoPane;
 
-    public ImageLoader mapImage = new ImageLoader();
+    @FXML
+    private JFXTextField nodeTypeField;
+
+    @FXML
+    private JFXTextField shortNameField;
+
+    @FXML
+    private JFXTextField longNameField;
+
+    @FXML
+    private JFXTextField teamField;
+
+    @FXML
+    private JFXTextField buildingField;
+
+    @FXML
+    private JFXTextField floorField;
+
+    @FXML
+    private JFXTextField yLocField;
+
+    @FXML
+    private JFXTextField xLocField;
+
+    @FXML
+    private JFXTextField nodeIDField;
+
+    @FXML
+    private Pane edgeInfoPane;
+
+    @FXML
+    private JFXTextField weightField;
+
+    @FXML
+    private JFXTextField nodeBField;
+
+    @FXML
+    private JFXTextField nodeAField;
+
+    @FXML
+    private JFXButton astarBtn;
+
+    @FXML
+    private JFXButton depthBtn;
+
+    @FXML
+    private JFXButton breadthBtn;
+
+    @FXML
+    private JFXButton dijkstrasBtn;
+
+    @FXML
+    private JFXButton beamBtn;
+
+    @FXML
+    private JFXButton bestBtn;
+
+    @FXML
+    private JFXToggleButton nodeAlignmentToggle;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+    public static TextDirections textDirections = new TextDirections();
+    ArrayList<NodeObj> currPath = null;
+    NodeObj goal = null;
+    public String servReqNodeID;
+    NodeObj nodeA = null;
+    private SingleController single = SingleController.getController();
+    private ImageLoader mapImage = new ImageLoader();
+    private GraphicsContext gc1 = null;
 
     public void initialize(){
-        Image m1 = mapImage.getLoadedMap("Map1");
+        Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
-        currentAlgorithm.setPathAlg(new astar());
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
-        switchTab2();
+        single.getAlgorithm().setPathAlg(new astar());
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
+        astarBtn.setStyle("-fx-background-color: #4286f4");
+        redraw();
     }
 
-    @FXML
-    /*
-    * stateHandler is called when the map is clicked. Depending on the state, it either pathfinds,
-     * or provides some map editing functionality
-     */
-    void stateHandler(MouseEvent event) {
-        //get the mouses location and convert that to the corrected map coordinates for the original image
-        // System.out.println(mapWidth + " " + mapHeight);
 
-        double mousex = (5000 * event.getX()) / mapWidth;
-        double mousey = (3400 * event.getY()) / mapHeight;
-
-        switch (currentState){
-            case ADMIN:
-                switchTab2();
-                break;
-            case ADDNODE:
-                nodeProcess((int)mousex,(int)mousey,currentState);
-                //addEditNode(Xloc.getText(), Yloc.getText(), Floor.getText(), Building.getText(), NodeType.getText(), LongName.getText(), ShortName.getText(), Team.getText(), NodeId.getText());
-                break;
-            case REMOVENODE:
-                //remove node
-                //removeNode(removeNode.getText());
-                nodeProcess((int)mousex,(int)mousey,currentState);
-                break;
-            case MODIFYBORDERS:
-                if(counterForEdges == 0) {
-                    edgeProcess((int) Math.floor(mousex), (int) Math.floor(mousey), counterForEdges);
-                    counterForEdges++;
-                }
-                else if(counterForEdges == 1) {
-                    edgeProcess((int) Math.floor(mousex), (int) Math.floor(mousey), counterForEdges);
-                    counterForEdges++;
-                }
-                break;
-            case SERVICEREQUEST:
-                nodeProcess((int)mousex, (int)mousey, currentState);
-                break;
-        }
-
-        //Print to confirm
-
-        //convert click resolution to map ratio
-        //far left stair node
-    }
-
-    /*
-    * nodeProcess deals with selecting a node when editing the map
-     */
-    private void nodeProcess(int mousex, int mousey, CurrentStatus currentState){
-        NodeObj nearestNode = null;
-        try {
-            if (currentState.equals(CurrentStatus.REMOVENODE)) {
-                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
-                this.removeNode.setText(nearestNode.getNode().getNodeID());
-            } else if (currentState.equals(CurrentStatus.ADDNODE)) {
-                this.Xloc.setText("" + mousex);
-                this.Yloc.setText("" + mousey);
-                //Do the add field stuff
-            } else if (currentState.equals(CurrentStatus.SERVICEREQUEST)) {
-                nearestNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
-                this.serviceNodeID.setText(nearestNode.getNode().getNodeID());
-            }
-        }catch(InvalidNodeException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    /*
-    *  edgeProcess deals with selecting an edge when editing the map
-     */
-    private void edgeProcess(int mousex, int mousey, int counterForEdges) {
-       NodeObj nodeO = null;
-        try {
-            nodeO = Main.getNodeMap().getNearestNeighborFilter
-                    ((int) Math.floor(mousex), (int) Math.floor(mousey));
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
-        }
-
-        if (counterForEdges ==0)
-            edgeNodeA.setText(nodeO.node.getNodeID());
-        if (counterForEdges ==1)
-            edgeNodeB.setText(nodeO.node.getNodeID());
-    }
-
-    @FXML
-    /*
-    *UpdateBorderButton is called when adding or editing. It updates the
-    * node map, and redraws the screen
-     */
-    void UpdateBorderButton() {
-        String NIDA = edgeNodeA.getText();
-        String NIDB = edgeNodeB.getText();
-        int eWeight = Integer.parseInt(edgeWeight.getText());
-        EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
-        switchTab2();
-        gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*mapWidth/5000,
-                edgeAB.getNodeA().node.getyLoc()*mapHeight/3400,
-                edgeAB.getNodeB().node.getxLoc()*mapWidth/5000,
-                edgeAB.getNodeB().node.getyLoc()*mapHeight/3400);
-    }
-
-    /*
-    * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
-     */
-    @FXML
-    void DeleteBorderButton() {
-        String nodeA = edgeNodeA.getText();
-        String nodeB = edgeNodeB.getText();
-        Main.getNodeMap().deleteEdge(nodeA,nodeB);
-        switchTab2();
-    }
-
-    public void highlightFloors(){
-        Map1.setStyle("-fx-background-color: transparent;");
-        Map2.setStyle("-fx-background-color: transparent;");
-        Map3.setStyle("-fx-background-color: transparent;");
-        MapL1.setStyle("-fx-background-color: transparent;");
-        MapL2.setStyle("-fx-background-color: transparent;");
-        MapG.setStyle("-fx-background-color: transparent;");
-    }
-
-    public MenuItem GetMapDropdownFromFloor(String Nfloor) throws InvalidNodeException{
-        switch(Nfloor){
-            case "1":
-                return Map1;
-
-            case "2":
-                return Map2;
-
-            case "3":
-                return Map3;
-
-            case "L1":
-                return MapL1;
-
-            case "L2":
-                return MapL2;
-
-            case "G":
-                return MapG;
-
-            default:
-                throw new InvalidNodeException("Node does not have a correct floor ID");
-        }
-
-    }
-
-    /*
-    * THESE METHODS SET THE CURRENT STATE OF THE APPLICATION
-     */
-    @FXML
-    void addNodeFlag() {
-        this.currentState = CurrentStatus.ADDNODE;
-    }
-
-    @FXML
-    void modifyBordersFlag() {
-        currentState = CurrentStatus.MODIFYBORDERS;
-        counterForEdges = 0;
-    }
-
-    @FXML
-    void removeNodeFlag() {
-        this.currentState = CurrentStatus.REMOVENODE;
-    }
-
-    @FXML
-    void serviceRequestFlag(){
-
-        this.currentState = CurrentStatus.SERVICEREQUEST;
-        Main.getCurrStage().setScene(Main.getService());
-    }
-
-   //--------------------------------------------------------------------------------
-
-
-    /*
-    * switchTab2 is called when admin tab is selected, draws admin map to screen
-     */
-    @FXML
-    public void switchTab2(){
+    private void redraw() {
+        nodeInfoPane.setVisible(false);
+        edgeInfoPane.setVisible(false);
+        serviceRequestBtn.setVisible(false);
+        nodeIDField.clear();
+        xLocField.clear();
+        yLocField.clear();
+        floorField.clear();
+        nodeTypeField.clear();
+        teamField.clear();
+        buildingField.clear();
+        longNameField.clear();
+        shortNameField.clear();
+        weightField.clear();
+        nodeAField.clear();
+        nodeBField.clear();
         if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
-        currentState = CurrentStatus.ADMIN;
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc()*mapWidth/5000,
-                    e.getNodeA().node.getyLoc()*mapHeight/3400,
-                    e.getNodeB().node.getxLoc()*mapWidth/5000,
-                    e.getNodeB().node.getyLoc()*mapHeight/3400);
+                gc1.strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                        e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -348,147 +221,154 @@ public class AdminController extends Controller{
 
         for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 5,
-                    n.node.getyLoc()*mapHeight/3400 - 5,
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 5,
                     10,
                     10);
             gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc()*mapWidth/5000 - 4,
-                    n.node.getyLoc()*mapHeight/3400 - 4,
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 4,
                     8,
                     8);
         }
         gc1.setFill(Color.BLUE);
     }
 
-    /*
-    * switchTab1 is called when Patient tab is clicked. Prepares screen for pathfinding.
-     */
     @FXML
-    public void switchTab1(){
-        //switch to other controller
-        Main.getCurrStage().setScene(Main.getPatientScene());
+    void changeMap(Event e) {
+        Main.controllers.updateAllMaps(e);
     }
 
-    /*
-    * sendServiceRequest sends the service request to the set email in JanitorService.sendEmailServiceRequest
-     */
-    @FXML
-    void sendServiceRequest(){
-        String requestedNode = serviceNodeID.getText();
-        String message = MessageTestBox.getText();
-        Main.getJanitorService().setLocation(requestedNode);
-        Main.getJanitorService().setMessageText(message);
-        Main.getJanitorService().sendEmailServiceRequest();
-    }
 
-    @FXML
-    void setCurrentAlgorithm(Event e){
-        String clickedID = ((MenuItem)e.getSource()).getId();
+    void getMap(Event e) {
+        btn_mapL2.setStyle("-fx-background-color:  #4286f4");
+        btn_mapL1.setStyle("-fx-background-color:  #4286f4");
+        btn_mapG.setStyle("-fx-background-color:  #4286f4");
+        btn_map01.setStyle("-fx-background-color:  #4286f4");
+        btn_map02.setStyle("-fx-background-color:  #4286f4");
+        btn_map03.setStyle("-fx-background-color:  #4286f4");
 
-        switch(clickedID){
-            case "depthFirst":
-                this.currentAlgorithm.setPathAlg(new DepthFirst());
-                break;
-            case "breadthFirst":
-                this.currentAlgorithm.setPathAlg(new BreadthFirst());
-                break;
-            case "dijkstras":
-                this.currentAlgorithm.setPathAlg(new Dijkstras());
-                break;
-            case "aStar":
-                this.currentAlgorithm.setPathAlg(new astar());
-                break;
-        }
-        PFM.setText(clickedID);
-    }
-
-    @FXML
-    void resetKioskLoc(){
-        setKioskLoc(2460, 910);
-    }
-
-    @FXML
-    void mapSelected(Event e){
-        Main.getControllers().updateAllMaps(e);
-    }
-
-    @FXML
-    void GetMap(Event e){
-        String clickedID = ((MenuItem)e.getSource()).getId();
-
-        switch(clickedID){
-            case "MapL2":
-                MapDropDown.setText("Floor L2");
+        String clickedID = ((JFXButton) e.getSource()).getId();
+        switch (clickedID) {
+            case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
+                btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
-            case "MapL1":
-                MapDropDown.setText("Floor L1");
+            case "btn_mapL1":
                 Main.getNodeMap().setCurrentFloor("L1");
+                btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
-            case "MapG":
-                MapDropDown.setText("Ground Floor");
+            case "btn_mapG":
                 Main.getNodeMap().setCurrentFloor("G");
+                btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
-            case "Map1":
-                MapDropDown.setText("Floor 1");
+            case "btn_map01":
                 Main.getNodeMap().setCurrentFloor("1");
+                btn_map01.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
-            case "Map2":
-                MapDropDown.setText("Floor 2");
+            case "btn_map02":
                 Main.getNodeMap().setCurrentFloor("2");
+                btn_map02.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
-            case "Map3":
-                MapDropDown.setText("Floor 3");
+            case "btn_map03":
                 Main.getNodeMap().setCurrentFloor("3");
+                btn_map03.setStyle("-fx-background-color:  #1b5cc4");
                 break;
+
         }
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         Image map = mapImage.getLoadedMap(clickedID);
         this.currentMap.setImage(map);
-        //PatientController.currentMap.setImage(map);
-        if((currentState == CurrentStatus.ADMIN) || (currentState == CurrentStatus.ADDNODE) ||  (currentState == CurrentStatus.REMOVENODE) ||  (currentState == CurrentStatus.MODIFYBORDERS) || (currentState == CurrentStatus.SERVICEREQUEST)){
-            switchTab2();
+        redraw();
+    }
+
+
+    @FXML
+    void clickHandler(MouseEvent event) throws InvalidNodeException {
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+            redraw();
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            if(nodeA == null){
+                selectNodeA(event);
+            }else{
+                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
+                    edgeInfoPane.setVisible(false);
+                    selectNode(mousex,mousey);
+                    nodeA = null;
+                }else {
+                    nodeInfoPane.setVisible(false);
+                    selectEdge(event);
+                    nodeA = null;
+
+                }
+            }
         }
     }
 
-    /*
-    * setKioskLoc sets the default location for the floor
-     */
-    void setKioskLoc(int xCoord, int yCoord) {
+    @FXML
+    void createNewNode(int mousex, int mousey) {
+        nodeIDField.setText("");
+        xLocField.setText(mousex + "");
+        yLocField.setText(mousey + "");
+        floorField.setText(Main.getNodeMap().currentFloor);
+        teamField.setText("Team E");
+        //now make all fields visible with .setVisibility(true)
+        nodeInfoPane.setVisible(true);
+    }
+
+    @FXML
+    void selectNode(int mousex, int mousey) {
         try {
-            Main.setKiosk(Main.getNodeMap().getNearestNeighbor(xCoord, yCoord));
+            NodeObj editNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+
+            //set each of the fields to their values
+            nodeIDField.setText(editNode.getNode().getNodeID());
+            xLocField.setText(editNode.getNode().getxLoc() + "");
+            yLocField.setText(editNode.getNode().getyLoc() + "");
+            floorField.setText(editNode.getNode().getFloor());
+            nodeTypeField.setText(editNode.getNode().getNodeType());
+            teamField.setText(editNode.getNode().getTeam());
+            buildingField.setText(editNode.getNode().getBuilding());
+            longNameField.setText(editNode.getNode().getLongName());
+            shortNameField.setText(editNode.getNode().getShortName());
+
+            //now make all fields visible with .setVisibility(true)
+            nodeInfoPane.setVisible(true);
+            serviceRequestBtn.setVisible(true);
+
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
     }
 
-    /*
-    * removeNode removes a node from the map
-     */
     @FXML
-    void removeNode(){
-        String delNodeID = removeNode.getText();
+    void removeNode() {
+        String delNodeID = nodeIDField.getText();
         Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
         NodeObj delNodeObj = new NodeObj(delNode);
         Main.getNodeMap().removeNode(delNodeObj);
-        switchTab2();
+        redraw();
     }
 
-    /*
-    * addEditNode adds/modifies a node in the map
-     */
     @FXML
-    void addEditNode(){
-        String xLoc = Xloc.getText();
-        String yLoc = Yloc.getText();
-        String floor = Floor.getText();
-        String building = Building.getText();
-        String nodeType = NodeType.getText();
-        String longName = LongName.getText();
-        String shortName = ShortName.getText();
-        String team = Team.getText();
-        String nodeID = NodeId.getText();
+    void addEditNode() {
+        String xLoc = xLocField.getText();
+        String yLoc = yLocField.getText();
+        String floor = floorField.getText();
+        String building = buildingField.getText();
+        String nodeType = nodeTypeField.getText();
+        String longName = longNameField.getText();
+        String shortName = shortNameField.getText();
+        String team = teamField.getText();
+        String nodeID = nodeIDField.getText();
         Node modNode = new Node(xLoc, yLoc, floor, building, nodeType, longName, shortName, team, nodeID);
         NodeObj modNodeObj = new NodeObj(modNode);
         try {
@@ -496,65 +376,349 @@ public class AdminController extends Controller{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        switchTab2();
+        redraw();
     }
 
+    @FXML
+    void selectNodeA(MouseEvent event) {
+        nodeInfoPane.setVisible(false);
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        try {
+            nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+            nodeAField.setText(nodeA.getNode().getNodeID());
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @FXML
+    void selectEdge(MouseEvent event) {
+        System.out.println("DRAG RELEASED");
+
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+
+        try {
+            NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
+            String nodeB = nodeEnd.getNode().getNodeID();
+            nodeBField.setText(nodeB);
+
+            if(nodeAlignmentToggle.isSelected()) {
+                System.out.println("We're aligning!");
+                NodeAlignment nodeAlign = new NodeAlignment();
+
+                nodeAlign.nodeAlignment(nodeA, nodeEnd);
+                ArrayList<NodeObj> nodesToBeChanged = nodeAlign.getChangedNodes();
+
+                for (NodeObj node : nodesToBeChanged) {
+                    Main.getNodeMap().addEditNode(node);
+                }
+                redraw();
+
+            } else if (nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)) != null) {
+                weightField.setText(nodeA.getEdgeObj(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey)).getWeight() + "");
+            } else {
+                weightField.setText("1");
+            }
+            edgeInfoPane.setVisible(true);
+        } catch (InvalidNodeException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+        /*
+         *UpdateBorderButton is called when adding or editing. It updates the
+         * node map, and redraws the screen
+         */
+    void addEditEdge() {
+        String NIDA = nodeAField.getText();
+        String NIDB = nodeBField.getText();
+        int eWeight = Integer.parseInt(weightField.getText());
+        EdgeObj edgeAB = Main.getNodeMap().addEditEdge(NIDA, NIDB, eWeight);
+        redraw();
+
+        gc1.setStroke(Color.RED);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+
+    }
+
+    /*
+     * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
+     */
+    @FXML
+    void removeEdge() {
+        String nodeA = nodeAField.getText();
+        String nodeB = nodeBField.getText();
+        Main.getNodeMap().deleteEdge(nodeA, nodeB);
+        redraw();
+    }
+
+    @FXML
+    void pathingHoverStart(MouseEvent event) {
+        String hoveredID = ((JFXButton) event.getSource()).getId();
+        opacHandler(1, hoveredID);
+    }
+
+    @FXML
+    void pathingHoverStop(MouseEvent event) {
+        String hoveredID = ((JFXButton) event.getSource()).getId();
+        opacHandler(.5, hoveredID);
+    }
+
+    void opacHandler(double opacity, String hoveredID) {
+        try {
+            switch (hoveredID) {
+                case "astarBtn":
+                    astarBtn.setOpacity(opacity);
+                    break;
+                case "depthBtn":
+                    depthBtn.setOpacity(opacity);
+                    break;
+                case "breadthBtn":
+                    breadthBtn.setOpacity(opacity);
+                    break;
+                case "dijkstrasBtn":
+                    dijkstrasBtn.setOpacity(opacity);
+                    break;
+                case "beamBtn":
+                    beamBtn.setOpacity(opacity);
+                    break;
+                case "bestBtn":
+                    bestBtn.setOpacity(opacity);
+                    break;
+                case "editEmployeesBtn":
+                    editEmployeesBtn.setOpacity(opacity);
+                    break;
+                case "serviceRequestBtn":
+                    serviceRequestBtn.setOpacity(opacity);
+                    break;
+                case "addEditBtn":
+                    addEditBtn.setOpacity(opacity);
+                    break;
+                case "removeNodeBtn":
+                    removeNodeBtn.setOpacity(opacity);
+                    break;
+                case "RemoveButton":
+                    RemoveButton.setOpacity(opacity);
+                    break;
+                case "Tup":
+                    Tup.setOpacity(opacity);
+                    break;
+                case "Tdown":
+                    Tdown.setOpacity(opacity);
+                    break;
+                case "Tleft":
+                    Tleft.setOpacity(opacity);
+                    break;
+                case "Tright":
+                    Tright.setOpacity(opacity);
+                    break;
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void selectPathAlg(Event event) {
+        String clickedID = ((JFXButton) event.getSource()).getId();
+        resetPathBtns();
+        switch (clickedID) {
+            case "astarBtn":
+                astarBtn.setStyle("-fx-background-color: #4286f4");
+                this.single.getAlgorithm().setPathAlg(new astar());
+                break;
+            case "depthBtn":
+                depthBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new DepthFirst());
+                break;
+            case "breadthBtn":
+                breadthBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new BreadthFirst());
+                break;
+            case "dijkstrasBtn":
+                dijkstrasBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new Dijkstras());
+                break;
+            case "beamBtn":
+                beamBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new BeamFirst());
+                break;
+            case "bestBtn":
+                bestBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new BestFirst());
+                break;
+        }
+    }
+
+    void resetPathBtns() {
+        astarBtn.setStyle("-fx-background-color: #21a047");
+        depthBtn.setStyle("-fx-background-color:  #21a047");
+        breadthBtn.setStyle("-fx-background-color:  #21a047");
+        dijkstrasBtn.setStyle("-fx-background-color:  #21a047");
+        beamBtn.setStyle("-fx-background-color:  #21a047");
+        bestBtn.setStyle("-fx-background-color:  #21a047");
+    }
+
+    @FXML
+    void adminLogout() {
+        Main.getCurrStage().setScene(Main.getPatientScene());
+    }
+
+    @FXML
+    void makeServiceRequest() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml"));
+        Parent root = servContLoad.load();
+        ServiceController servCont = servContLoad.getController();
+        Stage servStage = new Stage();
+        servStage.setTitle("Service Request");
+        servStage.setScene(new Scene(root, 350, 600));
+        servCont.servLocField.setText(nodeIDField.getText());
+        servStage.show();
+    }
+
+    @FXML
+    void EditEmployees() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceEdit.fxml"));
+        Parent root = servContLoad.load();
+        ServiceEditController servCont = servContLoad.getController();
+        Stage servStage = new Stage();
+        servStage.setTitle("Service Request");
+        servStage.setScene(new Scene(root, single.getMapWidth()-100, single.getMapHeight()-50));
+        servStage.show();
+    }
+
+    @FXML
+    void MyRequests() {
+        CurrRequ.getItems().clear();
+        Refresh();
+        System.out.println("IBEHERE");
+        Employee currEmp = Main.getCurrUser();
+        System.out.println(Main.getRequestList().size());
+        for (ServiceRequest aserv : Main.getRequestList()) {
+            try {
+                if (currEmp.getId() == aserv.getAssigned().getId()) {
+                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " | " + aserv.getSent().toString());
+                }
+            } catch (NullPointerException e) {
+                e.getMessage();
+            }
+        }
+
+    }
+
+    @FXML
+    void RemoveRequest() {
+        try {
+            ServiceRequest serv = null;
+            String reqDate = CurrRequ.getValue().substring(CurrRequ.getValue().indexOf('|') + 2).trim();
+            for (ServiceRequest aserv : Main.getRequestList()) {
+                try {
+                    System.out.println(aserv.getSent().toString());
+                    System.out.println(reqDate);
+                    if (aserv.getSent().toString().trim().equals(reqDate)) {
+
+                        aserv.setActive(false);
+                        serv = aserv;
+                    }
+                } catch (NullPointerException e) {
+                    e.getMessage();
+                }
+            }
+
+            if (serv != null) {
+                Main.requests.remove(serv);
+                serv.setReceived();
+                serv.generateReport();
+            }
+        } catch (NullPointerException e) {
+            e.getMessage();
+        }
+    }
+
+    void Refresh() {
+        // Printing this stuff is a later order concern so get back to it later
+        String finalString = " ";
+        ArrayList<ServiceRequest> searchInactive = new ArrayList<ServiceRequest>();
+        searchInactive.addAll(Main.requests);
+
+        for (ServiceRequest serve : searchInactive) {
+            if (serve.getAssigned() != null) {
+                serve.resolveRequest();
+                if (serve.isActive()) {
+                    serve.generateReport();
+                }
+            } else {
+                finalString.concat("No active Requests");
+            }
+        }
+        for (ServiceRequest s : searchInactive) {
+            if (!s.isActive()) {
+                Main.requests.remove(s);
+                try {
+                    DeleteDB.delRequest(s.getSent().toString());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @FXML
     void Zin() {
-        Zoom+=.5;
+        System.out.println(zoomBar.getValue());
+        single.setZoom(zoomBar.getValue());
         resize();
-    }
-
-    @FXML
-    void Zout() {
-        if(Zoom>1) {
-            Zoom -= .5;
-            resize();
-        }
 
     }
 
     @FXML
     void Tleft() {
-        XTrans+=(int) (200.0/Zoom);
+        single.addX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tright() {
-        XTrans-=(int) (200.0/Zoom);
+        single.subX((int) (200.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tup() {
-        YTrans+=(int) (160.0/Zoom);
+        single.addY((int) (160.0 / single.getZoom()));
         resize();
     }
 
     @FXML
     void Tdown() {
-        YTrans-=(int) (160.0/Zoom);
+        single.subY((int) (160.0 / single.getZoom()));
         resize();
     }
 
-    public void resize(){
-        if(Zoom<=1){
-            XTrans = 0;
-            YTrans = 0;
+    public void resize() {
+        if (single.getZoom() <= 1) {
+            single.setXTrans(0);
+            single.setYTrans(0);
         }
-        gc.setScaleX(Zoom);
-        gc.setScaleY(Zoom);
-        gc.setTranslateX(XTrans);
-        gc.setTranslateY(YTrans);
-        currentMap.setScaleX(Zoom);
-        currentMap.setScaleY(Zoom);
-        currentMap.setTranslateX(XTrans);
-        currentMap.setTranslateY(YTrans);
-        mapWidth = currentMap.getFitWidth();
-        mapHeight = currentMap.getFitHeight();
+        gc.setScaleX(single.getZoom());
+        gc.setScaleY(single.getZoom());
+        gc.setTranslateX(single.getXTrans());
+        gc.setTranslateY(single.getYTrans());
+        currentMap.setScaleX(single.getZoom());
+        currentMap.setScaleY(single.getZoom());
+        currentMap.setTranslateX(single.getXTrans());
+        currentMap.setTranslateY(single.getYTrans());
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
     }
+
 
 }

@@ -1,9 +1,11 @@
 package controller;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 import model.*;
 import model.AddDB;
@@ -17,8 +19,8 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1750;
-    public static int sceneHeight = 1000;
+    public static int sceneWidth = 1400;
+    public static int sceneHeight = 900;
     public static Scene patientScene;
     public static Scene adminScene;
     public static Scene Service;
@@ -30,15 +32,20 @@ public class Main extends Application {
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the employee
     public static ArrayList<Employee> employees;
+    public static ArrayList<ServiceRequest> requests;
+    public static CafeteriaStatistic cafeteriaStat;
+    public static JanitorStatistic janitorStat;
+    public static InterpreterStatistic interpreterStat;
     //contains all the messages
     public static JanitorService janitorService;
+    public static CafeteriaService cafeteriaService;
+    public static InterpreterService interpreterService;
     public static ControllerListener controllers;
+    public static Employee currUser;
 
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        //set up service request
-        janitorService = new JanitorService();
         //set up space for database
         File test = new File("mapDB");
         Class.forName(DRIVER);
@@ -46,6 +53,8 @@ public class Main extends Application {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
+
+
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -61,6 +70,7 @@ public class Main extends Application {
         try {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
+            File statsCSVTest = new File("src/model/docs/Statistics.csv");
             if(nodeCSVTest.exists() && edgeCSVTest.exists()){           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
                 ReadCSV.runEdge("src/model/docs/Edges.csv");
@@ -88,6 +98,12 @@ public class Main extends Application {
                 ReadCSV.runEdge("src/model/docs/MapWedges.csv");
             }
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
+            ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
+            if(statsCSVTest.exists()) {
+                ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
+                ReadCSV.runCafeteriaStatistic("src/model/docs/CalendarStatistics.csv");
+                ReadCSV.runInterpreterStatistic("src/model/docs/InterpreterStatistics.csv");
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -117,9 +133,6 @@ public class Main extends Application {
         ArrayList<Edge> listOfEdges;
         listOfEdges = QueryDB.getEdges();
 
-        // assigns and saves employees from the database
-        employees = QueryDB.getEmployees();
-
         // create edge objects
         //for every edge in the database
         //create the corrisponding edge object and place it into the corrisponding node
@@ -138,10 +151,32 @@ public class Main extends Application {
             }
         }
 
+
         //creates and saves the list of employees
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
+
+        // creates and saves list of requests
+        ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
+        listOfRequests = QueryDB.getRequests();
+        requests = listOfRequests;
+
+        cafeteriaStat = QueryDB.getCafeteriaStatistics();
+
+        janitorStat = QueryDB.getJanitorStatistics();
+
+        interpreterStat = QueryDB.getInterpreterStatistics();
+
+        //set up service request
+        janitorService = new JanitorService();
+        cafeteriaService = new CafeteriaService();
+        interpreterService = new InterpreterService();
+
+        interpreterService.generateReport();
+        janitorService.generateReport();
+        cafeteriaService.generateReport();
+
         //get the kiosk for the assigned floor
         try {
             kiosk = nodeMap.getNearestNeighborFilter(2460, 910);
@@ -158,6 +193,8 @@ public class Main extends Application {
         //getDistToGoal has been removed and replaced with NodeObj.getDistance(goal)
         javafx.application.Application.launch(args);
     }
+
+
 
     //this sets the stage for the application,
     //running the fxml file to open the UI
@@ -183,7 +220,6 @@ public class Main extends Application {
 
         this.controllers.addObserver(adminCont);
 
-        Service = new Scene(FXMLLoader.load(getClass().getClassLoader().getResource("view/ui/ServiceRequest.fxml")), sceneWidth, sceneHeight);
         this.patientScene = Start;
         primaryStage.setScene(Start);
         primaryStage.show();
@@ -207,10 +243,17 @@ public class Main extends Application {
         for (Employee e : employees) {
             AddDB.addEmployee(e);
         }
+        for (ServiceRequest service : requests){
+            AddDB.addRequest(service);
+        }
         try {
             WriteNodes.runNodes();
             WriteEdges.runEdges();
             WriteEmployees.runEmployees();
+            WriteRequests.runRequests();
+            WriteStatistics.runJanitorStatistic();
+            WriteStatistics.runCafeteriaStatistic();
+            WriteStatistics.runInterpreterStatistic();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -251,6 +294,14 @@ public class Main extends Application {
         return employees;
     }
 
+    public static ArrayList<ServiceRequest> getRequestList(){
+        return requests;
+    }
+
+    public void removeRequestList(ServiceRequest req){
+        requests.remove(req);
+    }
+
     public static void setKiosk(NodeObj kiosk) {
         Main.kiosk = kiosk;
     }
@@ -261,6 +312,16 @@ public class Main extends Application {
 
     public static ControllerListener getControllers() {
         return controllers;
+    }
+
+    public static Employee getCurrUser() {
+        return currUser;
+    }
+
+
+
+    public static void setCurrUser(Employee currUser) {
+        Main.currUser = currUser;
     }
 
     //this runs the service request

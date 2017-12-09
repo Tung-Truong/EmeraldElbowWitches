@@ -10,7 +10,7 @@ public class WriteEmployees {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
     /*
-    * runEdges takes all rows from the EMPLOYEETABLE in our database and saves it to our edge csv file.
+    * runEmployees takes all rows from the EMPLOYEETABLE in our database and saves it to our edge csv file.
      */
     public static void runEmployees() throws SQLException, IOException {
 
@@ -22,7 +22,7 @@ public class WriteEmployees {
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            fw.append("email, firstName, lastName, department, language, availability\n");
+            fw.append("email, firstName, lastName, department, language, availability, username, password\n");
             while (rs.next()) {
                 fw.append(rs.getString(1));
                 fw.append(',');
@@ -35,6 +35,10 @@ public class WriteEmployees {
                 fw.append(rs.getString(5));
                 fw.append(',');
                 fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
                 fw.append('\n');
             }
             fw.flush();

@@ -43,7 +43,6 @@ public class astar extends PathingAlgorithm {
                     if (neighbor.getgCost() > neighbor.getEdgeObj(current).getWeight()) {
                         neighbor.setParent(current);
                         neighbor.setgCost(current.getgCost());
-
                     }
                 }
             }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="350.0" style="-fx-background-color: #4286f4#4286f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthAPI.HealthcareAdminController">
+   <children>
+      <Pane layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="350.0" style="-fx-background-color: white;">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="114.0" layoutY="471.0" onAction="#RemoveRequest" prefHeight="40.0" prefWidth="120.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Remove" textFill="#1b3766" />
+            <JFXTextField fx:id="personName" focusColor="#4286f4" layoutX="30.0" layoutY="223.0" prefHeight="40.0" prefWidth="290.0" promptText="Name" unFocusColor="GREY" />
+            <JFXTextField fx:id="personEmail" focusColor="#4286f4" layoutX="30.0" layoutY="295.0" prefHeight="40.0" prefWidth="290.0" promptText="Email" unFocusColor="GREY" />
+            <JFXComboBox fx:id="CurrRequ" focusColor="#4286f4" labelFloat="true" layoutX="33.0" layoutY="33.0" onAction="#selectHealthProviderChoice" onMouseClicked="#MyRequests" prefHeight="40.0" prefWidth="290.0" promptText="Active Requests" unFocusColor="GREY" />
+            <JFXTextField fx:id="persondate" focusColor="#4286f4" layoutX="31.0" layoutY="369.0" prefHeight="40.0" prefWidth="290.0" promptText="Your Email" text="Date" unFocusColor="GREY" />
+            <JFXTextField fx:id="Provider" focusColor="#4286f4" layoutX="30.0" layoutY="152.0" prefHeight="40.0" prefWidth="290.0" promptText="Name" text="Healthcare Provider" unFocusColor="GREY" />
+         </children>
+      </Pane>
+      <JFXButton prefHeight="70.0" prefWidth="350.0" text="HEALTHCARE MANAGEMENT" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </JFXButton>
+   </children>
+</Pane>
