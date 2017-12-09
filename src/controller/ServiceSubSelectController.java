@@ -112,7 +112,6 @@ public class ServiceSubSelectController {
 
     @FXML
     void Next() throws IOException {
-        pass = pass + " " + table.getSelectionModel().getSelectedItem().getValue();
 
         FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceRequestConfirm.fxml"));
         Parent root = servContLoad.load();
@@ -124,7 +123,7 @@ public class ServiceSubSelectController {
         selected = employeeNames.getValue();
 
         servConfCont.setAssigned(selected);
-        servConfCont.init(pass);
+        servConfCont.init(pass + " " + table.getSelectionModel().getSelectedItem().getValue());
 
         ServStage.setTitle("Service Confirm");
         servConfCont.setServScene(servTypeScene);

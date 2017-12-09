@@ -126,37 +126,37 @@ public class ServiceController {
 
     }
 
-    //@FXML
-    void SubmitRequest() {
-        try {
-            this.setService();
-            String location = servLocField.getText();
-
-            if (service instanceof JanitorService) {
-                service.setMessageHeader("Supplies needed at: " + location);
-            } else if (service instanceof InterpreterService) {
-                service.setMessageHeader("Interpreter needed at: " + location);
-            }/* else {
-                service.setMessageHeader("Food needed in: " + location);
-            }*/
-            service.setLocation(location);
-
-            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
-                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
-            service.sendEmailServiceRequest();
-
-            service.toString();
-            System.out.println("add");
-            System.out.println(Main.getRequestList().size());
-            Main.requests.add(service);
-            System.out.println(Main.getRequestList().size());
-            System.out.println("Message sent succesfully");
-            close();
-        }
-        catch(NullPointerException e){
-            e.printStackTrace();
-        }
-    }
+//    //@FXML
+//    void SubmitRequest() {
+//        try {
+//            this.setService();
+//            String location = servLocField.getText();
+//
+//            if (service instanceof JanitorService) {
+//                service.setMessageHeader("Supplies needed at: " + location);
+//            } else if (service instanceof InterpreterService) {
+//                service.setMessageHeader("Interpreter needed at: " + location);
+//            }/* else {
+//                service.setMessageHeader("Food needed in: " + location);
+//            }*/
+//            service.setLocation(location);
+//
+//            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
+//                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
+//            service.sendEmailServiceRequest();
+//
+//            service.toString();
+//            System.out.println("add");
+//            System.out.println(Main.getRequestList().size());
+//            Main.requests.add(service);
+//            System.out.println(Main.getRequestList().size());
+//            System.out.println("Message sent succesfully");
+//            close();
+//        }
+//        catch(NullPointerException e){
+//            e.printStackTrace();
+//        }
+//    }
 
     //these three items handle changing the employyee names available
     @FXML
@@ -243,45 +243,45 @@ public class ServiceController {
             serviceNeeded = "Food";
         }*/
 
-        public void setService() throws NullPointerException{
-        String needed = this.RequestServiceDropdown.getValue();
-        if(AssignEmployee.getValue().split(" ") == null)
-            throw new NullPointerException("No service added");
-        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
-        String email = "";
-        Employee assign = new Employee();
-        for (Employee e : Main.getEmployees()) {
-            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
-                email = e.getEmail();
-                assign = e;
-            } else {
-                //TO DO throw an exception because employee was never set
-            }
-        }
-        if (needed.toUpperCase().equals("INTERPRETER")) {
-            service = new InterpreterService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            //serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase().equals("JANITOR")) {
-            service = new JanitorService();
-            System.out.println("righthrt");
-            System.out.println("" + assign.getId());
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            System.out.println("" + service.getAssigned().getId());
-            //serviceNeeded = "Janitor";
-        }
-
-        /*else {
-            service = new CafeteriaService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            serviceNeeded = "Food";
-        }*/
-    }
+//        public void setService() throws NullPointerException{
+//        String needed = this.RequestServiceDropdown.getValue();
+//        if(AssignEmployee.getValue().split(" ") == null)
+//            throw new NullPointerException("No service added");
+//        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
+//        String email = "";
+//        Employee assign = new Employee();
+//        for (Employee e : Main.getEmployees()) {
+//            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
+//                email = e.getEmail();
+//                assign = e;
+//            } else {
+//                //TO DO throw an exception because employee was never set
+//            }
+//        }
+//        if (needed.toUpperCase().equals("INTERPRETER")) {
+//            service = new InterpreterService();
+//            // placeholder
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            //serviceNeeded = "Interpreter";
+//        } else if (needed.toUpperCase().equals("JANITOR")) {
+//            service = new JanitorService();
+//            System.out.println("righthrt");
+//            System.out.println("" + assign.getId());
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            System.out.println("" + service.getAssigned().getId());
+//            //serviceNeeded = "Janitor";
+//        }
+//
+//        /*else {
+//            service = new CafeteriaService();
+//            // placeholder
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            serviceNeeded = "Food";
+//        }*/
+//    }
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {
