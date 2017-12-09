@@ -11,10 +11,12 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Time;
 
 public class ServiceController {
     // Attributes
     public String serviceNeeded;
+
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
@@ -108,6 +110,8 @@ public class ServiceController {
         serviceNeeded = RequestServiceDropdown.getValue();
 
         servTypeCont.setActivity(serviceNeeded);
+        servTypeCont.passInfo(serviceNeeded + " " + servLocField.getText() + " " + DateChoice.getValue().toString()
+                + " " + TimeChoice.getValue().toString());
         servTypeCont.setServStage(ServStage);
         servTypeCont.setServScene(ServScene);
         ServStage.setTitle("Service Type");

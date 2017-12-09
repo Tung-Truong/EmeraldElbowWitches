@@ -28,15 +28,15 @@
         <Pane prefHeight="530.0" prefWidth="350.0" translateY="70.0">
             <children>
                 <JFXButton fx:id="backBtn" buttonType="RAISED" layoutX="30.0" layoutY="456.0" mnemonicParsing="false" onAction="#Back" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: white;" text="Back" />
-                <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="456.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: white;" text="Confirm" />
-                <JFXTextArea layoutX="25.0" layoutY="56.0" prefHeight="76.0" prefWidth="300.0" promptText="Notes..." wrapText="true" />
-            <Label layoutX="25.0" layoutY="323.0" prefHeight="34.0" prefWidth="300.0" text="Email:" />
-            <Label layoutX="25.0" layoutY="194.0" prefHeight="34.0" prefWidth="300.0" text="Location:" />
-            <Label layoutX="25.0" layoutY="237.0" prefHeight="34.0" prefWidth="300.0" text="Other Info:" />
-            <Label layoutX="25.0" layoutY="151.0" prefHeight="34.0" prefWidth="300.0" text="Service Request: " />
-            <Label layoutX="25.0" layoutY="280.0" prefHeight="34.0" prefWidth="300.0" text="Name:" />
-            <Label layoutX="25.0" layoutY="366.0" prefHeight="34.0" prefWidth="300.0" text="Date:" />
-            <Label layoutX="25.0" layoutY="409.0" prefHeight="34.0" prefWidth="300.0" text="Time:" />
+                <JFXButton fx:id="confirms" buttonType="RAISED" layoutX="200.0" layoutY="456.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: white;" text="Confirm" />
+                <JFXTextArea fx:id="notes" layoutX="25.0" layoutY="56.0" prefHeight="76.0" prefWidth="300.0" promptText="Notes..." wrapText="true" />
+            <Label fx:id="email" layoutX="25.0" layoutY="323.0" prefHeight="34.0" prefWidth="300.0" text="Email:" />
+            <Label fx:id="loc" layoutX="25.0" layoutY="194.0" prefHeight="34.0" prefWidth="300.0" text="Location:" />
+            <Label fx:id="info" layoutX="25.0" layoutY="237.0" prefHeight="34.0" prefWidth="300.0" text="Other Info:" />
+            <Label fx:id="request" layoutX="25.0" layoutY="151.0" prefHeight="34.0" prefWidth="300.0" text="Service Request: " />
+            <Label fx:id="name" layoutX="25.0" layoutY="280.0" prefHeight="34.0" prefWidth="300.0" text="Name:" />
+            <Label fx:id="date" layoutX="25.0" layoutY="366.0" prefHeight="34.0" prefWidth="300.0" text="Date:" />
+            <Label fx:id="time" layoutX="25.0" layoutY="409.0" prefHeight="34.0" prefWidth="300.0" text="Time:" />
             </children>
         </Pane>
     </children>

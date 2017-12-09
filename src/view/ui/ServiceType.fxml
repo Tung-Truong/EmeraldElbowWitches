@@ -30,8 +30,8 @@
             <children>
                 <JFXButton buttonType="RAISED" layoutX="30.0" layoutY="456.0" mnemonicParsing="false" onAction="#Back" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: white;" text="Back" />
                 <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="456.0" mnemonicParsing="false" onAction="#Next" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: white;" text="Next" />
-            <JFXComboBox layoutX="26.0" layoutY="398.0" prefHeight="25.0" prefWidth="300.0" promptText="EMPLOYEE" />
-            <TreeTableView fx:id="table" layoutX="27.0" layoutY="123.0" prefHeight="330.0" prefWidth="300.0">
+            <JFXComboBox fx:id="employeeNames" layoutX="26.0" layoutY="398.0" prefHeight="25.0" prefWidth="300.0" promptText="EMPLOYEE" />
+            <TreeTableView onMouseClicked="#setEmployeeNames" fx:id="table" layoutX="27.0" layoutY="123.0" prefHeight="330.0" prefWidth="300.0">
               <columns>
                 <TreeTableColumn fx:id="column" prefWidth="299.0" text="Service" />
               </columns>
