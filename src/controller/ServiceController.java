@@ -86,9 +86,10 @@ public class ServiceController {
             }/* else {
                 service.setMessageHeader("Food needed in: " + location);
             }*/
-            service.setLocation(servLocField.getText());
+            service.setLocation(location);
 
-            service.setMessageText(NotesTextField.getText());
+            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
+                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
             service.sendEmailServiceRequest();
 
             service.toString();
