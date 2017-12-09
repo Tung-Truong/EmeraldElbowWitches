@@ -525,59 +525,95 @@ public class PatientController extends Controller {
         }
         //getStart
         NodeObj Kiosk = Main.getKiosk();
+
+        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+            drawingPath();
+        }
+    }
+
+    @FXML
+    public void redrawPath() {
+        redraw();
+        clearChosenFloor();
+        resetFloorButtons();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+
+        gc1.setLineWidth(2);
+        gc1.setStroke(Color.BLUE);
+        gc1.setFill(Color.RED);
+
+        resetAnimations(oldAnimation);
+        directionsButton.setVisible(true);
+        //create a new astar object
+        SearchPath.setVisible(false);
+
+        if (gc1 == null)
+            gc1 = gc.getGraphicsContext2D();
+        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        gc1.setLineWidth(2);
+        gc1.setStroke(Color.BLUE);
+        gc1.setFill(Color.RED);
+        NodeObj Kiosk = Main.getKiosk();
+
+        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+            drawingPath();
+        }
+    }
+
+
+    private void drawingPath(){
+        ArrayList<NodeObj> reversedPath = new ArrayList<>();
+        //getStart
+        NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         strPath = new ArrayList<>();
-        ArrayList<NodeObj> reversedPath = new ArrayList<>();
-        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            if (reversePath.isSelected()) {
-                if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
-                    gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        if (reversePath.isSelected()) {
+            if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
+                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+                strPath = single.getAlgorithm().getPathAlg().getGenPath();
+                reversedPath = strPath;
+                Collections.reverse(reversedPath);
+                toggleTextArea.setText(textDirections.getTextDirections(reversedPath));
 
-                    strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                    reversedPath = strPath;
-                    Collections.reverse(reversedPath);
-                    toggleTextArea.setText(textDirections.getTextDirections(reversedPath));
-
-                } else {
-                    try {
-                        throw new InvalidNodeException("this is not accessable with the current map");
-                    } catch (InvalidNodeException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (oldAnimation != null) {
-                    resetAnimations(oldAnimation);
-                }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter(reversedPath)), Duration.millis(4000));
-                animation.play();
-                oldAnimation = animation;
-                System.out.print("reverseeee");
-                DrawCurrentFloorPath();
             } else {
-                //try a*
-                if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
-                    gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-
-                    strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                    currPath = strPath;
-                    toggleTextArea.setText(textDirections.getTextDirections(strPath));
-
-
-                } else {
-                    try {
-                        throw new InvalidNodeException("this is not accessable with the current map");
-                    } catch (InvalidNodeException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    throw new InvalidNodeException("this is not accessable with the current map");
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
                 }
-                if (oldAnimation != null) {
-                    resetAnimations(oldAnimation);
-                }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(4000));
-                animation.play();
-                oldAnimation = animation;
-                DrawCurrentFloorPath();
             }
+            if (oldAnimation != null) {
+                resetAnimations(oldAnimation);
+            }
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter(strPath)), Duration.millis(4000));
+            animation.play();
+            oldAnimation = animation;
+            System.out.print("reverseeee");
+            DrawCurrentFloorPath();
+        } else {
+            //try a*
+            if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
+                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+
+                strPath = single.getAlgorithm().getPathAlg().getGenPath();
+                currPath = strPath;
+                toggleTextArea.setText(textDirections.getTextDirections(strPath));
+
+
+            } else {
+                try {
+                    throw new InvalidNodeException("this is not accessable with the current map");
+                } catch (InvalidNodeException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (oldAnimation != null) {
+                resetAnimations(oldAnimation);
+            }
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(4000));
+            animation.play();
+            oldAnimation = animation;
+            DrawCurrentFloorPath();
         }
     }
 
