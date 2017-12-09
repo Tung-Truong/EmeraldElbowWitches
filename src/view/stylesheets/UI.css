@@ -1,0 +1,19 @@
+/*   What's needed:
+*   ALL ==============================================================================================================
+*
+*   ZOOM - pressing (+) zooms in, pressing (-) zooms out, dragging the sliding bar also adjusts zoom
+*        - clicking and dragging anywhere on map pans across map if zoomed in
+*        - defined boundaries at edge of map image (so that the image doesn't fly off the screen)
+*   FLOOR - pressing corresponding floor button (L2, L1, G, 1, 2, 3) goes to that floor image
+*
+*   PATIENT ==========================================================================================================
+*
+*   LOGIN - pressing login button goes to login menu with username and password
+*   HELP TOGGLE - switched on by default, has commands in box below
+*   TEXT TOGGLE - switched off by default, turning on (having selected a path) brings up the text directions panel
+*
+*   ADMIN ============================================================================================================
+*
+*
+*
+*/
