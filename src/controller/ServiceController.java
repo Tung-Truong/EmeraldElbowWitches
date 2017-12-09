@@ -17,6 +17,9 @@ public class ServiceController {
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
+    Scene ServScene;
+    Stage ServStage;
+
     @FXML
     public JFXTextField servLocField;
 
@@ -42,6 +45,9 @@ public class ServiceController {
     @FXML
     private JFXButton cancelButton;
 
+    @FXML
+    private JFXButton nextBtn;
+
     public void initialize(){
         RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare");//, "cafeteria");
     }
@@ -52,6 +58,14 @@ public class ServiceController {
 
     public ServiceRequest getService() {
         return this.service;
+    }
+
+    public void setServScene(Scene servScene) {
+        ServScene = servScene;
+    }
+
+    public void setServStage(Stage servStage) {
+        ServStage = servStage;
     }
 
     // Setters
@@ -84,11 +98,13 @@ public class ServiceController {
         Parent root = servContLoad.load();
         ServiceSubSelectController servTypeCont = servContLoad.getController();
         servTypeCont.setServCont(this);
-        Stage servStage = new Stage();
-        servStage.setTitle("Service Type");
-        servStage.setScene(new Scene(root, 350, 600));
-        servStage.show();
-        //close();
+        servTypeCont.setServStage(ServStage);
+        servTypeCont.setServScene(ServScene);
+        ServStage.setTitle("Service Type");
+        Scene servTypeScene = new Scene(root, 350, 600);
+        servTypeCont.setServTypeScene(servTypeScene);
+        ServStage.setScene(servTypeScene);
+
     }
 
     //@FXML

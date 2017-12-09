@@ -10,26 +10,41 @@ import java.io.IOException;
 
 public class ServiceSubSelectController {
     public ServiceController servCont;
+    public Scene servScene;
+    public Scene servTypeScene;
+    Stage ServStage;
+
+    public void setServScene(Scene servScene) {
+        this.servScene = servScene;
+    }
+
+    public void setServStage(Stage servStage) {
+        ServStage = servStage;
+    }
 
     public void setServCont(ServiceController servCont) {
         this.servCont = servCont;
+    }
+
+    public void setServTypeScene(Scene servtypeScene) {
+        this.servTypeScene = servtypeScene;
     }
 
     @FXML
     void Next() throws IOException {
         FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceRequestConfirm.fxml"));
         Parent root = servContLoad.load();
-        ServiceConfirmController servTypeCont = servContLoad.getController();
-        servTypeCont.setServCont(this);
-        Stage servStage = new Stage();
-        servStage.setTitle("Service Type");
-        servStage.setScene(new Scene(root, 350, 600));
-        servStage.show();
+        ServiceConfirmController servConfCont = servContLoad.getController();
+        servConfCont.setServCont(this);
+        servConfCont.setServStage(ServStage);
+        ServStage.setTitle("Service Confirm");
+        servConfCont.setServScene(servTypeScene);
+        ServStage.setScene(new Scene(root, 350, 600));
     }
 
     @FXML
     void Back() throws IOException {
-
+        ServStage.setScene(servScene);
     }
 
 }

@@ -21,7 +21,7 @@
       <Pane layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="350.0" style="-fx-background-color: white;">
          <children>
             <JFXTextField fx:id="servLocField" focusColor="#4286f4" layoutX="34.0" layoutY="122.0" prefHeight="27.0" prefWidth="289.0" promptText="Location" unFocusColor="GREY" />
-            <JFXButton onAction="#Next" buttonType="RAISED" layoutX="115.0" layoutY="456.0" prefHeight="40.0" prefWidth="120.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Next" textFill="#1b3766">
+            <JFXButton fx:id="nextBtn" onAction="#Next" buttonType="RAISED" layoutX="115.0" layoutY="456.0" prefHeight="40.0" prefWidth="120.0" ripplerFill="#4286f4" style="-fx-background-color: WHITE;" text="Next" textFill="#1b3766">
                <font>
                   <Font size="15.0" />
                </font></JFXButton>
