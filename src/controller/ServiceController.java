@@ -88,7 +88,8 @@ public class ServiceController {
             }*/
             service.setLocation(servLocField.getText());
 
-            service.setMessageText(NotesTextField.getText());
+            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
+                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
             service.sendEmailServiceRequest();
 
             service.toString();

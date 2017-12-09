@@ -605,6 +605,7 @@ public class AdminController extends Controller {
         for (ServiceRequest aserv : Main.getRequestList()) {
             try {
                 if (currEmp.getId() == aserv.getAssigned().getId()) {
+                    // May eventually want to order these requests by their given urgency
                     CurrRequ.getItems().add(aserv.getAssigned().getId() + " | " + aserv.getSent().toString());
                 }
             } catch (NullPointerException e) {
