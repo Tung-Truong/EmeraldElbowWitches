@@ -4,8 +4,8 @@ public class EdgeObj {
 
     public NodeObj nodeA;      // declaring the start and end nodes for the edge to use
     public NodeObj nodeB;
-    public String nodeAStr;    // strings to hold the value of nodeA and nodeB's ID
-    public String nodeBStr;
+    String nodeAStr;    // strings to hold the value of nodeA and nodeB's ID
+    String nodeBStr;
     public String edgeID;
     private double weight;     // weight of the edge, used in the A* algorithm to find best path
 
@@ -36,7 +36,7 @@ public class EdgeObj {
     }
 
     //find the node that is linked to the input node
-    public NodeObj getOtherNodeObj(NodeObj node) throws InvalidNodeException {
+    NodeObj getOtherNodeObj(NodeObj node) throws InvalidNodeException {
         if (node == this.nodeA)
             return nodeB;
         else if (node == this.nodeB)

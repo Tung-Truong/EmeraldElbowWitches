@@ -120,19 +120,9 @@ public class PatientController extends Controller {
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
     ArrayList<String> Floors;
-    double startX;
-    double startY;
     ArrayList<NodeObj> strPath;
     Animation oldAnimation;
     SingleController single = SingleController.getController();
-//    private int XTrans = single.getXTrans();
-//    private int YTrans = single.getYTrans();
-//    private double Zoom = single.getZoom();
-//    private PathingContainer currentAlgorithm = new PathingContainer();
-//    private GraphicsContext gc1 = null;
-//    double mapWidth;
-//    double mapHeight;
-//    ImageLoader mapImage = new ImageLoader();
 
     public void initialize() {
         Image m1 = single.getMapImage().getLoadedMap("btn_map01");
@@ -251,9 +241,6 @@ public class PatientController extends Controller {
         btn_map03.setOpacity(.5);
         btn_map03.setStyle("-fx-background-color:   #4286f4");
         if (Floors != null) {
-            /*for(int i = 0; i < Floors.size(); i++){
-                selectFloor(Floors.get(i), i+1);
-            }*/
             selectFloorWithPath(Main.getNodeMap().currentFloor);
             for (int i = Floors.size(); i > 0; i--) {
                 selectFloor(Floors.get(i - 1), (Floors.size() + 1) - i);
@@ -363,6 +350,7 @@ public class PatientController extends Controller {
                 break;
         }
     }
+
 // Currently in Singleton
 //    /*
 //     * setKioskLoc sets the default location for the floor
@@ -376,12 +364,6 @@ public class PatientController extends Controller {
     }
 
     public void DrawCurrentFloorPath() {
-        /*HealthCareRun health = new HealthCareRun();
-        try {
-            health.run(100,500,100,100,"view/stylesheets/default.css","","");
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }*/
 
         floorL2Label.setText("");
         floorL1Label.setText("");
@@ -472,7 +454,7 @@ public class PatientController extends Controller {
 
             } else {
                 try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
+                    throw new InvalidNodeException("this is not accessible with the current map");
                 } catch (InvalidNodeException e) {
                     e.printStackTrace();
                 }
@@ -496,7 +478,7 @@ public class PatientController extends Controller {
         Path path = new Path();
         ArrayList<NodeObj> reverseList = list;
         Collections.reverse(reverseList);
-        int x = 0;
+
         for (int i = 0; i < (reverseList.size() - 1); i++) {
             ArrayList<NodeObj> neighbors = reverseList.get(i).getListOfNeighbors();
             if (neighbors.contains(reverseList.get(i + 1))) {
@@ -506,7 +488,8 @@ public class PatientController extends Controller {
         try {
             path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
         }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("wat. somehow fixes the last floor selected showing as selected bug");
+            // catching this exception here is somehow needed
+            // to fix a bug where the last floor was also shown as selected
         }
         return path;
     }

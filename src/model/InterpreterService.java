@@ -13,7 +13,6 @@ public class InterpreterService extends ServiceRequest {
 
     // Constructors
     public InterpreterService(){
-        // TODO: get emails from database
         languages.add("French");
         languages.add("Dutch");
         languages.add("Icelandic");

@@ -1,11 +1,9 @@
 package controller;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 import model.*;
 import model.AddDB;
@@ -19,22 +17,22 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
-    public static int sceneWidth = 1400;
-    public static int sceneHeight = 900;
-    public static Scene patientScene;
-    public static Scene adminScene;
-    public static Scene Service;
-    public static Stage currStage;
-    public static Parent parentRoot;
-    public static NodeObj kiosk;        // default location of the starting point for pathfinding
+    private static int sceneWidth = 1400;
+    private static int sceneHeight = 900;
+    private static Scene patientScene;
+    private static Scene adminScene;
+    private static Scene Service;
+    private static Stage currStage;
+    private static Parent parentRoot;
+    private static NodeObj kiosk; // default location of the starting point for pathfinding
     //contains all the node objects from the entity
-    public static ListOfNodeObjs nodeMap;
-    public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static ListOfNodeObjs nodeMap;
+    private static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the employee
     public static ArrayList<Employee> employees;
     public static ArrayList<ServiceRequest> requests;
     //contains all the messages
-    public static JanitorService janitorService;
+    private static JanitorService janitorService;
     public static ControllerListener controllers;
 
 

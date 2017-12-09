@@ -17,8 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceController {
-    // Attributes
-//    private String serviceNeeded;
+
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
@@ -44,18 +43,9 @@ public class ServiceController {
         RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter");//, "cafeteria");
     }
 
-//    public String getServiceNeeded() {
-//        return this.serviceNeeded;
-//    }
-
     public ServiceRequest getService() {
         return this.service;
     }
-
-    // Setters
-//    public void setServiceNeeded(String service) throws NullPointerException {
-//        this.serviceNeeded = service;
-//    }
 
     @FXML
     void close(){
@@ -81,8 +71,6 @@ public class ServiceController {
             service.setMessageText(NotesTextField.getText());
             service.sendEmailServiceRequest();
 
-            // Header field is not being updated so definitely look into this more
-
             System.out.println("Message sent succesfully");
             Main.requests.add(service);
         }
@@ -91,7 +79,7 @@ public class ServiceController {
         }
     }
 
-    //these three items handle changing the employyee names available
+    // these three items handle changing the employee names available
     @FXML
     void SetServiceType() {
         try {
@@ -175,41 +163,6 @@ public class ServiceController {
             service.setAccountTo(email);
             serviceNeeded = "Food";*/
         }
-
-        /* public void setService() {
-        String needed = this.RequestServiceDropdown.getText();
-        if(AssignEmployee.getValue().split(" ") == null)
-            throw new NullPointerException("No service added");
-        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
-        String email = "";
-        Employee assign = new Employee();
-        for (Employee e : Main.getEmployees()) {
-            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
-                email = e.getEmail();
-                assign = e;
-            } else {
-                //TO DO throw an exception because employee was never set
-            }
-        }
-        if (needed.toUpperCase().equals("INTERPRETER")) {
-            service = new InterpreterService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase().equals("MAINTENANCE")) {
-            service = new JanitorService();
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            serviceNeeded = "Janitor";
-        } else {
-            service = new CafeteriaService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            serviceNeeded = "Food";
-        }
-    }*/
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {

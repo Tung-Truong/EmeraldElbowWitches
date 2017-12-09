@@ -133,20 +133,8 @@ public class AdminController extends Controller {
     @FXML
     private JFXButton bestBtn;
 
-    public static TextDirections textDirections = new TextDirections();
-    ArrayList<NodeObj> currPath = null;
-    NodeObj goal = null;
-    public String servReqNodeID;
-    NodeObj nodeA = null;
+    private NodeObj nodeA = null;
     private SingleController single = SingleController.getController();
-//    private int XTrans = single.getXTrans();
-//    private int YTrans = single.getYTrans();
-//    private double Zoom = single.getZoom();
-//    private PathingContainer currentAlgorithm = new PathingContainer();
-//    private GraphicsContext gc1 = null;
-//    double mapWidth;
-//    double mapHeight;
-//    ImageLoader mapImage = new ImageLoader();
 
     public void initialize(){
         Image m1 = single.getMapImage().getLoadedMap("btn_map01");
@@ -187,9 +175,6 @@ public class AdminController extends Controller {
                         e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
                         e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
                         e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
-                /*gc1.fillText("" + e.getWeight(),
-                        (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
-                        (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
             }
 
         }
@@ -289,7 +274,7 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void createNewNode(int mousex, int mousey){
+    private void createNewNode(int mousex, int mousey){
         nodeIDField.setText("");
         xLocField.setText(mousex + "");
         yLocField.setText(mousey + "");
@@ -300,7 +285,7 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void selectNode(int mousex, int mousey){
+    private void selectNode(int mousex, int mousey){
         try {
             NodeObj editNode = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
 
@@ -355,7 +340,7 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void selectNodeA(MouseEvent event){
+    private void selectNodeA(MouseEvent event){
         nodeInfoPane.setVisible(false);
         int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
         int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
@@ -368,7 +353,7 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void selectEdge(MouseEvent event){
+    private void selectEdge(MouseEvent event){
         System.out.println("DRAG RELEASED");
         int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
         int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
@@ -388,8 +373,8 @@ public class AdminController extends Controller {
 
     @FXML
         /*
-         *UpdateBorderButton is called when adding or editing. It updates the
-         * node map, and redraws the screen
+         *UpdateBorderButton is called when adding or editing.
+         * It updates the node map, and redraws the screen.
          */
     void addEditEdge() {
         String NIDA = nodeAField.getText();
@@ -405,7 +390,8 @@ public class AdminController extends Controller {
     }
 
     /*
-     * DeleteBorderButton is called when deleting an edge. Removes edge from map, and redraws screen
+     * DeleteBorderButton is called when deleting an edge.
+     * Removes edge from map, and redraws screen.
      */
     @FXML
     void removeEdge() {
@@ -427,7 +413,7 @@ public class AdminController extends Controller {
         opacHandler(.5, hoveredID);
     }
 
-    void opacHandler(double opacity, String hoveredID){
+    private void opacHandler(double opacity, String hoveredID){
         switch (hoveredID){
             case "astarBtn":
                 astarBtn.setOpacity(opacity);
@@ -482,7 +468,7 @@ public class AdminController extends Controller {
         }
     }
 
-    void resetPathBtns(){
+    private void resetPathBtns(){
         astarBtn.setStyle("-fx-background-color: #21a047");
         depthBtn.setStyle("-fx-background-color:  #21a047");
         breadthBtn.setStyle("-fx-background-color:  #21a047");
@@ -490,7 +476,8 @@ public class AdminController extends Controller {
         beamBtn.setStyle("-fx-background-color:  #21a047");
         bestBtn.setStyle("-fx-background-color:  #21a047");
     }
-//#4286f4
+
+
     @FXML
     void adminLogout(){
         Main.getCurrStage().setScene(Main.getPatientScene());
@@ -512,7 +499,6 @@ public class AdminController extends Controller {
     void EditEmployees() throws IOException {
         FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceEdit.fxml"));
         Parent root = servContLoad.load();
-        ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
         servStage.setScene(new Scene(root, single.getMapWidth(), single.getMapHeight()));
