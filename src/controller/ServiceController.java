@@ -3,9 +3,13 @@ package controller;
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import model.*;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class ServiceController {
     // Attributes
@@ -55,7 +59,7 @@ public class ServiceController {
 //        this.serviceNeeded = service;
 //    }
 
-    @FXML
+    //@FXML
     void close(){
         Stage stage = (Stage)cancelButton.getScene().getWindow();
         stage.close();
@@ -75,11 +79,19 @@ public class ServiceController {
     }
 
     @FXML
-    void SpecificsPage(){
-        
+    void Next() throws IOException {
+        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
+        Parent root = servContLoad.load();
+        ServiceSubSelectController servTypeCont = servContLoad.getController();
+        servTypeCont.setServCont(this);
+        Stage servStage = new Stage();
+        servStage.setTitle("Service Type");
+        servStage.setScene(new Scene(root, 350, 600));
+        servStage.show();
+        //close();
     }
 
-    @FXML
+    //@FXML
     void SubmitRequest() {
         try {
             this.setService();
@@ -155,7 +167,7 @@ public class ServiceController {
         employeeAvailable();
     }
 
-    @FXML
+    //@FXML
     void InterpreterItem() {
         AssignEmployee.getItems().clear();
         for (Employee e : Main.getEmployees()) {
