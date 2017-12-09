@@ -583,6 +583,7 @@ public class AdminController extends Controller {
         servStage.setScene(servScene);
         servCont.setServScene(servScene);
         servCont.setServStage(servStage);
+        servCont.setMeCont(servCont);
         servCont.servLocField.setText(nodeIDField.getText());
         servStage.show();
     }

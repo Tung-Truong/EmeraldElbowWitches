@@ -3,6 +3,7 @@ package controller;
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import model.*;
@@ -13,12 +14,13 @@ import java.io.IOException;
 
 public class ServiceController {
     // Attributes
-//    private String serviceNeeded;
+    public String serviceNeeded;
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
     Scene ServScene;
     Stage ServStage;
+    ServiceController meCont;
 
     @FXML
     public JFXTextField servLocField;
@@ -55,6 +57,11 @@ public class ServiceController {
 //    public String getServiceNeeded() {
 //        return this.serviceNeeded;
 //    }
+
+
+    public void setMeCont(ServiceController meCont) {
+        this.meCont = meCont;
+    }
 
     public ServiceRequest getService() {
         return this.service;
@@ -97,12 +104,20 @@ public class ServiceController {
         FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
         Parent root = servContLoad.load();
         ServiceSubSelectController servTypeCont = servContLoad.getController();
-        servTypeCont.setServCont(this);
+
+        serviceNeeded = RequestServiceDropdown.getValue();
+
+        servTypeCont.setActivity(serviceNeeded);
         servTypeCont.setServStage(ServStage);
         servTypeCont.setServScene(ServScene);
         ServStage.setTitle("Service Type");
-        Scene servTypeScene = new Scene(root, 350, 600);
+
+        Scene servTypeScene = new Scene(new Group(root), 350, 600);
         servTypeCont.setServTypeScene(servTypeScene);
+
+        Group servRoot = (Group)servTypeScene.getRoot();
+        servRoot.getChildren().add(servTypeCont.init());
+
         ServStage.setScene(servTypeScene);
 
     }
