@@ -2,6 +2,7 @@ package controller;
 
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
+import javafx.fxml.FXMLLoader;
 import model.*;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -71,6 +72,11 @@ public class ServiceController {
                 e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void SpecificsPage(){
+        
     }
 
     @FXML
