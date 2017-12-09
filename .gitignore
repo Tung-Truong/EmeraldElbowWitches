@@ -3,6 +3,15 @@
 # their own intelij config files into the main repository.
 
 /*
+!/Website
+!/Website/*
+!/Website/public
+!/Website/public/*
+!/Website/public/css
+!/Website/public/css/*
+!/Website/public/img
+!/Website/public/img/*
+!/Website/
 !/src
 !/test
 !/src/*

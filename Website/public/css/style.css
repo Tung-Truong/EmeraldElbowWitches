@@ -1,0 +1,119 @@
+body{
+background-color: white;
+width:100%;
+}
+
+body{
+color: white
+font-family: "Lucida Console", Monaco, monospace;
+}
+
+img.header{
+	display: block;
+	margin-left: auto;
+margin-right:auto}
+
+img.listpicks{
+	display: block;
+	margin-left: auto;
+margin-right:auto}
+
+.tableformat{
+	table-layout:fixed;
+	table-align:center;
+	width:100%;
+	padding-top: 40;
+	}
+	
+.tableformat2{
+	table-layout:fixed;
+	table-align:center;
+	width:40%;
+	padding-top: 40;
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+
+
+
+p{	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 100;
+	line-height: 20px;
+	text-align:center;
+	color: black;
+	padding-bottom:40;
+}
+
+p.big {
+    line-height: 900%;
+}
+
+
+h1{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 26.4px;
+	text-align:center;
+	color: black;
+}
+
+h2{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 50px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 100;
+	line-height: 2px;
+	color: white;
+	text-align:center;
+	color: black;
+	padding-bottom:40;
+	
+	
+}
+
+h3{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 35px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 200;
+	line-height: 2.4px;
+	text-align:center;
+	color: white;
+	padding-bottom:40;
+	padding-top:40;
+	background-color: #1b3766;
+}
+
+h4{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 26.4px;
+	text-align:center;
+	color: black;
+	line-height:200%
+}
+
+
+ul{
+	font-family: "Lucida Console", Monaco, monospace;
+	color: white
+}
+
+href{font-family: "Lucida Console", Monaco, monospace;
+color: white
+}
+
+
+	
