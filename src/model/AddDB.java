@@ -78,12 +78,12 @@ public class AddDB {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         ArrayList<String> strs = new ArrayList<String>();
 
-        for (String f: addStatistic.getMenu()){
+        for (String f : addStatistic.getMenu()) {
             String buildSQLStr = " VALUES (" + addStatistic.getFoodType() + addStatistic.getNumOfOrders() + addStatistic.getAvgTime() + ")"; //build the sql template
             strs.add(f);
         }
 
-        for (String s: strs){
+        for (String s : strs) {
             String SQL = "INSERT INTO CAFETERIASTATISTICTABLE" + s; //insert row into database
             PreparedStatement pState = connection.prepareStatement(SQL);
             pState.executeUpdate();
@@ -97,13 +97,13 @@ public class AddDB {
         //String buildSQLStr = "";
         ArrayList<String> strs = new ArrayList<String>();
 
-        for (String lang: addStatistic.getLanguages()){
+        for (String lang : addStatistic.getLanguages()) {
             String buildSQLStr = " VALUES ('" + lang + "','" + (addStatistic.getNumOfInterpreters() + interpreters) + "','" + addStatistic.getAvgTimeTaken() + "')";
             strs.add(buildSQLStr);
         }
         //buildSQLStr = " VALUES ('" + addStatistic.getLanguage() + "','" + (addStatistic.getNumOfInterpreters() + interpreters) + "','" + addStatistic.getAvgTimeTaken() + "')"; //build the sql template
 
-        for (String s: strs) {
+        for (String s : strs) {
             String SQL = "INSERT INTO INTERPRETERSTATISTICTABLE" + s; //insert row into database
             PreparedStatement pState = connection.prepareStatement(SQL);
             pState.executeUpdate();
@@ -116,7 +116,6 @@ public class AddDB {
 //        pState.executeUpdate();
 //        pState.close();
     }
-
 
 
     public static void addRequest(ServiceRequest addService) throws SQLException {
@@ -159,5 +158,4 @@ public class AddDB {
             e.printStackTrace();
         }
     }
-
 }

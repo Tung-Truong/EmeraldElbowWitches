@@ -10,7 +10,7 @@ public class WriteStatistics {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
     /*
-    * runStatistics takes all rows from the STATISTICTABLE in our database and saves it to our statistics csv file.
+     * runStatistics takes all rows from the STATISTICTABLE in our database and saves it to our statistics csv file.
      */
     public static void runJanitorStatistic() throws SQLException, IOException {
 
@@ -24,10 +24,10 @@ public class WriteStatistics {
             ResultSet rs = stmt.executeQuery(query);
             fw.append("# of Supplies Used,average time to resolve \n");
             while (rs.next()) {
-                    fw.append(rs.getString(1));
-                    fw.append(',');
-                    fw.append(rs.getString(2));
-                    fw.append('\n');
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append('\n');
             }
             fw.flush();
             fw.close();
