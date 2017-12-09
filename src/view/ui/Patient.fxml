@@ -137,7 +137,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXSlider>
-      <JFXToggleButton fx:id="reversePath" layoutX="594.0" layoutY="7.0" text="ReversePath" />
+      <JFXToggleButton fx:id="reversePath" layoutX="594.0" layoutY="7.0" onAction="#redrawPath" text="ReversePath" />
 
    </children>
 </Pane>
