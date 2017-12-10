@@ -30,6 +30,9 @@ import static java.lang.Thread.sleep;
 public class AdminController extends Controller {
 
     @FXML
+    private Pane RequestPane;
+
+    @FXML
     private JFXButton serviceRequestBtn;
 
     @FXML
@@ -163,6 +166,8 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXButton Tdown;
+
+    boolean reqSel = false;
 
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
@@ -599,7 +604,7 @@ public class AdminController extends Controller {
         servStage.show();
     }
 
-    @FXML
+    //@FXML
     void MyRequests() {
         CurrRequ.getItems().clear();
         Refresh();
@@ -619,7 +624,7 @@ public class AdminController extends Controller {
 
     }
 
-    @FXML
+    //@FXML
     void RemoveRequest() {
         try {
             ServiceRequest serv = null;
@@ -706,6 +711,16 @@ public class AdminController extends Controller {
     void Tdown() {
         single.subY((int) (160.0 / single.getZoom()));
         resize();
+    }
+
+    @FXML
+    void ActivateRequests() {
+        reqSel = !reqSel;
+        RequestPane.setVisible(reqSel);
+        if(reqSel){
+            edgeInfoPane.setVisible(false);
+            nodeInfoPane.setVisible(false);
+        }
     }
 
     public void resize() {

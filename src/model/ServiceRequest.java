@@ -33,7 +33,7 @@ public class ServiceRequest implements IReport {
         Info Format:
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
-    public ServiceRequest(String id, String type, String active, String submitted){
+    public ServiceRequest(String id, String type, String active, String submitted, String loc){
         isActive = Boolean.parseBoolean(active);
         for (Employee e : Main.employees){
             if(Long.parseLong(id) == e.getId()){
@@ -43,6 +43,7 @@ public class ServiceRequest implements IReport {
         sent = new Date(Date.parse(submitted));
         email = assigned.getEmail();
         messageHeader = type;
+        location = loc;
 
 
         properties = new Properties();
@@ -110,6 +111,10 @@ public class ServiceRequest implements IReport {
     public void setAccountFrom(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public void setActive(boolean bool){

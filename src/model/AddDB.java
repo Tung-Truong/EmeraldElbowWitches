@@ -132,7 +132,7 @@ public class AddDB {
         } else {
             buildSQLStr = " VALUES ('" + addService.getAssigned() + "','" +
                     addService.getMessageHeader() + "','" + addService.isActive() +
-                    "','" + addService.getSent() + "')"; //build the sql template
+                    "','" + addService.getSent() + "','" + addService.getLocation() + "')"; //build the sql template
         }
 
         String SQL = "INSERT INTO REQUESTTABLE" + buildSQLStr; //insert row into database
