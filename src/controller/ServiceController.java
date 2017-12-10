@@ -11,7 +11,11 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ServiceController {
     // Attributes
@@ -23,6 +27,7 @@ public class ServiceController {
     Scene ServScene;
     Stage ServStage;
     ServiceController meCont;
+    LocalDateTime now;
 
     @FXML
     public JFXTextField servLocField;
@@ -60,6 +65,33 @@ public class ServiceController {
 //        return this.serviceNeeded;
 //    }
 
+    boolean checkDate(){
+        now = LocalDateTime.now();
+
+        if(DateChoice.getValue().isBefore(now.toLocalDate())) {
+            DateChoice.getEditor().clear();
+            DateChoice.setPromptText("Please select a later date");
+            return false;
+        } else if (DateChoice.getValue().isAfter(now.toLocalDate()) && TimeChoice.getValue().isBefore(now.toLocalTime())){
+            TimeChoice.getEditor().clear();
+            TimeChoice.setPromptText("Please select a later time");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+//    @FXML
+//    void checkTime(){
+//
+//        if(TimeChoice.getValue().isBefore(now.toLocalTime())){
+//            TimeChoice.setStyle("-fx-text-fill: #cc0000");
+//            TimeChoice.setPromptText("Please select a later time");
+//        } else {
+//            TimeChoice.setStyle("-fx-text-fill: #000000");
+//        }
+//
+//    }
 
     public void setMeCont(ServiceController meCont) {
         this.meCont = meCont;
@@ -103,27 +135,33 @@ public class ServiceController {
 
     @FXML
     void Next() throws IOException {
-        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
-        Parent root = servContLoad.load();
-        ServiceSubSelectController servTypeCont = servContLoad.getController();
+        try {
+            if (checkDate()) {
 
-        serviceNeeded = RequestServiceDropdown.getValue();
+                FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
+                Parent root = servContLoad.load();
+                ServiceSubSelectController servTypeCont = servContLoad.getController();
 
-        servTypeCont.setActivity(serviceNeeded);
-        servTypeCont.passInfo(serviceNeeded + " " + servLocField.getText() + " " + DateChoice.getValue().toString()
-                + " " + TimeChoice.getValue().toString());
-        servTypeCont.setServStage(ServStage);
-        servTypeCont.setServScene(ServScene);
-        ServStage.setTitle("Service Type");
+                serviceNeeded = RequestServiceDropdown.getValue();
 
-        Scene servTypeScene = new Scene(new Group(root), 350, 600);
-        servTypeCont.setServTypeScene(servTypeScene);
+                servTypeCont.setActivity(serviceNeeded);
+                servTypeCont.passInfo(serviceNeeded + " " + servLocField.getText() + " " + DateChoice.getValue().toString()
+                        + " " + TimeChoice.getValue().toString());
+                servTypeCont.setServStage(ServStage);
+                servTypeCont.setServScene(ServScene);
+                ServStage.setTitle("Service Type");
 
-        Group servRoot = (Group)servTypeScene.getRoot();
-        servRoot.getChildren().add(servTypeCont.init());
+                Scene servTypeScene = new Scene(new Group(root), 350, 600);
+                servTypeCont.setServTypeScene(servTypeScene);
 
-        ServStage.setScene(servTypeScene);
+                Group servRoot = (Group) servTypeScene.getRoot();
+                servRoot.getChildren().add(servTypeCont.init());
 
+                ServStage.setScene(servTypeScene);
+            }
+        } catch (NullPointerException n){
+            RequestServiceDropdown.setPromptText("Please select a service");
+        }
     }
 
 //    //@FXML
