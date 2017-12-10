@@ -140,7 +140,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Completed" tyle="-jfx-rippler-fill: #4286f4;">
+                <Tab text="Completed" style="-jfx-rippler-fill: #4286f4;">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
