@@ -173,7 +173,7 @@
        <JFXButton fx:id="RemoveButton" buttonType="RAISED" layoutX="1220.0" layoutY="440.0" onAction="#RemoveRequest" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" text="REMOVE REQUEST" textFill="WHITE" />
        <JFXComboBox fx:id="CurrRequ" layoutX="1221.0" layoutY="489.0" onMouseClicked="#MyRequests" prefHeight="27.0" prefWidth="144.0" promptText="MY REQUESTS" style="-fx-background-color: white;" />
       <JFXToggleButton fx:id="nodeAlignmentToggle" layoutX="117.0" layoutY="798.0" text="Node Alignment" />
-      <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" />
+      <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" max="10.0" min="1.0" />
       <Label layoutX="25.0" layoutY="62.0" text="Path Animation Speed:">
          <font>
             <Font size="14.0" />

@@ -73,12 +73,12 @@ public class TextDirections {
 
                     if (angle >= 0) {
                         dirAng += "right at " + curNode.getShortName() + "\n\n";
-                        dirAng += "go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
+                        dirAng += "Go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
                         previousMsg = "right at ";
 
                     } else {
                         dirAng += "left at " + curNode.getShortName() + "\n\n";
-                        dirAng += "go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
+                        dirAng += "Go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
                         previousMsg = "left at ";
 
                     }
