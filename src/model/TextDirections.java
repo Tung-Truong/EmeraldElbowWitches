@@ -40,9 +40,9 @@ public class TextDirections {
 
             // if the next node is a staircase
             if (nextNode.getNodeType().equals("STAI") && floorNode.getFloor() != nextNode.getFloor()) {
-                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
+                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
             } else if (nextNode.getNodeType().equals("ELEV") && floorNode.getFloor() != nextNode.getFloor()) {
-                msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
+                msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
             } else {
                 // calculate the angle between the vector last->
                 // starts from
@@ -54,7 +54,7 @@ public class TextDirections {
                         Node nextTurn = findNextTurn(i, path);
                         if (nextTurn != null) {
                             pathLength = distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet;
-                            msg.add("go straight  for " + pathLength + " feet" + "\n");
+                            msg.add("Go straight  for " + pathLength.intValue() + " feet" + "\n\n");
                             previousMsg = "go straight\n";
                         }
                     }
@@ -72,13 +72,13 @@ public class TextDirections {
                     // add which direction to turn
 
                     if (angle >= 0) {
-                        dirAng += "right at " + curNode.getShortName() + "\n";
-                        dirAng += "go straight for " + distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
+                        dirAng += "right at " + curNode.getShortName() + "\n\n";
+                        dirAng += "go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
                         previousMsg = "right at ";
 
                     } else {
-                        dirAng += "left at " + curNode.getShortName() + "\n";
-                        dirAng += "go straight for " + distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
+                        dirAng += "left at " + curNode.getShortName() + "\n\n";
+                        dirAng += "go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
                         previousMsg = "left at ";
 
                     }
