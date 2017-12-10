@@ -6,7 +6,6 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -17,9 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -29,37 +30,28 @@ import javafx.util.Duration;
 import model.ImageLoader;
 import model.InvalidNodeException;
 import model.astar;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import javafx.scene.control.Hyperlink;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import javax.tools.Tool;
 
 
 public class PatientController extends Controller {
 
     @FXML
+    private Pane window;
+
+    @FXML
     private JFXButton directionsButton, SearchForNode, btn_map03, btn_map02, btn_map01, btn_mapG, btn_mapL1, btn_mapL2,
-            SearchPath, Tleft, Tright, Tdown, Tup, toHTML;
+            SearchPath, Tleft, Tright, Tdown, Tup, toHTML, loginButton;
 
     @FXML
     private JFXTogglePane textTogglePane;
@@ -88,6 +80,7 @@ public class PatientController extends Controller {
     @FXML
     private Label floor3Label, floor2Label, floor1Label, floorGLabel, floorL1Label, floorL2Label;
 
+
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -115,6 +108,106 @@ public class PatientController extends Controller {
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
+        toolTipsInit();
+    }
+
+    private void toolTipsInit(){
+
+        //about us
+        final Tooltip aboutUs= new Tooltip();
+        aboutUs.setText("Learn about the project and our team!");
+        toHTML.setTooltip(aboutUs);
+
+        //pan up
+        final Tooltip panUp = new Tooltip();
+        panUp.setText("Pan up");
+        Tup.setTooltip(panUp);
+
+        //pan down
+        final Tooltip panDown = new Tooltip();
+        panDown.setText("Pan down");
+        Tdown.setTooltip(panDown);
+
+        //pan right
+        final Tooltip panRight = new Tooltip();
+        panRight.setText("Pan right");
+        Tright.setTooltip(panRight);
+
+        //pan left
+        final Tooltip panLeft = new Tooltip();
+        panLeft.setText("Pan left");
+        Tleft.setTooltip(panLeft);
+
+        //zoom
+        final Tooltip zoom = new Tooltip();
+        zoom.setText("Drag slider to change zoom level");
+        zoomBar.setTooltip(zoom);
+
+        //node search
+        final Tooltip searchNode = new Tooltip();
+        searchNode.setText("Search for a node ID");
+        SearchNodeID.setTooltip(searchNode);
+
+        //node search result select from list
+        final Tooltip searchResults = new Tooltip();
+        searchResults.setText("Click to see search results");
+        SearchOptions.setTooltip(searchResults);
+
+        //confirm selection
+        final Tooltip confirmSelection = new Tooltip();
+        confirmSelection.setText("Click to zoom to selection");
+        SearchForNode.setTooltip(confirmSelection);
+
+        //login
+        final Tooltip login = new Tooltip();
+        login.setText("Click to login");
+        loginButton.setTooltip(login);
+
+        //floor button
+        final Tooltip selectFloorL2 = new Tooltip();
+        selectFloorL2.setText("Switch to L2 map");
+        btn_mapL2.setTooltip(selectFloorL2);
+
+        final Tooltip selectFloorL1 = new Tooltip();
+        selectFloorL1.setText("Switch to L1 map");
+        btn_mapL1.setTooltip(selectFloorL1);
+
+        final Tooltip selectFloorG = new Tooltip();
+        selectFloorG.setText("Switch to ground floor map");
+        btn_mapG.setTooltip(selectFloorG);
+
+        final Tooltip selectFloor1 = new Tooltip();
+        selectFloor1.setText("Switch to first floor map");
+        btn_map01.setTooltip(selectFloor1);
+
+        final Tooltip selectFloor2 = new Tooltip();
+        selectFloor2.setText("Switch to second floor map");
+        btn_map02.setTooltip(selectFloor2);
+
+        final Tooltip selectFloor3 = new Tooltip();
+        selectFloor3.setText("Switch to third floor map");
+        btn_map03.setTooltip(selectFloor3);
+
+        //floor order label
+        final Tooltip floorLabel = new Tooltip();
+        floorLabel.setText("Order in which floor is visited");
+        floorL2Label.setTooltip(floorLabel);
+        floorL1Label.setTooltip(floorLabel);
+        floorGLabel.setTooltip(floorLabel);
+        floor1Label.setTooltip(floorLabel);
+        floor2Label.setTooltip(floorLabel);
+        floor3Label.setTooltip(floorLabel);
+
+        //text directions
+        final Tooltip textDirections = new Tooltip();
+        textDirections.setText("Click to see text directions");
+        directionsButton.setTooltip(textDirections);
+
+        //map itself
+        final Tooltip mapInstructions = new Tooltip();
+        mapInstructions.setText("Navigate to a location: left click on map\nChange start location: right click on map");
+        //TODO: add a button/icon to make this text appear
+
     }
 
     private void redraw() {

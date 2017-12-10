@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<Pane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
@@ -50,7 +50,7 @@
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="LOGIN" textFill="WHITE">
+      <JFXButton fx:id="loginButton" buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
