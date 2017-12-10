@@ -118,15 +118,15 @@
             <JFXButton layoutX="168.0" layoutY="120.0" onAction="#removeEdge" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane fx:id="RequestPane" layoutX="1046.0" layoutY="482.0" opacity="0.8" prefHeight="422.0" prefWidth="355.0" visible="false" style="-fx-border-color: black;">
+      <Pane fx:id="RequestPane" layoutX="1046.0" layoutY="482.0" opacity="0.90" prefHeight="422.0" prefWidth="370.0" visible="false" style="-fx-border-color: black; -fx-background-color: gainsboro;">
          <children>
-            <JFXTabPane prefHeight="450" prefWidth="355.0" tabClosingPolicy="UNAVAILABLE" style="-jfx-rippler-fill: #4286f4;" >
+            <JFXTabPane prefHeight="450" prefWidth="370.0" tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #4286f4; -fx-tab-min-width: 178;" >
               <tabs>
-                <Tab text="Active" style="-jfx-rippler-fill: #4286f4;" >
+                <Tab text="Active" style="-fx-background-color: #1b3766;" >
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView fx:id="activeTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <TreeTableView fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0">
                                 <columns>
                                   <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
@@ -140,7 +140,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Completed" style="-jfx-rippler-fill: #4286f4;">
+                <Tab text="Completed" style="-fx-background-color: #1b3766;">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
