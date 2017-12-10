@@ -29,9 +29,6 @@ public class ServiceConfirmController {
     @FXML
     private JFXTextArea notes;
 
-//    @FXML
-//    Button Backbtn;
-
     public void setServScene(Scene servTypeScene) {
         this.servTypeScene = servTypeScene;
     }
@@ -66,7 +63,6 @@ public class ServiceConfirmController {
         info.setText(info.getText() + " " + passed[4]);
         name.setText(name.getText() + " " + assigned.getFirstName() + " " + assigned.getLastName());
         email.setText(email.getText() + " " + assigned.getEmail());
-        // set fields here for service information
     }
 
     @FXML
@@ -95,18 +91,17 @@ public class ServiceConfirmController {
             service.toString();
             Main.requests.add(service);
             System.out.println("Message sent succesfully");
-            // not working
-//            close();
+            close();
         }
         catch(NullPointerException e){
             e.printStackTrace();
         }
     }
 
-//    void close(){
-//        Stage stage = (Stage)confirm.getScene().getWindow();
-//        stage.close();
-//    }
+    void close(){
+        Stage stage = (Stage)confirm.getScene().getWindow();
+        stage.close();
+    }
 
     public void setService() throws NullPointerException{
 
