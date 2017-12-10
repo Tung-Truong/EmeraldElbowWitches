@@ -30,6 +30,36 @@ import static java.lang.Thread.sleep;
 public class AdminController extends Controller {
 
     @FXML
+    private JFXTreeTableView<?> activeTable;
+
+    @FXML
+    private JFXTreeTableColumn<String> activeLoc;
+
+    @FXML
+    private JFXTreeTableColumn<String> activeType;
+
+    @FXML
+    private JFXTreeTableColumn<String> activeItem;
+
+    @FXML
+    private JFXTreeTableColumn<String> activeDate;
+
+    @FXML
+    private JFXTreeTableView<?> completedTable;
+
+    @FXML
+    private JFXTreeTableColumn<String> completedLoc;
+
+    @FXML
+    private JFXTreeTableColumn<String> completedType;
+
+    @FXML
+    private JFXTreeTableColumn<String> completedItem;
+
+    @FXML
+    private JFXTreeTableColumn<String> completedDate;
+
+    @FXML
     private Pane RequestPane;
 
     @FXML
