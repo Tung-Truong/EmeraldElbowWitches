@@ -89,7 +89,8 @@ public class ServiceConfirmController {
             service.sendEmailServiceRequest();
 
             service.toString();
-
+            service.setActive(true);
+            service.setOtherInfo(passed[4]);
             service.setLocation(passed[1]);
             service.setUpdateRequestType();
             service.setUpdateSentString();

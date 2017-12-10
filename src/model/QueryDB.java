@@ -96,7 +96,7 @@ public class QueryDB {
                 tempVals[colInd-1] = resultSet.getString(colInd);
             }
             if(tempVals[0] != null && !tempVals[1].equals("class model.QueryDB$1")){
-                requestList.add(new ServiceRequest(tempVals[0], tempVals[1], tempVals[2], tempVals[3], tempVals[4]) {
+                requestList.add(new ServiceRequest(tempVals[0], tempVals[1], tempVals[2], tempVals[3], tempVals[4], tempVals[5]) {
                     @Override
                     public void generateReport() {}
                 });

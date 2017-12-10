@@ -122,11 +122,11 @@
          <children>
             <JFXTabPane prefHeight="450" prefWidth="370.0" tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #4286f4; -fx-tab-min-width: 178;" >
               <tabs>
-                <Tab text="Active" style="-fx-background-color: #1b3766;" >
+                <Tab onSelectionChanged="#switchTable1" text="Active" style="-fx-background-color: #1b3766;"  >
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0">
+                              <TreeTableView fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
@@ -140,11 +140,11 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Completed" style="-fx-background-color: #1b3766;">
+                <Tab onSelectionChanged="#switchTable2" text="Completed" style="-fx-background-color: #1b3766;">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView fx:id="completedTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <TreeTableView fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
@@ -152,7 +152,7 @@
                                     <TreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
                                 </columns>
                               </TreeTableView>
-                              <JFXButton onAction="#RemoveRequest2" layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              <JFXButton onAction="#MyRequests" layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                   </content>

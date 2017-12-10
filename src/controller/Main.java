@@ -219,7 +219,7 @@ public class Main extends Application {
         adminScene = new Scene(new Group((Parent) adminContLoad.load()), sceneWidth, sceneHeight);
         AdminController adminCont = adminContLoad.getController();
         Group SceneRoot = (Group) adminScene.getRoot();
-        SceneRoot.getChildren().add(adminCont.getActiveTable());
+        SceneRoot.getChildren().addAll(adminCont.getActiveTable(), adminCont.getCompletedTable());
         this.controllers.addObserver(adminCont);
 
         this.patientScene = Start;

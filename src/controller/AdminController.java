@@ -51,7 +51,7 @@ public class AdminController extends Controller {
     private TreeTableColumn<ServiceRequest, String> activeDate;
 
     @FXML
-    private TreeTableView<String> completedTable;
+    TreeTableView<ServiceRequest> completedTable;
 
     @FXML
     private TreeTableColumn<ServiceRequest, String> completedLoc;
@@ -204,7 +204,6 @@ public class AdminController extends Controller {
     private JFXButton Tdown;
 
     boolean reqSel = false;
-
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -215,6 +214,8 @@ public class AdminController extends Controller {
     private GraphicsContext gc1 = null;
 
     public void initialize(){
+        activeTable.setVisible(false);
+        completedTable.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
         single.getAlgorithm().setPathAlg(new astar());
@@ -224,6 +225,9 @@ public class AdminController extends Controller {
         redraw();
     }
 
+    public TreeTableView<ServiceRequest> getCompletedTable() {
+        return completedTable;
+    }
 
     private void redraw() {
         nodeInfoPane.setVisible(false);
@@ -642,40 +646,24 @@ public class AdminController extends Controller {
 
     @FXML
     void MyRequests() {
-        /*CurrRequ.getItems().clear();
         Refresh();
-        System.out.println("IBEHERE");
-        Employee currEmp = Main.getCurrUser();
-        System.out.println(Main.getRequestList().size());
-        for (ServiceRequest aserv : Main.getRequestList()) {
-            try {
-                if (currEmp.getId() == aserv.getAssigned().getId()) {
-                    // May eventually want to order these requests by their given urgency
-                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " | " + aserv.getSent().toString());
-                }
-            } catch (NullPointerException e) {
-                e.getMessage();
-            }
-        }*/
-
+        addToTree();
     }
 
-    @FXML
-    void RemoveRequest2(){}
 
     @FXML
     void RemoveRequest() {
         try {
             ServiceRequest serv = null;
-            String reqDate = CurrRequ.getValue().substring(CurrRequ.getValue().indexOf('|') + 2).trim();
+            int reqNum = activeTable.getSelectionModel().getSelectedIndex();
+            int numCount = 0;
+            System.out.println(reqNum);
             for (ServiceRequest aserv : Main.getRequestList()) {
                 try {
-                    System.out.println(aserv.getSent().toString());
-                    System.out.println(reqDate);
-                    if (aserv.getSent().toString().trim().equals(reqDate)) {
-
-                        aserv.setActive(false);
-                        serv = aserv;
+                    if (aserv.isActive()) {
+                        numCount++;
+                        if(numCount == reqNum)
+                            serv = aserv;
                     }
                 } catch (NullPointerException e) {
                     e.getMessage();
@@ -683,9 +671,10 @@ public class AdminController extends Controller {
             }
 
             if (serv != null) {
-                Main.requests.remove(serv);
+                serv.setActive(false);
                 serv.setReceived();
                 serv.generateReport();
+                addToTree();
             }
         } catch (NullPointerException e) {
             e.getMessage();
@@ -706,16 +695,6 @@ public class AdminController extends Controller {
                 }
             } else {
                 finalString.concat("No active Requests");
-            }
-        }
-        for (ServiceRequest s : searchInactive) {
-            if (!s.isActive()) {
-                Main.requests.remove(s);
-                try {
-                    DeleteDB.delRequest(s.getSent().toString());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
@@ -756,33 +735,61 @@ public class AdminController extends Controller {
     void ActivateRequests() {
         reqSel = !reqSel;
         RequestPane.setVisible(reqSel);
-        if(reqSel){
-            edgeInfoPane.setVisible(false);
-            nodeInfoPane.setVisible(false);
-        }
+        activeTable.setVisible(reqSel);
+        completedTable.setVisible(reqSel);
+        if(reqSel)
+            switchTable1();
+        addToTree();
+    }
+
+    public void addToTree(){
         try {
-        TreeItem<ServiceRequest> base = new TreeItem<>(new ServiceRequest());
-        base.setExpanded(true);
-        System.out.println("IBEHERE");
-        Employee currEmp = Main.getCurrUser();
-        System.out.println(Main.getRequestList().size());
-        for (ServiceRequest aserv : Main.getRequestList()) {
-            try {
-                if (currEmp.getId() == aserv.getAssigned().getId()) {
-                    base.getChildren().add(new TreeItem<>(aserv));
-                    System.out.println(aserv.getSent().toString());
+            TreeItem<ServiceRequest> base = new TreeItem<>(new ServiceRequest());
+            base.setExpanded(true);
+            System.out.println("IBEHERE");
+            Employee currEmp = Main.getCurrUser();
+            System.out.println(Main.getRequestList().size());
+            for (ServiceRequest aserv : Main.getRequestList()) {
+                try {
+                    if (currEmp.getId() == aserv.getAssigned().getId() && aserv.isActive()) {
+                        base.getChildren().add(new TreeItem<>(aserv));
+                        System.out.println(aserv.getSent().toString());
+                    }
+                } catch (NullPointerException e) {
+                    e.getMessage();
                 }
-            } catch (NullPointerException e) {
-                e.getMessage();
             }
-        }
 
             activeLoc.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("location"));
             activeType.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("requestType"));
-            activeItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("messageHeader"));
+            activeItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("otherInfo"));
             activeDate.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("sentString"));
 
             activeTable.setRoot(base);
+
+
+            TreeItem<ServiceRequest> baseRem = new TreeItem<>(new ServiceRequest());
+            baseRem.setExpanded(true);
+            System.out.println("IBEHERE");
+            currEmp = Main.getCurrUser();
+            System.out.println(Main.getRequestList().size());
+            for (ServiceRequest aserv : Main.getRequestList()) {
+                try {
+                    if (currEmp.getId() == aserv.getAssigned().getId() && !aserv.isActive()) {
+                        baseRem.getChildren().add(new TreeItem<>(aserv));
+                        System.out.println(aserv.getSent().toString());
+                    }
+                } catch (NullPointerException e) {
+                    e.getMessage();
+                }
+            }
+
+            completedLoc.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("location"));
+            completedType.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("requestType"));
+            completedItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("otherInfo"));
+            completedDate.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("sentString"));
+
+            completedTable.setRoot(baseRem);
 
         }catch (NullPointerException e) {
             e.getMessage();
@@ -793,6 +800,21 @@ public class AdminController extends Controller {
         return activeTable;
     }
 
+    @FXML
+    void switchTable1() throws NullPointerException{
+        if(reqSel) {
+            completedTable.setVisible(false);
+            activeTable.setVisible(true);
+        }
+    }
+
+    @FXML
+    void switchTable2() throws NullPointerException{
+        if(reqSel) {
+            completedTable.setVisible(true);
+            activeTable.setVisible(false);
+        }
+    }
 
     public void resize() {
         if (single.getZoom() <= 1) {

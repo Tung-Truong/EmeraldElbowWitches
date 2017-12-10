@@ -28,6 +28,7 @@ public class ServiceRequest implements IReport {
     protected String sentString;
     protected Employee assigned;
     protected String requestType;
+    protected String otherInfo;
     protected String classType;
 
     // Constructor
@@ -38,7 +39,7 @@ public class ServiceRequest implements IReport {
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
 
-    public ServiceRequest(String id, String type, String active, String submitted, String loc){
+    public ServiceRequest(String id, String type, String active, String submitted, String loc, String items){
         isActive = Boolean.parseBoolean(active);
         for (Employee e : Main.employees){
             if(Long.parseLong(id) == e.getId()){
@@ -52,6 +53,7 @@ public class ServiceRequest implements IReport {
         requestType = messageHeader.split(" ")[0].trim();
         properties = new Properties();
         sentString = sent.toString();
+        otherInfo = items;
 
         // property attributes for replying to the email
         properties.put("mail.store.protocol", "imaps");
@@ -98,6 +100,15 @@ public class ServiceRequest implements IReport {
                 return new PasswordAuthentication(username, password);
             }
         });
+    }
+
+
+    public String getOtherInfo() {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
     }
 
     public void setUpdateSentString() {
