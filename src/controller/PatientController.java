@@ -149,61 +149,25 @@ public class PatientController extends Controller {
     void getMap(Event e) {
         if(reversePath.isSelected()){
             String currFloor = goal.node.getFloor();
-            switch (currFloor) {
-                case "btn_mapL2":
-                    Main.getNodeMap().setCurrentFloor("L2");
-                    btn_mapL2.setOpacity(1);
-                    break;
-                case "btn_mapL1":
-                    Main.getNodeMap().setCurrentFloor("L1");
-                    btn_mapL1.setOpacity(1);
-                    break;
-                case "btn_mapG":
-                    Main.getNodeMap().setCurrentFloor("G");
-                    btn_mapG.setOpacity(1);
-                    break;
-                case "btn_map01":
-                    Main.getNodeMap().setCurrentFloor("1");
-                    btn_map01.setOpacity(1);
-                    break;
-                case "btn_map02":
-                    Main.getNodeMap().setCurrentFloor("2");
-                    btn_map02.setOpacity(1);
-                    break;
-                case "btn_map03":
-                    Main.getNodeMap().setCurrentFloor("3");
-                    btn_map03.setOpacity(1);
-                    break;
-                case "SearchForNode":
-                    String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
-                    NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-                    redraw();
-                    try {
-                        if (newSearchNode == null)
-                            throw new InvalidNodeException("no node with that ID");
-                        Floors = null;
-                        clearChosenFloor();
-                        redraw();
-                        Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
-                        Image map = mapImage.getLoadedMap("btn_map" + newSearchNode.node.getFloor());
-                        this.currentMap.setImage(map);
-                        gc1.setFill(Color.DARKRED);
-                        gc1.fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                                newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
-                                10,
-                                10);
-                    } catch (InvalidNodeException exc) {
-                        exc.printStackTrace();
-                    }
-                    break;
-            }
+            floorSwitch(currFloor);
         }
         else{
 
         }
         String clickedID = ((JFXButton) e.getSource()).getId();
         clearChosenFloor();
-        switch (clickedID) {
+        floorSwitch(clickedID);
+
+        if (!clickedID.equals("SearchForNode")) {
+            Image map = mapImage.getLoadedMap(clickedID);
+            this.currentMap.setImage(map);
+            redraw();
+        }
+    }
+
+    //code for get map so code is not duplicated.
+    private void floorSwitch(String caseString){
+        switch (caseString) {
             case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
                 btn_mapL2.setOpacity(1);
@@ -250,12 +214,6 @@ public class PatientController extends Controller {
                     exc.printStackTrace();
                 }
                 break;
-        }
-
-        if (!clickedID.equals("SearchForNode")) {
-            Image map = mapImage.getLoadedMap(clickedID);
-            this.currentMap.setImage(map);
-            redraw();
         }
     }
 
@@ -558,33 +516,38 @@ public class PatientController extends Controller {
      * findPath pathfinds, and draws the route to the screen
      */
     public void findPath(MouseEvent event) {
-        directionsButton.setVisible(true);
-        //create a new astar object
-        SearchPath.setVisible(false);
-        double mousex = (5000 * event.getX()) / single.getMapWidth();
-        double mousey = (3400 * event.getY()) / single.getMapHeight();
-
-        if (gc1 == null)
-            gc1 = gc.getGraphicsContext2D();
-        gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-        gc1.setLineWidth(2);
-        gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
-        //get node that corr. to click from ListOfNodeObjects made in main
-        try {
-            goal = Main.getNodeMap().getNearestNeighborFilter
-                    ((int) Math.floor(mousex), (int) Math.floor(mousey));
-            //sets startx and starty = use in reversePath;
-            startX = (int) Math.floor(mousex);
-            startY = (int) Math.floor(mousey);
-        } catch (InvalidNodeException e) {
-            e.printStackTrace();
+        if(reversePath.isSelected()){
+            System.out.println("don't do that.");
         }
-        //getStart
-        NodeObj Kiosk = Main.getKiosk();
+        else {
+            directionsButton.setVisible(true);
+            //create a new astar object
+            SearchPath.setVisible(false);
+            double mousex = (5000 * event.getX()) / single.getMapWidth();
+            double mousey = (3400 * event.getY()) / single.getMapHeight();
 
-        if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
-            drawingPath();
+            if (gc1 == null)
+                gc1 = gc.getGraphicsContext2D();
+            gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+            gc1.setLineWidth(2);
+            gc1.setStroke(Color.BLUE);
+            gc1.setFill(Color.RED);
+            //get node that corr. to click from ListOfNodeObjects made in main
+            try {
+                goal = Main.getNodeMap().getNearestNeighborFilter
+                        ((int) Math.floor(mousex), (int) Math.floor(mousey));
+                //sets startx and starty = use in reversePath;
+                startX = (int) Math.floor(mousex);
+                startY = (int) Math.floor(mousey);
+            } catch (InvalidNodeException e) {
+                e.printStackTrace();
+            }
+            //getStart
+            NodeObj Kiosk = Main.getKiosk();
+
+            if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
+                drawingPath();
+            }
         }
     }
 
