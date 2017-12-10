@@ -1,6 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXTreeTableView;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -30,34 +36,34 @@ import static java.lang.Thread.sleep;
 public class AdminController extends Controller {
 
     @FXML
-    private JFXTreeTableView<?> activeTable;
+    TreeTableView<ServiceRequest> activeTable;
 
     @FXML
-    private JFXTreeTableColumn<String> activeLoc;
+    private TreeTableColumn<ServiceRequest, String> activeLoc;
 
     @FXML
-    private JFXTreeTableColumn<String> activeType;
+    private TreeTableColumn<ServiceRequest, String> activeType;
 
     @FXML
-    private JFXTreeTableColumn<String> activeItem;
+    private TreeTableColumn<ServiceRequest, String> activeItem;
 
     @FXML
-    private JFXTreeTableColumn<String> activeDate;
+    private TreeTableColumn<ServiceRequest, String> activeDate;
 
     @FXML
-    private JFXTreeTableView<?> completedTable;
+    private TreeTableView<String> completedTable;
 
     @FXML
-    private JFXTreeTableColumn<String> completedLoc;
+    private TreeTableColumn<ServiceRequest, String> completedLoc;
 
     @FXML
-    private JFXTreeTableColumn<String> completedType;
+    private TreeTableColumn<ServiceRequest, String> completedType;
 
     @FXML
-    private JFXTreeTableColumn<String> completedItem;
+    private TreeTableColumn<ServiceRequest, String> completedItem;
 
     @FXML
-    private JFXTreeTableColumn<String> completedDate;
+    private TreeTableColumn<ServiceRequest, String> completedDate;
 
     @FXML
     private Pane RequestPane;
@@ -634,9 +640,9 @@ public class AdminController extends Controller {
         servStage.show();
     }
 
-    //@FXML
+    @FXML
     void MyRequests() {
-        CurrRequ.getItems().clear();
+        /*CurrRequ.getItems().clear();
         Refresh();
         System.out.println("IBEHERE");
         Employee currEmp = Main.getCurrUser();
@@ -650,11 +656,14 @@ public class AdminController extends Controller {
             } catch (NullPointerException e) {
                 e.getMessage();
             }
-        }
+        }*/
 
     }
 
-    //@FXML
+    @FXML
+    void RemoveRequest2(){}
+
+    @FXML
     void RemoveRequest() {
         try {
             ServiceRequest serv = null;
@@ -751,7 +760,39 @@ public class AdminController extends Controller {
             edgeInfoPane.setVisible(false);
             nodeInfoPane.setVisible(false);
         }
+        try {
+        TreeItem<ServiceRequest> base = new TreeItem<>(new ServiceRequest());
+        base.setExpanded(true);
+        System.out.println("IBEHERE");
+        Employee currEmp = Main.getCurrUser();
+        System.out.println(Main.getRequestList().size());
+        for (ServiceRequest aserv : Main.getRequestList()) {
+            try {
+                if (currEmp.getId() == aserv.getAssigned().getId()) {
+                    base.getChildren().add(new TreeItem<>(aserv));
+                    System.out.println(aserv.getSent().toString());
+                }
+            } catch (NullPointerException e) {
+                e.getMessage();
+            }
+        }
+
+            activeLoc.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("location"));
+            activeType.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("requestType"));
+            activeItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("messageHeader"));
+            activeDate.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("sentString"));
+
+            activeTable.setRoot(base);
+
+        }catch (NullPointerException e) {
+            e.getMessage();
+        }
     }
+
+    public TreeTableView<ServiceRequest> getActiveTable() {
+        return activeTable;
+    }
+
 
     public void resize() {
         if (single.getZoom() <= 1) {

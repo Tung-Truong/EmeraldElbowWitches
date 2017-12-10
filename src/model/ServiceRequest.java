@@ -2,11 +2,13 @@ package model;
 
 import controller.Main;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 public class ServiceRequest implements IReport {
 
@@ -23,7 +25,9 @@ public class ServiceRequest implements IReport {
     protected String location;
     protected Date received;
     protected Date sent;
+    protected String sentString;
     protected Employee assigned;
+    protected String requestType;
     protected String classType;
 
     // Constructor
@@ -33,6 +37,7 @@ public class ServiceRequest implements IReport {
         Info Format:
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
+
     public ServiceRequest(String id, String type, String active, String submitted, String loc){
         isActive = Boolean.parseBoolean(active);
         for (Employee e : Main.employees){
@@ -44,9 +49,9 @@ public class ServiceRequest implements IReport {
         email = assigned.getEmail();
         messageHeader = type;
         location = loc;
-
-
+        requestType = messageHeader.split(" ")[0].trim();
         properties = new Properties();
+        sentString = sent.toString();
 
         // property attributes for replying to the email
         properties.put("mail.store.protocol", "imaps");
@@ -68,6 +73,7 @@ public class ServiceRequest implements IReport {
             }
         });
     }
+
     public ServiceRequest(){
         isActive = true;
 
@@ -92,6 +98,28 @@ public class ServiceRequest implements IReport {
                 return new PasswordAuthentication(username, password);
             }
         });
+    }
+
+    public void setUpdateSentString() {
+        this.sentString = sent.toString();
+    }
+
+    public void setUpdateRequestType() {
+        this.requestType = messageHeader.split(" ")[0].trim();
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public String getSentString() {
+        SimpleDateFormat formater = new SimpleDateFormat("MM/d/yy");
+        try {
+            sentString = formater.format(sent);
+        }catch (NullPointerException e){
+            return null;
+        }
+        return sentString;
     }
 
     // Getters

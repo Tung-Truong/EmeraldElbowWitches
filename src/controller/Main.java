@@ -3,6 +3,7 @@ package controller;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.ScrollEvent;
@@ -215,9 +216,10 @@ public class Main extends Application {
         this.controllers.addObserver(patCont);
 
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
-        adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
+        adminScene = new Scene(new Group((Parent) adminContLoad.load()), sceneWidth, sceneHeight);
         AdminController adminCont = adminContLoad.getController();
-
+        Group SceneRoot = (Group) adminScene.getRoot();
+        SceneRoot.getChildren().add(adminCont.getActiveTable());
         this.controllers.addObserver(adminCont);
 
         this.patientScene = Start;

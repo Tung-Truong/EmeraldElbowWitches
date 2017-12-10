@@ -126,16 +126,16 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <JFXTreeTableView fx:id="activeTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <TreeTableView fx:id="activeTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
                                 <columns>
-                                  <JFXTreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
-                                  <JFXTreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
-                                    <JFXTreeTableColumn fx:id="activeItem" prefWidth="88.0" text="Other Info" />
-                                    <JFXTreeTableColumn fx:id="activeDate" prefWidth="88.0" text="Date" />
+                                  <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
+                                  <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
+                                    <TreeTableColumn fx:id="activeItem" prefWidth="88.0" text="Other Info" />
+                                    <TreeTableColumn fx:id="activeDate" prefWidth="88.0" text="Date" />
                                 </columns>
-                              </JFXTreeTableView>
-                              <JFXButton layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
-                              <JFXButton layoutX="196.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Remove" textFill="WHITE" />
+                              </TreeTableView>
+                              <JFXButton  onAction="#MyRequests" layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              <JFXButton onAction="#RemoveRequest" layoutX="196.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Remove" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -144,15 +144,15 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <JFXTreeTableView fx:id="completedTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <TreeTableView fx:id="completedTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
                                 <columns>
-                                  <JFXTreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
-                                  <JFXTreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
-                                    <JFXTreeTableColumn fx:id="completedItem" prefWidth="88.0" text="Items" />
-                                    <JFXTreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
+                                  <TreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
+                                  <TreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
+                                    <TreeTableColumn fx:id="completedItem" prefWidth="88.0" text="Items" />
+                                    <TreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
                                 </columns>
-                              </JFXTreeTableView>
-                              <JFXButton layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              </TreeTableView>
+                              <JFXButton onAction="#RemoveRequest2" layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                   </content>
