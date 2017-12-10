@@ -22,7 +22,7 @@ public class WriteRequests {
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            fw.append("employeeId, requestType, isActive, timeSubmitted\n");
+            fw.append("employeeId, requestType, isActive, timeSubmitted, location\n");
             while (rs.next()) {
                 fw.append(rs.getString(1));
                 fw.append(',');
@@ -31,6 +31,8 @@ public class WriteRequests {
                 fw.append(rs.getString(3));
                 fw.append(',');
                 fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
                 fw.append('\n');
             }
             fw.flush();
