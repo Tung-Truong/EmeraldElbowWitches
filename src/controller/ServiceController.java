@@ -128,7 +128,7 @@ public class ServiceController {
             HealthCareRun health = new HealthCareRun();
             try {
                 health.run(-500,-500,600,350,"view/stylesheets/default.css","","");
-                close()
+                close();
             } catch (Exception e) {
                 e.printStackTrace();
             }

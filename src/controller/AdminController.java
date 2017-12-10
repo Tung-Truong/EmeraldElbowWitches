@@ -114,6 +114,9 @@ public class AdminController extends Controller {
     private JFXButton btn_mapL2;
 
     @FXML
+    private JFXButton SearchPath;
+
+    @FXML
     private Canvas gc;
 
     @FXML
@@ -230,6 +233,7 @@ public class AdminController extends Controller {
     }
 
     private void redraw() {
+        SearchPath.setVisible(false);
         nodeInfoPane.setVisible(false);
         edgeInfoPane.setVisible(false);
         serviceRequestBtn.setVisible(false);
@@ -292,8 +296,12 @@ public class AdminController extends Controller {
         btn_map01.setStyle("-fx-background-color:  #4286f4");
         btn_map02.setStyle("-fx-background-color:  #4286f4");
         btn_map03.setStyle("-fx-background-color:  #4286f4");
-
-        String clickedID = ((JFXButton) e.getSource()).getId();
+        String clickedID = null;
+        try{
+            clickedID = ((JFXButton)e.getSource()).getId();
+        }catch(ClassCastException elv){
+            clickedID = ((TreeTableView<ServiceRequest>) e.getSource()).getId();
+        }
         switch (clickedID) {
             case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
@@ -335,6 +343,7 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
+        SearchPath.setVisible(false);
         int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
         int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
         if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
@@ -392,6 +401,47 @@ public class AdminController extends Controller {
         } catch (InvalidNodeException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void snapToNode(Event e){
+           try {
+               String id = null;
+                String searchNewNodeID = null;
+                if (((TreeTableView<ServiceRequest>) e.getSource()).getId().equals("activeTable")) {
+                    searchNewNodeID= activeTable.getSelectionModel().getSelectedItem().getValue().getLocation();
+                    id = "activeTable";
+                }
+                if (((TreeTableView<ServiceRequest>) e.getSource()).getId().equals("completedTable")) {
+                    searchNewNodeID= completedTable.getSelectionModel().getSelectedItem().getValue().getLocation();
+                    id = "activeTable";
+                }
+
+
+                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                try {
+                    if (newSearchNode == null)
+                        throw new InvalidNodeException("no node with that ID");
+                    ((TreeTableView<ServiceRequest>) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                    Main.controllers.updateAllMaps(e);
+                    Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+                    ((TreeTableView<ServiceRequest>) e.getSource()).setId(id);
+                    redraw();
+                    gc1.setFill(Color.DARKRED);
+                    gc1.fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                            newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                            10,
+                            10);
+                    SearchPath.setVisible(true);
+                    SearchPath.setText(searchNewNodeID);
+                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000);
+                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * single.getMapHeight() / 3400);
+                } catch (InvalidNodeException exc) {
+                    exc.printStackTrace();
+                }
+            } catch (NullPointerException exc) {
+                exc.getMessage();
+            }
     }
 
     @FXML
@@ -654,22 +704,7 @@ public class AdminController extends Controller {
     @FXML
     void RemoveRequest() {
         try {
-            ServiceRequest serv = null;
-            int reqNum = activeTable.getSelectionModel().getSelectedIndex();
-            int numCount = 0;
-            System.out.println(reqNum);
-            for (ServiceRequest aserv : Main.getRequestList()) {
-                try {
-                    if (aserv.isActive()) {
-                        numCount++;
-                        if(numCount == reqNum)
-                            serv = aserv;
-                    }
-                } catch (NullPointerException e) {
-                    e.getMessage();
-                }
-            }
-
+            ServiceRequest serv = activeTable.getSelectionModel().getSelectedItem().getValue();
             if (serv != null) {
                 serv.setActive(false);
                 serv.setReceived();

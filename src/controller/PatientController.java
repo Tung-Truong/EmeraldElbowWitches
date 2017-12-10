@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -209,7 +210,12 @@ public class PatientController extends Controller {
     }
 
     void getMap(Event e) {
-        String clickedID = ((JFXButton) e.getSource()).getId();
+        String clickedID = null;
+        try{
+            clickedID = ((JFXButton)e.getSource()).getId();
+        }catch(ClassCastException elv){
+            clickedID = ((TreeTableView<ServiceRequest>) e.getSource()).getId();
+        }
         clearChosenFloor();
         switch (clickedID) {
             case "btn_mapL2":

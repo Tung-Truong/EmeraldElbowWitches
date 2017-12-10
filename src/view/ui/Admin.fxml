@@ -126,7 +126,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0" visible="false">
+                              <TreeTableView onMouseClicked="#snapToNode" fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
@@ -144,7 +144,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
+                              <TreeTableView  fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
@@ -215,6 +215,7 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0"  opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
       <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="37.0" layoutY="850.0" onMouseClicked="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE">
          <font>
             <Font size="18.0" />
