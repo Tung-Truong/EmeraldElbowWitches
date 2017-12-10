@@ -39,9 +39,9 @@ public class TextDirections {
             floorNode = path.get(i + 1).getNode();
 
             // if the next node is a staircase
-            if (nextNode.getNodeType().equals("STAI") && floorNode.getFloor() != nextNode.getFloor()) {
+            if (nextNode.getNodeType().equals("STAI") && !floorNode.getFloor().equals(nextNode.getFloor())) {
                 msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
-            } else if (nextNode.getNodeType().equals("ELEV") && floorNode.getFloor() != nextNode.getFloor()) {
+            } else if (nextNode.getNodeType().equals("ELEV") && !floorNode.getFloor().equals(nextNode.getFloor())) {
                 msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
             } else {
                 // calculate the angle between the vector last->
