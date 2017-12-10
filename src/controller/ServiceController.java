@@ -70,10 +70,12 @@ public class ServiceController {
 
         if(DateChoice.getValue().isBefore(now.toLocalDate())) {
             DateChoice.getEditor().clear();
+            DateChoice.setStyle("-fx-prompt-text-fill: #cc0000");
             DateChoice.setPromptText("Please select a later date");
             return false;
         } else if (DateChoice.getValue().compareTo(now.toLocalDate()) == 0 && TimeChoice.getValue().isBefore(now.toLocalTime())){
             TimeChoice.getEditor().clear();
+            TimeChoice.setStyle("-fx-prompt-text-fill: #cc0000");
             TimeChoice.setPromptText("Please select a later time");
             return false;
         } else {
@@ -160,6 +162,7 @@ public class ServiceController {
                 ServStage.setScene(servTypeScene);
             }
         } catch (NullPointerException n){
+            RequestServiceDropdown.setStyle("-fx-prompt-text-fill: #cc0000");
             RequestServiceDropdown.setPromptText("Please select a service");
         }
     }
