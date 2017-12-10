@@ -72,7 +72,7 @@ public class ServiceController {
             DateChoice.getEditor().clear();
             DateChoice.setPromptText("Please select a later date");
             return false;
-        } else if (DateChoice.getValue().isAfter(now.toLocalDate()) && TimeChoice.getValue().isBefore(now.toLocalTime())){
+        } else if (DateChoice.getValue().compareTo(now.toLocalDate()) == 0 && TimeChoice.getValue().isBefore(now.toLocalTime())){
             TimeChoice.getEditor().clear();
             TimeChoice.setPromptText("Please select a later time");
             return false;
