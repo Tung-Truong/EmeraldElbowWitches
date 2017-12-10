@@ -137,6 +137,16 @@ public class ServiceController {
 
     @FXML
     void Next() throws IOException {
+        if(DateChoice.getPromptText().trim().equals("Date")){
+            DateChoice.getEditor().clear();
+            TimeChoice.setStyle("-fx-prompt-text-fill: #cc0000");
+            DateChoice.setPromptText("Please select a date");
+        }
+        if(TimeChoice.getPromptText().trim().equals("Time")){
+            TimeChoice.getEditor().clear();
+            TimeChoice.setStyle("-fx-prompt-text-fill: #cc0000");
+            TimeChoice.setPromptText("Please select a time");
+        }
         try {
             if (checkDate()) {
 
