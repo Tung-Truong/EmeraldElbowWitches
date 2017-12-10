@@ -97,7 +97,8 @@ public class PatientController extends Controller {
     ArrayList<String> Floors;
     double startX;
     double startY;
-    ArrayList<NodeObj> strPath;
+    private ArrayList<NodeObj> strPath;
+    private ArrayList<NodeObj> reversedPath = new ArrayList<>();
     Animation oldAnimation;
     SingleController single = SingleController.getController();
     private ImageLoader mapImage = new ImageLoader();
@@ -146,6 +147,60 @@ public class PatientController extends Controller {
     }
 
     void getMap(Event e) {
+        if(reversePath.isSelected()){
+            String currFloor = goal.node.getFloor();
+            switch (currFloor) {
+                case "btn_mapL2":
+                    Main.getNodeMap().setCurrentFloor("L2");
+                    btn_mapL2.setOpacity(1);
+                    break;
+                case "btn_mapL1":
+                    Main.getNodeMap().setCurrentFloor("L1");
+                    btn_mapL1.setOpacity(1);
+                    break;
+                case "btn_mapG":
+                    Main.getNodeMap().setCurrentFloor("G");
+                    btn_mapG.setOpacity(1);
+                    break;
+                case "btn_map01":
+                    Main.getNodeMap().setCurrentFloor("1");
+                    btn_map01.setOpacity(1);
+                    break;
+                case "btn_map02":
+                    Main.getNodeMap().setCurrentFloor("2");
+                    btn_map02.setOpacity(1);
+                    break;
+                case "btn_map03":
+                    Main.getNodeMap().setCurrentFloor("3");
+                    btn_map03.setOpacity(1);
+                    break;
+                case "SearchForNode":
+                    String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
+                    NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                    redraw();
+                    try {
+                        if (newSearchNode == null)
+                            throw new InvalidNodeException("no node with that ID");
+                        Floors = null;
+                        clearChosenFloor();
+                        redraw();
+                        Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+                        Image map = mapImage.getLoadedMap("btn_map" + newSearchNode.node.getFloor());
+                        this.currentMap.setImage(map);
+                        gc1.setFill(Color.DARKRED);
+                        gc1.fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                                newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                                10,
+                                10);
+                    } catch (InvalidNodeException exc) {
+                        exc.printStackTrace();
+                    }
+                    break;
+            }
+        }
+        else{
+
+        }
         String clickedID = ((JFXButton) e.getSource()).getId();
         clearChosenFloor();
         switch (clickedID) {
@@ -361,8 +416,10 @@ public class PatientController extends Controller {
         NodeObj tempDraw = goal;
         Floors = new ArrayList<String>();
         if(reversePath.isSelected()){
-            for (NodeObj n : currPath) {
-                if (n != goal) {
+            reversedPath = currPath;
+            Collections.reverse(reversedPath);
+            for (NodeObj n : reversedPath) {
+                if (n != Main.getKiosk()) {
                     if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                             tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
                         gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
@@ -567,6 +624,7 @@ public class PatientController extends Controller {
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         strPath = new ArrayList<>();
+
         if (reversePath.isSelected()) {
             if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -585,10 +643,9 @@ public class PatientController extends Controller {
             if (oldAnimation != null) {
                 resetAnimations(oldAnimation);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter(strPath)), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter(reversedPath)), Duration.millis(4000));
             animation.play();
             oldAnimation = animation;
-            System.out.print("reverseeee");
             DrawCurrentFloorPath();
         } else {
             //try a*
