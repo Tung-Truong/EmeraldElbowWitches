@@ -3,6 +3,7 @@ package controller;
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import model.*;
@@ -10,15 +11,23 @@ import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class ServiceController {
     // Attributes
-//    private String serviceNeeded;
+    public String serviceNeeded;
+
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
     Scene ServScene;
     Stage ServStage;
+    ServiceController meCont;
+    LocalDateTime now;
 
     @FXML
     public JFXTextField servLocField;
@@ -55,6 +64,38 @@ public class ServiceController {
 //    public String getServiceNeeded() {
 //        return this.serviceNeeded;
 //    }
+
+    boolean checkDate(){
+        now = LocalDateTime.now();
+
+        if(DateChoice.getValue().isBefore(now.toLocalDate())) {
+            DateChoice.getEditor().clear();
+            DateChoice.setPromptText("Please select a later date");
+            return false;
+        } else if (DateChoice.getValue().compareTo(now.toLocalDate()) == 0 && TimeChoice.getValue().isBefore(now.toLocalTime())){
+            TimeChoice.getEditor().clear();
+            TimeChoice.setPromptText("Please select a later time");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+//    @FXML
+//    void checkTime(){
+//
+//        if(TimeChoice.getValue().isBefore(now.toLocalTime())){
+//            TimeChoice.setStyle("-fx-text-fill: #cc0000");
+//            TimeChoice.setPromptText("Please select a later time");
+//        } else {
+//            TimeChoice.setStyle("-fx-text-fill: #000000");
+//        }
+//
+//    }
+
+    public void setMeCont(ServiceController meCont) {
+        this.meCont = meCont;
+    }
 
     public ServiceRequest getService() {
         return this.service;
@@ -94,50 +135,66 @@ public class ServiceController {
 
     @FXML
     void Next() throws IOException {
-        FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
-        Parent root = servContLoad.load();
-        ServiceSubSelectController servTypeCont = servContLoad.getController();
-        servTypeCont.setServCont(this);
-        servTypeCont.setServStage(ServStage);
-        servTypeCont.setServScene(ServScene);
-        ServStage.setTitle("Service Type");
-        Scene servTypeScene = new Scene(root, 350, 600);
-        servTypeCont.setServTypeScene(servTypeScene);
-        ServStage.setScene(servTypeScene);
-
-    }
-
-    //@FXML
-    void SubmitRequest() {
         try {
-            this.setService();
-            String location = servLocField.getText();
+            if (checkDate()) {
 
-            if (service instanceof JanitorService) {
-                service.setMessageHeader("Supplies needed at: " + location);
-            } else if (service instanceof InterpreterService) {
-                service.setMessageHeader("Interpreter needed at: " + location);
-            }/* else {
-                service.setMessageHeader("Food needed in: " + location);
-            }*/
-            service.setLocation(location);
+                FXMLLoader servContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/ServiceType.fxml"));
+                Parent root = servContLoad.load();
+                ServiceSubSelectController servTypeCont = servContLoad.getController();
 
-            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
-                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
-            service.sendEmailServiceRequest();
+                serviceNeeded = RequestServiceDropdown.getValue();
 
-            service.toString();
-            System.out.println("add");
-            System.out.println(Main.getRequestList().size());
-            Main.requests.add(service);
-            System.out.println(Main.getRequestList().size());
-            System.out.println("Message sent succesfully");
-            close();
-        }
-        catch(NullPointerException e){
-            e.printStackTrace();
+                servTypeCont.setActivity(serviceNeeded);
+                servTypeCont.passInfo(serviceNeeded + " " + servLocField.getText() + " " + DateChoice.getValue().toString()
+                        + " " + TimeChoice.getValue().toString());
+                servTypeCont.setServStage(ServStage);
+                servTypeCont.setServScene(ServScene);
+                ServStage.setTitle("Service Type");
+
+                Scene servTypeScene = new Scene(new Group(root), 350, 600);
+                servTypeCont.setServTypeScene(servTypeScene);
+
+                Group servRoot = (Group) servTypeScene.getRoot();
+                servRoot.getChildren().add(servTypeCont.init());
+
+                ServStage.setScene(servTypeScene);
+            }
+        } catch (NullPointerException n){
+            RequestServiceDropdown.setPromptText("Please select a service");
         }
     }
+
+//    //@FXML
+//    void SubmitRequest() {
+//        try {
+//            this.setService();
+//            String location = servLocField.getText();
+//
+//            if (service instanceof JanitorService) {
+//                service.setMessageHeader("Supplies needed at: " + location);
+//            } else if (service instanceof InterpreterService) {
+//                service.setMessageHeader("Interpreter needed at: " + location);
+//            }/* else {
+//                service.setMessageHeader("Food needed in: " + location);
+//            }*/
+//            service.setLocation(location);
+//
+//            service.setMessageText("Requested service to be completed by: " + DateChoice.getValue() + " at "
+//                    + TimeChoice.getValue() + "\n\n" + "Notes: \n\t" + NotesTextField.getText());
+//            service.sendEmailServiceRequest();
+//
+//            service.toString();
+//            System.out.println("add");
+//            System.out.println(Main.getRequestList().size());
+//            Main.requests.add(service);
+//            System.out.println(Main.getRequestList().size());
+//            System.out.println("Message sent succesfully");
+//            close();
+//        }
+//        catch(NullPointerException e){
+//            e.printStackTrace();
+//        }
+//    }
 
     //these three items handle changing the employyee names available
     @FXML
@@ -224,45 +281,45 @@ public class ServiceController {
             serviceNeeded = "Food";
         }*/
 
-        public void setService() throws NullPointerException{
-        String needed = this.RequestServiceDropdown.getValue();
-        if(AssignEmployee.getValue().split(" ") == null)
-            throw new NullPointerException("No service added");
-        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
-        String email = "";
-        Employee assign = new Employee();
-        for (Employee e : Main.getEmployees()) {
-            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
-                email = e.getEmail();
-                assign = e;
-            } else {
-                //TO DO throw an exception because employee was never set
-            }
-        }
-        if (needed.toUpperCase().equals("INTERPRETER")) {
-            service = new InterpreterService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            //serviceNeeded = "Interpreter";
-        } else if (needed.toUpperCase().equals("JANITOR")) {
-            service = new JanitorService();
-            System.out.println("righthrt");
-            System.out.println("" + assign.getId());
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            System.out.println("" + service.getAssigned().getId());
-            //serviceNeeded = "Janitor";
-        }
-
-        /*else {
-            service = new CafeteriaService();
-            // placeholder
-            service.setAssigned(assign);
-            service.setAccountTo(email);
-            serviceNeeded = "Food";
-        }*/
-    }
+//        public void setService() throws NullPointerException{
+//        String needed = this.RequestServiceDropdown.getValue();
+//        if(AssignEmployee.getValue().split(" ") == null)
+//            throw new NullPointerException("No service added");
+//        String[] requestedEmployee = AssignEmployee.getValue().split(" ");
+//        String email = "";
+//        Employee assign = new Employee();
+//        for (Employee e : Main.getEmployees()) {
+//            if (e.getLastName().equals(requestedEmployee[1]) && e.getFirstName().equals(requestedEmployee[0])) {
+//                email = e.getEmail();
+//                assign = e;
+//            } else {
+//                //TO DO throw an exception because employee was never set
+//            }
+//        }
+//        if (needed.toUpperCase().equals("INTERPRETER")) {
+//            service = new InterpreterService();
+//            // placeholder
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            //serviceNeeded = "Interpreter";
+//        } else if (needed.toUpperCase().equals("JANITOR")) {
+//            service = new JanitorService();
+//            System.out.println("righthrt");
+//            System.out.println("" + assign.getId());
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            System.out.println("" + service.getAssigned().getId());
+//            //serviceNeeded = "Janitor";
+//        }
+//
+//        /*else {
+//            service = new CafeteriaService();
+//            // placeholder
+//            service.setAssigned(assign);
+//            service.setAccountTo(email);
+//            serviceNeeded = "Food";
+//        }*/
+//    }
 
     //function that just sets the menu items to display no employee available if there is none.
     private void employeeAvailable() {

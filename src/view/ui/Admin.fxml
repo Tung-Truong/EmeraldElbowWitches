@@ -126,12 +126,12 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <JFXTreeTableView layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <JFXTreeTableView fx:id="activeTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
                                 <columns>
-                                  <JFXTreeTableColumn prefWidth="88.0" text="Node" />
-                                  <JFXTreeTableColumn prefWidth="88.0" text="Type" />
-                                    <JFXTreeTableColumn prefWidth="88.0" text="Items" />
-                                    <JFXTreeTableColumn prefWidth="88.0" text="Date" />
+                                  <JFXTreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
+                                  <JFXTreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
+                                    <JFXTreeTableColumn fx:id="activeItem" prefWidth="88.0" text="Other Info" />
+                                    <JFXTreeTableColumn fx:id="activeDate" prefWidth="88.0" text="Date" />
                                 </columns>
                               </JFXTreeTableView>
                               <JFXButton layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
@@ -144,12 +144,12 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <JFXTreeTableView layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
+                              <JFXTreeTableView fx:id="completedTable" layoutX="1.0" layoutY="50.0" prefHeight="340.0" prefWidth="355.0">
                                 <columns>
-                                  <JFXTreeTableColumn prefWidth="88.0" text="Node" />
-                                  <JFXTreeTableColumn prefWidth="88.0" text="Type" />
-                                    <JFXTreeTableColumn prefWidth="88.0" text="Items" />
-                                    <JFXTreeTableColumn prefWidth="88.0" text="Date" />
+                                  <JFXTreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
+                                  <JFXTreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
+                                    <JFXTreeTableColumn fx:id="completedItem" prefWidth="88.0" text="Items" />
+                                    <JFXTreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
                                 </columns>
                               </JFXTreeTableView>
                               <JFXButton layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
