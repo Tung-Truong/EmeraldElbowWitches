@@ -39,7 +39,7 @@ public class AdminController extends Controller {
             xLocField, nodeIDField, weightField, nodeBField, nodeAField;
 
     @FXML
-    private JFXSlider zoomBar;
+    private JFXSlider zoomBar, pathSpeed;
 
     @FXML
     private Canvas gc;
@@ -459,7 +459,8 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void adminLogout() {
+    void adminLogout() { // Implement setter for pathanimation speed
+        //setPathAnimationSpeed(pathSpeed.getValue());
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
@@ -608,5 +609,10 @@ public class AdminController extends Controller {
         currentMap.setTranslateY(single.getYTrans());
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
+    }
+
+
+    public void changePathSpeed(MouseEvent mouseEvent) {
+        single.setPathAnimationSpeed((int)pathSpeed.getValue());
     }
 }

@@ -33,6 +33,7 @@ import model.astar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import model.*;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,6 +93,7 @@ public class PatientController extends Controller {
     SingleController single = SingleController.getController();
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
+    private int speed;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -226,9 +228,9 @@ public class PatientController extends Controller {
                 oldAnimation.stop();
                 gc1.clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
                 redraw();
-                gc.getGraphicsContext2D().setStroke(Color.BLUE);
+                gc.getGraphicsContext2D().setStroke(Color.PURPLE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -576,7 +578,7 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -720,10 +722,16 @@ public class PatientController extends Controller {
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
         for (NodeObj n : Main.getNodeMap().getNodes()) {
-            if (search.length() > 2 && (n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
+
+
+            if (search.length() > 2 && (
+                            FuzzySearch.partialRatio(n.node.getLongName(), search) > 50  ||
+                            FuzzySearch.partialRatio(n.node.getNodeID(), search) > 50)) {
                 SearchNodes.add(n);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             } else if (search.length() == 0) {
+
+                //List of predetermined important nodes.
                 if (!n.node.getNodeType().equals("HALL")) {
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
@@ -800,7 +808,7 @@ public class PatientController extends Controller {
                     redraw();
                     gc.getGraphicsContext2D().setStroke(Color.BLUE);
                 }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
                 animation.play();
                 oldAnimation = animation;
                 DrawCurrentFloorPath();
@@ -824,7 +832,6 @@ public class PatientController extends Controller {
         System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
         resize();
-
     }
 
     @FXML
@@ -914,5 +921,10 @@ public class PatientController extends Controller {
         } else {
             textTogglePane.setVisible(false);
         }
+    }
+
+    public int pathAnimationSpeed(){
+        speed = single.getPathAnimationSpeed()*400;
+        return speed;
     }
 }
