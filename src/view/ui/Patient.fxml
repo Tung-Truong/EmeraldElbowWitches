@@ -140,7 +140,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXSlider>
-      <ImageView fx:id="openclose" fitHeight="68.0" fitWidth="83.0" layoutX="10.0" layoutY="10.0">
+      <ImageView fx:id="openclose" fitHeight="68.0" fitWidth="83.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#goToNextFloor">
          <image>
             <Image url="@../media/openclose.gif" />
          </image>

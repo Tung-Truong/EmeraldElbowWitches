@@ -104,6 +104,7 @@ public class PatientController extends Controller {
     ArrayList<NodeObj> strPath;
     Animation oldAnimation;
     SingleController single = SingleController.getController();
+    private ArrayList<NodeObj> evalatorNodes = new ArrayList<>();
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
@@ -155,8 +156,11 @@ public class PatientController extends Controller {
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
     }
 
+
     @FXML
     void changeMap(Event e) {
+        System.out.print(e.getEventType());
+
         resetFloorButtons();
         oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
@@ -340,7 +344,6 @@ public class PatientController extends Controller {
             case "G":
                 btn_mapG.setOpacity(.7);
                 btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
-
                 break;
             case "1":
                 btn_map01.setOpacity(.7);
@@ -407,6 +410,7 @@ public class PatientController extends Controller {
                         openclose.setVisible(true);
                         openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
                         openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
+                        evalatorNodes.add(n);
                     }
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -451,6 +455,60 @@ public class PatientController extends Controller {
         System.out.println(Floors.toString());
     }
 
+    @FXML
+    private void goToNextFloor (){
+        NodeObj node = null;
+        node = evalatorNodes.get(0);
+        int i = currPath.indexOf(node);
+        String floor = null;
+
+        //go to previous floor
+        if(!currPath.get(i+1).node.getFloor().equals(node.node.getFloor())){
+            floor = currPath.get(i+1).node.getFloor();
+            floorToMap(floor);
+        }
+        //go to next floor
+        else{
+            floor = currPath.get(i-1).node.getFloor();
+            floorToMap(floor);
+        }
+    }
+    //helper function that goes from floor to corresponding map
+    private void floorToMap(String floor) {
+
+        switch (floor) {
+            case "L2":
+                Main.getNodeMap().setCurrentFloor("L2");
+                btn_mapL2.setOpacity(1);
+                btn_mapL2.fire();
+                break;
+            case "L1":
+                Main.getNodeMap().setCurrentFloor("L1");
+                btn_mapL1.setOpacity(1);
+                btn_mapL1.fire();
+                break;
+            case "G":
+                Main.getNodeMap().setCurrentFloor("G");
+                btn_mapG.setOpacity(1);
+                btn_mapG.fire();
+                break;
+            case "1":
+                Main.getNodeMap().setCurrentFloor("1");
+                btn_map01.setOpacity(1);
+                btn_map01.fire();
+                break;
+            case "2":
+                Main.getNodeMap().setCurrentFloor("2");
+                btn_map02.setOpacity(1);
+                btn_map02.fire();
+                break;
+            case "3":
+                Main.getNodeMap().setCurrentFloor("3");
+                btn_map03.setOpacity(1);
+                btn_map03.fire();
+                break;
+        }
+    }
 
     @FXML
     void ourWebsite() throws IOException {
@@ -504,11 +562,9 @@ public class PatientController extends Controller {
                 strPath = single.getAlgorithm().getPathAlg().getGenPath();
                 currPath = strPath;
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
-
-
             } else {
                 try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
+                    throw new InvalidNodeException("this is not accessible with the current map");
                 } catch (InvalidNodeException e) {
                     e.printStackTrace();
                 }
