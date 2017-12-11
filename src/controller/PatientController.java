@@ -92,6 +92,9 @@ public class PatientController extends Controller {
     @FXML
     private Label floor3Label, floor2Label, floor1Label, floorGLabel, floorL1Label, floorL2Label;
 
+    @FXML
+    private ImageView openclose;
+
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -105,6 +108,7 @@ public class PatientController extends Controller {
     private GraphicsContext gc1 = null;
 
     public void initialize() {
+        openclose.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
@@ -400,6 +404,9 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
                                 10,
                                 10);
+                        openclose.setVisible(true);
+                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
+                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
                     }
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -430,6 +437,7 @@ public class PatientController extends Controller {
                     goal.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
                     10,
                     10);
+
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);
@@ -758,6 +766,7 @@ public class PatientController extends Controller {
         SearchPath.setVisible(false);
         System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
+
         resize();
 
     }
@@ -834,6 +843,10 @@ public class PatientController extends Controller {
         gc.setScaleY(single.getZoom());
         gc.setTranslateX(single.getXTrans());
         gc.setTranslateY(single.getYTrans());
+        openclose.setScaleX(single.getZoom());
+        openclose.setScaleY(single.getZoom());
+        openclose.setTranslateX(single.getXTrans());
+        openclose.setTranslateY(single.getYTrans());
         currentMap.setScaleX(single.getZoom());
         currentMap.setScaleY(single.getZoom());
         currentMap.setTranslateX(single.getXTrans());
