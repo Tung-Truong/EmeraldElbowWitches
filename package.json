@@ -1,0 +1,23 @@
+{
+  "name": "emeraldelbowwitches",
+  "version": "1.0.0",
+  "description": "This is an implementation of a pathfinding kiosk for Brigham and Women's Hospital in Boston, MA. It has been created for [Prof. Wong's](https://www.wpi.edu/people/faculty/wwong2) CS 3733 class at [Worcester Polytechnic Institute](wpi.edu), B term 2017.",
+  "main": "Website/server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node Website/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omniscientbacon/EmeraldElbowWitches.git"
+  },
+  "author": "Karsten Roberts, Joshua Galang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omniscientbacon/EmeraldElbowWitches/issues"
+  },
+  "homepage": "https://github.com/omniscientbacon/EmeraldElbowWitches#readme"
+}
