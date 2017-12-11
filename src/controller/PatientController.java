@@ -426,14 +426,19 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
                                 10,
                                 10);
+                        openclose.setVisible(true);
+                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
+                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2  + 3);
+
+                        if(evalatorNodes.size()> 0){
+                            evalatorNodes.remove(0);
+                        }
+                        if(evalatorNodes.size() > 3){
+                            evalatorNodes.remove(2);
+                        }
+                        evalatorNodes.add(0,tempDraw);
                     }
-                    openclose.setVisible(true);
-                    openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
-                    openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
-                    if(evalatorNodes.size()> 0){
-                        evalatorNodes.remove(0);
-                    }
-                    evalatorNodes.add(0,n);
+
                 }
             }
             if (Floors.size() > 0) {
