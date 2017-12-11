@@ -103,7 +103,7 @@
                   <Font size="16.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" style="-fx-background-color: #4286f4;">
+            <JFXTextField fx:id="SearchNodeID" layoutX="14.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" style="-fx-background-color: #4286f4;">
                <font>
                   <Font size="16.0" />
                </font>
@@ -140,7 +140,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXSlider>
-      <ImageView fx:id="openclose" fitHeight="68.0" fitWidth="83.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#goToNextFloor">
+      <ImageView fx:id="openclose" fitHeight="68.0" fitWidth="83.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#goToNextFloor" visible="false">
+         <image>
+            <Image url="@../media/openclose.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="openclose1" fitHeight="68.0" fitWidth="83.0" layoutX="20.0" layoutY="20.0" onMouseClicked="#goToPreviousFloor" visible="false">
          <image>
             <Image url="@../media/openclose.gif" />
          </image>

@@ -95,6 +95,9 @@ public class PatientController extends Controller {
     @FXML
     private ImageView openclose;
 
+    @FXML
+    private ImageView openclose1;
+
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -110,6 +113,7 @@ public class PatientController extends Controller {
 
     public void initialize() {
         openclose.setVisible(false);
+        openclose1.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
@@ -159,8 +163,6 @@ public class PatientController extends Controller {
 
     @FXML
     void changeMap(Event e) {
-        System.out.print(e.getEventType());
-
         resetFloorButtons();
         oldAnimation.stop();
         Main.controllers.updateAllMaps(e);
@@ -407,10 +409,13 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
                                 10,
                                 10);
-                        openclose.setVisible(true);
-                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
-                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
-                        evalatorNodes.add(n);
+                        openclose1.setVisible(true);
+                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
+                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
+                        if(evalatorNodes.size()>2){
+                            evalatorNodes.remove(1);
+                        }
+                        evalatorNodes.add(1,n);
                     }
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -421,6 +426,13 @@ public class PatientController extends Controller {
                                 10,
                                 10);
                     }
+                    openclose.setVisible(true);
+                    openclose.setX(tempDraw.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
+                    openclose.setY(tempDraw.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
+                    if(evalatorNodes.size()> 0){
+                        evalatorNodes.remove(0);
+                    }
+                    evalatorNodes.add(0,n);
                 }
             }
             if (Floors.size() > 0) {
@@ -460,22 +472,56 @@ public class PatientController extends Controller {
         NodeObj node = null;
         node = evalatorNodes.get(0);
         int i = currPath.indexOf(node);
+        System.out.println(node.node.getFloor());
         String floor = null;
 
         //go to previous floor
-        if(!currPath.get(i+1).node.getFloor().equals(node.node.getFloor())){
+        if(!currPath.get(i+1).node.getFloor().equals(currPath.get(i).node.getFloor())){
             floor = currPath.get(i+1).node.getFloor();
+            System.out.println(floor);
             floorToMap(floor);
+            openclose.setVisible(false);
+            openclose1.setVisible(false);
+            System.out.println("previous floor");
         }
         //go to next floor
-        else{
+        else if(!currPath.get(i-1).node.getFloor().equals(currPath.get(i).node.getFloor())){
             floor = currPath.get(i-1).node.getFloor();
             floorToMap(floor);
+            System.out.println(floor);
+            openclose.setVisible(false);
+            openclose.setVisible(false);
+            System.out.println("next floor");
+        }
+    }
+
+    @FXML
+    private void goToPreviousFloor (){
+        NodeObj node = null;
+        node = evalatorNodes.get(1);
+        int i = currPath.indexOf(node);
+        System.out.println(node.node.getFloor());
+        String floor = null;
+
+        //go to previous floor
+        if(!currPath.get(i+1).node.getFloor().equals(currPath.get(i).node.getFloor())){
+            floor = currPath.get(i+1).node.getFloor();
+            System.out.println(floor);
+            floorToMap(floor);
+            openclose.setVisible(false);
+            System.out.println("previous floor");
+        }
+        //go to next floor
+        if(!currPath.get(i-1).node.getFloor().equals(currPath.get(i).node.getFloor())){
+            floor = currPath.get(i-1).node.getFloor();
+            floorToMap(floor);
+            System.out.println(floor);
+            openclose.setVisible(false);
+            System.out.println("next floor");
         }
     }
     //helper function that goes from floor to corresponding map
     private void floorToMap(String floor) {
-
         switch (floor) {
             case "L2":
                 Main.getNodeMap().setCurrentFloor("L2");
@@ -535,6 +581,8 @@ public class PatientController extends Controller {
         directionsButton.setVisible(true);
         //create a new astar object
         SearchPath.setVisible(false);
+        openclose1.setVisible(false);
+        openclose.setVisible(false);
         double mousex = (5000 * event.getX()) / currentMap.getFitWidth();
         double mousey = (3400 * event.getY()) / currentMap.getFitHeight();
         if (gc1 == null)
@@ -903,6 +951,10 @@ public class PatientController extends Controller {
         openclose.setScaleY(single.getZoom());
         openclose.setTranslateX(single.getXTrans());
         openclose.setTranslateY(single.getYTrans());
+        openclose1.setScaleX(single.getZoom());
+        openclose1.setScaleY(single.getZoom());
+        openclose1.setTranslateX(single.getXTrans());
+        openclose1.setTranslateY(single.getYTrans());
         currentMap.setScaleX(single.getZoom());
         currentMap.setScaleY(single.getZoom());
         currentMap.setTranslateX(single.getXTrans());
