@@ -373,67 +373,6 @@ public class PatientController extends Controller {
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
         Floors = new ArrayList<>();
-        /*if(reversePath.isSelected()){
-            reversedPath = currPath;
-            Collections.reverse(reversedPath);
-            for (NodeObj n : reversedPath) {
-                if (n != Main.getKiosk()) {
-                    if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
-                            tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                        gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
-                                n.node.getyLoc() * single.getMapHeight() / 3400,
-                                tempDraw.node.getxLoc() * single.getMapWidth() / 5000,
-                                tempDraw.node.getyLoc() * single.getMapHeight() / 3400);
-                    } else if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
-                        gc1.setFill(Color.BLACK);
-                        if (n.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
-                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
-                                    10,
-                                    10);
-                        }
-
-                    } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
-                        gc1.setFill(Color.GOLD);
-                        if (tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                            gc1.fillOval(n.node.getxLoc() * single.mapWidth / 5000 - 5,
-                                    n.node.getyLoc() * single.mapHeight / 3400 - 5,
-                                    10,
-                                    10);
-                        }
-                    }
-                }
-                if (Floors.size() > 0) {
-                    if (!(Floors.get(Floors.size() - 1).equals(n.getNode().getFloor()) || n.getNode().getNodeType().equals("ELEV"))) {
-                        Floors.add(n.getNode().getFloor());
-
-                    }
-                } else if (!(n.getNode().getNodeType().equals("ELEV"))) {
-
-                    Floors.add(n.getNode().getFloor());
-                }
-                tempDraw = n;
-            }
-
-            if (goal.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                gc1.setFill(Color.DARKGREEN);
-                gc1.fillOval(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                        goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
-                        10,
-                        10);
-            }
-            if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
-                gc1.setFill(Color.DARKRED);
-                gc1.fillOval(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                        Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
-                        10,
-                        10);
-            }
-            gc1.setFill(Color.YELLOW);
-            clearChosenFloor();
-            System.out.println(Floors.toString());
-        }
-        else {*/
             for (NodeObj n : currPath) {
                 if ((reversePath.isSelected() && (n != Main.getKiosk())) || (!reversePath.isSelected() && (n != goal))) {
                     if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
@@ -516,10 +455,6 @@ public class PatientController extends Controller {
      * findPath pathfinds, and draws the route to the screen
      */
     public void findPath(MouseEvent event) {
-        /*if(reversePath.isSelected()){
-            System.out.println("don't do that.");
-        }
-        else {*/
             directionsButton.setVisible(true);
             //create a new astar object
             SearchPath.setVisible(false);
@@ -587,30 +522,6 @@ public class PatientController extends Controller {
         NodeObj Kiosk = Main.getKiosk();
         //set the path to null
         strPath = new ArrayList<>();
-
-        /*if (reversePath.isSelected()) {
-            if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
-                gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
-                strPath = single.getAlgorithm().getPathAlg().getGenPath();
-                reversedPath = strPath;
-                Collections.reverse(reversedPath);
-                toggleTextArea.setText(textDirections.getTextDirections(reversedPath));
-
-            } else {
-                try {
-                    throw new InvalidNodeException("this is not accessable with the current map");
-                } catch (InvalidNodeException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (oldAnimation != null) {
-                resetAnimations(oldAnimation);
-            }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter(reversedPath)), Duration.millis(4000));
-            animation.play();
-            oldAnimation = animation;
-            DrawCurrentFloorPath();
-        } else {*/
             //try a*
             if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
@@ -637,7 +548,6 @@ public class PatientController extends Controller {
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
-        //}
     }
 
 
