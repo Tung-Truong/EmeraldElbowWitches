@@ -9,16 +9,27 @@ public class TextDirections {
     public TextDirections() {
 
     }
-    //To Do: Create a new String that holds either nothing or a tab
-    //add this string to all add msg parts
-    //after changing floors change the string to be a tab
-    //change back to a space when changing floors
-    //then repeat until out of floors
-    // use nextNode and current node floor to figure out when floors are changing
-    //also add an int that keeps track of which step it is and add that to the msg statements.
-
-
+    /*
+    int switched;
+    public String floorSwitch(int stingType) {
+        if (switched == 0){
+            return "";
+        }
+        else if(switched == 1){
+            return "    ";
+        }
+        //To Do: Create a new String that holds either nothing or a tab
+        //add this string to all add msg parts
+        //after changing floors change the string to be a tab
+        //change back to a space when changing floors
+        //then repeat until out of floors
+        // use nextNode and current node floor to figure out when floors are changing
+        //also add an int that keeps track of which step it is and add that to the msg statements.
+        return" ";
+    }
+    */
     //creates text directions given an arraylist of nodes
+
     public String getTextDirections(ArrayList<NodeObj> pat) {
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         for (NodeObj n : pat)
@@ -46,10 +57,9 @@ public class TextDirections {
             nextNode = path.get(i + 1).getNode();
             floorNode = path.get(i + 1).getNode();
 
-            // if the next node is a staircase
-            if (nextNode.getNodeType().equals("STAI") && floorNode.getFloor() != nextNode.getFloor()) {
-                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
-            } else if (nextNode.getNodeType().equals("ELEV") && floorNode.getFloor() != nextNode.getFloor()) {
+
+            // if the next node is an elevator - print the floor and split the text
+            if (nextNode.getNodeType().equals("ELEV") && !floorNode.getFloor().equals(nextNode.getFloor())) {
                 msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
             } else {
                 // calculate the angle between the vector last->
