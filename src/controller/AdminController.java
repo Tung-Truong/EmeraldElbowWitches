@@ -30,49 +30,16 @@ import static java.lang.Thread.sleep;
 public class AdminController extends Controller {
 
     @FXML
-    private JFXButton serviceRequestBtn;
+    private JFXButton serviceRequestBtn, addEditBtn, RemoveButton, editEmployeesBtn, removeNodeBtn, btn_map03, btn_map02,
+            btn_map01, btn_mapG, btn_mapL1, btn_mapL2, astarBtn, depthBtn, breadthBtn, dijkstrasBtn, bestBtn, beamBtn,
+            Tleft, Tright, Tup, Tdown;
 
     @FXML
-    private JFXButton addEditBtn;
-
-    @FXML
-    private JFXButton RemoveButton;
-
-    @FXML
-    private JFXButton editEmployeesBtn;
-
-    @FXML
-    private JFXButton removeNodeBtn;
-
-    @FXML
-    private JFXTogglePane textTogglePane;
-
-    @FXML
-    private JFXToggleButton textToggle;
+    private JFXTextField nodeTypeField, shortNameField, longNameField, teamField, buildingField, floorField, yLocField,
+            xLocField, nodeIDField, weightField, nodeBField, nodeAField;
 
     @FXML
     private JFXSlider zoomBar;
-
-    @FXML
-    private ImageView img_Map;
-
-    @FXML
-    private JFXButton btn_map03;
-
-    @FXML
-    private JFXButton btn_map02;
-
-    @FXML
-    private JFXButton btn_map01;
-
-    @FXML
-    private JFXButton btn_mapG;
-
-    @FXML
-    private JFXButton btn_mapL1;
-
-    @FXML
-    private JFXButton btn_mapL2;
 
     @FXML
     private Canvas gc;
@@ -81,88 +48,13 @@ public class AdminController extends Controller {
     private JFXComboBox<String> CurrRequ;
 
     @FXML
-    private ImageView homeScreen;
-
-    @FXML
     public ImageView currentMap;
 
     @FXML
-    private JFXTextArea toggleTextArea;
-
-    @FXML
-    private Pane nodeInfoPane;
-
-    @FXML
-    private JFXTextField nodeTypeField;
-
-    @FXML
-    private JFXTextField shortNameField;
-
-    @FXML
-    private JFXTextField longNameField;
-
-    @FXML
-    private JFXTextField teamField;
-
-    @FXML
-    private JFXTextField buildingField;
-
-    @FXML
-    private JFXTextField floorField;
-
-    @FXML
-    private JFXTextField yLocField;
-
-    @FXML
-    private JFXTextField xLocField;
-
-    @FXML
-    private JFXTextField nodeIDField;
-
-    @FXML
-    private Pane edgeInfoPane;
-
-    @FXML
-    private JFXTextField weightField;
-
-    @FXML
-    private JFXTextField nodeBField;
-
-    @FXML
-    private JFXTextField nodeAField;
-
-    @FXML
-    private JFXButton astarBtn;
-
-    @FXML
-    private JFXButton depthBtn;
-
-    @FXML
-    private JFXButton breadthBtn;
-
-    @FXML
-    private JFXButton dijkstrasBtn;
-
-    @FXML
-    private JFXButton beamBtn;
-
-    @FXML
-    private JFXButton bestBtn;
+    private Pane nodeInfoPane, edgeInfoPane;
 
     @FXML
     private JFXToggleButton nodeAlignmentToggle;
-
-    @FXML
-    private JFXButton Tleft;
-
-    @FXML
-    private JFXButton Tright;
-
-    @FXML
-    private JFXButton Tup;
-
-    @FXML
-    private JFXButton Tdown;
 
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
@@ -173,7 +65,7 @@ public class AdminController extends Controller {
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
-    public void initialize(){
+    public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
         single.getAlgorithm().setPathAlg(new astar());
@@ -182,7 +74,6 @@ public class AdminController extends Controller {
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
     }
-
 
     private void redraw() {
         nodeInfoPane.setVisible(false);
@@ -200,18 +91,18 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if(gc1 == null)
+        if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
-        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
-            for(EdgeObj e: n.getListOfEdgeObjs()){
+        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
+            for (EdgeObj e : n.getListOfEdgeObjs()) {
                 gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
-                        e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
-                        e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
-                        e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+                gc1.strokeLine(e.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
+                        e.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
+                        e.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
+                        e.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -219,15 +110,15 @@ public class AdminController extends Controller {
 
         }
 
-        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
             gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
-                    n.node.getyLoc()*single.getMapHeight()/3400 - 5,
+            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                    n.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
             gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
-                    n.node.getyLoc()*single.getMapHeight()/3400 - 4,
+            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 4,
+                    n.node.getyLoc() * single.getMapHeight() / 3400 - 4,
                     8,
                     8);
         }
@@ -290,20 +181,20 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
-        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
-        if((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))){
+        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
             redraw();
-            createNewNode(mousex,mousey);
-        }else if(event.getButton() == MouseButton.PRIMARY){
-            if(nodeA == null){
+            createNewNode(mousex, mousey);
+        } else if (event.getButton() == MouseButton.PRIMARY) {
+            if (nodeA == null) {
                 selectNodeA(event);
-            }else{
-                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
+            } else {
+                if (nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey).getNode().getNodeID())) {
                     edgeInfoPane.setVisible(false);
-                    selectNode(mousex,mousey);
+                    selectNode(mousex, mousey);
                     nodeA = null;
-                }else {
+                } else {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
@@ -382,8 +273,8 @@ public class AdminController extends Controller {
     @FXML
     void selectNodeA(MouseEvent event) {
         nodeInfoPane.setVisible(false);
-        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
         try {
             nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             nodeAField.setText(nodeA.getNode().getNodeID());
@@ -396,15 +287,15 @@ public class AdminController extends Controller {
     void selectEdge(MouseEvent event) {
         System.out.println("DRAG RELEASED");
 
-        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
 
         try {
             NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             String nodeB = nodeEnd.getNode().getNodeID();
             nodeBField.setText(nodeB);
 
-            if(nodeAlignmentToggle.isSelected()) {
+            if (nodeAlignmentToggle.isSelected()) {
                 System.out.println("We're aligning!");
                 NodeAlignment nodeAlign = new NodeAlignment();
 
@@ -442,10 +333,10 @@ public class AdminController extends Controller {
         redraw();
 
         gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
-                edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
-                edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
-                edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
+                edgeAB.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
+                edgeAB.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
+                edgeAB.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
 
     }
 
@@ -521,7 +412,7 @@ public class AdminController extends Controller {
                     Tright.setOpacity(opacity);
                     break;
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -553,8 +444,15 @@ public class AdminController extends Controller {
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-                this.single.getAlgorithm().setPathAlg(new BestFirst());
+                //replaced for test perpouse return the class to best first!
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
                 break;
+                /* Scenic route button case
+            case "scenicBtn":
+                bestBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
+                break;
+                */
         }
     }
 
@@ -591,7 +489,7 @@ public class AdminController extends Controller {
         ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, single.getMapWidth(), single.getMapHeight()));
+        servStage.setScene(new Scene(root, single.getMapWidth() - 100, single.getMapHeight() - 50));
         servStage.show();
     }
 
@@ -611,7 +509,6 @@ public class AdminController extends Controller {
                 e.getMessage();
             }
         }
-
     }
 
     @FXML
@@ -719,6 +616,4 @@ public class AdminController extends Controller {
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
     }
-
-
 }
