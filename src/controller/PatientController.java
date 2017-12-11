@@ -113,10 +113,10 @@ public class PatientController extends Controller {
         toolTipsInit();
     }
 
-    private void toolTipsInit(){
+    private void toolTipsInit() {
 
         //about us
-        final Tooltip aboutUs= new Tooltip();
+        final Tooltip aboutUs = new Tooltip();
         aboutUs.setText("Learn about the project and our team!");
         toHTML.setTooltip(aboutUs);
 
@@ -721,20 +721,17 @@ public class PatientController extends Controller {
 
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
-        for (NodeObj n : Main.getNodeMap().getNodes()) {
-
-
-            if (search.length() > 2 && (
-                            FuzzySearch.partialRatio(n.node.getLongName(), search) > 50  ||
-                            FuzzySearch.partialRatio(n.node.getNodeID(), search) > 50)) {
-                SearchNodes.add(n);
-                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
-            } else if (search.length() == 0) {
-
-                //List of predetermined important nodes.
-                if (!n.node.getNodeType().equals("HALL")) {
+        if (search.length() > 2) {
+            for (NodeObj n : Main.getNodeMap().getNodes()) {
+                if (FuzzySearch.partialRatio(n.node.getLongName(), search) > 50 || FuzzySearch.partialRatio(n.node.getNodeID(), search) > 50){
+                    SearchNodes.add(n);
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
+            }
+        }
+        else if (search.length() == 0) {
+            for (NodeObj n: Main.importantNodes.getNodes()) {
+                SearchOptions.getItems().add(    n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
     }
@@ -923,8 +920,8 @@ public class PatientController extends Controller {
         }
     }
 
-    public int pathAnimationSpeed(){
-        speed = single.getPathAnimationSpeed()*400;
+    public int pathAnimationSpeed() {
+        speed = single.getPathAnimationSpeed() * 400;
         return speed;
     }
 }

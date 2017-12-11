@@ -29,6 +29,7 @@ public class Main extends Application {
     public static NodeObj kiosk;        // default location of the starting point for pathfinding
     //contains all the node objects from the entity
     public static ListOfNodeObjs nodeMap;
+    public static ListOfNodeObjs importantNodes;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the employee
     public static ArrayList<Employee> employees;
@@ -269,6 +270,10 @@ public class Main extends Application {
 
     public static ListOfNodeObjs getNodeMap() {
         return nodeMap;
+    }
+
+    public static ListOfNodeObjs getImportantNodes(){
+        return importantNodes;
     }
 
     public static Scene getPatientScene() {
