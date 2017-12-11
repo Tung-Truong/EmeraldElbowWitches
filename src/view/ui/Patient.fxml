@@ -13,39 +13,39 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
          </image>
       </ImageView>
       <Canvas fx:id="gc" height="900.0" onMousePressed="#mousePress" width="1400.0" />
-      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
+      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="3" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L1" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="L1" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="1" textFill="WHITE">
+      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="1" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="2" textFill="WHITE">
+      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="2" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="G" textFill="WHITE">
+      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="G" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L2" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" stylesheets="@../stylesheets/UI.css" text="L2" textFill="WHITE">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
