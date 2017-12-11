@@ -411,8 +411,8 @@ public class PatientController extends Controller {
                                 10,
                                 10);
                         openclose1.setVisible(true);
-                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose1.getFitWidth()/2 - 5);
-                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose1.getFitHeight()/2 - 3);
+                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose1.getFitWidth()/2 - 25 );
+                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose1.getFitHeight()/2 - 15);
                         if(evalatorNodes.size()>2){
                             evalatorNodes.remove(1);
                         }
@@ -427,14 +427,11 @@ public class PatientController extends Controller {
                                 10,
                                 10);
                         openclose.setVisible(true);
-                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
-                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2  + 3);
+                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 20);
+                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 10);
 
                         if(evalatorNodes.size()> 0){
                             evalatorNodes.remove(0);
-                        }
-                        if(evalatorNodes.size() > 3){
-                            evalatorNodes.remove(2);
                         }
                         evalatorNodes.add(0,tempDraw);
                     }
@@ -874,7 +871,8 @@ public class PatientController extends Controller {
         SearchPath.setVisible(false);
         System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
-
+        openclose.setVisible(false);
+        openclose1.setVisible(false);
         resize();
 
     }
@@ -946,7 +944,10 @@ public class PatientController extends Controller {
         if (single.getZoom() <= 1) {
             single.setXTrans(0);
             single.setYTrans(0);
+            openclose1.setVisible(true);
+            openclose.setVisible(true);
         }
+
         gc.setScaleX(single.getZoom());
         gc.setScaleY(single.getZoom());
         gc.setTranslateX(single.getXTrans());
