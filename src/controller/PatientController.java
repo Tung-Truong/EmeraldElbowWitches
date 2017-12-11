@@ -104,6 +104,7 @@ public class PatientController extends Controller {
     ArrayList<String> Floors;
     double startX;
     double startY;
+    private String previousFloor;
     ArrayList<NodeObj> strPath;
     Animation oldAnimation;
     SingleController single = SingleController.getController();
@@ -410,8 +411,8 @@ public class PatientController extends Controller {
                                 10,
                                 10);
                         openclose1.setVisible(true);
-                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
-                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
+                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose1.getFitWidth()/2 - 5);
+                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose1.getFitHeight()/2 - 3);
                         if(evalatorNodes.size()>2){
                             evalatorNodes.remove(1);
                         }
@@ -427,8 +428,8 @@ public class PatientController extends Controller {
                                 10);
                     }
                     openclose.setVisible(true);
-                    openclose.setX(tempDraw.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
-                    openclose.setY(tempDraw.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
+                    openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 5);
+                    openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 3);
                     if(evalatorNodes.size()> 0){
                         evalatorNodes.remove(0);
                     }
@@ -474,24 +475,23 @@ public class PatientController extends Controller {
         int i = currPath.indexOf(node);
         System.out.println(node.node.getFloor());
         String floor = null;
+        String nextFloor = currPath.get(i+1).node.getFloor();
+        String prevFloor = currPath.get(i-1).node.getFloor();
 
         //go to previous floor
-        if(!currPath.get(i+1).node.getFloor().equals(currPath.get(i).node.getFloor())){
-            floor = currPath.get(i+1).node.getFloor();
+        if(!nextFloor.equals(currPath.get(i).node.getFloor())){
+            floor = nextFloor;
             System.out.println(floor);
             floorToMap(floor);
-            openclose.setVisible(false);
-            openclose1.setVisible(false);
-            System.out.println("previous floor");
+            System.out.println("next floor");
         }
         //go to next floor
-        else if(!currPath.get(i-1).node.getFloor().equals(currPath.get(i).node.getFloor())){
-            floor = currPath.get(i-1).node.getFloor();
+        else if(!prevFloor.equals(currPath.get(i).node.getFloor())){
+            floor = prevFloor;
             floorToMap(floor);
             System.out.println(floor);
-            openclose.setVisible(false);
-            openclose.setVisible(false);
-            System.out.println("next floor");
+            System.out.println("previous floor");
+            prevFloor = floor;
         }
     }
 
@@ -502,21 +502,20 @@ public class PatientController extends Controller {
         int i = currPath.indexOf(node);
         System.out.println(node.node.getFloor());
         String floor = null;
-
+        String nextFloor = currPath.get(i+1).node.getFloor();
+        String prevFloor = currPath.get(i-1).node.getFloor();
         //go to previous floor
-        if(!currPath.get(i+1).node.getFloor().equals(currPath.get(i).node.getFloor())){
-            floor = currPath.get(i+1).node.getFloor();
+        if(!nextFloor.equals(currPath.get(i).node.getFloor())){
+            floor = nextFloor;
             System.out.println(floor);
             floorToMap(floor);
-            openclose.setVisible(false);
             System.out.println("previous floor");
         }
         //go to next floor
-        if(!currPath.get(i-1).node.getFloor().equals(currPath.get(i).node.getFloor())){
-            floor = currPath.get(i-1).node.getFloor();
+        if(!prevFloor.equals(currPath.get(i).node.getFloor())){
+            floor = prevFloor;
             floorToMap(floor);
             System.out.println(floor);
-            openclose.setVisible(false);
             System.out.println("next floor");
         }
     }
