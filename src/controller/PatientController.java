@@ -372,8 +372,8 @@ public class PatientController extends Controller {
         floor3Label.setText("");
         gc1.setLineWidth(2);
         NodeObj tempDraw = goal;
-        Floors = new ArrayList<String>();
-        if(reversePath.isSelected()){
+        Floors = new ArrayList<>();
+        /*if(reversePath.isSelected()){
             reversedPath = currPath;
             Collections.reverse(reversedPath);
             for (NodeObj n : reversedPath) {
@@ -433,9 +433,9 @@ public class PatientController extends Controller {
             clearChosenFloor();
             System.out.println(Floors.toString());
         }
-        else {
+        else {*/
             for (NodeObj n : currPath) {
-                if (n != goal) {
+                if ((reversePath.isSelected() && (n != Main.getKiosk())) || (!reversePath.isSelected() && (n != goal))) {
                     if (n.node.getFloor().equals(Main.getNodeMap().currentFloor) &&
                             tempDraw.node.getFloor().equals(Main.getNodeMap().currentFloor)) {
                         gc1.strokeLine(n.node.getxLoc() * single.getMapWidth() / 5000,
@@ -490,7 +490,7 @@ public class PatientController extends Controller {
             gc1.setFill(Color.YELLOW);
             clearChosenFloor();
             System.out.println(Floors.toString());
-        }
+        //}
     }
 
 
@@ -516,10 +516,10 @@ public class PatientController extends Controller {
      * findPath pathfinds, and draws the route to the screen
      */
     public void findPath(MouseEvent event) {
-        if(reversePath.isSelected()){
+        /*if(reversePath.isSelected()){
             System.out.println("don't do that.");
         }
-        else {
+        else {*/
             directionsButton.setVisible(true);
             //create a new astar object
             SearchPath.setVisible(false);
@@ -548,7 +548,7 @@ public class PatientController extends Controller {
             if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
                 drawingPath();
             }
-        }
+        //}
     }
 
     @FXML
@@ -588,7 +588,7 @@ public class PatientController extends Controller {
         //set the path to null
         strPath = new ArrayList<>();
 
-        if (reversePath.isSelected()) {
+        /*if (reversePath.isSelected()) {
             if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
                 strPath = single.getAlgorithm().getPathAlg().getGenPath();
@@ -610,13 +610,16 @@ public class PatientController extends Controller {
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
-        } else {
+        } else {*/
             //try a*
             if (single.getAlgorithm().getPathAlg().pathfind(Kiosk, goal)) {
                 gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
                 strPath = single.getAlgorithm().getPathAlg().getGenPath();
                 currPath = strPath;
+                if(reversePath.isSelected()){
+                    Collections.reverse(currPath);
+                }
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
 
 
@@ -634,7 +637,7 @@ public class PatientController extends Controller {
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
-        }
+        //}
     }
 
 
