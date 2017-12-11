@@ -795,6 +795,10 @@ public class PatientController extends Controller {
         servStage.show();
     }
 
+    /*
+        Needs to snap to relative x and y position when zoomed in or out
+     */
+
     @FXML
     void Zin() {
         SearchPath.setVisible(false);
@@ -804,28 +808,45 @@ public class PatientController extends Controller {
 
     }
 
+    /*
+        No more problems with errors with zooming but current x values are not being updates when we translate, need to
+        get a current x values
+     */
+
     @FXML
     void Tleft() {
-        single.addX((int) (200.0 / single.getZoom()));
-        resize();
+        System.out.println("Boundary: " + single.getMapWidth() + " " + "Actual: " + single.getXTrans());
+        if (single.getXTrans() <= single.getMapWidth()/2) {
+            single.addX((int) (200.0 / single.getZoom()));
+            resize();
+        }
     }
 
     @FXML
     void Tright() {
-        single.subX((int) (200.0 / single.getZoom()));
-        resize();
+        System.out.println("Boundary: " + single.getMapWidth() + " " + "Actual: " + single.getXTrans());
+        if (single.getYTrans() >= single.getMapWidth()/2) {
+            single.subX((int) (200.0 / single.getZoom()));
+            resize();
+        }
     }
 
     @FXML
     void Tup() {
-        single.addY((int) (160.0 / single.getZoom()));
-        resize();
+        System.out.println("Boundary: " + single.getMapHeight() + " " + "Actual: " + (int) (160.0 / single.getZoom()));
+        if ((int) (160.0 / single.getZoom()) <= single.getMapHeight()) {
+            single.addY((int) (160.0 / single.getZoom()));
+            resize();
+        }
     }
 
     @FXML
     void Tdown() {
-        single.subY((int) (160.0 / single.getZoom()));
-        resize();
+        System.out.println("Boundary: " + single.getMapHeight() + " " + "Actual: " + (int) (160.0 / single.getZoom()));
+        if ((int) (160.0 / single.getZoom()) >= 0) {
+            single.subY((int) (160.0 / single.getZoom()));
+            resize();
+        }
     }
 
     @FXML
