@@ -825,7 +825,7 @@ public class PatientController extends Controller {
     @FXML
     void Tright() {
         System.out.println("Boundary: " + single.getMapWidth() + " " + "Actual: " + single.getXTrans());
-        if (single.getYTrans() >= single.getMapWidth()/2) {
+        if (single.getYTrans() >= 0 && single.getYTrans() <= single.getMapHeight()) {
             single.subX((int) (200.0 / single.getZoom()));
             resize();
         }
