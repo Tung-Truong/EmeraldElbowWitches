@@ -2,11 +2,13 @@ package model;
 
 import controller.Main;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 public class ServiceRequest implements IReport {
 
@@ -23,7 +25,10 @@ public class ServiceRequest implements IReport {
     protected String location;
     protected Date received;
     protected Date sent;
+    protected String sentString;
     protected Employee assigned;
+    protected String requestType;
+    protected String otherInfo;
     protected String classType;
 
     // Constructor
@@ -33,19 +38,22 @@ public class ServiceRequest implements IReport {
         Info Format:
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
-    public ServiceRequest(String id, String type, String active, String submitted) {
+
+    public ServiceRequest(String id, String type, String active, String submitted, String loc, String items){
         isActive = Boolean.parseBoolean(active);
-        for (Employee e : Main.employees) {
-            if (Long.parseLong(id) == e.getId()) {
+        for (Employee e : Main.employees){
+            if(Long.parseLong(id) == e.getId()){
                 assigned = e;
             }
         }
         sent = new Date(Date.parse(submitted));
         email = assigned.getEmail();
         messageHeader = type;
-
-
+        location = loc;
+        requestType = messageHeader.split(" ")[0].trim();
         properties = new Properties();
+        sentString = sent.toString();
+        otherInfo = items;
 
         // property attributes for replying to the email
         properties.put("mail.store.protocol", "imaps");
@@ -68,7 +76,7 @@ public class ServiceRequest implements IReport {
         });
     }
 
-    public ServiceRequest() {
+    public ServiceRequest(){
         isActive = true;
 
         properties = new Properties();
@@ -94,6 +102,37 @@ public class ServiceRequest implements IReport {
         });
     }
 
+
+    public String getOtherInfo() {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
+    }
+
+    public void setUpdateSentString() {
+        this.sentString = sent.toString();
+    }
+
+    public void setUpdateRequestType() {
+        this.requestType = messageHeader.split(" ")[0].trim();
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public String getSentString() {
+        SimpleDateFormat formater = new SimpleDateFormat("MM/d/yy");
+        try {
+            sentString = formater.format(sent);
+        }catch (NullPointerException e){
+            return null;
+        }
+        return sentString;
+    }
+
     // Getters
     public boolean isActive() {
         return isActive;
@@ -108,54 +147,56 @@ public class ServiceRequest implements IReport {
     }
 
     // Resets the e-mail account that the message is coming from
-    public void setAccountFrom(String username, String password) {
+    public void setAccountFrom(String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    public void setActive(boolean bool) {
+    public String getLocation() {
+        return location;
+    }
+
+    public void setActive(boolean bool){
         this.isActive = bool;
     }
 
-    public void setAssigned(Employee e) {
+    public void setAssigned(Employee e){
         this.assigned = e;
     }
 
     // Sets the e-mail address that the message is going to
-    public void setAccountTo(String email) {
+    public void setAccountTo(String email){
         this.email = email;
     }
 
-    public void setMessageText(String message) {
+    public void setMessageText(String message){
         this.messageText = message;
     }
 
-    public void setMessageHeader(String header) {
+    public void setMessageHeader(String header){
         this.messageHeader = header;
     }
 
-    public String getMessageHeader() {
+    public String getMessageHeader(){
         return this.messageHeader;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+    public void setLocation(String location) { this.location = location;}
 
     // Remove these two methods after testing, they are solely here for testing purposes
-    public void setSent() {
+    public void setSent(){
         sent = new Date();
     }
 
-    public void setReceived() {
+    public void setReceived(){
         received = new Date();
     }
 
-    public void setReceived(long part) {
+    public void setReceived(long part){
         received = new Date(sent.getTime() + part);
     }
 
-    public boolean sendEmailServiceRequest() {
+    public boolean sendEmailServiceRequest(){
 
         try {
             MimeMessage mime = new MimeMessage(session);
@@ -171,14 +212,15 @@ public class ServiceRequest implements IReport {
             sent = mime.getSentDate();
 
             return true;
-        } catch (MessagingException mex) {
+        }
+        catch (MessagingException mex){
             mex.printStackTrace();
             return false;
         }
     }
 
-    public void resolveRequest() {
-        if (this.isActive) {
+    public void resolveRequest(){
+        if(this.isActive){
             int gates = 0;
 
             try {
@@ -188,8 +230,8 @@ public class ServiceRequest implements IReport {
 
                 Folder folder = store.getFolder("inbox");
 
-                if (folder.exists()) {
-                    folder.open(Folder.READ_ONLY);
+                if(folder.exists()){
+                    folder.open(Folder.READ_WRITE);
 
                     Message[] messages = folder.getMessages();
 
@@ -208,23 +250,22 @@ public class ServiceRequest implements IReport {
                                     }
                                 }
 
-                                System.out.println(email);
+                            System.out.println(email);
 
-
-                                String to = InternetAddress.toString(message
-                                        .getRecipients(Message.RecipientType.TO));
-                                if (to != null) {
-                                    int begin = to.indexOf("<");
-                                    int end = to.indexOf(">");
-                                    if (begin >= 0) {
-                                        if (username.equals(to.substring(begin + 1, end))) {
-                                            gates += 1;
-                                        }
-                                    } else if (username.equals(to)) {
+                            String to = InternetAddress.toString(message
+                                    .getRecipients(Message.RecipientType.TO));
+                            if (to != null) {
+                                int begin = to.indexOf("<");
+                                int end = to.indexOf(">");
+                                if (begin >= 0){
+                                    if (username.equals(to.substring(begin+1, end))) {
                                         gates += 1;
                                     }
+                                } else if (username.equals(to)){
+                                    gates += 1;
                                 }
-                            } catch (StringIndexOutOfBoundsException e) {
+                            }
+                            }catch (StringIndexOutOfBoundsException e){
                                 e.getMessage();
                             }
 
@@ -246,9 +287,10 @@ public class ServiceRequest implements IReport {
                             System.out.println(sent);
                             System.out.println(received.after(sent));
 
-                            if (gates == 4) {
+                            if (gates == 4){
                                 // replyInfo = message.getContent().toString();
                                 setActive(false);
+                                message.setFlag(Flags.Flag.DELETED, true);
                                 break;
                             }
                         }//end of for loop
@@ -259,7 +301,7 @@ public class ServiceRequest implements IReport {
                         System.out.println("This folder is empty");
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
                 System.out.println("Did Not Refresh");
             }
@@ -268,28 +310,28 @@ public class ServiceRequest implements IReport {
         // There will also be a resolve button in the UI and if this is pressed remove the request from the active list
     }
 
-    public String findTime(long t) {
+    public String findTime(long t){
         int hours = 0;
         int minutes = 0;
         int seconds = 0;
 
-        while ((t - 3600) >= 0) {
+        while ((t - 3600) >= 0){
             t -= 3600;
-            hours++;
+            hours ++;
         }
-        while ((t - 60) >= 0) {
+        while ((t - 60) >= 0){
             t -= 60;
-            minutes++;
+            minutes ++;
         }
-        while ((t - 1) >= 0) {
+        while ((t - 1) >= 0){
             t -= 1;
-            seconds++;
+            seconds ++;
         }
 
-        return String.format("%02:%02:%02", hours, minutes, seconds);
+        return String.format("%02:%02:%02" , hours, minutes, seconds);
     }
 
-    public void generateReport() {
+    public void generateReport(){
 
     }
 }

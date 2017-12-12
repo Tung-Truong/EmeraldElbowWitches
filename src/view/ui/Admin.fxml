@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
@@ -12,7 +20,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
          <image>
@@ -64,41 +72,41 @@
             <Font name="Avenir Next Bold" size="82.0" />
          </font>
       </Label>
-      <Pane fx:id="nodeInfoPane" layoutX="1046.0" layoutY="538.0" prefHeight="359.0" prefWidth="355.0">
+      <Pane fx:id="nodeInfoPane" layoutX="1046.0" layoutY="481.0" prefHeight="416.0" prefWidth="355.0">
          <children>
-            <JFXTextField fx:id="nodeTypeField" layoutX="173.0" layoutY="198.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField fx:id="shortNameField" layoutX="173.0" layoutY="239.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField fx:id="longNameField" layoutX="173.0" layoutY="279.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField fx:id="teamField" layoutX="173.0" layoutY="321.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField fx:id="buildingField" layoutX="173.0" layoutY="157.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField fx:id="floorField" layoutX="173.0" layoutY="117.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ebebeb00" />
-            <JFXTextField fx:id="yLocField" layoutX="173.0" layoutY="80.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
-            <JFXTextField layoutX="173.0" layoutY="43.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" fx:id="xLocField" />
-            <JFXTextField fx:id="nodeIDField" layoutX="173.0" layoutY="4.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: white;" unFocusColor="#ffffff00" />
-            <Label layoutX="80.0" layoutY="3.0" prefHeight="27.0" prefWidth="58.0" text="Node ID" />
-            <Label layoutX="80.0" layoutY="40.0" prefHeight="27.0" prefWidth="58.0" text="X Loc" />
-            <Label layoutX="80.0" layoutY="77.0" prefHeight="27.0" prefWidth="58.0" text="Y Loc" />
-            <Label layoutX="80.0" layoutY="114.0" prefHeight="27.0" prefWidth="58.0" text="Floor" />
-            <Label layoutX="80.0" layoutY="154.0" prefHeight="27.0" prefWidth="58.0" text="Building" />
-            <Label layoutX="80.0" layoutY="197.0" prefHeight="27.0" prefWidth="64.0" text="nodeType" />
-            <Label layoutX="80.0" layoutY="236.0" prefHeight="27.0" prefWidth="75.0" text="Short Name" />
-            <Label layoutX="80.0" layoutY="276.0" prefHeight="27.0" prefWidth="75.0" text="Long Name" />
-            <Label layoutX="80.0" layoutY="321.0" prefHeight="27.0" prefWidth="58.0" text="Team" />
-            <JFXButton fx:id="addEditBtn" buttonType="RAISED" layoutX="-6.0" layoutY="125.0" onAction="#addEditNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="33.0" prefWidth="93.0" rotate="270.0" style="-fx-background-color: #21a047;" text="ADD/EDIT" textFill="WHITE">
+            <JFXTextField fx:id="nodeTypeField" layoutX="173.0" layoutY="242.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="shortNameField" layoutX="173.0" layoutY="291.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="longNameField" layoutX="173.0" layoutY="336.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="teamField" layoutX="173.0" layoutY="375.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="buildingField" layoutX="173.0" layoutY="196.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField fx:id="floorField" layoutX="173.0" layoutY="148.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ebebeb00" />
+            <JFXTextField fx:id="yLocField" layoutX="173.0" layoutY="102.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
+            <JFXTextField layoutX="173.0" layoutY="58.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" fx:id="xLocField" />
+            <JFXTextField fx:id="nodeIDField" layoutX="173.0" layoutY="17.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: white;" unFocusColor="#ffffff00" />
+            <Label layoutX="80.0" layoutY="16.0" prefHeight="27.0" prefWidth="58.0" text="Node ID" />
+            <Label layoutX="80.0" layoutY="55.0" prefHeight="27.0" prefWidth="58.0" text="X Loc" />
+            <Label layoutX="80.0" layoutY="99.0" prefHeight="27.0" prefWidth="58.0" text="Y Loc" />
+            <Label layoutX="80.0" layoutY="145.0" prefHeight="27.0" prefWidth="58.0" text="Floor" />
+            <Label layoutX="80.0" layoutY="193.0" prefHeight="27.0" prefWidth="58.0" text="Building" />
+            <Label layoutX="80.0" layoutY="241.0" prefHeight="27.0" prefWidth="64.0" text="nodeType" />
+            <Label layoutX="80.0" layoutY="288.0" prefHeight="27.0" prefWidth="75.0" text="Short Name" />
+            <Label layoutX="80.0" layoutY="333.0" prefHeight="27.0" prefWidth="75.0" text="Long Name" />
+            <Label layoutX="80.0" layoutY="375.0" prefHeight="27.0" prefWidth="58.0" text="Team" />
+            <JFXButton fx:id="addEditBtn" buttonType="RAISED" layoutX="-6.0" layoutY="155.0" onAction="#addEditNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="33.0" prefWidth="93.0" rotate="270.0" style="-fx-background-color: #21a047;" text="ADD/EDIT" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></JFXButton>
-            <JFXButton fx:id="removeNodeBtn" buttonType="RAISED" layoutX="-3.0" layoutY="27.0" onAction="#removeNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="86.0" rotate="270.0" style="-fx-background-color: #ba4743;" text="DELETE" textFill="WHITE">
+            <JFXButton fx:id="removeNodeBtn" buttonType="RAISED" layoutX="-3.0" layoutY="42.0" onAction="#removeNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="86.0" rotate="270.0" style="-fx-background-color: #ba4743;" text="DELETE" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font></JFXButton>
-            <JFXButton fx:id="serviceRequestBtn" buttonType="RAISED" layoutX="-39.0" layoutY="259.0" onAction="#makeServiceRequest" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="159.0" rotate="270.0" style="-fx-background-color: #1b3766;" text="SERVICE REQUEST" textFill="WHITE">
+            <JFXButton fx:id="serviceRequestBtn" buttonType="RAISED" layoutX="-39.0" layoutY="305.0" onAction="#makeServiceRequest" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="159.0" rotate="270.0" style="-fx-background-color: #1b3766;" text="SERVICE REQUEST" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="edgeInfoPane" layoutX="1120.0" layoutY="540.0" prefHeight="245.0" prefWidth="247.0" visible="false">
+      <Pane fx:id="edgeInfoPane" layoutX="1120.0" layoutY="497.0" prefHeight="245.0" prefWidth="247.0" visible="false" >
          <children>
             <JFXTextField fx:id="weightField" layoutX="94.0" layoutY="77.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="nodeBField" layoutX="94.0" layoutY="40.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -110,6 +118,48 @@
             <JFXButton layoutX="168.0" layoutY="120.0" onAction="#removeEdge" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
          </children>
       </Pane>
+      <Pane fx:id="RequestPane" layoutX="1046.0" layoutY="482.0" opacity="0.90" prefHeight="422.0" prefWidth="370.0" visible="false" style="-fx-border-color: black; -fx-background-color: gainsboro;">
+         <children>
+            <JFXTabPane prefHeight="450" prefWidth="370.0" tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #4286f4; -fx-tab-min-width: 178;" >
+              <tabs>
+                <Tab onSelectionChanged="#switchTable1" text="Active" style="-fx-background-color: #1b3766;"  >
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                           <children>
+                              <TreeTableView onMouseClicked="#snapToNode" fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0" visible="false">
+                                <columns>
+                                  <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
+                                  <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
+                                    <TreeTableColumn fx:id="activeItem" prefWidth="88.0" text="Other Info" />
+                                    <TreeTableColumn fx:id="activeDate" prefWidth="88.0" text="Date" />
+                                </columns>
+                              </TreeTableView>
+                              <JFXButton  onAction="#MyRequests" layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              <JFXButton onAction="#RemoveRequest" layoutX="196.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Remove" textFill="WHITE" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab onSelectionChanged="#switchTable2" text="Completed" style="-fx-background-color: #1b3766;">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
+                           <children>
+                              <TreeTableView  fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
+                                <columns>
+                                  <TreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
+                                  <TreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
+                                    <TreeTableColumn fx:id="completedItem" prefWidth="88.0" text="Items" />
+                                    <TreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
+                                </columns>
+                              </TreeTableView>
+                              <JFXButton onAction="#MyRequests" layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </JFXTabPane>
+         </children></Pane>
       <JFXButton fx:id="astarBtn" buttonType="RAISED" layoutX="24.0" layoutY="16.0" onAction="#selectPathAlg" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.49" prefHeight="26.0" prefWidth="40.0" ripplerFill="#1b3766" style="-fx-background-color: #21a047;" text="A*" textFill="WHITE">
          <font>
             <Font size="14.0" />
@@ -165,19 +215,23 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0"  opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
       <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="37.0" layoutY="850.0" onMouseClicked="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-       <JFXButton fx:id="RemoveButton" buttonType="RAISED" layoutX="1220.0" layoutY="440.0" onAction="#RemoveRequest" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" text="REMOVE REQUEST" textFill="WHITE" />
-       <JFXComboBox fx:id="CurrRequ" layoutX="1221.0" layoutY="489.0" onMouseClicked="#MyRequests" prefHeight="27.0" prefWidth="144.0" promptText="MY REQUESTS" style="-fx-background-color: white;" />
       <JFXToggleButton fx:id="nodeAlignmentToggle" layoutX="117.0" layoutY="798.0" text="Node Alignment" />
-      <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" max="10.0" min="1.0" />
-      <Label layoutX="25.0" layoutY="62.0" text="Path Animation Speed:">
+      <JFXToggleButton layoutX="1207.0" layoutY="428.0" onAction="#ActivateRequests" text="My Requests">
          <font>
             <Font size="14.0" />
          </font>
-      </Label>
+      </JFXToggleButton>
+       <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" max="10.0" min="1.0" />
+       <Label layoutX="25.0" layoutY="62.0" text="Path Animation Speed:">
+           <font>
+               <Font size="14.0" />
+           </font>
+       </Label>
    </children>
 </Pane>

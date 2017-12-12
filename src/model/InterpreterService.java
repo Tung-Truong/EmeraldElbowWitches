@@ -12,12 +12,10 @@ public class InterpreterService extends ServiceRequest {
     // ToDo: Possibly make each language for an interpreter its own class so that reports generate per language
 
     // Constructors
-    public InterpreterService() {
-
+    public InterpreterService(){
         languages.add("French");
         languages.add("Dutch");
         languages.add("Icelandic");
-
     }
 
     // Getters
@@ -26,24 +24,24 @@ public class InterpreterService extends ServiceRequest {
     }
 
     // Setters
-    public void setLanguages(ArrayList<String> languages) {
+    public void setLanguages(ArrayList<String> languages){
         this.languages = languages;
     }
 
     // Methods
-    public void updateEmails() {
+    public void updateEmails(){
         // TODO: get emails from database if edited in database
     }
 
-    public void addLanguage(String add) {
+    public void addLanguage(String add){
         this.languages.add(add);
     }
 
-    public void removeLanguage(String remove) {
+    public void removeLanguage(String remove){
         this.languages.remove(remove);
     }
 
-    public void generateReport() {
+    public void generateReport(){
         /*
             Information required:
             - How much time did each language take to interpret?
@@ -52,7 +50,7 @@ public class InterpreterService extends ServiceRequest {
         String lang = "";
 
         if (!isActive()) {
-            if (assigned.getLanguage() == null) {
+            if(assigned.getLanguage() == null) {
 
             } else {
                 lang = assigned.getLanguage();
@@ -70,7 +68,7 @@ public class InterpreterService extends ServiceRequest {
                 tempUsed = statistic.getNumOfInterpreters() + 1;
                 tempAvg = statistic.getAvgTimeTaken();
 
-                newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds) / tempUsed;
+                newAvg = ((tempAvg * (tempUsed - 1)) + diffSeconds)/tempUsed;
 
                 try {
                     statistic.setData(lang, tempUsed, newAvg);

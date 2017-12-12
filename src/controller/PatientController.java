@@ -6,6 +6,7 @@ package controller;
 import com.jfoenix.controls.*;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -17,6 +18,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeTableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -30,28 +32,44 @@ import javafx.util.Duration;
 import model.ImageLoader;
 import model.InvalidNodeException;
 import model.astar;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.scene.control.Hyperlink;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javax.tools.Tool;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class PatientController extends Controller {
+
 
     @FXML
     private Pane window;
 
     @FXML
-    private JFXButton directionsButton, SearchForNode, btn_map03, btn_map02, btn_map01, btn_mapG, btn_mapL1, btn_mapL2,
-            SearchPath, Tleft, Tright, Tdown, Tup, toHTML, loginButton;
+    private JFXButton loginButton;
+
+    @FXML
+    private JFXButton directionsButton;
 
     @FXML
     private JFXTogglePane textTogglePane;
@@ -63,13 +81,43 @@ public class PatientController extends Controller {
     private JFXSlider zoomBar;
 
     @FXML
+    private JFXButton SearchForNode;
+
+    @FXML
     private JFXComboBox<String> SearchOptions;
 
     @FXML
     private JFXTextField SearchNodeID;
 
     @FXML
+    private ImageView img_Map;
+
+    @FXML
+    private JFXButton btn_map03;
+
+    @FXML
+    private JFXButton btn_map02;
+
+    @FXML
+    private JFXButton btn_map01;
+
+    @FXML
+    private JFXButton btn_mapG;
+
+    @FXML
+    private JFXButton btn_mapL1;
+
+    @FXML
+    private JFXButton btn_mapL2;
+
+    @FXML
     private Canvas gc;
+
+    @FXML
+    private ImageView homeScreen;
+
+    @FXML
+    private JFXButton SearchPath;
 
     @FXML
     public ImageView currentMap;
@@ -78,8 +126,44 @@ public class PatientController extends Controller {
     private JFXTextArea toggleTextArea;
 
     @FXML
-    private Label floor3Label, floor2Label, floor1Label, floorGLabel, floorL1Label, floorL2Label;
+    private Label floor3Label;
 
+    @FXML
+    private Label floor2Label;
+
+    @FXML
+    private Label floor1Label;
+
+    @FXML
+    private Label floorGLabel;
+
+    @FXML
+    private Label floorL1Label;
+
+    @FXML
+    private Label floorL2Label;
+
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+    @FXML
+    private JFXButton toHTML;
+
+
+    @FXML
+    private ImageView startImage;
+
+    @FXML
+    private ImageView endImage;
 
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
@@ -236,7 +320,12 @@ public class PatientController extends Controller {
     }
 
     void getMap(Event e) {
-        String clickedID = ((JFXButton) e.getSource()).getId();
+        String clickedID = null;
+        try{
+            clickedID = ((JFXButton)e.getSource()).getId();
+        }catch(ClassCastException elv){
+            clickedID = ((TreeTableView<ServiceRequest>) e.getSource()).getId();
+        }
         clearChosenFloor();
         switch (clickedID) {
             case "btn_mapL2":
@@ -292,6 +381,8 @@ public class PatientController extends Controller {
             this.currentMap.setImage(map);
             redraw();
         }
+
+
     }
 
     void clearChosenFloor() {
@@ -507,7 +598,7 @@ public class PatientController extends Controller {
         clearChosenFloor();
         System.out.println(Floors.toString());
     }
-
+    
 
     @FXML
     void ourWebsite() throws IOException {
@@ -654,7 +745,9 @@ public class PatientController extends Controller {
                 oldLocation.y = y;
             }
         });
+
         return pathTransition;
+
     }
 
     ArrayList<NodeObj> pathFloorFilter() {

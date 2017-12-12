@@ -96,7 +96,7 @@ public class HealthcareController {
                     break;
                 case "Aetna":
                     providerPhoneNumber.setText("1-800-872-3862");
-                    providerEmail.setText("");
+                    providerEmail.setText("communications@email.aetna.com");
                     break;
                 case "Blue Cross Blue Shield of MA":
                     providerPhoneNumber.setText("1-800-262-2583");

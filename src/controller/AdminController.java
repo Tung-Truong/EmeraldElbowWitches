@@ -1,6 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXTreeTableView;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableView;
+import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -30,16 +36,85 @@ import static java.lang.Thread.sleep;
 public class AdminController extends Controller {
 
     @FXML
-    private JFXButton serviceRequestBtn, addEditBtn, RemoveButton, editEmployeesBtn, removeNodeBtn, btn_map03, btn_map02,
-            btn_map01, btn_mapG, btn_mapL1, btn_mapL2, astarBtn, depthBtn, breadthBtn, dijkstrasBtn, bestBtn, beamBtn,
-            Tleft, Tright, Tup, Tdown;
+    TreeTableView<ServiceRequest> activeTable;
 
     @FXML
-    private JFXTextField nodeTypeField, shortNameField, longNameField, teamField, buildingField, floorField, yLocField,
-            xLocField, nodeIDField, weightField, nodeBField, nodeAField;
+    private TreeTableColumn<ServiceRequest, String> activeLoc;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> activeType;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> activeItem;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> activeDate;
+
+    @FXML
+    TreeTableView<ServiceRequest> completedTable;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> completedLoc;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> completedType;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> completedItem;
+
+    @FXML
+    private TreeTableColumn<ServiceRequest, String> completedDate;
+
+    @FXML
+    private Pane RequestPane;
+
+    @FXML
+    private JFXButton serviceRequestBtn;
+
+    @FXML
+    private JFXButton addEditBtn;
+
+    @FXML
+    private JFXButton RemoveButton;
+
+    @FXML
+    private JFXButton editEmployeesBtn;
+
+    @FXML
+    private JFXButton removeNodeBtn;
+
+    @FXML
+    private JFXTogglePane textTogglePane;
+
+    @FXML
+    private JFXToggleButton textToggle;
 
     @FXML
     private JFXSlider zoomBar;
+
+    @FXML
+    private ImageView img_Map;
+
+    @FXML
+    private JFXButton btn_map03;
+
+    @FXML
+    private JFXButton btn_map02;
+
+    @FXML
+    private JFXButton btn_map01;
+
+    @FXML
+    private JFXButton btn_mapG;
+
+    @FXML
+    private JFXButton btn_mapL1;
+
+    @FXML
+    private JFXButton btn_mapL2;
+
+    @FXML
+    private JFXButton SearchPath;
 
     @FXML
     private Canvas gc;
@@ -48,14 +123,90 @@ public class AdminController extends Controller {
     private JFXComboBox<String> CurrRequ;
 
     @FXML
+    private ImageView homeScreen;
+
+    @FXML
     public ImageView currentMap;
 
     @FXML
-    private Pane nodeInfoPane, edgeInfoPane;
+    private JFXTextArea toggleTextArea;
+
+    @FXML
+    private Pane nodeInfoPane;
+
+    @FXML
+    private JFXTextField nodeTypeField;
+
+    @FXML
+    private JFXTextField shortNameField;
+
+    @FXML
+    private JFXTextField longNameField;
+
+    @FXML
+    private JFXTextField teamField;
+
+    @FXML
+    private JFXTextField buildingField;
+
+    @FXML
+    private JFXTextField floorField;
+
+    @FXML
+    private JFXTextField yLocField;
+
+    @FXML
+    private JFXTextField xLocField;
+
+    @FXML
+    private JFXTextField nodeIDField;
+
+    @FXML
+    private Pane edgeInfoPane;
+
+    @FXML
+    private JFXTextField weightField;
+
+    @FXML
+    private JFXTextField nodeBField;
+
+    @FXML
+    private JFXTextField nodeAField;
+
+    @FXML
+    private JFXButton astarBtn;
+
+    @FXML
+    private JFXButton depthBtn;
+
+    @FXML
+    private JFXButton breadthBtn;
+
+    @FXML
+    private JFXButton dijkstrasBtn;
+
+    @FXML
+    private JFXButton beamBtn;
+
+    @FXML
+    private JFXButton bestBtn;
 
     @FXML
     private JFXToggleButton nodeAlignmentToggle;
 
+    @FXML
+    private JFXButton Tleft;
+
+    @FXML
+    private JFXButton Tright;
+
+    @FXML
+    private JFXButton Tup;
+
+    @FXML
+    private JFXButton Tdown;
+
+    boolean reqSel = false;
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
     NodeObj goal = null;
@@ -65,7 +216,9 @@ public class AdminController extends Controller {
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
-    public void initialize() {
+    public void initialize(){
+        activeTable.setVisible(false);
+        completedTable.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
         single.getAlgorithm().setPathAlg(new astar());
@@ -75,7 +228,12 @@ public class AdminController extends Controller {
         redraw();
     }
 
+    public TreeTableView<ServiceRequest> getCompletedTable() {
+        return completedTable;
+    }
+
     private void redraw() {
+        SearchPath.setVisible(false);
         nodeInfoPane.setVisible(false);
         edgeInfoPane.setVisible(false);
         serviceRequestBtn.setVisible(false);
@@ -91,18 +249,18 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if (gc1 == null)
+        if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
-            for (EdgeObj e : n.getListOfEdgeObjs()) {
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
-                        e.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
-                        e.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
-                        e.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
+                gc1.strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                        e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                        e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -110,15 +268,15 @@ public class AdminController extends Controller {
 
         }
 
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                    n.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 5,
                     10,
                     10);
             gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 4,
-                    n.node.getyLoc() * single.getMapHeight() / 3400 - 4,
+            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
+                    n.node.getyLoc()*single.getMapHeight()/3400 - 4,
                     8,
                     8);
         }
@@ -138,8 +296,12 @@ public class AdminController extends Controller {
         btn_map01.setStyle("-fx-background-color:  #4286f4");
         btn_map02.setStyle("-fx-background-color:  #4286f4");
         btn_map03.setStyle("-fx-background-color:  #4286f4");
-
-        String clickedID = ((JFXButton) e.getSource()).getId();
+        String clickedID = null;
+        try{
+            clickedID = ((JFXButton)e.getSource()).getId();
+        }catch(ClassCastException elv){
+            clickedID = ((TreeTableView<ServiceRequest>) e.getSource()).getId();
+        }
         switch (clickedID) {
             case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
@@ -181,20 +343,21 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
+        SearchPath.setVisible(false);
         int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
         int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
         if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
             redraw();
-            createNewNode(mousex, mousey);
-        } else if (event.getButton() == MouseButton.PRIMARY) {
-            if (nodeA == null) {
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            if(nodeA == null){
                 selectNodeA(event);
-            } else {
-                if (nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey).getNode().getNodeID())) {
+            }else{
+                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
                     edgeInfoPane.setVisible(false);
-                    selectNode(mousex, mousey);
+                    selectNode(mousex,mousey);
                     nodeA = null;
-                } else {
+                }else {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
@@ -241,6 +404,47 @@ public class AdminController extends Controller {
     }
 
     @FXML
+    void snapToNode(Event e){
+           try {
+               String id = null;
+                String searchNewNodeID = null;
+                if (((TreeTableView<ServiceRequest>) e.getSource()).getId().equals("activeTable")) {
+                    searchNewNodeID= activeTable.getSelectionModel().getSelectedItem().getValue().getLocation();
+                    id = "activeTable";
+                }
+                if (((TreeTableView<ServiceRequest>) e.getSource()).getId().equals("completedTable")) {
+                    searchNewNodeID= completedTable.getSelectionModel().getSelectedItem().getValue().getLocation();
+                    id = "activeTable";
+                }
+
+
+                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                try {
+                    if (newSearchNode == null)
+                        throw new InvalidNodeException("no node with that ID");
+                    ((TreeTableView<ServiceRequest>) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                    Main.controllers.updateAllMaps(e);
+                    Main.getNodeMap().setCurrentFloor(newSearchNode.node.getFloor());
+                    ((TreeTableView<ServiceRequest>) e.getSource()).setId(id);
+                    redraw();
+                    gc1.setFill(Color.DARKRED);
+                    gc1.fillOval(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                            newSearchNode.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+                            10,
+                            10);
+                    SearchPath.setVisible(true);
+                    SearchPath.setText(searchNewNodeID);
+                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * single.getMapWidth() / 5000);
+                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * single.getMapHeight() / 3400);
+                } catch (InvalidNodeException exc) {
+                    exc.printStackTrace();
+                }
+            } catch (NullPointerException exc) {
+                exc.getMessage();
+            }
+    }
+
+    @FXML
     void removeNode() {
         String delNodeID = nodeIDField.getText();
         Node delNode = new Node(delNodeID); //WARNING: THIS CREATES A Node WITH ONLY AN ID, NO OTHER FIELDS POPULATED. ONLY ATTEMPT TO ACCESS nodeID.
@@ -273,8 +477,8 @@ public class AdminController extends Controller {
     @FXML
     void selectNodeA(MouseEvent event) {
         nodeInfoPane.setVisible(false);
-        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
         try {
             nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             nodeAField.setText(nodeA.getNode().getNodeID());
@@ -287,15 +491,15 @@ public class AdminController extends Controller {
     void selectEdge(MouseEvent event) {
         System.out.println("DRAG RELEASED");
 
-        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
 
         try {
             NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             String nodeB = nodeEnd.getNode().getNodeID();
             nodeBField.setText(nodeB);
 
-            if (nodeAlignmentToggle.isSelected()) {
+            if(nodeAlignmentToggle.isSelected()) {
                 System.out.println("We're aligning!");
                 NodeAlignment nodeAlign = new NodeAlignment();
 
@@ -333,10 +537,10 @@ public class AdminController extends Controller {
         redraw();
 
         gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
-                edgeAB.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
-                edgeAB.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
-                edgeAB.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
+                edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
+                edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
 
     }
 
@@ -412,7 +616,7 @@ public class AdminController extends Controller {
                     Tright.setOpacity(opacity);
                     break;
             }
-        } catch (NullPointerException e) {
+        }catch (NullPointerException e){
             e.printStackTrace();
         }
     }
@@ -470,7 +674,11 @@ public class AdminController extends Controller {
         ServiceController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, 243, 446));
+        Scene servScene = new Scene(root, 350, 600);
+        servStage.setScene(servScene);
+        servCont.setServScene(servScene);
+        servCont.setServStage(servStage);
+        servCont.setMeCont(servCont);
         servCont.servLocField.setText(nodeIDField.getText());
         servStage.show();
     }
@@ -482,51 +690,26 @@ public class AdminController extends Controller {
         ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, single.getMapWidth() - 100, single.getMapHeight() - 50));
+        servStage.setScene(new Scene(root, single.getMapWidth()-100, single.getMapHeight()-50));
         servStage.show();
     }
 
     @FXML
     void MyRequests() {
-        CurrRequ.getItems().clear();
         Refresh();
-        System.out.println("IBEHERE");
-        Employee currEmp = Main.getCurrUser();
-        System.out.println(Main.getRequestList().size());
-        for (ServiceRequest aserv : Main.getRequestList()) {
-            try {
-                if (currEmp.getId() == aserv.getAssigned().getId()) {
-                    CurrRequ.getItems().add(aserv.getAssigned().getId() + " | " + aserv.getSent().toString());
-                }
-            } catch (NullPointerException e) {
-                e.getMessage();
-            }
-        }
+        addToTree();
     }
+
 
     @FXML
     void RemoveRequest() {
         try {
-            ServiceRequest serv = null;
-            String reqDate = CurrRequ.getValue().substring(CurrRequ.getValue().indexOf('|') + 2).trim();
-            for (ServiceRequest aserv : Main.getRequestList()) {
-                try {
-                    System.out.println(aserv.getSent().toString());
-                    System.out.println(reqDate);
-                    if (aserv.getSent().toString().trim().equals(reqDate)) {
-
-                        aserv.setActive(false);
-                        serv = aserv;
-                    }
-                } catch (NullPointerException e) {
-                    e.getMessage();
-                }
-            }
-
+            ServiceRequest serv = activeTable.getSelectionModel().getSelectedItem().getValue();
             if (serv != null) {
-                Main.requests.remove(serv);
+                serv.setActive(false);
                 serv.setReceived();
                 serv.generateReport();
+                addToTree();
             }
         } catch (NullPointerException e) {
             e.getMessage();
@@ -547,16 +730,6 @@ public class AdminController extends Controller {
                 }
             } else {
                 finalString.concat("No active Requests");
-            }
-        }
-        for (ServiceRequest s : searchInactive) {
-            if (!s.isActive()) {
-                Main.requests.remove(s);
-                try {
-                    DeleteDB.delRequest(s.getSent().toString());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
         }
     }
@@ -591,6 +764,91 @@ public class AdminController extends Controller {
     void Tdown() {
         single.subY((int) (160.0 / single.getZoom()));
         resize();
+    }
+
+    @FXML
+    void ActivateRequests() {
+        reqSel = !reqSel;
+        RequestPane.setVisible(reqSel);
+        activeTable.setVisible(reqSel);
+        completedTable.setVisible(reqSel);
+        if(reqSel)
+            switchTable1();
+        addToTree();
+    }
+
+    public void addToTree(){
+        try {
+            TreeItem<ServiceRequest> base = new TreeItem<>(new ServiceRequest());
+            base.setExpanded(true);
+            System.out.println("IBEHERE");
+            Employee currEmp = Main.getCurrUser();
+            System.out.println(Main.getRequestList().size());
+            for (ServiceRequest aserv : Main.getRequestList()) {
+                try {
+                    if (currEmp.getId() == aserv.getAssigned().getId() && aserv.isActive()) {
+                        base.getChildren().add(new TreeItem<>(aserv));
+                        System.out.println(aserv.getSent().toString());
+                    }
+                } catch (NullPointerException e) {
+                    e.getMessage();
+                }
+            }
+
+            activeLoc.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("location"));
+            activeType.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("requestType"));
+            activeItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("otherInfo"));
+            activeDate.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("sentString"));
+
+            activeTable.setRoot(base);
+
+
+            TreeItem<ServiceRequest> baseRem = new TreeItem<>(new ServiceRequest());
+            baseRem.setExpanded(true);
+            System.out.println("IBEHERE");
+            currEmp = Main.getCurrUser();
+            System.out.println(Main.getRequestList().size());
+            for (ServiceRequest aserv : Main.getRequestList()) {
+                try {
+                    if (currEmp.getId() == aserv.getAssigned().getId() && !aserv.isActive()) {
+                        baseRem.getChildren().add(new TreeItem<>(aserv));
+                        System.out.println(aserv.getSent().toString());
+                    }
+                } catch (NullPointerException e) {
+                    e.getMessage();
+                }
+            }
+
+            completedLoc.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("location"));
+            completedType.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("requestType"));
+            completedItem.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("otherInfo"));
+            completedDate.setCellValueFactory(new TreeItemPropertyValueFactory<ServiceRequest, String>("sentString"));
+
+            completedTable.setRoot(baseRem);
+
+        }catch (NullPointerException e) {
+            e.getMessage();
+        }
+    }
+
+    public TreeTableView<ServiceRequest> getActiveTable() {
+        return activeTable;
+    }
+
+    @FXML
+    void switchTable1() throws NullPointerException{
+        if(reqSel) {
+            completedTable.setVisible(false);
+            activeTable.setVisible(true);
+        }
+    }
+
+    @FXML
+    void switchTable2() throws NullPointerException{
+        if(reqSel) {
+            completedTable.setVisible(true);
+            activeTable.setVisible(false);
+        }
     }
 
     public void resize() {
