@@ -113,6 +113,11 @@ public class PatientController extends Controller {
     public ImageView currentMap;
 
     @FXML
+    public ImageView openclose;
+
+    @FXML ImageView openclose1;
+
+    @FXML
     private JFXTextArea toggleTextArea;
 
     @FXML
@@ -150,10 +155,10 @@ public class PatientController extends Controller {
 
 
     @FXML
-    private ImageView startImage;
+    private ImageView start;
 
     @FXML
-    private ImageView endImage;
+    private ImageView end;
 
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
@@ -164,10 +169,16 @@ public class PatientController extends Controller {
     ArrayList<NodeObj> strPath;
     Animation oldAnimation;
     SingleController single = SingleController.getController();
+    private NodeObj openCloseNode;
+    private NodeObj openClose1Node;
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
     public void initialize() {
+        openclose.setVisible(false);
+        openclose1.setVisible(false);
+        start.setVisible(true);
+        end.setVisible(true);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
@@ -441,6 +452,11 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * single.mapHeight / 3400 - 5,
                                 10,
                                 10);
+                        openclose1.setVisible(true);
+                        openclose1.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose1.getFitWidth()/2 - 15);
+                        openclose1.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose1.getFitHeight()/2 - 5);
+                        openClose1Node = n;
+
                     }
 
                 } else if (!n.node.getFloor().equals(Main.getNodeMap().currentFloor) && !tempDraw.node.getFloor().equals(n.node.getFloor())) {
@@ -450,6 +466,11 @@ public class PatientController extends Controller {
                                 n.node.getyLoc() * single.mapHeight / 3400 - 5,
                                 10,
                                 10);
+                        openclose.setVisible(true);
+                        openclose.setX(n.node.getxLoc()*currentMap.getFitWidth()/5000 - openclose.getFitWidth()/2 - 15);
+                        openclose.setY(n.node.getyLoc()*currentMap.getFitHeight()/3400 - openclose.getFitHeight()/2 - 5);
+
+                        openCloseNode = tempDraw;
                     }
                 }
             }
@@ -471,6 +492,9 @@ public class PatientController extends Controller {
                     goal.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
+            end.setVisible(true);
+            end.setX(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5 - end.getFitWidth()/2);
+            end.setY(goal.node.getyLoc() * single.getMapHeight() / 3400 - 5 - end.getFitHeight()/2);
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);
@@ -478,12 +502,103 @@ public class PatientController extends Controller {
                     Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
+            start.setX(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5 -end.getFitWidth()/2);
+            start.setY(Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5 - end.getFitHeight()/2);
         }
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
         System.out.println(Floors.toString());
     }
-    
+
+    //function that handles going to next floor when you click on a node
+    @FXML
+    private void goToNextFloor (){
+        NodeObj node = null;
+        node = openCloseNode;
+        int i = currPath.indexOf(node);
+        System.out.println(node.node.getFloor());
+        String floor = null;
+        String nextFloor = currPath.get(i+1).node.getFloor();
+        String prevFloor = currPath.get(i-1).node.getFloor();
+
+        //go to previous floor
+        if(!nextFloor.equals(currPath.get(i).node.getFloor())){
+            floor = nextFloor;
+            System.out.println(floor);
+            floorToMap(floor);
+            System.out.println("next floor");
+        }
+        //go to next floor
+        else if(!prevFloor.equals(currPath.get(i).node.getFloor())){
+            floor = prevFloor;
+            floorToMap(floor);
+            System.out.println(floor);
+            System.out.println("previous floor");
+            prevFloor = floor;
+        }
+    }
+
+    //function that handles going to previous floor when clicking on a node
+    @FXML
+    private void goToPreviousFloor (){
+        NodeObj node = null;
+        node = openClose1Node;
+        int i = currPath.indexOf(node);
+        System.out.println(node.node.getFloor());
+        String floor = null;
+        String nextFloor = currPath.get(i+1).node.getFloor();
+        String prevFloor = currPath.get(i-1).node.getFloor();
+        //go to previous floor
+        if(!nextFloor.equals(currPath.get(i).node.getFloor())){
+            floor = nextFloor;
+            System.out.println(floor);
+            floorToMap(floor);
+            System.out.println("previous floor");
+        }
+        //go to next floor
+        if(!prevFloor.equals(currPath.get(i).node.getFloor())){
+            floor = prevFloor;
+            floorToMap(floor);
+            System.out.println(floor);
+            System.out.println("next floor");
+        }
+    }
+
+    //helper function that goes from floor to corresponding map
+    private void floorToMap(String floor) {
+        switch (floor) {
+            case "L2":
+                Main.getNodeMap().setCurrentFloor("L2");
+                btn_mapL2.setOpacity(1);
+                btn_mapL2.fire();
+                break;
+            case "L1":
+                Main.getNodeMap().setCurrentFloor("L1");
+                btn_mapL1.setOpacity(1);
+                btn_mapL1.fire();
+                break;
+            case "G":
+                Main.getNodeMap().setCurrentFloor("G");
+                btn_mapG.setOpacity(1);
+                btn_mapG.fire();
+                break;
+            case "1":
+                Main.getNodeMap().setCurrentFloor("1");
+                btn_map01.setOpacity(1);
+                btn_map01.fire();
+                break;
+            case "2":
+                Main.getNodeMap().setCurrentFloor("2");
+                btn_map02.setOpacity(1);
+                btn_map02.fire();
+                break;
+            case "3":
+                Main.getNodeMap().setCurrentFloor("3");
+                btn_map03.setOpacity(1);
+                btn_map03.fire();
+                break;
+        }
+    }
 
     @FXML
     void ourWebsite() throws IOException {
@@ -510,6 +625,8 @@ public class PatientController extends Controller {
         directionsButton.setVisible(true);
         //create a new astar object
         SearchPath.setVisible(false);
+        openclose1.setVisible(false);
+        openclose.setVisible(false);
         double mousex = (5000 * event.getX()) / single.getMapWidth();
         double mousey = (3400 * event.getY()) / single.getMapHeight();
         if (gc1 == null)
@@ -806,6 +923,10 @@ public class PatientController extends Controller {
         single.setZoom(zoomBar.getValue());
         single.setXTrans((int) clamp(single.getXTrans(), (-1* Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)), Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)));
         single.setYTrans( (int) clamp(single.getYTrans(), (-1* Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)), Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)));
+        openclose.setVisible(false);
+        openclose1.setVisible(false);
+        start.setVisible(false);
+        end.setVisible(false);
         resize();
 
     }
@@ -905,6 +1026,10 @@ public class PatientController extends Controller {
         if (single.getZoom() <= 1) {
             single.setXTrans(0);
             single.setYTrans(0);
+            openclose.setVisible(true);
+            openclose1.setVisible(true);
+            start.setVisible(true);
+            end.setVisible(true);
         }
         gc.setScaleX(single.getZoom());
         gc.setScaleY(single.getZoom());
@@ -916,6 +1041,18 @@ public class PatientController extends Controller {
 
         currentMap.setTranslateX(single.getXTrans());
         currentMap.setTranslateY(single.getYTrans());
+
+        openclose.setTranslateX(single.getXTrans());
+        openclose.setTranslateY(single.getYTrans());
+
+        openclose1.setTranslateX(single.getXTrans());
+        openclose1.setTranslateY(single.getYTrans());
+
+        start.setTranslateX(single.getXTrans());
+        start.setTranslateY(single.getYTrans());
+
+        end.setTranslateX(single.getXTrans());
+        end.setTranslateY(single.getYTrans());
 
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
