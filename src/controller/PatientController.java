@@ -739,6 +739,17 @@ public class PatientController extends Controller {
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
+
+        System.out.println("before the if statement");
+
+        if (search.equals("closest bathroom") || search.equals("closest restroom")) {
+            System.out.println("in the bathroom if statement");
+            findClosestRestroom();
+        }
+        if (search.equals("closest elevator")) {
+            System.out.println("in the elevator if statement");
+            findClosestElevator();
+        }
     }
 
     @FXML
@@ -816,6 +827,113 @@ public class PatientController extends Controller {
                 DrawCurrentFloorPath();
             }
         }
+    }
+
+   // @FXML // todo: create a button on the fxml that calls this function
+    private void findClosestRestroom() {
+        System.out.println("in findClosestRestroom");
+        findClosestFromCsv("src/model/docs/Restrooms.csv");
+    }
+
+    //@FXML // todo: create a button on the fxml that calls this function
+    private void findClosestElevator() {
+        findClosestFromCsv("src/model/docs/Elevators.csv");
+    }
+
+    /*
+     * takes a filepath to a csv file, and produces an ArrayList<NodeObj> containing the nodes
+     * on the shortest path to that location
+     */
+    private void findClosestFromCsv(String csvFile) {
+        System.out.println("in findClosestFromCsv");
+        ArrayList<String> nodeIDs = new ArrayList<>();
+        try {
+            CSVtoArrayList.readCSVToArray(csvFile, 1, nodeIDs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<NodeObj> nodes = arrayListToNodeObj(nodeIDs);
+        System.out.println("got out of arrayListToNodeObj");
+        ArrayList<NodeObj> shortestSoFar, nextPath;
+
+        System.out.println("about to enter constructPath, currently in findClosestFromCsv");
+        shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
+
+        System.out.println("got through the first constructPath");
+
+        for(NodeObj goal : nodes) {
+            nextPath = constructPath(Main.kiosk, goal);
+            shortestSoFar = findShorterPath(shortestSoFar, nextPath);
+        }
+
+        currPath = shortestSoFar;
+        redraw();
+        DrawCurrentFloorPath();
+
+    }
+
+    /*
+     * helper method for findClosestFromCsvFile
+     * produces an ArrayList<NodeObj> with the nodes the current algorithm chooses for the path
+     */
+    private ArrayList<NodeObj> constructPath(NodeObj start, NodeObj end) {
+        System.out.println("in constructPath");
+        ArrayList<NodeObj> path = new ArrayList<>();
+        if(single.getAlgorithm().getPathAlg().pathfind(start, end)) {
+            path = single.getAlgorithm().getPathAlg().getGenPath();
+        }
+        return path;
+    }
+
+    // helper method for findClosestFromCsvFile
+    private ArrayList<NodeObj> arrayListToNodeObj(ArrayList<String> array) {
+        System.out.println("in arrayListToNodeObj");
+        ArrayList<NodeObj> nodes = new ArrayList<>();
+        for(String r : array) {
+            Main.getNodeMap().getNodeObjByID(r);
+        }
+        return nodes;
+    }
+
+    /*
+    private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> path1, ArrayList<NodeObj> path2) {
+        int length1 = 0, length2 = 0;
+
+        for(NodeObj node : path1) {
+            length1 +=
+        }
+    }*/
+
+    private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> shortestSoFar, ArrayList<NodeObj> newPath) {
+
+        System.out.println("in findShorterPath");
+        int pathleng = 0;
+        int genleng = 0;
+        NodeObj prevN = null;
+        for (NodeObj n : newPath) {
+            if(prevN == null){
+                prevN = n;
+            }
+            else{
+                pathleng += n.getDistance(prevN);
+            }
+        }
+        prevN = null;
+        for(NodeObj n : newPath){
+            if(prevN == null){
+                prevN = n;
+            }
+            else{
+                genleng += n.getDistance(prevN);
+            }
+        }
+
+        if(pathleng < genleng) {
+            shortestSoFar = newPath;
+        }
+
+        return shortestSoFar;
     }
 
     @FXML
