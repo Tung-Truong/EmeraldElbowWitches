@@ -85,7 +85,6 @@ public class AdminController extends Controller {
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
         setFxmlMouseKeyboardEvent();
-        startTimer();
     }
 
     // modifies all elements of the admin screen to call resetTimeoutCounter
@@ -701,7 +700,6 @@ public class AdminController extends Controller {
     // this function and runLater create a timer to be used for admin auto-logout
     public void startTimer() { // throws Exception {
         // only start a timer if we're in the admin scene. we don't care about the patient scene.
-        if(Main.getCurrStage().getScene().equals(Main.getAdminScene())) {
             runLater(javafx.util.Duration.seconds(1), () -> {
                         System.out.println("a second elapsed");
                         autoLogoutHelper();
@@ -709,7 +707,6 @@ public class AdminController extends Controller {
         }
             //this.timeline.stop();
             //System.out.println("TIMELINE STOPPED");
-    }
  //       this.timeline = runLater(javafx.util.Duration.seconds(1), () -> {
  //           System.out.println("ACTION FIRED ANYWAY");
  //       });
