@@ -76,6 +76,7 @@ public class TextDirections {
                     if (!previousMsg.equals("      Go straight\n")) {
                         //Need to find next turn to get that x and y and then math out the feet
                         Node nextTurn = findNextTurn(i, path);
+
                         if(nextTurn != null) {
                             pathLength = (int)(distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet);
                             msg.add("      Go straight  for " + pathLength + " feet" + "\n");
@@ -159,8 +160,8 @@ public class TextDirections {
 
     //function that calculates distance between two points.
     double distanceFormula(int Ax, int Ay, int Bx, int By) {
-        double x = Math.pow((Ax - Bx),2);
-        double y = Math.pow((Ay - By),2);
+        double x = Math.pow((Ax - Bx), 2);
+        double y = Math.pow((Ay - By), 2);
         return sqrt(x + y);
     }
 

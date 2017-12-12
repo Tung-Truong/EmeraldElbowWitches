@@ -29,10 +29,12 @@ public class CafeteriaService extends ServiceRequest {
         return this.menu;
     }
 
-    public String getItemSold() { return itemSold; }
+    public String getItemSold() {
+        return itemSold;
+    }
 
     // Setters
-    public void setMenu(ArrayList<String> items){
+    public void setMenu(ArrayList<String> items) {
         this.menu = items;
     }
 
@@ -41,22 +43,22 @@ public class CafeteriaService extends ServiceRequest {
     }
 
     // Methods
-    public void addMenuItem(String food){
+    public void addMenuItem(String food) {
         menu.add(food);
     }
 
-    public void removeMenuItem(String food){
+    public void removeMenuItem(String food) {
         menu.remove(food);
     }
 
-    public void generateReport(){
+    public void generateReport() {
         /*
             Information required:
             - How long did it  take for this request to be fulfilled
             - What foods were delivered/ordered
          */
         String food = "";
-        if(!isActive()) {
+        if (!isActive()) {
             for (String item : menu) {
                 if (item.equals(itemSold)) {
                     food = item;

@@ -3,7 +3,8 @@ package model;
 public class PathingContainer {
     public static PathingAlgorithm pathAlg;
 
-    public PathingContainer(){}
+    public PathingContainer() {
+    }
 
     public PathingAlgorithm getPathAlg() {
         return pathAlg;

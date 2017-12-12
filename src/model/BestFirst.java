@@ -29,8 +29,8 @@ public class BestFirst extends PathingAlgorithm {
 
 
             for (NodeObj node : neighbours) {
-                if(!explored.contains(node)){
-                    if(!queue.contains(node)){
+                if (!explored.contains(node)) {
+                    if (!queue.contains(node)) {
                         node.setHeuristic(node.getDistance(goal));
                         node.setParent(current);
                         queue.add(node);

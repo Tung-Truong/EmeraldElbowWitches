@@ -1,6 +1,6 @@
 package controller;
 
-import javafx.application.Application;
+import      javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
+    private static ArrayList<String> importantNodes = new ArrayList<>();
     public static int sceneWidth = 1400;
     public static int sceneHeight = 900;
     public static Scene patientScene;
@@ -42,8 +43,7 @@ public class Main extends Application {
     public static InterpreterService interpreterService;
     public static ControllerListener controllers;
     public static Employee currUser;
-
-
+    public static AdminController adminCont;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
@@ -71,10 +71,10 @@ public class Main extends Application {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
             File statsCSVTest = new File("src/model/docs/Statistics.csv");
-            if(nodeCSVTest.exists() && edgeCSVTest.exists()){           //if map has been edited, load edited files
+            if (nodeCSVTest.exists() && edgeCSVTest.exists()) {           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
                 ReadCSV.runEdge("src/model/docs/Edges.csv");
-            }else {
+            } else {
                 ReadCSV.runNode("src/model/docs/MapAnodes.csv");
                 ReadCSV.runNode("src/model/docs/MapBnodes.csv");
                 ReadCSV.runNode("src/model/docs/MapCnodes.csv");
@@ -99,7 +99,7 @@ public class Main extends Application {
             }
             ReadCSV.runEmployee("src/model/docs/Employees.csv");
             ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
-            if(statsCSVTest.exists()) {
+            if (statsCSVTest.exists()) {
                 ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
                 ReadCSV.runCafeteriaStatistic("src/model/docs/CalendarStatistics.csv");
                 ReadCSV.runInterpreterStatistic("src/model/docs/InterpreterStatistics.csv");
@@ -157,6 +157,12 @@ public class Main extends Application {
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
 
+        try {
+            CSVtoArrayList.readCSVToArray("src/model/docs/ImportantNodes.csv",1,importantNodes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         // creates and saves list of requests
         ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
         listOfRequests = QueryDB.getRequests();
@@ -195,7 +201,6 @@ public class Main extends Application {
     }
 
 
-
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
@@ -214,9 +219,11 @@ public class Main extends Application {
 
         this.controllers.addObserver(patCont);
 
+        // the auto-login function in the initializer for AdminController checks if it is the
+        // active scene, so AdminController needs to be set up after the active scene is set
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
         adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
-        AdminController adminCont = adminContLoad.getController();
+        adminCont = adminContLoad.getController();
 
         this.controllers.addObserver(adminCont);
 
@@ -243,7 +250,7 @@ public class Main extends Application {
         for (Employee e : employees) {
             AddDB.addEmployee(e);
         }
-        for (ServiceRequest service : requests){
+        for (ServiceRequest service : requests) {
             AddDB.addRequest(service);
         }
         try {
@@ -264,7 +271,7 @@ public class Main extends Application {
 
     }
 
-//this allows for access from main by the controller
+    //this allows for access from main by the controller
 //this will be modified to use simpleton methodologies
     public static NodeObj getKiosk() {
         return kiosk;
@@ -290,15 +297,15 @@ public class Main extends Application {
         return Service;
     }
 
-    public static ArrayList<Employee> getEmployees(){
+    public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    public static ArrayList<ServiceRequest> getRequestList(){
+    public static ArrayList<ServiceRequest> getRequestList() {
         return requests;
     }
 
-    public void removeRequestList(ServiceRequest req){
+    public void removeRequestList(ServiceRequest req) {
         requests.remove(req);
     }
 
@@ -318,10 +325,16 @@ public class Main extends Application {
         return currUser;
     }
 
-
-
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
+    }
+
+    public static AdminController getAdminCont() {
+        return adminCont;
+    }
+
+    public static ArrayList<String> getImportantNodes() {
+        return importantNodes;
     }
 
     //this runs the service request

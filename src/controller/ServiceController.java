@@ -1,6 +1,6 @@
 package controller;
 
-import javafx.scene.control.*;
+import HealthAPI.HealthCareRun;
 import model.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -8,39 +8,23 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import org.junit.Test;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ServiceController {
     // Attributes
-//    private String serviceNeeded;
+    // private String serviceNeeded;
     private ServiceRequest service;
     private SingleController single = SingleController.getController();
 
     @FXML
-    public JFXTextField servLocField;
+    public JFXTextField servLocField, NotesTextField;
 
     @FXML
-    private JFXComboBox<String> RequestServiceDropdown;
-
-    @FXML
-    private JFXComboBox<String> AssignEmployee;
-
-    @FXML
-    private JFXTextField NotesTextField;
-
-    @FXML
-    private JFXSlider urgencyMeter;
+    private JFXComboBox<String> RequestServiceDropdown, AssignEmployee;
 
     @FXML
     private JFXButton cancelButton;
 
-    public void initialize(){
+    public void initialize() {
         RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare");//, "cafeteria");
     }
 
@@ -58,15 +42,21 @@ public class ServiceController {
 //    }
 
     @FXML
-    void close(){
-        Stage stage = (Stage)cancelButton.getScene().getWindow();
+    void close() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    void onServiceTypeSelection(){
-        if((RequestServiceDropdown.getValue() != null) && (RequestServiceDropdown.getValue().equals("Healthcare"))){ //can be implemented to launch different API for different service requests
-            System.out.println("SHIT JUST GOT CALLED");
+    void onServiceTypeSelection() {
+        if ((RequestServiceDropdown.getValue() != null) && (RequestServiceDropdown.getValue().equals("Healthcare"))) { //can be implemented to launch different API for different service requests
+            HealthCareRun health = new HealthCareRun();
+            try {
+                health.run(-500, -500, 600, 350, "view/stylesheets/default.css", "", "");
+                close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -95,8 +85,7 @@ public class ServiceController {
             System.out.println(Main.getRequestList().size());
             System.out.println("Message sent succesfully");
             close();
-        }
-        catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -116,8 +105,7 @@ public class ServiceController {
                 CafeteriaItem();
                 break;*/
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.getMessage();
         }
     }
@@ -186,9 +174,9 @@ public class ServiceController {
             serviceNeeded = "Food";
         }*/
 
-        public void setService() throws NullPointerException{
+    public void setService() throws NullPointerException {
         String needed = this.RequestServiceDropdown.getValue();
-        if(AssignEmployee.getValue().split(" ") == null)
+        if (AssignEmployee.getValue().split(" ") == null)
             throw new NullPointerException("No service added");
         String[] requestedEmployee = AssignEmployee.getValue().split(" ");
         String email = "";
@@ -235,5 +223,4 @@ public class ServiceController {
             AssignEmployee.setDisable(false);
         }
     }
-
 }

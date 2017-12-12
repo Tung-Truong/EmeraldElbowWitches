@@ -9,31 +9,37 @@ import model.Employee;
 
 public class LogInController {
 
-        @FXML
-        private JFXTextField UsernameField;
+    @FXML
+    private JFXTextField UsernameField;
 
-        @FXML
-        private JFXPasswordField PasswordField;
+    @FXML
+    private JFXPasswordField PasswordField;
 
-        @FXML
-        private JFXButton cancelButton;
+    @FXML
+    private JFXButton cancelButton;
 
-        @FXML
-        void cancel() {
-                Stage stage = (Stage)cancelButton.getScene().getWindow();
-                stage.close();
-        }
+    public static boolean isFirstLogin = true;
 
-        @FXML
-        void SubmitRequest() {
-            for (Employee e: Main.getEmployees()) {
-                if(e.getUsername().equals(UsernameField.getText()) && e.getPassword().equals(PasswordField.getText())) {
-                    Main.setCurrUser(e);
-                    Main.getCurrStage().setScene(Main.getAdminScene());
-                    cancel();
-                    break;
+    @FXML
+    void cancel() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    void SubmitRequest() {
+        for (Employee e : Main.getEmployees()) {
+            if (e.getUsername().equals(UsernameField.getText()) && e.getPassword().equals(PasswordField.getText())) {
+                Main.setCurrUser(e);
+                Main.getCurrStage().setScene(Main.getAdminScene());
+                if(isFirstLogin) {
+                    Main.getAdminCont().startTimer();
+                    isFirstLogin = false;
                 }
+                Main.getAdminCont().timeoutCounter = 0;
+                cancel();
+                break;
             }
         }
-
+    }
 }

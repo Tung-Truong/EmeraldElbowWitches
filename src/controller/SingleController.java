@@ -8,7 +8,8 @@ import model.PathingContainer;
 public class SingleController {
     private static SingleController control = new SingleController();
 
-    private SingleController(){}
+    private SingleController() {
+    }
 
     private int XTrans = 0;
     private int YTrans = 0;
@@ -19,8 +20,9 @@ public class SingleController {
     double mapHeight;
     //ImageLoader mapImage = new ImageLoader();
     private String serviceNeeded;
+    private int pathAnimationSpeed = 7;
 
-    public static SingleController getController(){
+    public static SingleController getController() {
         return control;
     }
 
@@ -94,7 +96,7 @@ public class SingleController {
         this.serviceNeeded = serviceNeeded;
     }
 
-    public void addX(int add){
+    public void addX(int add) {
         setXTrans(getXTrans() + add);
     }
 
@@ -102,11 +104,19 @@ public class SingleController {
         setYTrans(getYTrans() + add);
     }
 
-    public void subX(int sub){
+    public void subX(int sub) {
         setXTrans(getXTrans() - sub);
     }
 
-    public void subY(int sub){
+    public void subY(int sub) {
         setYTrans(getYTrans() - sub);
+    }
+
+    public void setPathAnimationSpeed(int pathAnimationSpeed) {
+        this.pathAnimationSpeed = pathAnimationSpeed;
+    }
+
+    public int getPathAnimationSpeed() {
+        return (int)pathAnimationSpeed;
     }
 }

@@ -1,6 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,10 +22,6 @@ import model.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import static java.lang.Thread.sleep;
-
 
 public class AdminController extends Controller {
 
@@ -39,7 +35,7 @@ public class AdminController extends Controller {
             xLocField, nodeIDField, weightField, nodeBField, nodeAField;
 
     @FXML
-    private JFXSlider zoomBar;
+    private JFXSlider zoomBar, pathSpeed;
 
     @FXML
     private Canvas gc;
@@ -51,7 +47,7 @@ public class AdminController extends Controller {
     public ImageView currentMap;
 
     @FXML
-    private Pane nodeInfoPane, edgeInfoPane;
+    private Pane nodeInfoPane, edgeInfoPane, masterPane;
 
     @FXML
     private JFXToggleButton nodeAlignmentToggle;
@@ -73,6 +69,24 @@ public class AdminController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
+        setFxmlMouseKeyboardEvent();
+    }
+
+    // modifies all elements of the admin screen to call resetTimeoutCounter
+    // this is required for the admin auto-logout feature in autoLogoutHelper
+    void setFxmlMouseKeyboardEvent() {
+        for (javafx.scene.Node n : masterPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
+        for (javafx.scene.Node n : nodeInfoPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
+        for (javafx.scene.Node n : edgeInfoPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
     }
 
     private void redraw() {
@@ -466,7 +480,8 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void adminLogout() {
+    void adminLogout() { // Implement setter for pathanimation speed
+        //setPathAnimationSpeed(pathSpeed.getValue());
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
@@ -616,4 +631,52 @@ public class AdminController extends Controller {
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
     }
+
+    int timeoutCounter = 0; // the number of seconds since the last mouse or key press
+    int timeoutLimit = 15; // the number in seconds of no activity before automatic logout
+    // Called on any mouse or key press in the admin pane.
+    // Resets the counter of seconds since the last interaction.
+    // Used for the automatic admin logout feature
+    @FXML
+    void resetTimeoutCounter() {
+        System.out.println("whoa! a click event!");
+        timeoutCounter = 0;
+    }
+
+    /*
+     * autoLogoutHelper is called every second by the Timeline object
+     * It is used to implement the automatic logout function from the admin screen.
+     *
+     * Every time it is run, it checks whether the timerCounter variable has reached timeoutLimit
+     */
+    private void autoLogoutHelper() {
+        System.out.println("timeoutCounter = " + timeoutCounter);
+        timeoutCounter++;
+
+        if(timeoutCounter > timeoutLimit) {
+            resetTimeoutCounter();
+            Main.getCurrStage().setScene(Main.getPatientScene());
+        }
+
+        startTimer();
+    }
+
+    // this function and runLater create a timer to be used for admin auto-logout
+    void startTimer() { // throws Exception {
+        // only start a timer if we're in the admin scene. we don't care about the patient scene.
+        runLater(javafx.util.Duration.seconds(1), () -> {
+                    autoLogoutHelper();
+                });
+    }
+
+    // helper for startTimer, which is used for admin auto-logout
+    private void runLater(javafx.util.Duration delay, Runnable action) {
+        Timeline timeline = new Timeline(new KeyFrame(delay, ae -> action.run()));
+        timeline.play();
+    }
+
+    public void changePathSpeed(MouseEvent mouseEvent) {
+        single.setPathAnimationSpeed((int)pathSpeed.getValue());
+    }
+
 }

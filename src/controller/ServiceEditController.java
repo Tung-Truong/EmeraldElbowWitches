@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class ServiceEditController {
     // private String serviceNeeded;
     private ServiceRequest service;
     private Employee foundMOd, foundDel;
-    private SingleController single =  SingleController.getController();
+    private SingleController single = SingleController.getController();
 
    /* @FXML
     private MenuButton FoodDropdown,
@@ -29,7 +30,7 @@ public class ServiceEditController {
 
     @FXML
     private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne, usernameOne, passwordOne,
-    emailTwo, firstTwo, lastTwo, depTwo, langTwo, usernameTwo, passwordTwo, availTwo;
+            emailTwo, firstTwo, lastTwo, depTwo, langTwo, usernameTwo, passwordTwo, availTwo;
 
     @FXML
     private ComboBox<String> /*AssignEmployee, */ DeleteEmployee, ModifyEmployee;
@@ -148,7 +149,7 @@ public class ServiceEditController {
     }*/
 
     @FXML
-    void AddEmployee(){
+    void AddEmployee() {
         String email = emailOne.getText().trim();
         String first = firstOne.getText().trim();
         String last = lastOne.getText().trim();
@@ -176,10 +177,10 @@ public class ServiceEditController {
     }
 
     @FXML
-    void AutoFill(){
+    void AutoFill() {
         //SelectEmployee();
         foundMOd = new Employee();
-        try{
+        try {
             String name = ModifyEmployee.getValue().split(":")[0].trim();
             String email = ModifyEmployee.getValue().split(":")[1].trim();
 
@@ -199,15 +200,14 @@ public class ServiceEditController {
             usernameTwo.setText(foundMOd.getUsername());
             passwordTwo.setText(foundMOd.getPassword());
 
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.getMessage();
         }
 
     }
 
     @FXML
-    void SelectEmployee(){
+    void SelectEmployee() {
 
         ModifyEmployee.getItems().clear();
         DeleteEmployee.getItems().clear();
@@ -218,7 +218,7 @@ public class ServiceEditController {
     }
 
     @FXML
-    void ModifyEmployees(){
+    void ModifyEmployees() {
         foundMOd.setEmail(emailTwo.getText());
         foundMOd.setFirstName(firstTwo.getText());
         foundMOd.setLastName(lastTwo.getText());
@@ -242,8 +242,8 @@ public class ServiceEditController {
         String name = DeleteEmployee.getValue().split(":")[0].trim();
         String email = DeleteEmployee.getValue().split(":")[1].trim();
 
-        for(Employee e: Main.getEmployees()){
-            if(name.equals(e.getFirstName()) && email.equals(e.getEmail())){
+        for (Employee e : Main.getEmployees()) {
+            if (name.equals(e.getFirstName()) && email.equals(e.getEmail())) {
                 foundDel = e;
                 break;
             }
@@ -253,7 +253,7 @@ public class ServiceEditController {
 
         ModifyEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
         DeleteEmployee.getItems().remove(foundDel.getFirstName() + " : " + foundDel.getEmail());
-       // AssignEmployee.getItems().remove(foundDel.getFirstName() + " " + foundDel.getLastName());
+        // AssignEmployee.getItems().remove(foundDel.getFirstName() + " " + foundDel.getLastName());
 
     }
 
