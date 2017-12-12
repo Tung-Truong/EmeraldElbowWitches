@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.SimpleStringProperty;
@@ -91,6 +93,8 @@ public class AdminController extends Controller {
 
     @FXML
     private JFXSlider zoomBar;
+    @FXML
+    private JFXSlider pathSpeed;
 
     @FXML
     private ImageView img_Map;
@@ -162,6 +166,9 @@ public class AdminController extends Controller {
     private JFXTextField nodeIDField;
 
     @FXML
+    private Pane masterPane;
+
+    @FXML
     private Pane edgeInfoPane;
 
     @FXML
@@ -226,6 +233,24 @@ public class AdminController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
+        setFxmlMouseKeyboardEvent();
+    }
+
+    // modifies all elements of the admin screen to call resetTimeoutCounter
+    // this is required for the admin auto-logout feature in autoLogoutHelper
+    void setFxmlMouseKeyboardEvent() {
+        for (javafx.scene.Node n : masterPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
+        for (javafx.scene.Node n : nodeInfoPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
+        for (javafx.scene.Node n : edgeInfoPane.getChildren()) {
+            n.setOnMousePressed(event -> resetTimeoutCounter());
+            n.setOnKeyPressed(event -> resetTimeoutCounter());
+        }
     }
 
     public TreeTableView<ServiceRequest> getCompletedTable() {
@@ -249,18 +274,18 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if(gc1 == null)
+        if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
-        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
-            for(EdgeObj e: n.getListOfEdgeObjs()){
+        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
+            for (EdgeObj e : n.getListOfEdgeObjs()) {
                 gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
-                        e.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
-                        e.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
-                        e.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+                gc1.strokeLine(e.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
+                        e.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
+                        e.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
+                        e.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -268,15 +293,15 @@ public class AdminController extends Controller {
 
         }
 
-        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
             gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 5,
-                    n.node.getyLoc()*single.getMapHeight()/3400 - 5,
+            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 5,
+                    n.node.getyLoc() * single.getMapHeight() / 3400 - 5,
                     10,
                     10);
             gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc()*single.getMapWidth()/5000 - 4,
-                    n.node.getyLoc()*single.getMapHeight()/3400 - 4,
+            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 4,
+                    n.node.getyLoc() * single.getMapHeight() / 3400 - 4,
                     8,
                     8);
         }
@@ -348,16 +373,16 @@ public class AdminController extends Controller {
         int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
         if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
             redraw();
-            createNewNode(mousex,mousey);
-        }else if(event.getButton() == MouseButton.PRIMARY){
-            if(nodeA == null){
+            createNewNode(mousex, mousey);
+        } else if (event.getButton() == MouseButton.PRIMARY) {
+            if (nodeA == null) {
                 selectNodeA(event);
-            }else{
-                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
+            } else {
+                if (nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey).getNode().getNodeID())) {
                     edgeInfoPane.setVisible(false);
-                    selectNode(mousex,mousey);
+                    selectNode(mousex, mousey);
                     nodeA = null;
-                }else {
+                } else {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
@@ -477,8 +502,8 @@ public class AdminController extends Controller {
     @FXML
     void selectNodeA(MouseEvent event) {
         nodeInfoPane.setVisible(false);
-        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
         try {
             nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             nodeAField.setText(nodeA.getNode().getNodeID());
@@ -491,15 +516,15 @@ public class AdminController extends Controller {
     void selectEdge(MouseEvent event) {
         System.out.println("DRAG RELEASED");
 
-        int mousex = (int)((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int)((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
+        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
 
         try {
             NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             String nodeB = nodeEnd.getNode().getNodeID();
             nodeBField.setText(nodeB);
 
-            if(nodeAlignmentToggle.isSelected()) {
+            if (nodeAlignmentToggle.isSelected()) {
                 System.out.println("We're aligning!");
                 NodeAlignment nodeAlign = new NodeAlignment();
 
@@ -537,10 +562,10 @@ public class AdminController extends Controller {
         redraw();
 
         gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*single.getMapWidth()/5000,
-                edgeAB.getNodeA().node.getyLoc()*single.getMapHeight()/3400,
-                edgeAB.getNodeB().node.getxLoc()*single.getMapWidth()/5000,
-                edgeAB.getNodeB().node.getyLoc()*single.getMapHeight()/3400);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
+                edgeAB.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
+                edgeAB.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
+                edgeAB.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
 
     }
 
@@ -616,7 +641,7 @@ public class AdminController extends Controller {
                     Tright.setOpacity(opacity);
                     break;
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -648,8 +673,15 @@ public class AdminController extends Controller {
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-                this.single.getAlgorithm().setPathAlg(new BestFirst());
+                //replaced for test perpouse return the class to best first!
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
                 break;
+                /* Scenic route button case
+            case "scenicBtn":
+                bestBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
+                break;
+                */
         }
     }
 
@@ -663,7 +695,8 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void adminLogout() {
+    void adminLogout() { // Implement setter for pathanimation speed
+        //setPathAnimationSpeed(pathSpeed.getValue());
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
@@ -867,4 +900,52 @@ public class AdminController extends Controller {
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
     }
+
+    int timeoutCounter = 0; // the number of seconds since the last mouse or key press
+    int timeoutLimit = 15; // the number in seconds of no activity before automatic logout
+    // Called on any mouse or key press in the admin pane.
+    // Resets the counter of seconds since the last interaction.
+    // Used for the automatic admin logout feature
+    @FXML
+    void resetTimeoutCounter() {
+        System.out.println("whoa! a click event!");
+        timeoutCounter = 0;
+    }
+
+    /*
+     * autoLogoutHelper is called every second by the Timeline object
+     * It is used to implement the automatic logout function from the admin screen.
+     *
+     * Every time it is run, it checks whether the timerCounter variable has reached timeoutLimit
+     */
+    private void autoLogoutHelper() {
+        System.out.println("timeoutCounter = " + timeoutCounter);
+        timeoutCounter++;
+
+        if(timeoutCounter > timeoutLimit) {
+            resetTimeoutCounter();
+            Main.getCurrStage().setScene(Main.getPatientScene());
+        }
+
+        startTimer();
+    }
+
+    // this function and runLater create a timer to be used for admin auto-logout
+    void startTimer() { // throws Exception {
+        // only start a timer if we're in the admin scene. we don't care about the patient scene.
+        runLater(javafx.util.Duration.seconds(1), () -> {
+                    autoLogoutHelper();
+                });
+    }
+
+    // helper for startTimer, which is used for admin auto-logout
+    private void runLater(javafx.util.Duration delay, Runnable action) {
+        Timeline timeline = new Timeline(new KeyFrame(delay, ae -> action.run()));
+        timeline.play();
+    }
+
+    public void changePathSpeed(MouseEvent mouseEvent) {
+        single.setPathAnimationSpeed((int)pathSpeed.getValue());
+    }
+
 }

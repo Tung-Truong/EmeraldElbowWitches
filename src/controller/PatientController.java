@@ -37,9 +37,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import model.*;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import javafx.stage.Stage;
-
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -60,7 +62,6 @@ import java.net.URL;
 
 
 public class PatientController extends Controller {
-
 
     @FXML
     private Pane window;
@@ -176,9 +177,12 @@ public class PatientController extends Controller {
     SingleController single = SingleController.getController();
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
+    private int speed;
+
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
+        NodeObj n;
         selectFloorWithPath("1");
         currentMap.setImage(m1);
         btn_map01.setOpacity(1);
@@ -187,18 +191,17 @@ public class PatientController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         setKioskLoc(2460, 910);
         redraw();
-        for (NodeObj n : Main.getNodeMap().getNodes()) {
-            if (!n.node.getNodeType().equals("HALL")) {
-                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
-            }
+        for (String s : Main.getImportantNodes()) {
+            n = Main.nodeMap.getNodeObjByID(s);
+            SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
         }
         toolTipsInit();
     }
 
-    private void toolTipsInit(){
+    private void toolTipsInit() {
 
         //about us
-        final Tooltip aboutUs= new Tooltip();
+        final Tooltip aboutUs = new Tooltip();
         aboutUs.setText("Learn about the project and our team!");
         toHTML.setTooltip(aboutUs);
 
@@ -310,9 +313,9 @@ public class PatientController extends Controller {
                 oldAnimation.stop();
                 gc1.clearRect(0, 0, single.getMapWidth(), single.getMapHeight());
                 redraw();
-                gc.getGraphicsContext2D().setStroke(Color.BLUE);
+                gc.getGraphicsContext2D().setStroke(Color.PURPLE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -381,8 +384,6 @@ public class PatientController extends Controller {
             this.currentMap.setImage(map);
             redraw();
         }
-
-
     }
 
     void clearChosenFloor() {
@@ -598,7 +599,7 @@ public class PatientController extends Controller {
         clearChosenFloor();
         System.out.println(Floors.toString());
     }
-    
+
 
     @FXML
     void ourWebsite() throws IOException {
@@ -667,7 +668,7 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.BLUE);
             }
-            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
@@ -745,9 +746,7 @@ public class PatientController extends Controller {
                 oldLocation.y = y;
             }
         });
-
         return pathTransition;
-
     }
 
     ArrayList<NodeObj> pathFloorFilter() {
@@ -809,17 +808,22 @@ public class PatientController extends Controller {
     @FXML
     void UpdateSearch() {
         SearchOptions.getItems().clear();
-
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
-        for (NodeObj n : Main.getNodeMap().getNodes()) {
-            if (search.length() > 2 && (n.node.getLongName().contains(search) || n.node.getNodeID().contains(search))) {
-                SearchNodes.add(n);
-                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
-            } else if (search.length() == 0) {
-                if (!n.node.getNodeType().equals("HALL")) {
+        if (search.length() > 2) {
+            for (NodeObj n : Main.getNodeMap().getNodes()) {
+                if (FuzzySearch.partialRatio(n.node.getLongName(), search) > 70 ||
+                        FuzzySearch.weightedRatio(n.node.getNodeID(), search) > 90) {
+                    SearchNodes.add(n);
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
+            }
+        } else if (search.length() == 0) {
+
+            NodeObj n;
+            for (String s : Main.getImportantNodes()) {
+                n = Main.nodeMap.getNodeObjByID(s);
+                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
     }
@@ -893,7 +897,7 @@ public class PatientController extends Controller {
                     redraw();
                     gc.getGraphicsContext2D().setStroke(Color.BLUE);
                 }
-                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(4000));
+                Animation animation = createPathAnimation(convertPath(pathFloorFilter()), Duration.millis(pathAnimationSpeed()));
                 animation.play();
                 oldAnimation = animation;
                 DrawCurrentFloorPath();
@@ -917,7 +921,6 @@ public class PatientController extends Controller {
         System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
         resize();
-
     }
 
     @FXML
@@ -1007,5 +1010,10 @@ public class PatientController extends Controller {
         } else {
             textTogglePane.setVisible(false);
         }
+    }
+
+    public int pathAnimationSpeed() {
+        speed = 35000 / single.getPathAnimationSpeed();
+        return speed;
     }
 }

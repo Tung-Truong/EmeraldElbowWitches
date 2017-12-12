@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static model.CreateDB.NUM_OF_STATS;
@@ -142,4 +143,8 @@ public class ReadCSV {
             e.printStackTrace();
         }
     }
+
 }
+
+
+
