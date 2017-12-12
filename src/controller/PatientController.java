@@ -804,6 +804,17 @@ public class PatientController extends Controller {
     void Zin() {
         SearchPath.setVisible(false);
         single.setZoom(zoomBar.getValue());
+        single.setXTrans((int) clamp(single.getXTrans(), (-1* Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)), Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)));
+        single.setYTrans( (int) clamp(single.getYTrans(), (-1* Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)), Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)));
+//        if (single.getXTrans() >= Math.floor(single.getMapWidth()/2)){
+//            single.setXTrans((int) Math.floor(single.getMapWidth()/2));
+//        } else if (single.getXTrans() <= (-1* Math.floor(single.getMapWidth()/2))){
+//            single.setXTrans((int) (-1 * Math.floor(single.getMapWidth()/2)));
+//        } else if (single.getYTrans() >= Math.floor(single.getMapHeight()/2)){
+//            single.setYTrans((int) Math.floor(single.getMapHeight()/2));
+//        } else if (single.getYTrans() <= (-1*Math.floor(single.getMapHeight()/2))){
+//            single.setYTrans((int) (-1*Math.floor(single.getMapHeight()/2)));
+//        }
         resize();
 
     }
@@ -816,7 +827,7 @@ public class PatientController extends Controller {
     @FXML
     void Tleft() {
         int deltaX = (int) (100.0 / single.getZoom());
-        if (single.getXTrans() + deltaX <= Math.floor(single.getMapWidth()/2)) {
+        if (single.getXTrans() + deltaX <= Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)) {
             single.addX(deltaX);
             resize();
         }
@@ -825,7 +836,7 @@ public class PatientController extends Controller {
     @FXML
     void Tright() {
         int deltaX = (int) (100.0 / single.getZoom());
-        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()/2))) {
+        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()*(single.getZoom()-1)/2))) {
             single.subX(deltaX);
             resize();
         }
@@ -834,7 +845,7 @@ public class PatientController extends Controller {
     @FXML
     void Tup() {
         int deltaY = (int) (80.0 / single.getZoom());
-        if (single.getYTrans() <= Math.floor(single.getMapHeight()/2)) {
+        if (single.getYTrans() <= Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)) {
             single.addY(deltaY);
             resize();
         }
@@ -843,7 +854,7 @@ public class PatientController extends Controller {
     @FXML
     void Tdown() {
         int deltaY = (int) (80.0 / single.getZoom());
-        if (single.getYTrans() >= Math.floor(-1 * (single.getMapHeight()/2))) {
+        if (single.getYTrans() >= Math.floor(-1 * (single.getMapHeight()*(single.getZoom()-1)/2))) {
             single.subY(deltaY);
             resize();
         }
@@ -899,9 +910,6 @@ public class PatientController extends Controller {
 
 
     public void resize() {
-        int clampX = (int) Math.max(-1*single.getMapWidth()/2, Math.min(single.getXTrans(), single.getMapWidth()/2));
-
-        System.out.println("Clamp: " + clampX + " Width: " + single.getMapWidth());
 
         if (single.getZoom() <= 1) {
             single.setXTrans(0);
@@ -911,14 +919,15 @@ public class PatientController extends Controller {
         gc.setScaleY(single.getZoom());
         gc.setTranslateX(single.getXTrans());
         gc.setTranslateY(single.getYTrans());
+
         currentMap.setScaleX(single.getZoom());
         currentMap.setScaleY(single.getZoom());
 
         currentMap.setTranslateX(single.getXTrans());
         currentMap.setTranslateY(single.getYTrans());
 
-        single.setMapWidth(currentMap.getFitWidth()*(single.getZoom()-1));
-        single.setMapHeight(currentMap.getFitHeight()*(single.getZoom()-1));
+        single.setMapWidth(currentMap.getFitWidth()); //*(single.getZoom()-1));
+        single.setMapHeight(currentMap.getFitHeight()); //*(single.getZoom()-1));
     }
 
     @FXML
