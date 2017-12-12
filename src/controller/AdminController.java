@@ -458,8 +458,15 @@ public class AdminController extends Controller {
                 break;
             case "bestBtn":
                 bestBtn.setStyle("-fx-background-color:  #4286f4");
-                this.single.getAlgorithm().setPathAlg(new BestFirst());
+                //replaced for test perpouse return the class to best first!
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
                 break;
+                /* Scenic route button case
+            case "scenicBtn":
+                bestBtn.setStyle("-fx-background-color:  #4286f4");
+                this.single.getAlgorithm().setPathAlg(new ScenicRoute());
+                break;
+                */
         }
     }
 

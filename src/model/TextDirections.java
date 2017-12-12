@@ -9,8 +9,27 @@ public class TextDirections {
     public TextDirections() {
 
     }
-
+    /*
+    int switched;
+    public String floorSwitch(int stingType) {
+        if (switched == 0){
+            return "";
+        }
+        else if(switched == 1){
+            return "    ";
+        }
+        //To Do: Create a new String that holds either nothing or a tab
+        //add this string to all add msg parts
+        //after changing floors change the string to be a tab
+        //change back to a space when changing floors
+        //then repeat until out of floors
+        // use nextNode and current node floor to figure out when floors are changing
+        //also add an int that keeps track of which step it is and add that to the msg statements.
+        return" ";
+    }
+    */
     //creates text directions given an arraylist of nodes
+
     public String getTextDirections(ArrayList<NodeObj> pat) {
         ArrayList<NodeObj> path = new ArrayList<NodeObj>();
         for (NodeObj n : pat)
@@ -24,12 +43,13 @@ public class TextDirections {
         Node floorNode;
         Node lastStraightNode;
         String previousMsg = "";
+        String prevEliv = "";
         Double pixelToFeet = 1.5;
-        Double pathLength = 0.0;
+        int pathLength = 0;
 
         if (path.size() == 2) {
-            pathLength = (path.get(1).getDistance(path.get(0))) / pixelToFeet;
-            return "go straight for " + pathLength + " feet";
+            pathLength = (int) ((path.get(1).getDistance(path.get(0))) / pixelToFeet);
+            return "      Go straight for " + pathLength + " feet";
         }
         for (int i = 1; i < path.size() - 1; i++) {
 
@@ -38,47 +58,52 @@ public class TextDirections {
             nextNode = path.get(i + 1).getNode();
             floorNode = path.get(i + 1).getNode();
 
-            // if the next node is a staircase
-            if (nextNode.getNodeType().equals("STAI") && !floorNode.getFloor().equals(nextNode.getFloor())) {
-                msg.add(("Take the stairs to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
-            } else if (nextNode.getNodeType().equals("ELEV") && !floorNode.getFloor().equals(nextNode.getFloor())) {
-                msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n\n"));
+
+            // if the next node is an elevator - print the floor and split the text
+            if (nextNode.getNodeType().equals("ELEV") && !curNode.getFloor().equals(nextNode.getFloor())) {
+                if(!prevEliv.equals(""+nextHallwayNode(path, i).getFloor())) {
+                    msg.add("----------------------------" + "\n");
+                    msg.add(("Take the elevator to floor " + nextHallwayNode(path, i).getFloor() + "\n"));
+                    msg.add("----------------------------" + "\n");
+                    prevEliv = "" + nextHallwayNode(path, i).getFloor();
+                }
             } else {
                 // calculate the angle between the vector last->
                 // starts from
                 angle = angleBetweenNodes(lastNode, curNode, nextNode);
                 // if the next node is basically straight ahead
                 if (angle >= 160 || angle <= -160) {
-                    if (!previousMsg.equals("go straight\n")) {
+                    if (!previousMsg.equals("      Go straight\n")) {
                         //Need to find next turn to get that x and y and then math out the feet
                         Node nextTurn = findNextTurn(i, path);
-                        if (nextTurn != null) {
-                            pathLength = distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet;
-                            msg.add("Go straight  for " + pathLength.intValue() + " feet" + "\n\n");
-                            previousMsg = "go straight\n";
+
+                        if(nextTurn != null) {
+                            pathLength = (int)(distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextTurn.getxLoc(), nextTurn.getyLoc()) / pixelToFeet);
+                            msg.add("      Go straight  for " + pathLength + " feet" + "\n");
+                            previousMsg = "      Go straight\n";
                         }
                     }
                 } else {
                     String dirAng = "";
                     // add how much to turn
                     if (Math.abs(angle) < 45)
-                        dirAng += "Turn sharply ";
+                        dirAng += "      Turn sharply ";
                     else if (Math.abs(angle) < 135)
-                        dirAng += "Turn ";
+                        dirAng += "      Turn ";
                     else if (Math.abs(angle) < 160) {
-                        dirAng += "Turn slightly ";
+                        dirAng += "      Turn slightly ";
                     }
 
                     // add which direction to turn
 
                     if (angle >= 0) {
-                        dirAng += "right at " + curNode.getShortName() + "\n\n";
-                        dirAng += "Go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
+                        dirAng += "right at " +curNode.getShortName() + "\n";
+                        dirAng += "      Go straight for " + (int)distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "right at ";
 
                     } else {
-                        dirAng += "left at " + curNode.getShortName() + "\n\n";
-                        dirAng += "Go straight for " + (int)distanceFormula(curNode.getxLoc(), curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n\n";
+                        dirAng += "left at " +curNode.getShortName() + "\n";
+                        dirAng += "      Go straight for " + (int)distanceFormula(curNode.getxLoc(),curNode.getyLoc(), nextNode.getxLoc(), nextNode.getyLoc()) + " feet\n";
                         previousMsg = "left at ";
 
                     }
@@ -87,7 +112,7 @@ public class TextDirections {
             }
 
         }
-        msg.add("You have arrived at your location!");
+        msg.add("\n" + "You have arrived at your location!");
         String txtDir = "";
         for (String s : msg)
             txtDir = txtDir + s;
