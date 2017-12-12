@@ -1,6 +1,9 @@
 package controller;
 
 import com.jfoenix.controls.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +24,10 @@ import model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
 
 import static java.lang.Thread.sleep;
 
@@ -65,6 +70,11 @@ public class AdminController extends Controller {
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
+    // memento and logoutCountdown are used for the Memento design to log out of Admin after an activity gap
+    Memento memento = new Memento(Main.getPatientScene(), Main.getAdminScene()); // the memento to store
+    private static int logoutCountdown = 120; // the amount of time in seconds of inactivity before an automatic logout
+    Timeline timeline;
+
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
         currentMap.setImage(m1);
@@ -73,6 +83,13 @@ public class AdminController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.ofSeconds(logoutCountdown),
+                ae -> restoreFromMemento(memento)));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
 
     private void redraw() {
@@ -609,4 +626,23 @@ public class AdminController extends Controller {
         single.setMapWidth(currentMap.getFitWidth());
         single.setMapHeight(currentMap.getFitHeight());
     }
+
+    /*
+
+    @FXML
+    void adminLogout() {
+        Main.getCurrStage().setScene(Main.getPatientScene());
+    }
+
+     */
+
+    public Memento saveToMemento(Scene patientScene, Scene adminScene) {
+        return new Memento(patientScene, adminScene);
+    }
+
+    public void restoreFromMemento(Memento memento) {
+        Main.getCurrStage().setScene(memento.getPatientScene());
+    }
+
+
 }

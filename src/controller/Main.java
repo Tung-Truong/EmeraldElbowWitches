@@ -123,6 +123,10 @@ public class Main extends Application {
             loNodeObj.add(new NodeObj(n));
         }
 
+        // stores the values of the memento allowing the application to switch back
+        // to the patient controller after a period of inactivity
+        ArrayList<Memento> mementos = new ArrayList<>();
+
         //this has all of the current nodes from the database and is useful for adding and deleting the
 
         nodeMap = new ListOfNodeObjs(loNodeObj);
