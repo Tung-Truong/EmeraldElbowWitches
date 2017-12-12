@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
+    private static ArrayList<String> importantNodes = new ArrayList<>();
     public static int sceneWidth = 1400;
     public static int sceneHeight = 900;
     public static Scene patientScene;
@@ -29,7 +30,6 @@ public class Main extends Application {
     public static NodeObj kiosk;        // default location of the starting point for pathfinding
     //contains all the node objects from the entity
     public static ListOfNodeObjs nodeMap;
-    public static ListOfNodeObjs importantNodes;
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
     //contains all the employee
     public static ArrayList<Employee> employees;
@@ -53,6 +53,7 @@ public class Main extends Application {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
+
 
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
@@ -155,6 +156,12 @@ public class Main extends Application {
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
+
+        try {
+            CSVtoArrayList.readCSVToArray("src/model/docs/ImportantNodes.csv",1,importantNodes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // creates and saves list of requests
         ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
@@ -272,10 +279,6 @@ public class Main extends Application {
         return nodeMap;
     }
 
-    public static ListOfNodeObjs getImportantNodes(){
-        return importantNodes;
-    }
-
     public static Scene getPatientScene() {
         return patientScene;
     }
@@ -322,6 +325,10 @@ public class Main extends Application {
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
+    }
+
+    public static ArrayList<String> getImportantNodes() {
+        return importantNodes;
     }
 
     //this runs the service request

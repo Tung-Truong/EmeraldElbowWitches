@@ -20,7 +20,7 @@ public class SingleController {
     double mapHeight;
     //ImageLoader mapImage = new ImageLoader();
     private String serviceNeeded;
-    private int pathAnimationSpeed;
+    private int pathAnimationSpeed = 7;
 
     public static SingleController getController() {
         return control;

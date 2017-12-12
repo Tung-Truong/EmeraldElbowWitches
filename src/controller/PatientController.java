@@ -35,7 +35,9 @@ import javafx.scene.paint.Color;
 import model.*;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -95,8 +97,10 @@ public class PatientController extends Controller {
     private GraphicsContext gc1 = null;
     private int speed;
 
+
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
+        NodeObj n;
         selectFloorWithPath("1");
         currentMap.setImage(m1);
         btn_map01.setOpacity(1);
@@ -105,10 +109,9 @@ public class PatientController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
         setKioskLoc(2460, 910);
         redraw();
-        for (NodeObj n : Main.getNodeMap().getNodes()) {
-            if (!n.node.getNodeType().equals("HALL")) {
-                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
-            }
+        for (String s : Main.getImportantNodes()) {
+            n = Main.nodeMap.getNodeObjByID(s);
+            SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
         }
         toolTipsInit();
     }
@@ -718,20 +721,22 @@ public class PatientController extends Controller {
     @FXML
     void UpdateSearch() {
         SearchOptions.getItems().clear();
-
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
         if (search.length() > 2) {
             for (NodeObj n : Main.getNodeMap().getNodes()) {
-                if (FuzzySearch.partialRatio(n.node.getLongName(), search) > 50 || FuzzySearch.partialRatio(n.node.getNodeID(), search) > 50){
+                if (FuzzySearch.partialRatio(n.node.getLongName(), search) > 70 ||
+                        FuzzySearch.weightedRatio(n.node.getNodeID(), search) > 80) {
                     SearchNodes.add(n);
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
             }
-        }
-        else if (search.length() == 0) {
-            for (NodeObj n: Main.importantNodes.getNodes()) {
-                SearchOptions.getItems().add(    n.node.getNodeID() + " : " + n.node.getLongName());
+        } else if (search.length() == 0) {
+
+            NodeObj n;
+            for (String s : Main.getImportantNodes()) {
+                n = Main.nodeMap.getNodeObjByID(s);
+                SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
     }
@@ -921,7 +926,7 @@ public class PatientController extends Controller {
     }
 
     public int pathAnimationSpeed() {
-        speed = single.getPathAnimationSpeed() * 400;
+        speed = 35000 / single.getPathAnimationSpeed();
         return speed;
     }
 }
