@@ -43,7 +43,7 @@ public class Main extends Application {
     public static InterpreterService interpreterService;
     public static ControllerListener controllers;
     public static Employee currUser;
-
+    public static AdminController adminCont;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
@@ -219,9 +219,11 @@ public class Main extends Application {
 
         this.controllers.addObserver(patCont);
 
+        // the auto-login function in the initializer for AdminController checks if it is the
+        // active scene, so AdminController needs to be set up after the active scene is set
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
         adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
-        AdminController adminCont = adminContLoad.getController();
+        adminCont = adminContLoad.getController();
 
         this.controllers.addObserver(adminCont);
 
@@ -325,6 +327,10 @@ public class Main extends Application {
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
+    }
+
+    public static AdminController getAdminCont() {
+        return adminCont;
     }
 
     public static ArrayList<String> getImportantNodes() {

@@ -18,6 +18,8 @@ public class LogInController {
     @FXML
     private JFXButton cancelButton;
 
+    public static boolean isFirstLogin = true;
+
     @FXML
     void cancel() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -30,6 +32,11 @@ public class LogInController {
             if (e.getUsername().equals(UsernameField.getText()) && e.getPassword().equals(PasswordField.getText())) {
                 Main.setCurrUser(e);
                 Main.getCurrStage().setScene(Main.getAdminScene());
+                if(isFirstLogin) {
+                    Main.getAdminCont().startTimer();
+                    isFirstLogin = false;
+                }
+                Main.getAdminCont().timeoutCounter = 0;
                 cancel();
                 break;
             }
