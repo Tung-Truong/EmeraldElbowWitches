@@ -815,18 +815,18 @@ public class PatientController extends Controller {
 
     @FXML
     void Tleft() {
-        System.out.println("Boundary: " + single.getMapWidth() + " " + "Actual: " + single.getXTrans());
-        if (single.getXTrans() <= single.getMapWidth()/2) {
-            single.addX((int) (200.0 / single.getZoom()));
+        System.out.println("Boundary: " + Math.floor(single.getMapWidth()/single.getZoom())+ " Actual: " + single.getXTrans() + " Max: " + single.getMapWidth());
+        if (single.getXTrans() <= Math.floor(single.getMapWidth()/single.getZoom())) {
+            single.addX((int) (100.0 / single.getZoom()));
             resize();
         }
     }
 
     @FXML
     void Tright() {
-        System.out.println("Boundary: " + single.getMapWidth() + " " + "Actual: " + single.getXTrans());
-        if (single.getYTrans() >= 0 && single.getYTrans() <= single.getMapHeight()) {
-            single.subX((int) (200.0 / single.getZoom()));
+        System.out.println("Boundary: " + Math.floor(-1 * (single.getMapWidth()/single.getZoom())) + " Actual: " + single.getXTrans() + " Max: " + single.getMapWidth());
+        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()/single.getZoom()))) {
+            single.subX((int) (100.0 / single.getZoom()));
             resize();
         }
     }

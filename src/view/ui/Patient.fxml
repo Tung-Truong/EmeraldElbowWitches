@@ -116,12 +116,12 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseClicked="#Tright" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE">
+      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMousePressed="#Tright" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMouseClicked="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE">
+      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMousePressed="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -131,7 +131,7 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0">
+      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseDragged="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
