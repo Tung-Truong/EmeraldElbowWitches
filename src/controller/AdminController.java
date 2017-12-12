@@ -673,34 +673,57 @@ public class AdminController extends Controller {
 
     @FXML
     void Zin() {
-        System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
+        single.setXTrans((int) clamp(single.getXTrans(), (-1* Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)), Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)));
+        single.setYTrans( (int) clamp(single.getYTrans(), (-1* Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)), Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)));
         resize();
 
     }
 
     @FXML
     void Tleft() {
-        single.addX((int) (200.0 / single.getZoom()));
-        resize();
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() + deltaX <= Math.floor(single.getMapWidth()*(single.getZoom()-1)/2)) {
+            single.addX(deltaX);
+            resize();
+        }
     }
 
     @FXML
     void Tright() {
-        single.subX((int) (200.0 / single.getZoom()));
-        resize();
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()*(single.getZoom()-1)/2))) {
+            single.subX(deltaX);
+            resize();
+        }
     }
 
     @FXML
     void Tup() {
-        single.addY((int) (160.0 / single.getZoom()));
-        resize();
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() <= Math.floor(single.getMapHeight()*(single.getZoom()-1)/2)) {
+            single.addY(deltaY);
+            resize();
+        }
     }
 
     @FXML
     void Tdown() {
-        single.subY((int) (160.0 / single.getZoom()));
-        resize();
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() >= Math.floor(-1 * (single.getMapHeight()*(single.getZoom()-1)/2))) {
+            single.subY(deltaY);
+            resize();
+        }
+    }
+
+    double clamp(double x, double min, double max){
+        if (x < min){
+            return min;
+        } else if (x > max){
+            return max;
+        } else {
+            return x;
+        }
     }
 
     public void resize() {
