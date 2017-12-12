@@ -35,11 +35,11 @@ public class DeleteDB {
         statement.close();
     }
 
-    public static void delEmployee(String delEmployeeEmail) throws SQLException {
+    public static void delEmployee(Employee delEmployee) throws SQLException {
         String DEL_EMPLOYEE = null;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
-        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE WHERE username = '" + delEmployeeEmail + "'";
+        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE WHERE username = '" + delEmployee.getUsername() + "' AND password = '" + delEmployee.getPassword() + "'";
         statement.executeUpdate(DEL_EMPLOYEE);
         statement.close();
     }

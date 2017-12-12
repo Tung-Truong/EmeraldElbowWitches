@@ -44,7 +44,7 @@ public class WriteEmployees {
             fw.flush();
             fw.close();
             conn.close();
-            System.out.println("CSV File is created successfully.");
+            System.out.println("CSV File Successfully Created: Employees");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class WriteEmployees {
 
         try {
             Connection conn = DriverManager.getConnection(JDBC_URL);
-            String query = "select DISTINCT * from employeeTable";
+            String query = "select * from employeeTable";
             String filename = "src/model/docs/EmployeesEncrypted.csv";
             File file = new File(filename);
             FileWriter fw = new FileWriter(file);

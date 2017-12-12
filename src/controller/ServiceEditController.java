@@ -34,10 +34,13 @@ public class ServiceEditController {
 
     @FXML
     private TextField emailOne, firstOne, lastOne, depOne, langOne, availOne, usernameOne, passwordOne,
-            emailTwo, firstTwo, lastTwo, depTwo, langTwo, usernameTwo, passwordTwo, availTwo, oldPassword;
+            emailTwo, firstTwo, lastTwo, depTwo, langTwo, availTwo, usernameTwo, oldPasswordTwo, newPasswordTwo;
 
     @FXML
     private ComboBox<String> /*AssignEmployee, */ DeleteEmployee, ModifyEmployee;
+
+    @FXML
+    private Label passwordInfo;
 
 
     // Getters
@@ -180,6 +183,7 @@ public class ServiceEditController {
             pState.executeUpdate();
             pState.close();
             System.out.println("Employee Added!");
+            passwordInfo.setText("Employee Added");
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
@@ -216,7 +220,7 @@ public class ServiceEditController {
             langTwo.setText(foundMOd.getLanguage());
             availTwo.setText(foundMOd.getAvailability());
             usernameTwo.setText(foundMOd.getUsername());
-            passwordTwo.setText("");
+            newPasswordTwo.setText("");
 
         } catch (NullPointerException e) {
             e.getMessage();
@@ -244,35 +248,43 @@ public class ServiceEditController {
         foundMOd.setLanguage(langTwo.getText());
         foundMOd.setAvailability(availTwo.getText());
         foundMOd.setUsername(usernameTwo.getText());
+        passwordInfo.setText("");
 
-        if (BCrypt.checkpw(foundMOd.getPassword(), oldPassword.getText())) {
-            foundMOd.setPassword(BCrypt.hashpw(passwordTwo.getText(), BCrypt.gensalt()));
+        if (BCrypt.checkpw(oldPasswordTwo.getText(), foundMOd.getPassword())) {
+            foundMOd.setPassword(BCrypt.hashpw(newPasswordTwo.getText(), BCrypt.gensalt()));
 
             try {
                 Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-                String SQL = "UPDATE EMPLOYEETABLE SET email='" + foundMOd.getEmail() + "', firstName='" + foundMOd.getFirstName() + "', lastName='" + foundMOd.getLastName() + "', department='" + foundMOd.getDepartment() + "', language='" + foundMOd.getLanguage() + "', availability='" + foundMOd.getAvailability() + "', username='" + foundMOd.getUsername() + "', password='" + foundMOd.getPassword() + "' WHERE username=" + foundMOd.getUsername();
+                String SQL = "UPDATE EMPLOYEETABLE SET email='" + foundMOd.getEmail() + "', firstName='" + foundMOd.getFirstName() + "', lastName='" + foundMOd.getLastName() + "', department='" + foundMOd.getDepartment() + "', language='" + foundMOd.getLanguage() + "', availability='" + foundMOd.getAvailability() + "', username='" + foundMOd.getUsername() + "', password='" + foundMOd.getPassword() + "' WHERE username='" + foundMOd.getUsername() + "'";
 
 
                 PreparedStatement pState = connection.prepareStatement(SQL);
                 pState.executeUpdate();
                 pState.close();
-                System.out.println("Employee Added!");
+                System.out.println("Employee Updated!");
+                passwordInfo.setText("Employee Updated");
+
+                emailTwo.clear();
+                firstTwo.clear();
+                lastTwo.clear();
+                depTwo.clear();
+                langTwo.clear();
+                availTwo.clear();
+                usernameTwo.clear();
+                newPasswordTwo.clear();
+                oldPasswordTwo.clear();
+                ModifyEmployee.getItems().clear();
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
         } else {
-            return;
+            System.out.println("Incorrect Password!");
+            passwordInfo.setText("Incorrect Password");
+            newPasswordTwo.clear();
+            oldPasswordTwo.clear();
         }
-        emailTwo.clear();
-        firstTwo.clear();
-        lastTwo.clear();
-        depTwo.clear();
-        langTwo.clear();
-        availTwo.clear();
-        usernameTwo.clear();
-        passwordTwo.clear();
-        oldPassword.clear();
+
     }
 
     @FXML
@@ -295,10 +307,14 @@ public class ServiceEditController {
         // AssignEmployee.getItems().remove(foundDel.getFirstName() + " " + foundDel.getLastName());
 
         try {
-            DeleteDB.delEmployee(foundDel.getEmail());
+            DeleteDB.delEmployee(foundDel);
+            System.out.println("Employee Deleted!");
+            passwordInfo.setText("Employee Deleted");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        DeleteEmployee.getItems().clear();
     }
 
    /* @FXML

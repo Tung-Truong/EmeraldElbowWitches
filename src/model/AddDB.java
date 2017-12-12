@@ -59,9 +59,9 @@ public class AddDB {
 
        try {
              for (Employee emp : Main.employees) {
-                if (emp.getUsername() == addEmployee.getUsername() && emp.getPassword() != BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt())) {
+                if (emp.getUsername() == addEmployee.getUsername() && emp.getPassword() == BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt())) {
                     isCopy = true;
-                    DeleteDB.delEmployee(emp.getEmail());
+                    DeleteDB.delEmployee(emp);
                 } else if (emp.getUsername() != addEmployee.getUsername()) {
                     return;
                 }
@@ -70,7 +70,7 @@ public class AddDB {
             Main.employees.add(addEmployee);
 
             if (isCopy) {
-                SQL = "UPDATE employeeTable SET password='" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "' WHERE username='" + addEmployee.getUsername() + "'";
+                SQL = "UPDATE employeeTable SET password='" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "' WHERE username='" + addEmployee.getUsername() + "' AND password='" + addEmployee.getPassword() + "'";
 
             } else {
                 String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
