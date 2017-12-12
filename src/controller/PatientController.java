@@ -813,7 +813,7 @@ public class PatientController extends Controller {
         if (search.length() > 2) {
             for (NodeObj n : Main.getNodeMap().getNodes()) {
                 if (FuzzySearch.partialRatio(n.node.getLongName(), search) > 70 ||
-                        FuzzySearch.weightedRatio(n.node.getNodeID(), search) > 90) {
+                        n.node.getNodeID().contains(search.toUpperCase().trim())) {
                     SearchNodes.add(n);
                     SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
                 }
@@ -1010,6 +1010,11 @@ public class PatientController extends Controller {
         } else {
             textTogglePane.setVisible(false);
         }
+    }
+
+    @FXML
+    public void changeText(){
+        SearchNodeID.setText(SearchOptions.getValue().split(":")[0].trim());
     }
 
     public int pathAnimationSpeed() {
