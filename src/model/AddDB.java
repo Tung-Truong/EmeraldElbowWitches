@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import model.CreateDB;
 import model.Node;
 import model.Edge;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class AddDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
     public static int interpreters;
+    public static ArrayList<Employee> employeeInDB = new ArrayList<Employee>();
 
 
     // Generate Nodes from database using CSV files
@@ -52,14 +54,37 @@ public class AddDB {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-        String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
-                addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "','" + addEmployee.getUsername() + "','" + addEmployee.getPassword() + "')"; //build the sql template
+        String SQL;
+        boolean isCopy = false;
 
-        String SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
+       try {
+             for (Employee emp : Main.employees) {
+                if (emp.getUsername() == addEmployee.getUsername() && emp.getPassword() != BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt())) {
+                    isCopy = true;
+                    DeleteDB.delEmployee(emp.getEmail());
+                } else if (emp.getUsername() != addEmployee.getUsername()) {
+                    return;
+                }
+             }
 
-        PreparedStatement pState = connection.prepareStatement(SQL);
-        pState.executeUpdate();
-        pState.close();
+            Main.employees.add(addEmployee);
+
+            if (isCopy) {
+                SQL = "UPDATE employeeTable SET password='" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "' WHERE username='" + addEmployee.getUsername() + "'";
+
+            } else {
+                String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
+                        addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "','" + addEmployee.getUsername() + "','" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "')"; //build the sql template
+                SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
+            }
+
+
+            PreparedStatement pState = connection.prepareStatement(SQL);
+            pState.executeUpdate();
+            pState.close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addJanitorStatistic(JanitorStatistic addStatistic) throws SQLException {
@@ -78,12 +103,12 @@ public class AddDB {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         ArrayList<String> strs = new ArrayList<String>();
 
-        for (String f: addStatistic.getMenu()){
+        for (String f : addStatistic.getMenu()) {
             String buildSQLStr = " VALUES (" + addStatistic.getFoodType() + addStatistic.getNumOfOrders() + addStatistic.getAvgTime() + ")"; //build the sql template
             strs.add(f);
         }
 
-        for (String s: strs){
+        for (String s : strs) {
             String SQL = "INSERT INTO CAFETERIASTATISTICTABLE" + s; //insert row into database
             PreparedStatement pState = connection.prepareStatement(SQL);
             pState.executeUpdate();
@@ -97,13 +122,13 @@ public class AddDB {
         //String buildSQLStr = "";
         ArrayList<String> strs = new ArrayList<String>();
 
-        for (String lang: addStatistic.getLanguages()){
+        for (String lang : addStatistic.getLanguages()) {
             String buildSQLStr = " VALUES ('" + lang + "','" + (addStatistic.getNumOfInterpreters() + interpreters) + "','" + addStatistic.getAvgTimeTaken() + "')";
             strs.add(buildSQLStr);
         }
         //buildSQLStr = " VALUES ('" + addStatistic.getLanguage() + "','" + (addStatistic.getNumOfInterpreters() + interpreters) + "','" + addStatistic.getAvgTimeTaken() + "')"; //build the sql template
 
-        for (String s: strs) {
+        for (String s : strs) {
             String SQL = "INSERT INTO INTERPRETERSTATISTICTABLE" + s; //insert row into database
             PreparedStatement pState = connection.prepareStatement(SQL);
             pState.executeUpdate();
@@ -116,7 +141,6 @@ public class AddDB {
 //        pState.executeUpdate();
 //        pState.close();
     }
-
 
 
     public static void addRequest(ServiceRequest addService) throws SQLException {
@@ -159,5 +183,4 @@ public class AddDB {
             e.printStackTrace();
         }
     }
-
 }

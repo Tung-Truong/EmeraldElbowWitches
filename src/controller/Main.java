@@ -68,6 +68,8 @@ public class Main extends Application {
         try {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
+            File employeeCSVTest = new File("src/model/docs/Employees.csv");
+            File employeeEncryptedCSVTest = new File("src/model/docs/EmployeesEncrypted.csv");
             File statsCSVTest = new File("src/model/docs/Statistics.csv");
             if (nodeCSVTest.exists() && edgeCSVTest.exists()) {           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
@@ -95,7 +97,20 @@ public class Main extends Application {
                 ReadCSV.runEdge("src/model/docs/MapIedges.csv");
                 ReadCSV.runEdge("src/model/docs/MapWedges.csv");
             }
-            ReadCSV.runEmployee("src/model/docs/Employees.csv");
+
+            if (!employeeCSVTest.exists()) {
+                return;
+            } else if (employeeCSVTest.exists() && !employeeEncryptedCSVTest.exists()) {
+                ReadCSV.runEmployee("src/model/docs/Employees.csv");
+                WriteEmployees.runEmployeesFirst();
+                DeleteDB.delAllEmployee();
+            }
+
+            if (employeeEncryptedCSVTest.exists()) {
+                ReadCSV.runEmployee("src/model/docs/EmployeesEncrypted.csv");
+            }
+
+
             ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
             if (statsCSVTest.exists()) {
                 ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
@@ -106,7 +121,7 @@ public class Main extends Application {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //from this csv,generate all of the nodes that will be on the map
@@ -251,6 +266,7 @@ public class Main extends Application {
             WriteStatistics.runJanitorStatistic();
             WriteStatistics.runCafeteriaStatistic();
             WriteStatistics.runInterpreterStatistic();
+            DeleteDB.delAllEmployee();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {

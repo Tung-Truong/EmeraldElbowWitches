@@ -14,9 +14,10 @@ public class JanitorStatistic {
 //        this.numOfSupplies = numOfSupplies;
 //        avgTime = avgTimeTaken;
 //    }
-    private JanitorStatistic(){  }
+    private JanitorStatistic() {
+    }
 
-    public static JanitorStatistic getSoap(){
+    public static JanitorStatistic getSoap() {
         return soap;
     }
 

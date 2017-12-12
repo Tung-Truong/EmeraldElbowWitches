@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -8,48 +13,49 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="770.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceEditController">
-   <children>
-  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="1458.0" style="-fx-background-color: white;" />
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="770.0" style="-fx-background-color: #1b3766#1b3766 #1b3766#1b3766;">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="16.0" prefHeight="45.0" prefWidth="174.0" text="ADD EMPLOYEE" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="17.0" prefHeight="45.0" prefWidth="200.0" text="MODIFY EMPLOYEE" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="535.0" layoutY="16.0" prefHeight="45.0" prefWidth="200.0" text="REMOVE EMPLOYEE" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <JFXTextField fx:id="emailOne" focusColor="#4286f4" layoutX="30.0" layoutY="90.0" prefHeight="27.0" prefWidth="182.0" promptText="Email" unFocusColor="GREY" />
-      <JFXTextField fx:id="firstOne" focusColor="#4286f4" layoutX="30.0" layoutY="130.0" prefHeight="27.0" prefWidth="182.0" promptText="First Name" unFocusColor="GREY" />
-      <JFXTextField fx:id="lastOne" focusColor="#4286f4" layoutX="30.0" layoutY="170.0" prefHeight="27.0" prefWidth="182.0" promptText="Last Name" unFocusColor="GREY" />
-      <JFXTextField fx:id="depOne" focusColor="#4286f4" layoutX="30.0" layoutY="210.0" prefHeight="27.0" prefWidth="182.0" promptText="Department" unFocusColor="GREY" />
-      <JFXTextField fx:id="langOne" focusColor="#4286f4" layoutX="30.0" layoutY="250.0" prefHeight="27.0" prefWidth="182.0" promptText="Language" unFocusColor="GREY" />
-      <JFXTextField fx:id="availOne" focusColor="#4286f4" layoutX="30.0" layoutY="290.0" prefHeight="27.0" prefWidth="182.0" promptText="Availability" unFocusColor="GREY" />
-      <JFXTextField fx:id="usernameOne" focusColor="#4286f4" layoutX="30.0" layoutY="330.0" prefHeight="27.0" prefWidth="182.0" promptText="Username" unFocusColor="GREY" />
-      <JFXTextField fx:id="passwordOne" focusColor="#4286f4" layoutX="30.0" layoutY="370.0" prefHeight="27.0" prefWidth="182.0" promptText="Password" unFocusColor="GREY" />
-      <JFXButton buttonType="RAISED" layoutX="85.0" layoutY="470.0" onAction="#AddEmployee" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
-      <JFXComboBox fx:id="ModifyEmployee" layoutX="280.0" layoutY="90.0" onAction="#AutoFill" prefWidth="182.0" promptText="Employees" />
-      <JFXTextField fx:id="emailTwo" focusColor="#4286f4" layoutX="279.0" layoutY="130.0" prefHeight="27.0" prefWidth="182.0" promptText="Email" unFocusColor="GREY" />
-      <JFXTextField fx:id="firstTwo" focusColor="#4286f4" layoutX="279.0" layoutY="170.0" prefHeight="27.0" prefWidth="182.0" promptText="First Name" unFocusColor="GREY" />
-      <JFXTextField fx:id="lastTwo" focusColor="#4286f4" layoutX="279.0" layoutY="210.0" prefHeight="27.0" prefWidth="182.0" promptText="Last Name" unFocusColor="GREY" />
-      <JFXTextField fx:id="depTwo" focusColor="#4286f4" layoutX="279.0" layoutY="250.0" prefHeight="27.0" prefWidth="182.0" promptText="Department" unFocusColor="GREY" />
-      <JFXTextField fx:id="langTwo" focusColor="#4286f4" layoutX="279.0" layoutY="290.0" prefHeight="27.0" prefWidth="182.0" promptText="Language" unFocusColor="GREY" />
-      <JFXTextField fx:id="availTwo" focusColor="#4286f4" layoutX="279.0" layoutY="330.0" prefHeight="27.0" prefWidth="182.0" promptText="Availability" unFocusColor="GREY" />
-      <JFXTextField fx:id="usernameTwo" focusColor="#4286f4" layoutX="279.0" layoutY="370.0" prefHeight="27.0" prefWidth="182.0" promptText="Username" unFocusColor="GREY" />
-      <JFXTextField fx:id="passwordTwo" focusColor="#4286f4" layoutX="279.0" layoutY="410.0" prefHeight="27.0" prefWidth="182.0" promptText="Password" unFocusColor="GREY" />
-      <JFXButton buttonType="RAISED" layoutX="334.0" layoutY="470.0" onAction="#ModifyEmployees" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
-      <JFXComboBox fx:id="DeleteEmployee" layoutX="548.0" layoutY="90.0" prefWidth="182.0" promptText="Employees" />
-      <JFXButton buttonType="RAISED" layoutX="604.0" layoutY="150.0" onAction="#removeEmployee" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="770.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ServiceEditController">
+    <children>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="1458.0" style="-fx-background-color: white;" />
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="79.0" prefWidth="770.0" style="-fx-background-color: #1b3766#1b3766 #1b3766#1b3766;">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="16.0" prefHeight="45.0" prefWidth="174.0" text="ADD EMPLOYEE" textFill="WHITE">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="17.0" prefHeight="45.0" prefWidth="200.0" text="MODIFY EMPLOYEE" textFill="WHITE">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="535.0" layoutY="16.0" prefHeight="45.0" prefWidth="200.0" text="REMOVE EMPLOYEE" textFill="WHITE">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <JFXTextField fx:id="emailOne" focusColor="#4286f4" layoutX="30.0" layoutY="90.0" prefHeight="27.0" prefWidth="182.0" promptText="Email" unFocusColor="GREY" />
+        <JFXTextField fx:id="firstOne" focusColor="#4286f4" layoutX="30.0" layoutY="130.0" prefHeight="27.0" prefWidth="182.0" promptText="First Name" unFocusColor="GREY" />
+        <JFXTextField fx:id="lastOne" focusColor="#4286f4" layoutX="30.0" layoutY="170.0" prefHeight="27.0" prefWidth="182.0" promptText="Last Name" unFocusColor="GREY" />
+        <JFXTextField fx:id="depOne" focusColor="#4286f4" layoutX="30.0" layoutY="210.0" prefHeight="27.0" prefWidth="182.0" promptText="Department" unFocusColor="GREY" />
+        <JFXTextField fx:id="langOne" focusColor="#4286f4" layoutX="30.0" layoutY="250.0" prefHeight="27.0" prefWidth="182.0" promptText="Language" unFocusColor="GREY" />
+        <JFXTextField fx:id="availOne" focusColor="#4286f4" layoutX="30.0" layoutY="290.0" prefHeight="27.0" prefWidth="182.0" promptText="Availability" unFocusColor="GREY" />
+        <JFXTextField fx:id="usernameOne" focusColor="#4286f4" layoutX="30.0" layoutY="330.0" prefHeight="27.0" prefWidth="182.0" promptText="Username" unFocusColor="GREY" />
+        <JFXTextField fx:id="passwordOne" focusColor="#4286f4" layoutX="30.0" layoutY="370.0" prefHeight="27.0" prefWidth="182.0" promptText="Password" unFocusColor="GREY" />
+        <JFXButton buttonType="RAISED" layoutX="85.0" layoutY="520.0" onAction="#AddEmployee" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
+        <JFXComboBox fx:id="ModifyEmployee" layoutX="280.0" layoutY="90.0" onAction="#AutoFill" prefWidth="182.0" promptText="Employees" />
+        <JFXTextField fx:id="emailTwo" focusColor="#4286f4" layoutX="279.0" layoutY="130.0" prefHeight="27.0" prefWidth="182.0" promptText="Email" unFocusColor="GREY" />
+        <JFXTextField fx:id="firstTwo" focusColor="#4286f4" layoutX="279.0" layoutY="170.0" prefHeight="27.0" prefWidth="182.0" promptText="First Name" unFocusColor="GREY" />
+        <JFXTextField fx:id="lastTwo" focusColor="#4286f4" layoutX="279.0" layoutY="210.0" prefHeight="27.0" prefWidth="182.0" promptText="Last Name" unFocusColor="GREY" />
+        <JFXTextField fx:id="depTwo" focusColor="#4286f4" layoutX="279.0" layoutY="250.0" prefHeight="27.0" prefWidth="182.0" promptText="Department" unFocusColor="GREY" />
+        <JFXTextField fx:id="langTwo" focusColor="#4286f4" layoutX="279.0" layoutY="290.0" prefHeight="27.0" prefWidth="182.0" promptText="Language" unFocusColor="GREY" />
+        <JFXTextField fx:id="availTwo" focusColor="#4286f4" layoutX="279.0" layoutY="330.0" prefHeight="27.0" prefWidth="182.0" promptText="Availability" unFocusColor="GREY" />
+        <JFXTextField fx:id="usernameTwo" focusColor="#4286f4" layoutX="279.0" layoutY="370.0" prefHeight="27.0" prefWidth="182.0" promptText="Username" unFocusColor="GREY" />
+        <JFXTextField fx:id="oldPassword" focusColor="#4286f4" layoutX="279.0" layoutY="410.0" prefHeight="27.0" prefWidth="182.0" promptText="Old Password" unFocusColor="GREY" />
+        <JFXButton buttonType="RAISED" layoutX="334.0" layoutY="520.0" onAction="#ModifyEmployees" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
+        <JFXComboBox fx:id="DeleteEmployee" layoutX="548.0" layoutY="90.0" prefWidth="182.0" promptText="Employees" />
+        <JFXButton buttonType="RAISED" layoutX="604.0" layoutY="150.0" onAction="#removeEmployee" prefHeight="22.0" prefWidth="75.0" style="-fx-background-color: white;" text="Confirm" />
+        <JFXTextField fx:id="passwordTwo" focusColor="#4286f4" layoutX="279.0" layoutY="450.0" prefHeight="27.0" prefWidth="182.0" promptText="New Password" unFocusColor="GREY" />
+    </children>
 </Pane>

@@ -26,7 +26,7 @@ public class ReadCSV {
 
 
     /*
-    *runNode reads a csv file containing a list of nodes from the given path into our table of Node in the database
+     *runNode reads a csv file containing a list of nodes from the given path into our table of Node in the database
      */
     public static void runNode(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
@@ -36,7 +36,7 @@ public class ReadCSV {
     }
 
     /*
-    *runEdge reads a csv file containing a list of nodes from the given path into our table of Edge in the the database
+     *runEdge reads a csv file containing a list of nodes from the given path into our table of Edge in the the database
      */
     public static void runEdge(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
@@ -46,9 +46,9 @@ public class ReadCSV {
     }
 
     /*
-    *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
+     *runEmployee reads a csv file containing a list of employees from the given path into our table of Employees in the the database
      */
-    public static void runEmployee(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void runEmployee(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
         String mapEEmployees = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapEEmployeeCSV = new File(mapEEmployees);
@@ -56,9 +56,9 @@ public class ReadCSV {
     }
 
     /*
-    *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
+     *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
      */
-    public static void runJanitorStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void runJanitorStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
         String mapEJanitorStatistics = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapEJanitorStatisticsCSV = new File(mapEJanitorStatistics);
@@ -66,9 +66,9 @@ public class ReadCSV {
     }
 
     /*
-    *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
+     *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
      */
-    public static void runCafeteriaStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void runCafeteriaStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
         String mapECafeteriaStatistics = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapECafeteriaStatisticsCSV = new File(mapECafeteriaStatistics);
@@ -76,9 +76,9 @@ public class ReadCSV {
     }
 
     /*
-    *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
+     *runStatistic reads a csv file containing a list of statistics from the given path into our table of Statistics in the the database
      */
-    public static void runInterpreterStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void runInterpreterStatistic(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
         String mapEInterpreterStatistics = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapEInterpreterStatisticsCSV = new File(mapEInterpreterStatistics);
@@ -86,9 +86,9 @@ public class ReadCSV {
     }
 
     /*
-    *runRequest reads a csv file containing a list of requests from the given path into our table of Requests in the the database
+     *runRequest reads a csv file containing a list of requests from the given path into our table of Requests in the the database
      */
-    public static void runRequest(String path) throws ClassNotFoundException, SQLException, FileNotFoundException{
+    public static void runRequest(String path) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName(DRIVER);
         String mapERequests = path; //ex: "src/model/docs/MapEEdges.csv"
         File mapERequestsCSV = new File(mapERequests);
@@ -96,7 +96,7 @@ public class ReadCSV {
     }
 
     /*
-    * readFile takes a generic file to read, number of expected columns, and the destination table, and reads all data from the file into the database
+     * readFile takes a generic file to read, number of expected columns, and the destination table, and reads all data from the file into the database
      */
     private static void readFile(File fileToRead, int numColExpected, String destTable) throws ClassNotFoundException, SQLException, FileNotFoundException {
         Connection connection = DriverManager.getConnection(JDBC_URL);

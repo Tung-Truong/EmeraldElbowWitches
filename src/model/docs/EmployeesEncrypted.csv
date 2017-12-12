@@ -1,0 +1,22 @@
+email, firstName, lastName, department, language, availability, username, password
+wwong2@wpi.edu,Wilson,Wong,janitor,,T,W0ng,$2a$10$WHtlMr3kLDCggwciJAp3O.uKm8x.gyHsUVXnTXneYK/TS/VD1oVxW
+cjdembski@wpi.edu,Clayton,Dembski,janitor,,T,cabincabin,$2a$10$pQxLcmo2BpEDmqj6.rnArOZ/jL2uJ1BDOcNtSdSLrsj3p8UU1oL76
+butcherwoman@ahs.org,Agnes,Howell,interpret,Dutch,T,Agnes,$2a$10$5f/t1TCA9S.gvznOuUDb0eMahHaVzcQK3QJOzRInQ8I3h8pyvMVVW
+wwong2@wpi.edu,Wilson,Wong,interpret,Icelandic,T,W0ng,$2a$10$9PDFKNusUumScTtGu.2Pt.awSjjpQQTZqn0woGexMFObTl.u8Yyvy
+bstill@mov.edu,Ben,Stiller,cafeteria,,F,Ben,$2a$10$HtHrtPYbIm4/vTIIZHosvuWtTkMNJvdhC8KUWGnf9nM.dCH0VslCm
+wwong2@wpi.edu,Wilson,Wong,cafeteria,,T,W0ng,$2a$10$M85rS1gvg.lgiZq9t7xUVOqYxV.4zJ.ow519rELcpVq6pH/QoPCdu
+kgrant@wpi.edu,Bojack,Horseman,janitor,,T,Grant,$2a$10$cpLxYhj1SRWf6tQihMOSv.9NmN6nvohePEQZx6oTp6popYeig0Omi
+mitchell@gmail.com,Mitchell,T,interpret,Russian,F,mitchellt,$2a$10$tL5oIhVv/TCeP3kOFhHz7./ajUJq5UW3c5o3wZVohmkN0r6rAfyuC
+tgwiles@wpi.edu,Thomas,Wiles,interpret,Swedish,T,Thom,$2a$10$YZC6HYFauZqmSEoBxhOIhOnXereWboijDnVE1ktCUvOlas8JPYVU2
+joefancy@pants.com,joe,fancy,janitor,Spanish,T,joefancy,$2a$10$aWMPEcwvbCnG04LESZsXaumG2H0VFZVGNGeP9toVplSa/yr8yoqVC
+jaja@gmail.com,Asuh,Dude,janitor,Russian,T,waddup,$2a$10$KKqZXHjA8BQ8Y845wJq5W.qUqxKarB6mn73ildHGL59zJVEasYy96
+khroberts@wpi.edu,Karsten,Roberts,interpret,Icelandic,T,Karst,$2a$10$vIX8KGCS7c5lMv/95v7CTurVkjSvVc.kkX8D47pveJokqVNasRM4u
+gfreeMan@cake.gov,Gordon,Freeman,cafeteria,,F,Gord,$2a$10$oMVPWi.wEIDnE0iX5rLIQ.t24oldDjtawLwHN18P6.Y6XbRGkVHp2
+tgwiles@wpi.edu,Thomas,Wiles,janitor,,T,Thom,$2a$10$ZG.ROALVhjj1gWwlcX6cpuwmcpRWBSRPvwv8FLTXWE6NBOz9xd4Ia
+billy@what.com,billy,huh,janitor,Spanish,T,billybob,$2a$10$eaGkB8MP31WY28XgXN6oNuGrqdk8AWg3X6E4M8eIvBgRoUV5S2tYq
+vampress116@gmail.com,Princess,Caroline,interpret,French,F,Vamp,$2a$10$eFWdxmuPpval8WDAmiXzBupkCZvbHbGrqZ6GoMyNxDzDC2bMozDkC
+pcaroline@gmail.com,Princess,Caroline,interpret,French,F,Carol,$2a$10$3mEbZwAtLRgf0BvrDR0CEeGgphg.p/x66nUbR2ZNHLFzlpbMszkeC
+tgwiles@wpi.edu,Thomas,Wiles,cafeteria,,T,Thom,$2a$10$oDKaNKmQLvKLlxoLfSLpKOaUucvOFBY003jYnSAmFv8kBhDvvjKDm
+pcpp@mail.park,PC,Principal,janitor,,T,PC,$2a$10$PGlgNBvvnY2OomOTqhb7FuShKn2/hR9mCidT..xemO99g5nsvdA7u
+bhorse@gmail.com,Bojack,Horseman,janitor,,T,Boja,$2a$10$8bzOCDd2zbdvYGl4qZJ5ruXzAbm58MmkvvtTrboocSrJ9kEY.E8Wm
+joefancy@pants.com,joe,fancy,interpret,Spanish,T,joefancy,$2a$10$kJUJSRfTr6wNkm20PMRqv.MEwAwMasMUgJFxyUvrWblyErNuaS.Oq

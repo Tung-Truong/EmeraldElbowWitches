@@ -18,7 +18,8 @@ public class CafeteriaStatistic {
 //        numOfOrders = num;
 //        avgTime = avg;
 //    }
-    private CafeteriaStatistic() {   }
+    private CafeteriaStatistic() {
+    }
 
     public static CafeteriaStatistic getCafe() {
         return cafe;
@@ -37,12 +38,12 @@ public class CafeteriaStatistic {
         return avgTime;
     }
 
-    public Set<String> getMenu(){
+    public Set<String> getMenu() {
         return cafe.values.keySet();
     }
 
-    public void setData(String food, long used, long taken){
-        if (values.containsKey(food)){
+    public void setData(String food, long used, long taken) {
+        if (values.containsKey(food)) {
             values.replace(food, new long[]{used, taken});
             avgTime = taken;
             numOfOrders = used;

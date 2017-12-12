@@ -39,7 +39,16 @@ public class DeleteDB {
         String DEL_EMPLOYEE = null;
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
-        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE WHERE email = '" + delEmployeeEmail + "'";
+        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE WHERE username = '" + delEmployeeEmail + "'";
+        statement.executeUpdate(DEL_EMPLOYEE);
+        statement.close();
+    }
+
+    public static void delAllEmployee() throws SQLException {
+        String DEL_EMPLOYEE = null;
+        Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
+        Statement statement = connection.createStatement();
+        DEL_EMPLOYEE = "DELETE FROM EMPLOYEETABLE";
         statement.executeUpdate(DEL_EMPLOYEE);
         statement.close();
     }
