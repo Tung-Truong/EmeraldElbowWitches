@@ -1,0 +1,20 @@
+{
+  "name": "about-us",
+  "version": "1.0.0",
+  "description": "Assignment 2 - Basics HTML and CSS\r ===",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karstenroberts/CS3733---About-Us.git"
+  },
+  "author": "Karsten Roberts, Josh Galang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karstenroberts/CS3733---About-Us/issues"
+  },
+  "homepage": "https://github.com/karstenroberts/CS3733---About-Us#readme"
+}
