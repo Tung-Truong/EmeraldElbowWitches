@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
@@ -157,6 +158,7 @@
             <Image url="@../media/start.png" />
          </image>
       </ImageView>
+      <JFXToggleButton fx:id="reversePath" layoutX="607.0" layoutY="7.0" onMouseClicked="#redrawPath" text="Reverse Path" />
 
    </children>
 </Pane>
