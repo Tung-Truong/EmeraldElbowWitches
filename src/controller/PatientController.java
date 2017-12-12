@@ -845,6 +845,7 @@ public class PatientController extends Controller {
      * on the shortest path to that location
      */
     private void findClosestFromCsv(String csvFile) {
+        //goal = null;
         System.out.println("in findClosestFromCsv");
         ArrayList<String> nodeIDs = new ArrayList<>();
         try {
@@ -869,10 +870,12 @@ public class PatientController extends Controller {
 
         System.out.println("got through the first constructPath");
 
-        for(NodeObj goal : nodes) {
-            nextPath = constructPath(Main.kiosk, goal);
+        for(NodeObj end : nodes) {
+            nextPath = constructPath(Main.kiosk, end);
             shortestSoFar = findShorterPath(shortestSoFar, nextPath);
         }
+
+        goal = shortestSoFar.get(shortestSoFar.size()-1);
 
         currPath = shortestSoFar;
         redraw();
@@ -893,6 +896,7 @@ public class PatientController extends Controller {
         return path;
     }
 
+    /*
     // helper method for findClosestFromCsvFile
     private ArrayList<NodeObj> arrayListToNodeObj(ArrayList<String> array) {
         System.out.println("in arrayListToNodeObj");
@@ -902,6 +906,8 @@ public class PatientController extends Controller {
         }
         return nodes;
     }
+
+    */
 
     /*
     private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> path1, ArrayList<NodeObj> path2) {
@@ -918,7 +924,7 @@ public class PatientController extends Controller {
         int pathleng = 0;
         int genleng = 0;
         NodeObj prevN = null;
-        for (NodeObj n : newPath) {
+        for (NodeObj n : shortestSoFar) {
             if(prevN == null){
                 prevN = n;
             }
@@ -936,7 +942,7 @@ public class PatientController extends Controller {
             }
         }
 
-        if(pathleng < genleng) {
+        if(pathleng > genleng) {
             shortestSoFar = newPath;
         }
 
