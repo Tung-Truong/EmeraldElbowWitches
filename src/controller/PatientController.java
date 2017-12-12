@@ -552,6 +552,8 @@ public class PatientController extends Controller {
     //function that handles going to next floor when you click on a node
     @FXML
     private void goToNextFloor() {
+        start.setVisible(false);
+        end.setVisible(false);
         NodeObj node = null;
         node = openCloseNode;
         int i = currPath.indexOf(node);
@@ -580,6 +582,8 @@ public class PatientController extends Controller {
     //function that handles going to previous floor when clicking on a node
     @FXML
     private void goToPreviousFloor() {
+        start.setVisible(false);
+        end.setVisible(false);
         NodeObj node = null;
         node = openClose1Node;
         int i = currPath.indexOf(node);
