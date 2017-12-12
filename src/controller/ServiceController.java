@@ -2,6 +2,8 @@ package controller;
 
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
+import foodRequest.FoodRequest;
+import messenger.API;
 import model.*;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -38,7 +40,7 @@ public class ServiceController {
     private JFXButton cancelButton;
 
     public void initialize(){
-        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare");//, "cafeteria");
+        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare", "Food", "IT");//, "cafeteria");
     }
 
 //    public String getServiceNeeded() {
@@ -56,7 +58,7 @@ public class ServiceController {
 
     @FXML
     void close(){
-        Stage stage = (Stage)cancelButton.getScene().getWindow();
+        Stage stage = (Stage)servLocField.getScene().getWindow();
         stage.close();
     }
 
@@ -65,9 +67,27 @@ public class ServiceController {
         if((RequestServiceDropdown.getValue() != null) && (RequestServiceDropdown.getValue().equals("Healthcare"))){ //can be implemented to launch different API for different service requests
             HealthCareRun health = new HealthCareRun();
             try {
-                health.run(-500,-500,600,350,"view/stylesheets/default.css","","");
                 close();
+                health.run(-500,-500,600,350,"view/stylesheets/default.css","","");
             } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (RequestServiceDropdown.getValue() != null && (RequestServiceDropdown.getValue().equals("Food"))){
+            FoodRequest foodRequest = new FoodRequest();
+            try{
+                close();
+                foodRequest.run(0,0,1900,1000,null,null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        } else if (RequestServiceDropdown.getValue() != null && (RequestServiceDropdown.getValue().equals("IT"))){
+            API itRequest = new API();
+            try{
+                close();
+                itRequest.run(0,0,600,350,"src/view/stylesheets/default.css",null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
                 e.printStackTrace();
             }
         }
@@ -136,17 +156,17 @@ public class ServiceController {
         employeeAvailable();
     }
 
-    //@FXML
-    void CafeteriaItem() {
-        AssignEmployee.getItems().clear();
-
-        for (Employee e : Main.getEmployees()) {
-            if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
-                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
-            }
-        }
-        employeeAvailable();
-    }
+//    //@FXML
+//    void CafeteriaItem() {
+//        AssignEmployee.getItems().clear();
+//
+//        for (Employee e : Main.getEmployees()) {
+//            if (e.getDepartment().equals("cafeteria") && e.getAvailability().equals("T")) {
+//                AssignEmployee.getItems().addAll(e.getFirstName() + " " + e.getLastName());
+//            }
+//        }
+//        employeeAvailable();
+//    }
 
     @FXML
     void InterpreterItem() {
