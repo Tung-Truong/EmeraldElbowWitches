@@ -853,12 +853,19 @@ public class PatientController extends Controller {
             e.printStackTrace();
         }
 
-        ArrayList<NodeObj> nodes = arrayListToNodeObj(nodeIDs);
+        ArrayList<NodeObj> nodes = new ArrayList<>();
+        for(String id : nodeIDs) {
+            nodes.add(Main.nodeMap.getNodeObjByID(id));
+        }
+
         System.out.println("got out of arrayListToNodeObj");
-        ArrayList<NodeObj> shortestSoFar, nextPath;
+        ArrayList<NodeObj> shortestSoFar = new ArrayList<>();
+        ArrayList<NodeObj> nextPath;
 
         System.out.println("about to enter constructPath, currently in findClosestFromCsv");
-        shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
+        if(!nodes.isEmpty()) {
+            shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
+        }
 
         System.out.println("got through the first constructPath");
 
