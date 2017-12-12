@@ -178,6 +178,8 @@ public class PatientController extends Controller {
     SingleController single = SingleController.getController();
     private NodeObj openCloseNode;
     private NodeObj openClose1Node;
+    private boolean openCloseFlag = false;
+    private boolean openClose1Flag = false;
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
 
@@ -470,7 +472,8 @@ public class PatientController extends Controller {
         } catch (ServiceException e) {
             e.printStackTrace();
         }*/
-
+        openClose1Flag = false;
+        openCloseFlag = false;
         floorL2Label.setText("");
         floorL1Label.setText("");
         floorGLabel.setText("");
@@ -497,12 +500,18 @@ public class PatientController extends Controller {
                                     10,
                                     10);
                             if (reversePath.isSelected()) {
-                                openclose.setVisible(true);
+                                if(single.getZoom() <= 1) {
+                                    openclose.setVisible(true);
+                                }
+                                openCloseFlag = true;
                                 openclose.setX(n.node.getxLoc() * currentMap.getFitWidth() / 5000 - openclose.getFitWidth() / 2 - 15);
                                 openclose.setY(n.node.getyLoc() * currentMap.getFitHeight() / 3400 - openclose.getFitHeight() / 2 - 5);
                                 openCloseNode = n;
                             } else {
-                                openclose1.setVisible(true);
+                                if(single.getZoom() <= 1) {
+                                    openclose1.setVisible(true);
+                                }
+                                openClose1Flag = true;
                                 openclose1.setX(n.node.getxLoc() * currentMap.getFitWidth() / 5000 - openclose1.getFitWidth() / 2 - 15);
                                 openclose1.setY(n.node.getyLoc() * currentMap.getFitHeight() / 3400 - openclose1.getFitHeight() / 2 - 5);
                                 openClose1Node = n;
@@ -517,12 +526,18 @@ public class PatientController extends Controller {
                                     10,
                                     10);
                             if (reversePath.isSelected()) {
-                                openclose1.setVisible(true);
+                                if(single.getZoom() <= 1) {
+                                    openclose1.setVisible(true);
+                                }
+                                openClose1Flag = true;
                                 openclose1.setX(n.node.getxLoc() * currentMap.getFitWidth() / 5000 - openclose1.getFitWidth() / 2 - 15);
                                 openclose1.setY(n.node.getyLoc() * currentMap.getFitHeight() / 3400 - openclose1.getFitHeight() / 2 - 5);
                                 openClose1Node = tempDraw;
                             } else {
-                                openclose.setVisible(true);
+                                if(single.getZoom() <= 1) {
+                                    openclose.setVisible(true);
+                                }
+                                openCloseFlag = true;
                                 openclose.setX(n.node.getxLoc() * currentMap.getFitWidth() / 5000 - openclose.getFitWidth() / 2 - 15);
                                 openclose.setY(n.node.getyLoc() * currentMap.getFitHeight() / 3400 - openclose.getFitHeight() / 2 - 5);
                                 openCloseNode = tempDraw;
@@ -550,11 +565,15 @@ public class PatientController extends Controller {
                     10,
                     10);
             if (reversePath.isSelected()) {
-                start.setVisible(true);
+                if(single.getZoom() <= 1) {
+                    start.setVisible(true);
+                }
                 start.setX(goal.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5 - end.getFitWidth() / 2 + 5);
                 start.setY(goal.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5 - end.getFitHeight() / 2 + 5);
             } else {
-                end.setVisible(true);
+                if(single.getZoom() <= 1) {
+                    end.setVisible(true);
+                }
                 end.setX(goal.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5 - end.getFitWidth() / 2 + 5);
                 end.setY(goal.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5 - end.getFitHeight() / 2 + 5);
             }
@@ -568,11 +587,15 @@ public class PatientController extends Controller {
             if (reversePath.isSelected()) {
                 end.setX(Main.getKiosk().node.getxLoc() * currentMap.getFitWidth() / 5000 - 5 - end.getFitWidth() / 2);
                 end.setY(Main.getKiosk().node.getyLoc() * currentMap.getFitHeight() / 3400 - 5 - end.getFitHeight() / 2);
-                end.setVisible(true);
+                if(single.getZoom() <=1) {
+                    end.setVisible(true);
+                }
             } else {
                 start.setX(Main.getKiosk().node.getxLoc() * currentMap.getFitWidth() / 5000 - 5 - end.getFitWidth() / 2);
                 start.setY(Main.getKiosk().node.getyLoc() * currentMap.getFitHeight() / 3400 - 5 - end.getFitHeight() / 2);
-                start.setVisible(true);
+                if(single.getZoom() <=1){
+                    start.setVisible(true);
+                }
             }
         }
         gc1.setFill(Color.YELLOW);
@@ -1179,8 +1202,12 @@ public class PatientController extends Controller {
         if (single.getZoom() <= 1) {
             single.setXTrans(0);
             single.setYTrans(0);
-            openclose.setVisible(true);
-            openclose1.setVisible(true);
+            if(openCloseFlag){
+                openclose.setVisible(true);
+            }
+            if(openClose1Flag){
+                openclose1.setVisible(true);
+            }
             start.setVisible(true);
             end.setVisible(true);
         }
