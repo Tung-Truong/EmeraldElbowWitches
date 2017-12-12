@@ -147,12 +147,12 @@
             <Image url="@../media/openclose.gif" />
          </image>
       </ImageView>
-      <ImageView fx:id="end" fitHeight="51.0" fitWidth="91.0" visible="false">
+      <ImageView fx:id="end" fitHeight="39.0" fitWidth="60.0" visible="false">
          <image>
             <Image url="@../media/end.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="start" fitHeight="51.0" fitWidth="91.0" visible="false">
+      <ImageView fx:id="start" fitHeight="39.0" fitWidth="60.0" visible="false">
          <image>
             <Image url="@../media/start.png" />
          </image>

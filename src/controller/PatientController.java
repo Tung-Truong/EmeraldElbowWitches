@@ -177,8 +177,8 @@ public class PatientController extends Controller {
     public void initialize() {
         openclose.setVisible(false);
         openclose1.setVisible(false);
-        start.setVisible(true);
-        end.setVisible(true);
+        start.setVisible(false);
+        end.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
         selectFloorWithPath("1");
         currentMap.setImage(m1);
@@ -493,8 +493,8 @@ public class PatientController extends Controller {
                     10,
                     10);
             end.setVisible(true);
-            end.setX(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5 - end.getFitWidth()/2);
-            end.setY(goal.node.getyLoc() * single.getMapHeight() / 3400 - 5 - end.getFitHeight()/2);
+            end.setX(goal.node.getxLoc() * single.getMapWidth() / 5000 - 5 - end.getFitWidth()/2 +5);
+            end.setY(goal.node.getyLoc() * single.getMapHeight() / 3400 - 5 - end.getFitHeight()/2 + 5);
         }
         if (Main.getKiosk().node.getFloor().equals(Main.getNodeMap().currentFloor)) {
             gc1.setFill(Color.DARKGREEN);
@@ -504,6 +504,7 @@ public class PatientController extends Controller {
                     10);
             start.setX(Main.getKiosk().node.getxLoc() * single.getMapWidth() / 5000 - 5 -end.getFitWidth()/2);
             start.setY(Main.getKiosk().node.getyLoc() * single.getMapHeight() / 3400 - 5 - end.getFitHeight()/2);
+            start.setVisible(true);
         }
         gc1.setFill(Color.YELLOW);
         clearChosenFloor();
@@ -627,6 +628,8 @@ public class PatientController extends Controller {
         SearchPath.setVisible(false);
         openclose1.setVisible(false);
         openclose.setVisible(false);
+        start.setVisible(false);
+        end.setVisible(false);
         double mousex = (5000 * event.getX()) / single.getMapWidth();
         double mousey = (3400 * event.getY()) / single.getMapHeight();
         if (gc1 == null)
