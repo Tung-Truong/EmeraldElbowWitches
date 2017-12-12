@@ -1,6 +1,6 @@
 package controller;
 
-import javafx.application.Application;
+import      javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
+    private static ArrayList<String> importantNodes = new ArrayList<>();
     public static int sceneWidth = 1400;
     public static int sceneHeight = 900;
     public static Scene patientScene;
@@ -42,7 +43,7 @@ public class Main extends Application {
     public static InterpreterService interpreterService;
     public static ControllerListener controllers;
     public static Employee currUser;
-
+    public static AdminController adminCont;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
@@ -52,6 +53,7 @@ public class Main extends Application {
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         //run the database
+
 
 
         ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM SYS.SYSTABLES WHERE TABLETYPE = 'T'");
@@ -155,6 +157,12 @@ public class Main extends Application {
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
 
+        try {
+            CSVtoArrayList.readCSVToArray("src/model/docs/ImportantNodes.csv",1,importantNodes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         // creates and saves list of requests
         ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
         listOfRequests = QueryDB.getRequests();
@@ -211,9 +219,11 @@ public class Main extends Application {
 
         this.controllers.addObserver(patCont);
 
+        // the auto-login function in the initializer for AdminController checks if it is the
+        // active scene, so AdminController needs to be set up after the active scene is set
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
         adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
-        AdminController adminCont = adminContLoad.getController();
+        adminCont = adminContLoad.getController();
 
         this.controllers.addObserver(adminCont);
 
@@ -317,6 +327,14 @@ public class Main extends Application {
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
+    }
+
+    public static AdminController getAdminCont() {
+        return adminCont;
+    }
+
+    public static ArrayList<String> getImportantNodes() {
+        return importantNodes;
     }
 
     //this runs the service request

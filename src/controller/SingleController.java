@@ -20,6 +20,7 @@ public class SingleController {
     double mapHeight;
     //ImageLoader mapImage = new ImageLoader();
     private String serviceNeeded;
+    private int pathAnimationSpeed = 7;
 
     public static SingleController getController() {
         return control;
@@ -109,5 +110,13 @@ public class SingleController {
 
     public void subY(int sub) {
         setYTrans(getYTrans() - sub);
+    }
+
+    public void setPathAnimationSpeed(int pathAnimationSpeed) {
+        this.pathAnimationSpeed = pathAnimationSpeed;
+    }
+
+    public int getPathAnimationSpeed() {
+        return (int)pathAnimationSpeed;
     }
 }
