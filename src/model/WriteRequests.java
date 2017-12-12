@@ -10,7 +10,7 @@ public class WriteRequests {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
     /*
-    * runEdges takes all rows from the REQUESTTABLE in our database and saves it to our edge csv file.
+     * runEdges takes all rows from the REQUESTTABLE in our database and saves it to our edge csv file.
      */
     public static void runRequests() throws SQLException, IOException {
 

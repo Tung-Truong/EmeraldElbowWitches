@@ -10,7 +10,7 @@ public class WriteEmployees {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
 
     /*
-    * runEmployees takes all rows from the EMPLOYEETABLE in our database and saves it to our edge csv file.
+     * runEmployees takes all rows from the EMPLOYEETABLE in our database and saves it to our edge csv file.
      */
     public static void runEmployees() throws SQLException, IOException {
 

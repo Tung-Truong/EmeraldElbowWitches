@@ -35,7 +35,7 @@ public class AdminController extends Controller {
             xLocField, nodeIDField, weightField, nodeBField, nodeAField;
 
     @FXML
-    private JFXSlider zoomBar;
+    private JFXSlider zoomBar, pathSpeed;
 
     @FXML
     private Canvas gc;
@@ -473,7 +473,8 @@ public class AdminController extends Controller {
     }
 
     @FXML
-    void adminLogout() {
+    void adminLogout() { // Implement setter for pathanimation speed
+        //setPathAnimationSpeed(pathSpeed.getValue());
         Main.getCurrStage().setScene(Main.getPatientScene());
     }
 
@@ -667,5 +668,8 @@ public class AdminController extends Controller {
         timeline.play();
     }
 
+    public void changePathSpeed(MouseEvent mouseEvent) {
+        single.setPathAnimationSpeed((int)pathSpeed.getValue());
+    }
 
 }

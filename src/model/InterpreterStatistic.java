@@ -11,13 +11,14 @@ public class InterpreterStatistic {
     long avgTimeTaken = 0;
     private static InterpreterStatistic stats = new InterpreterStatistic();
     private HashMap<String, long[]> values = new HashMap<String, long[]>();
+
     // Constructors
 //    public InterpreterStatistic(String language, long numOfInterpreters, long avgTimeTaken){
 //        this.language= language;
 //        this.numOfInterpreters = numOfInterpreters;
 //        this.avgTimeTaken = avgTimeTaken;
 //    }
-    private InterpreterStatistic(){
+    private InterpreterStatistic() {
 
     }
 
@@ -26,7 +27,9 @@ public class InterpreterStatistic {
     }
 
     // getters--------------------------------------
-    public String getLanguage() { return language; }
+    public String getLanguage() {
+        return language;
+    }
 
     public long getNumOfInterpreters() {
         return numOfInterpreters;
@@ -36,13 +39,13 @@ public class InterpreterStatistic {
         return avgTimeTaken;
     }
 
-    public Set<String> getLanguages(){
+    public Set<String> getLanguages() {
         return stats.values.keySet();
     }
 
     // Setters
-    public void setData(String lang, long used, long taken){
-        if (values.containsKey(lang)){
+    public void setData(String lang, long used, long taken) {
+        if (values.containsKey(lang)) {
             values.replace(lang, new long[]{used, taken});
             avgTimeTaken = taken;
             numOfInterpreters = used;
