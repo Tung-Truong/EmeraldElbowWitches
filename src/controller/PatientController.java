@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -802,7 +803,6 @@ public class PatientController extends Controller {
     @FXML
     void Zin() {
         SearchPath.setVisible(false);
-        System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
         resize();
 
@@ -815,37 +815,47 @@ public class PatientController extends Controller {
 
     @FXML
     void Tleft() {
-        System.out.println("Boundary: " + Math.floor(single.getMapWidth()/single.getZoom())+ " Actual: " + single.getXTrans() + " Max: " + single.getMapWidth());
-        if (single.getXTrans() <= Math.floor(single.getMapWidth()/single.getZoom())) {
-            single.addX((int) (100.0 / single.getZoom()));
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() + deltaX <= Math.floor(single.getMapWidth()/2)) {
+            single.addX(deltaX);
             resize();
         }
     }
 
     @FXML
     void Tright() {
-        System.out.println("Boundary: " + Math.floor(-1 * (single.getMapWidth()/single.getZoom())) + " Actual: " + single.getXTrans() + " Max: " + single.getMapWidth());
-        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()/single.getZoom()))) {
-            single.subX((int) (100.0 / single.getZoom()));
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() >= Math.floor(-1 * (single.getMapWidth()/2))) {
+            single.subX(deltaX);
             resize();
         }
     }
 
     @FXML
     void Tup() {
-        System.out.println("Boundary: " + single.getMapHeight() + " " + "Actual: " + (int) (160.0 / single.getZoom()));
-        if ((int) (160.0 / single.getZoom()) <= single.getMapHeight()) {
-            single.addY((int) (160.0 / single.getZoom()));
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() <= Math.floor(single.getMapHeight()/2)) {
+            single.addY(deltaY);
             resize();
         }
     }
 
     @FXML
     void Tdown() {
-        System.out.println("Boundary: " + single.getMapHeight() + " " + "Actual: " + (int) (160.0 / single.getZoom()));
-        if ((int) (160.0 / single.getZoom()) >= 0) {
-            single.subY((int) (160.0 / single.getZoom()));
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() >= Math.floor(-1 * (single.getMapHeight()/2))) {
+            single.subY(deltaY);
             resize();
+        }
+    }
+
+    double clamp(double x, double min, double max){
+        if (x < min){
+            return min;
+        } else if (x > max){
+            return max;
+        } else {
+            return x;
         }
     }
 
@@ -889,6 +899,10 @@ public class PatientController extends Controller {
 
 
     public void resize() {
+        int clampX = (int) Math.max(-1*single.getMapWidth()/2, Math.min(single.getXTrans(), single.getMapWidth()/2));
+
+        System.out.println("Clamp: " + clampX + " Width: " + single.getMapWidth());
+
         if (single.getZoom() <= 1) {
             single.setXTrans(0);
             single.setYTrans(0);
@@ -899,10 +913,12 @@ public class PatientController extends Controller {
         gc.setTranslateY(single.getYTrans());
         currentMap.setScaleX(single.getZoom());
         currentMap.setScaleY(single.getZoom());
+
         currentMap.setTranslateX(single.getXTrans());
         currentMap.setTranslateY(single.getYTrans());
-        single.setMapWidth(currentMap.getFitWidth());
-        single.setMapHeight(currentMap.getFitHeight());
+
+        single.setMapWidth(currentMap.getFitWidth()*(single.getZoom()-1));
+        single.setMapHeight(currentMap.getFitHeight()*(single.getZoom()-1));
     }
 
     @FXML
