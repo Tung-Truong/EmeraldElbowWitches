@@ -1,18 +1,12 @@
 package controller;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.*;
 import model.AddDB;
 
@@ -129,9 +123,6 @@ public class Main extends Application {
             loNodeObj.add(new NodeObj(n));
         }
 
-
-
-
         //this has all of the current nodes from the database and is useful for adding and deleting the
 
         nodeMap = new ListOfNodeObjs(loNodeObj);
@@ -202,66 +193,6 @@ public class Main extends Application {
     }
 
 
-
-
-
-
-
-
-
-/*
-        public void startTimer(Stage stage) throws Exception {
-            runLater(Duration.ofSeconds(1), () -> {
-                this.timeline.stop();
-                System.out.println("TIMELINE STOPPED");
-            });
-            this.timeline = runLater(Duration.ofSeconds(1), () -> {
-                System.out.println("ACTION FIRED ANYWAY");
-            });
-            Thread.sleep(2000);
-            //Platform.exit();
-        }
-
-        */
-
-        /*
-        void startTimer() {
-
-            runLater(Duration.ofSeconds(1), () -> {
-                this.timeline.stop();
-                System.out.println("TIMELINE STOPPED");
-            });
-
-
-            runLater(Duration.ofSeconds(1), () -> {
-                this.timeline.stop();
-                System.out.println("TIMELINE STOPPED");
-            });
-        }
-
-        */
-
-
-
-    /*
-
-            Timeline timeline = new Timeline(new KeyFrame(Duration.ofSeconds(1)));
-                () -> restoreFromMemento(memento))
-            timeline.setCycleCount(Animation.INDEFINITE);
-            timeline.play();
-
-
-            */
-
-
-
-
-
-
-
-
-
-
     //this sets the stage for the application,
     //running the fxml file to open the UI
     //and handing control to the controller
@@ -280,10 +211,6 @@ public class Main extends Application {
 
         this.controllers.addObserver(patCont);
 
-        this.patientScene = Start;
-        primaryStage.setScene(Start);
-        primaryStage.show();
-
         // the auto-login function in the initializer for AdminController checks if it is the
         // active scene, so AdminController needs to be set up after the active scene is set
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
@@ -292,6 +219,9 @@ public class Main extends Application {
 
         this.controllers.addObserver(adminCont);
 
+        this.patientScene = Start;
+        primaryStage.setScene(Start);
+        primaryStage.show();
     }
 
     public static Scene getAdminScene() {

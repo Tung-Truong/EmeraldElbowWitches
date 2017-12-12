@@ -1,10 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.*;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,9 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,13 +21,7 @@ import model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-
-import static java.lang.Thread.sleep;
-
 
 public class AdminController extends Controller {
 
@@ -70,11 +60,6 @@ public class AdminController extends Controller {
     private SingleController single = SingleController.getController();
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
-
-    // memento and logoutCountdown are used for the Memento design to log out of Admin after an activity gap
-    //Memento memento = new Memento(Main.getPatientScene(), Main.getAdminScene()); // the memento to store
-    //private static int logoutCountdown = 120; // the amount of time in seconds of inactivity before an automatic logout
-    //Timeline timeline;
 
     public void initialize() {
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -639,34 +624,8 @@ public class AdminController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
     }
 
-    /*
-
-    @FXML
-    void adminLogout() {
-        Main.getCurrStage().setScene(Main.getPatientScene());
-    }
-
-     */
-
-    /*
-    public Memento saveToMemento(Scene patientScene, Scene adminScene) {
-        return new Memento(patientScene, adminScene);
-    }
-
-    public void restoreFromMemento(Memento memento) {
-        Main.getCurrStage().setScene(memento.getPatientScene());
-    }
-
-
-*/
-
-
-
-    //
-    Timeline timeline;
     int timeoutCounter = 0; // the number of seconds since the last mouse or key press
     int timeoutLimit = 15; // the number in seconds of no activity before automatic logout
-
     // Called on any mouse or key press in the admin pane.
     // Resets the counter of seconds since the last interaction.
     // Used for the automatic admin logout feature
@@ -682,15 +641,12 @@ public class AdminController extends Controller {
      *
      * Every time it is run, it checks whether the timerCounter variable has reached timeoutLimit
      */
-    void autoLogoutHelper() {
+    private void autoLogoutHelper() {
         System.out.println("timeoutCounter = " + timeoutCounter);
         timeoutCounter++;
 
         if(timeoutCounter > timeoutLimit) {
-            System.out.println("attempted to change the scene!!!!!!!!!!!!");
             resetTimeoutCounter();
-            //timeoutCounter = 0; // reset the counter, we've changed scene
-            //this.timeline.stop();
             Main.getCurrStage().setScene(Main.getPatientScene());
         }
 
@@ -698,28 +654,18 @@ public class AdminController extends Controller {
     }
 
     // this function and runLater create a timer to be used for admin auto-logout
-    public void startTimer() { // throws Exception {
+    void startTimer() { // throws Exception {
         // only start a timer if we're in the admin scene. we don't care about the patient scene.
-            runLater(javafx.util.Duration.seconds(1), () -> {
-                        System.out.println("a second elapsed");
-                        autoLogoutHelper();
-                    });
-        }
-            //this.timeline.stop();
-            //System.out.println("TIMELINE STOPPED");
- //       this.timeline = runLater(javafx.util.Duration.seconds(1), () -> {
- //           System.out.println("ACTION FIRED ANYWAY");
- //       });
-        // Thread.sleep(2000);
-
-
-    // helper for startTimer, which is used for
-    private Timeline runLater(javafx.util.Duration delay, Runnable action) {
-        Timeline timeline = new Timeline(new KeyFrame(delay, ae -> action.run()));
-        timeline.play();
-        return timeline;
+        runLater(javafx.util.Duration.seconds(1), () -> {
+                    autoLogoutHelper();
+                });
     }
 
+    // helper for startTimer, which is used for admin auto-logout
+    private void runLater(javafx.util.Duration delay, Runnable action) {
+        Timeline timeline = new Timeline(new KeyFrame(delay, ae -> action.run()));
+        timeline.play();
+    }
 
 
 }
