@@ -845,25 +845,22 @@ public class PatientController extends Controller {
      * on the shortest path to that location
      */
     private void findClosestFromCsv(String csvFile) {
-        //goal = null;
-        System.out.println("in findClosestFromCsv");
         ArrayList<String> nodeIDs = new ArrayList<>();
+        ArrayList<NodeObj> nodes = new ArrayList<>();
+        ArrayList<NodeObj> shortestSoFar = new ArrayList<>();
+        ArrayList<NodeObj> finalPath = new ArrayList<>();
+        ArrayList<NodeObj> nextPath;
+
         try {
             CSVtoArrayList.readCSVToArray(csvFile, 1, nodeIDs);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        ArrayList<NodeObj> nodes = new ArrayList<>();
         for(String id : nodeIDs) {
             nodes.add(Main.nodeMap.getNodeObjByID(id));
         }
 
-        System.out.println("got out of arrayListToNodeObj");
-        ArrayList<NodeObj> shortestSoFar = new ArrayList<>();
-        ArrayList<NodeObj> nextPath;
-
-        System.out.println("about to enter constructPath, currently in findClosestFromCsv");
         if(!nodes.isEmpty()) {
             shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
         }
@@ -876,8 +873,9 @@ public class PatientController extends Controller {
         }
 
         goal = shortestSoFar.get(shortestSoFar.size()-1);
-
+        Collections.reverse(shortestSoFar);
         currPath = shortestSoFar;
+
         redraw();
         DrawCurrentFloorPath();
 
