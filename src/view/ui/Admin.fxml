@@ -17,62 +17,63 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="masterPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
+<AnchorPane fx:id="masterPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminController">
    <children>
-      <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
+      <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
          </image>
       </ImageView>
-      <Canvas fx:id="gc" height="900.0" onMousePressed="#clickHandler" onMouseReleased="#clickHandler" width="1400.0" />
-      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
+      <Canvas fx:id="gc" height="900.0" onMousePressed="#clickHandler" onMouseReleased="#clickHandler" width="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="463.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE" AnchorPane.bottomAnchor="386.0" AnchorPane.leftAnchor="-176.0">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
+      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="80.0">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="L1" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="L1" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="287.0">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="1" textFill="WHITE">
+      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="1" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="177.0">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="2" textFill="WHITE">
+      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="2" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="128.0">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.8" prefHeight="45.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="G" textFill="WHITE">
+      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.8" prefHeight="45.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="G" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="229.0">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L2" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.8" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4#4286f4;" text="L2" textFill="WHITE" AnchorPane.rightAnchor="129.0" AnchorPane.topAnchor="343.0">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogout" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766 #1b3766#1b3766;" text="LOGOUT" textFill="WHITE">
+      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogout" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766 #1b3766#1b3766;" text="LOGOUT" textFill="WHITE" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR">
+      <Label alignment="CENTER" layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR" AnchorPane.rightAnchor="-89.0" AnchorPane.topAnchor="177.0">
          <font>
             <Font name="Avenir Next Bold" size="82.0" />
          </font>
       </Label>
-      <Pane fx:id="nodeInfoPane" layoutX="1046.0" layoutY="481.0" prefHeight="416.0" prefWidth="355.0" onMousePressed="#resetTimeoutCounter">
+      <Pane fx:id="nodeInfoPane" layoutX="1046.0" layoutY="481.0" onMousePressed="#resetTimeoutCounter" prefHeight="416.0" prefWidth="355.0" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="-1.0">
          <children>
             <JFXTextField fx:id="nodeTypeField" layoutX="173.0" layoutY="242.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="shortNameField" layoutX="173.0" layoutY="291.0" prefHeight="27.0" prefWidth="144.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -92,7 +93,7 @@
             <Label layoutX="80.0" layoutY="288.0" prefHeight="27.0" prefWidth="75.0" text="Short Name" />
             <Label layoutX="80.0" layoutY="333.0" prefHeight="27.0" prefWidth="75.0" text="Long Name" />
             <Label layoutX="80.0" layoutY="375.0" prefHeight="27.0" prefWidth="58.0" text="Team" />
-            <JFXButton fx:id="addEditBtn" buttonType="RAISED" layoutX="-6.0" layoutY="155.0" onMousePressed="#resetTimeoutCounter" onAction="#addEditNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="33.0" prefWidth="93.0" rotate="270.0" style="-fx-background-color: #21a047;" text="ADD/EDIT" textFill="WHITE">
+            <JFXButton fx:id="addEditBtn" buttonType="RAISED" layoutX="-6.0" layoutY="155.0" onAction="#addEditNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" onMousePressed="#resetTimeoutCounter" opacity="0.5" prefHeight="33.0" prefWidth="93.0" rotate="270.0" style="-fx-background-color: #21a047;" text="ADD/EDIT" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></JFXButton>
@@ -106,7 +107,7 @@
                </font></JFXButton>
          </children>
       </Pane>
-      <Pane fx:id="edgeInfoPane" layoutX="1120.0" layoutY="497.0" prefHeight="245.0" prefWidth="247.0" visible="false" >
+      <Pane fx:id="edgeInfoPane" layoutX="1120.0" layoutY="497.0" prefHeight="245.0" prefWidth="247.0" visible="false" AnchorPane.bottomAnchor="115.0" AnchorPane.rightAnchor="33.0">
          <children>
             <JFXTextField fx:id="weightField" layoutX="94.0" layoutY="77.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
             <JFXTextField fx:id="nodeBField" layoutX="94.0" layoutY="40.0" style="-fx-background-color: #ffffff;" unFocusColor="#ffffff00" />
@@ -118,15 +119,15 @@
             <JFXButton layoutX="168.0" layoutY="120.0" onAction="#removeEdge" style="-fx-background-color: #ba4743;" text="Delete" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane fx:id="RequestPane" layoutX="1046.0" layoutY="482.0" opacity="0.90" prefHeight="422.0" prefWidth="370.0" visible="false" style="-fx-border-color: black; -fx-background-color: gainsboro;">
+      <Pane fx:id="RequestPane" layoutX="1046.0" layoutY="482.0" opacity="0.90" prefHeight="422.0" prefWidth="370.0" style="-fx-border-color: black; -fx-background-color: gainsboro;" visible="false" AnchorPane.bottomAnchor="-4.0" AnchorPane.rightAnchor="-16.0">
          <children>
-            <JFXTabPane prefHeight="450" prefWidth="370.0" tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: #4286f4; -fx-tab-min-width: 178;" >
+            <JFXTabPane prefHeight="450" prefWidth="370.0" style="-fx-background-color: #4286f4; -fx-tab-min-width: 178;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab onSelectionChanged="#switchTable1" text="Active" style="-fx-background-color: #1b3766;"  >
+                <Tab onSelectionChanged="#switchTable1" style="-fx-background-color: #1b3766;" text="Active">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView onMouseClicked="#snapToNode" fx:id="activeTable" layoutX="1047.0" layoutY="565.0" prefHeight="340.0" prefWidth="355.0" visible="false">
+                              <TreeTableView fx:id="activeTable" layoutX="1047.0" layoutY="565.0" onMouseClicked="#snapToNode" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="activeLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="activeType" prefWidth="88.0" text="Type" />
@@ -134,17 +135,17 @@
                                     <TreeTableColumn fx:id="activeDate" prefWidth="88.0" text="Date" />
                                 </columns>
                               </TreeTableView>
-                              <JFXButton  onAction="#MyRequests" layoutX="26.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
-                              <JFXButton onAction="#RemoveRequest" layoutX="196.0" layoutY="10.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Remove" textFill="WHITE" />
+                              <JFXButton layoutX="26.0" layoutY="10.0" onAction="#MyRequests" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              <JFXButton layoutX="196.0" layoutY="10.0" onAction="#RemoveRequest" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Remove" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab onSelectionChanged="#switchTable2" text="Completed" style="-fx-background-color: #1b3766;">
+                <Tab onSelectionChanged="#switchTable2" style="-fx-background-color: #1b3766;" text="Completed">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="400.0">
                            <children>
-                              <TreeTableView  fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
+                              <TreeTableView fx:id="completedTable" layoutX="1047" layoutY="565" prefHeight="340.0" prefWidth="355.0" visible="false">
                                 <columns>
                                   <TreeTableColumn fx:id="completedLoc" prefWidth="88.0" text="Node" />
                                   <TreeTableColumn fx:id="completedType" prefWidth="88.0" text="Type" />
@@ -152,7 +153,7 @@
                                     <TreeTableColumn fx:id="completedDate" prefWidth="88.0" text="Date" />
                                 </columns>
                               </TreeTableView>
-                              <JFXButton onAction="#MyRequests" layoutX="113.0" layoutY="11.0" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
+                              <JFXButton layoutX="113.0" layoutY="11.0" onAction="#MyRequests" prefHeight="30.0" prefWidth="135.0" style="-fx-background-color: #4286f4;" text="Refresh" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -190,48 +191,48 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="editEmployeesBtn" buttonType="RAISED" layoutX="1220.0" layoutY="395.0" onAction="#EditEmployees" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" text="EDIT EMPLOYEES" textFill="WHITE">
+      <JFXButton fx:id="editEmployeesBtn" buttonType="RAISED" layoutX="1220.0" layoutY="395.0" onAction="#EditEmployees" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" text="EDIT EMPLOYEES" textFill="WHITE" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="395.0">
          <font>
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0">
+      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseReleased="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="39.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXSlider>
-      <JFXButton fx:id="Tup" buttonType="RAISED" layoutX="37.0" layoutY="766.0" onMouseClicked="#Tup" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▲" textFill="WHITE">
+      <JFXButton fx:id="Tup" buttonType="RAISED" layoutX="37.0" layoutY="766.0" onMouseClicked="#Tup" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▲" textFill="WHITE" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="37.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMouseClicked="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE">
+      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMouseClicked="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseClicked="#Tright" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE">
+      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseClicked="#Tright" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="65.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0"  opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
-      <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="37.0" layoutY="850.0" onMouseClicked="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE">
+      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
+       <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="37.0" layoutY="850.0" onMouseClicked="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="37.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXToggleButton fx:id="nodeAlignmentToggle" layoutX="117.0" layoutY="798.0" text="Node Alignment" />
+      <JFXToggleButton fx:id="nodeAlignmentToggle" layoutX="117.0" layoutY="798.0" text="Node Alignment" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="117.0" />
        <JFXToggleButton layoutX="1207.0" layoutY="428.0" onAction="#ActivateRequests" text="My Requests">
            <font>
                <Font size="14.0" />
            </font>
        </JFXToggleButton>
-       <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" max="10.0" min="1.0"  onMouseReleased="#changePathSpeed"/>
+       <JFXSlider fx:id="pathSpeed" layoutX="198.0" layoutY="63.0" max="10.0" min="1.0" onMouseReleased="#changePathSpeed" />
       <Label layoutX="25.0" layoutY="62.0" text="Path Animation Speed:">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
    </children>
-</Pane>
+</AnchorPane>

@@ -5,6 +5,9 @@ import javafx.animation.Timeline;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -166,7 +170,7 @@ public class AdminController extends Controller {
     private JFXTextField nodeIDField;
 
     @FXML
-    private Pane masterPane;
+    private AnchorPane masterPane;
 
     @FXML
     private Pane edgeInfoPane;
@@ -224,6 +228,8 @@ public class AdminController extends Controller {
     private GraphicsContext gc1 = null;
 
     public void initialize(){
+        masterPane.widthProperty().addListener(anchorPaneChanged);
+        masterPane.heightProperty().addListener(anchorPaneChanged);
         activeTable.setVisible(false);
         completedTable.setVisible(false);
         Image m1 = mapImage.getLoadedMap("btn_map01");
@@ -236,13 +242,33 @@ public class AdminController extends Controller {
         setFxmlMouseKeyboardEvent();
     }
 
+    // Listener to handle when the image ratio is changed
+    final ChangeListener<Number> anchorPaneChanged = new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            ReadOnlyDoubleProperty p = (ReadOnlyDoubleProperty) observable;
+            String name = p.getName();
+            Double value = p.getValue();
+            if (name == "width"){
+                currentMap.setFitWidth(value);
+                gc.setWidth(value);
+                redraw();
+            } else if (name == "height"){
+                currentMap.setFitHeight(value);
+                gc.setHeight(value);
+                redraw();
+            }
+            redraw();
+        }
+    };
+
     // modifies all elements of the admin screen to call resetTimeoutCounter
     // this is required for the admin auto-logout feature in autoLogoutHelper
     void setFxmlMouseKeyboardEvent() {
-        for (javafx.scene.Node n : masterPane.getChildren()) {
+        /*for (javafx.scene.Node n : masterPane.getChildren()) {
             n.setOnMousePressed(event -> resetTimeoutCounter());
             n.setOnKeyPressed(event -> resetTimeoutCounter());
-        }
+        }*/
         for (javafx.scene.Node n : nodeInfoPane.getChildren()) {
             n.setOnMousePressed(event -> resetTimeoutCounter());
             n.setOnKeyPressed(event -> resetTimeoutCounter());
@@ -274,18 +300,18 @@ public class AdminController extends Controller {
         weightField.clear();
         nodeAField.clear();
         nodeBField.clear();
-        if (gc1 == null)
+        if(gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
-            for (EdgeObj e : n.getListOfEdgeObjs()) {
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
+            for(EdgeObj e: n.getListOfEdgeObjs()){
                 gc1.setStroke(Color.BLUE);
-                gc1.strokeLine(e.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
-                        e.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
-                        e.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
-                        e.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
+                gc1.strokeLine(e.getNodeA().node.getxLoc()*currentMap.getFitWidth()/5000,
+                        e.getNodeA().node.getyLoc()*currentMap.getFitHeight()/3400,
+                        e.getNodeB().node.getxLoc()*currentMap.getFitWidth()/5000,
+                        e.getNodeB().node.getyLoc()*currentMap.getFitHeight()/3400);
                 /*gc1.fillText("" + e.getWeight(),
                         (e.getNodeA().node.getxLoc()*mapWidth/5000 +e.getNodeB().node.getxLoc()*mapWidth/5000)/2,
                         (e.getNodeA().node.getyLoc()*mapHeight/3400+ e.getNodeB().node.getyLoc()*mapHeight/3400)/2);*/
@@ -293,15 +319,15 @@ public class AdminController extends Controller {
 
         }
 
-        for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
+        for(NodeObj n: Main.getNodeMap().getFilteredNodes()){
             gc1.setFill(Color.BLACK);
-            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 5,
-                    n.node.getyLoc() * single.getMapHeight() / 3400 - 5,
+            gc1.fillOval(n.node.getxLoc()*currentMap.getFitWidth()/5000 - 5,
+                    n.node.getyLoc()*currentMap.getFitHeight()/3400 - 5,
                     10,
                     10);
             gc1.setFill(Color.LIGHTBLUE);
-            gc1.fillOval(n.node.getxLoc() * single.getMapWidth() / 5000 - 4,
-                    n.node.getyLoc() * single.getMapHeight() / 3400 - 4,
+            gc1.fillOval(n.node.getxLoc()*currentMap.getFitWidth()/5000 - 4,
+                    n.node.getyLoc()*currentMap.getFitHeight()/3400 - 4,
                     8,
                     8);
         }
@@ -369,20 +395,20 @@ public class AdminController extends Controller {
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
         SearchPath.setVisible(false);
-        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int) ((5000 * event.getX()) / currentMap.getFitWidth());
+        int mousey = (int) ((3400 * event.getY()) / currentMap.getFitHeight());
         if ((event.getButton() == MouseButton.SECONDARY) || ((event.getButton() == MouseButton.PRIMARY) && (event.isControlDown()))) {
             redraw();
-            createNewNode(mousex, mousey);
-        } else if (event.getButton() == MouseButton.PRIMARY) {
-            if (nodeA == null) {
+            createNewNode(mousex,mousey);
+        }else if(event.getButton() == MouseButton.PRIMARY){
+            if(nodeA == null){
                 selectNodeA(event);
-            } else {
-                if (nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex, mousey).getNode().getNodeID())) {
+            }else{
+                if(nodeA.getNode().getNodeID().equals(Main.getNodeMap().getNearestNeighborFilter(mousex,mousey).getNode().getNodeID())){
                     edgeInfoPane.setVisible(false);
-                    selectNode(mousex, mousey);
+                    selectNode(mousex,mousey);
                     nodeA = null;
-                } else {
+                }else {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
@@ -390,6 +416,7 @@ public class AdminController extends Controller {
                 }
             }
         }
+        resetTimeoutCounter();
     }
 
     @FXML
@@ -502,8 +529,8 @@ public class AdminController extends Controller {
     @FXML
     void selectNodeA(MouseEvent event) {
         nodeInfoPane.setVisible(false);
-        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int)((5000 * event.getX()) / currentMap.getFitWidth());
+        int mousey = (int)((3400 * event.getY()) / currentMap.getFitHeight());
         try {
             nodeA = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             nodeAField.setText(nodeA.getNode().getNodeID());
@@ -516,15 +543,15 @@ public class AdminController extends Controller {
     void selectEdge(MouseEvent event) {
         System.out.println("DRAG RELEASED");
 
-        int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
-        int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
+        int mousex = (int)((5000 * event.getX()) / currentMap.getFitWidth());
+        int mousey = (int)((3400 * event.getY()) / currentMap.getFitHeight());
 
         try {
             NodeObj nodeEnd = Main.getNodeMap().getNearestNeighborFilter(mousex, mousey);
             String nodeB = nodeEnd.getNode().getNodeID();
             nodeBField.setText(nodeB);
 
-            if (nodeAlignmentToggle.isSelected()) {
+            if(nodeAlignmentToggle.isSelected()) {
                 System.out.println("We're aligning!");
                 NodeAlignment nodeAlign = new NodeAlignment();
 
@@ -562,10 +589,10 @@ public class AdminController extends Controller {
         redraw();
 
         gc1.setStroke(Color.RED);
-        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc() * single.getMapWidth() / 5000,
-                edgeAB.getNodeA().node.getyLoc() * single.getMapHeight() / 3400,
-                edgeAB.getNodeB().node.getxLoc() * single.getMapWidth() / 5000,
-                edgeAB.getNodeB().node.getyLoc() * single.getMapHeight() / 3400);
+        gc1.strokeLine(edgeAB.getNodeA().node.getxLoc()*currentMap.getFitWidth()/5000,
+                edgeAB.getNodeA().node.getyLoc()*currentMap.getFitHeight()/3400,
+                edgeAB.getNodeB().node.getxLoc()*currentMap.getFitWidth()/5000,
+                edgeAB.getNodeB().node.getyLoc()*currentMap.getFitHeight()/3400);
 
     }
 
@@ -641,7 +668,7 @@ public class AdminController extends Controller {
                     Tright.setOpacity(opacity);
                     break;
             }
-        } catch (NullPointerException e) {
+        }catch (NullPointerException e){
             e.printStackTrace();
         }
     }
@@ -723,7 +750,7 @@ public class AdminController extends Controller {
         ServiceEditController servCont = servContLoad.getController();
         Stage servStage = new Stage();
         servStage.setTitle("Service Request");
-        servStage.setScene(new Scene(root, single.getMapWidth()-100, single.getMapHeight()-50));
+        servStage.setScene(new Scene(root, currentMap.getFitWidth()-500, currentMap.getFitHeight()-50));
         servStage.show();
     }
 
@@ -769,34 +796,57 @@ public class AdminController extends Controller {
 
     @FXML
     void Zin() {
-        System.out.println(zoomBar.getValue());
         single.setZoom(zoomBar.getValue());
+        single.setXTrans((int) clamp(single.getXTrans(), (-1* Math.floor(currentMap.getFitWidth()*(single.getZoom()-1)/2)), Math.floor(currentMap.getFitWidth()*(single.getZoom()-1)/2)));
+        single.setYTrans( (int) clamp(single.getYTrans(), (-1* Math.floor(currentMap.getFitHeight()*(single.getZoom()-1)/2)), Math.floor(currentMap.getFitHeight()*(single.getZoom()-1)/2)));
         resize();
 
     }
 
     @FXML
     void Tleft() {
-        single.addX((int) (200.0 / single.getZoom()));
-        resize();
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() + deltaX <= Math.floor(currentMap.getFitWidth()*(single.getZoom()-1)/2)) {
+            single.addX(deltaX);
+            resize();
+        }
     }
 
     @FXML
     void Tright() {
-        single.subX((int) (200.0 / single.getZoom()));
-        resize();
+        int deltaX = (int) (100.0 / single.getZoom());
+        if (single.getXTrans() >= Math.floor(-1 * (currentMap.getFitWidth()*(single.getZoom()-1)/2))) {
+            single.subX(deltaX);
+            resize();
+        }
     }
 
     @FXML
     void Tup() {
-        single.addY((int) (160.0 / single.getZoom()));
-        resize();
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() <= Math.floor(currentMap.getFitHeight()*(single.getZoom()-1)/2)) {
+            single.addY(deltaY);
+            resize();
+        }
     }
 
     @FXML
     void Tdown() {
-        single.subY((int) (160.0 / single.getZoom()));
-        resize();
+        int deltaY = (int) (80.0 / single.getZoom());
+        if (single.getYTrans() >= Math.floor(-1 * (currentMap.getFitHeight()*(single.getZoom()-1)/2))) {
+            single.subY(deltaY);
+            resize();
+        }
+    }
+
+    double clamp(double x, double min, double max){
+        if (x < min){
+            return min;
+        } else if (x > max){
+            return max;
+        } else {
+            return x;
+        }
     }
 
     @FXML
@@ -902,7 +952,7 @@ public class AdminController extends Controller {
     }
 
     int timeoutCounter = 0; // the number of seconds since the last mouse or key press
-    int timeoutLimit = 15; // the number in seconds of no activity before automatic logout
+    int timeoutLimit = 240; // the number in seconds of no activity before automatic logout
     // Called on any mouse or key press in the admin pane.
     // Resets the counter of seconds since the last interaction.
     // Used for the automatic admin logout feature
