@@ -200,6 +200,7 @@ public class PatientController extends Controller {
     private int speed;
 
 
+
     public void initialize() {
         openclose.setVisible(false);
         openclose1.setVisible(false);
@@ -890,6 +891,11 @@ public class PatientController extends Controller {
 
                 strPath = single.getAlgorithm().getPathAlg().getGenPath();
                 currPath = strPath;
+                if(mostUsedPaths.containsKey(currPath)){
+                    mostUsedPaths.replace(currPath, (mostUsedPaths.get(currPath) + 1));
+                }else{
+                    mostUsedPaths.put(currPath, 1);
+                }
                 toggleTextArea.setText(textDirections.getTextDirections(strPath));
 
 

@@ -1,5 +1,6 @@
 email, firstName, lastName, department, language, availability, username, password
 cjdembski@wpi.edu,Clayton,Dembski,janitor,,T,cabincabin,qwerty
+staff@gmail.com,staff,staff,interpret,french,F,staff,staff
 bstill@mov.edu,Ben,Stiller,cafeteria,,F,Ben,password
 wwong2@wpi.edu,Wilson,Wong,interpret,Icelandic,T,W0ng,password
 tgwiles@wpi.edu,Thomas,Wiles,janitor,,T,Thom,password
@@ -12,9 +13,8 @@ vampress116@gmail.com,Princess,Caroline,interpret,French,F,Vamp,password
 gfreeMan@cake.gov,Gordon,Freeman,cafeteria,,F,Gord,password
 kgrant@wpi.edu,Bojack,Horseman,janitor,,T,Grant,password
 wwong2@wpi.edu,Wilson,Wong,cafeteria,,T,W0ng,password
+admin@gmail.com,admin,admin,interpret,french,F,admin,admin
 khroberts@wpi.edu,Karsten,Roberts,interpret,Icelandic,T,Karst,password
 wwong2@wpi.edu,Wilson,Wong,janitor,,T,W0ng,password
 tgwiles@wpi.edu,Thomas,Wiles,cafeteria,,T,Thom,password
 pcaroline@gmail.com,Princess,Caroline,interpret,French,F,Carol,password
-admin@gmail.com,admin,admin,interpret,french,F,admin,admin
-staff@gmail.com,staff,staff,interpret,french,F,staff,staff

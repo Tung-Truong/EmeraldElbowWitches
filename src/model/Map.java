@@ -13,4 +13,5 @@ public class Map {
     public Image getMap() {
         return map;
     }
+
 }
