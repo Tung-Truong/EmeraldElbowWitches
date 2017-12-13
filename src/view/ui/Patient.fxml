@@ -107,7 +107,7 @@
             <Font size="16.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0">
+      <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" styleClass="buttontwo">
          <font>
             <Font size="16.0" />
          </font>
@@ -164,7 +164,7 @@
          </image>
       </ImageView>
       <JFXToggleButton fx:id="reversePath" layoutX="607.0" layoutY="7.0" onMouseClicked="#redrawPath" text="Reverse Path" />
-      <JFXButton fx:id="SearchForStart" buttonType="RAISED" layoutX="246.0" layoutY="10.0" onAction="#setSearchStart" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" styleClass="buttontwo" text="Set Start" textFill="WHITE">
+      <JFXButton fx:id="SearchForStart" buttonType="RAISED" layoutX="246.0" layoutY="10.0" onAction="#setSearchStart" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" styleClass="buttontwo" text="Set Start" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>

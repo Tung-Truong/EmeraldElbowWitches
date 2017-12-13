@@ -1451,6 +1451,9 @@ public class PatientController extends Controller {
             case "SearchForNode":
                 SearchForNode.setOpacity(opacity);
                 break;
+            case "SearchForStart":
+                SearchForStart.setOpacity(opacity);
+                break;
             case "directionsButton":
                 directionsButton.setOpacity(opacity);
                 break;
