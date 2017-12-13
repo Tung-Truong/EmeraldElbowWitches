@@ -358,7 +358,7 @@ public class PatientController extends Controller {
             redraw();
         }
     };
-    private void redraw() {
+    public void redraw() {
         if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());

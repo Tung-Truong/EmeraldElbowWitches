@@ -3,12 +3,15 @@ package model;
 import javafx.scene.image.Image;
 
 public class ImageLoader {
-    Map mapL2;
-    Map mapL1;
-    Map mapG;
-    Map map01;
-    Map map02;
-    Map map03;
+
+    //** @WONG: by initializing here we remove proxy pattern
+
+    Map mapL2 = new Map("file:src/view/media/mapL2.png");
+    Map mapL1 = new Map("file:src/view/media/mapL1.png");
+    Map mapG = new Map("file:src/view/media/mapG.png");
+    Map map01= new Map("file:src/view/media/map01.png");
+    Map map02= new Map("file:src/view/media/map02.png");
+    Map map03= new Map("file:src/view/media/map03.png");
 
     public ImageLoader() {
     }

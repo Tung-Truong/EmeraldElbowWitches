@@ -1025,6 +1025,7 @@ public class AdminController extends Controller {
         if(timeoutCounter > timeoutLimit) {
             resetTimeoutCounter();
             Main.getCurrStage().setScene(Main.getPatientScene());
+            Main.patCont.redraw();
         }
 
         startTimer();
