@@ -322,7 +322,14 @@ public class PatientController extends Controller {
         //map itself
         final Tooltip mapInstructions = new Tooltip();
         mapInstructions.setText("Navigate to a location: left click on map\nChange start location: right click on map");
-        //TODO: add a button/icon to make this text appear
+
+        final Tooltip searchForStart = new Tooltip();
+        searchForStart.setText("Click to set start location");
+        SearchForStart.setTooltip(searchForStart);
+
+        final Tooltip switchDir = new Tooltip();
+        switchDir.setText("Click to switch start and end");
+        reversePath.setTooltip(switchDir);
 
     }
 
