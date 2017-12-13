@@ -1141,6 +1141,16 @@ public class PatientController extends Controller {
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
         }
+
+        if (search.equals("closest bathroom") || search.equals("closest restroom")) {
+            findClosestRestroom();
+        }
+        if (search.equals("closest elevator")) {
+            findClosestElevator();
+        }
+        if (search.equals("closest exit")) {
+            findClosestExit();
+        }
     }
 
     @FXML
@@ -1218,6 +1228,98 @@ public class PatientController extends Controller {
                 DrawCurrentFloorPath();
             }
         }
+    }
+
+    private void findClosestRestroom() {
+        findClosestFromCsv("src/model/docs/Restrooms.csv");
+    }
+
+    private void findClosestElevator() {
+        findClosestFromCsv("src/model/docs/Elevators.csv");
+    }
+
+    private void findClosestExit() {
+        findClosestFromCsv("src/model/docs/Exits.csv");
+    }
+
+    /*
+     * takes a filepath to a csv file, and produces an ArrayList<NodeObj> containing the nodes
+     * on the shortest path to that location
+     */
+    private void findClosestFromCsv(String csvFile) {
+        ArrayList<String> nodeIDs = new ArrayList<>();
+        ArrayList<NodeObj> nodes = new ArrayList<>();
+        ArrayList<NodeObj> shortestSoFar = new ArrayList<>();
+        ArrayList<NodeObj> nextPath;
+
+        try {
+            CSVtoArrayList.readCSVToArray(csvFile, 1, nodeIDs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for(String id : nodeIDs) {
+            nodes.add(Main.nodeMap.getNodeObjByID(id));
+        }
+
+        if(!nodes.isEmpty()) {
+            shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
+        }
+
+        for(NodeObj end : nodes) {
+            nextPath = constructPath(Main.kiosk, end);
+            shortestSoFar = findShorterPath(shortestSoFar, nextPath);
+        }
+
+        // the next two lines fix a bug where the path would bee-line to the previous goal, or other strange behavior
+        goal = shortestSoFar.get(shortestSoFar.size()-1);
+        Collections.reverse(shortestSoFar);
+        currPath = shortestSoFar;
+
+        redraw();
+        DrawCurrentFloorPath();
+    }
+
+    /*
+     * helper method for findClosestFromCsvFile
+     * produces an ArrayList<NodeObj> with the nodes the current algorithm chooses for the path
+     */
+    private ArrayList<NodeObj> constructPath(NodeObj start, NodeObj end) {
+        ArrayList<NodeObj> path = new ArrayList<>();
+        if(single.getAlgorithm().getPathAlg().pathfind(start, end)) {
+            path = single.getAlgorithm().getPathAlg().getGenPath();
+        }
+        return path;
+    }
+
+    // returns the path with the lower total distance, used for findClosestFromCsv
+    private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> shortestSoFar, ArrayList<NodeObj> newPath) {
+        int pathleng = 0;
+        int genleng = 0;
+        NodeObj prevN = null;
+        for (NodeObj n : shortestSoFar) {
+            if(prevN == null){
+                prevN = n;
+            }
+            else{
+                pathleng += n.getDistance(prevN);
+            }
+        }
+        prevN = null;
+        for(NodeObj n : newPath){
+            if(prevN == null){
+                prevN = n;
+            }
+            else{
+                genleng += n.getDistance(prevN);
+            }
+        }
+
+        if(pathleng > genleng) {
+            shortestSoFar = newPath;
+        }
+
+        return shortestSoFar;
     }
 
     @FXML
