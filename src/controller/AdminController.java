@@ -1,10 +1,14 @@
 package controller;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,18 +28,26 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
+import model.Map;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 import static java.lang.Thread.sleep;
 
 
 public class AdminController extends Controller {
+
+    @FXML
+    private JFXToggleButton toggleMostTravelled;
 
     @FXML
     TreeTableView<ServiceRequest> activeTable;
@@ -222,6 +234,10 @@ public class AdminController extends Controller {
     private SingleController single = SingleController.getController();
     private ImageLoader mapImage = new ImageLoader();
     private GraphicsContext gc1 = null;
+    private int speed;
+    int timeoutCounter = 0; // the number of seconds since the last mouse or key press
+    int timeoutLimit = 9999999; // the number in seconds of no activity before automatic logout
+    ArrayList<Animation> diseasedAnimation = new ArrayList<>();
 
     public void initialize(){
         activeTable.setVisible(false);
@@ -234,15 +250,13 @@ public class AdminController extends Controller {
         astarBtn.setStyle("-fx-background-color: #4286f4");
         redraw();
         setFxmlMouseKeyboardEvent();
+
     }
 
     // modifies all elements of the admin screen to call resetTimeoutCounter
     // this is required for the admin auto-logout feature in autoLogoutHelper
     void setFxmlMouseKeyboardEvent() {
-        for (javafx.scene.Node n : masterPane.getChildren()) {
-            n.setOnMousePressed(event -> resetTimeoutCounter());
-            n.setOnKeyPressed(event -> resetTimeoutCounter());
-        }
+
         for (javafx.scene.Node n : nodeInfoPane.getChildren()) {
             n.setOnMousePressed(event -> resetTimeoutCounter());
             n.setOnKeyPressed(event -> resetTimeoutCounter());
@@ -257,6 +271,31 @@ public class AdminController extends Controller {
         return completedTable;
     }
 
+    private void showInOrder(){
+        HashMap<ArrayList<NodeObj>,Integer> map = mostUsedPaths;
+        HashMap<ArrayList<NodeObj>,Integer> sortedMap = new HashMap<>();
+        int origSize = map.size();
+        while(sortedMap.size() < origSize) {
+            HashMap.Entry<ArrayList<NodeObj>, Integer> maxValEntry = (HashMap.Entry<ArrayList<NodeObj>, Integer>)map.entrySet().toArray()[0];
+            for (HashMap.Entry<ArrayList<NodeObj>, Integer> path : map.entrySet()) {
+                if(path.getValue() > maxValEntry.getValue()){
+                    maxValEntry = path;
+                }
+            }
+            map.remove(maxValEntry.getKey());
+            sortedMap.put(maxValEntry.getKey(), maxValEntry.getValue());
+            //call draw animation on path
+            Animation animationBackground = createPathAnimation(convertPath(pathFloorFilter(maxValEntry.getKey())), Duration.millis(pathAnimationSpeed()), maxValEntry.getValue(), true);
+            diseasedAnimation.add(animationBackground);
+            Animation animation = createPathAnimation(convertPath(pathFloorFilter(maxValEntry.getKey())), Duration.millis(pathAnimationSpeed()), maxValEntry.getValue(), false);
+            diseasedAnimation.add(animation);
+            animationBackground.play();
+            animation.play();
+        }
+        mostUsedPaths = sortedMap;
+    }
+
+    @FXML
     private void redraw() {
         SearchPath.setVisible(false);
         nodeInfoPane.setVisible(false);
@@ -277,6 +316,16 @@ public class AdminController extends Controller {
         if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        if(toggleMostTravelled.isSelected()){
+            currentMap.setOpacity(.5);
+            showInOrder();
+        }else {
+            currentMap.setOpacity(1);
+            for (Animation a : diseasedAnimation) {
+                a.stop();
+                gc1.clearRect(0,0,currentMap.getFitWidth(), currentMap.getFitHeight());
+            }
+        }
         gc1.setLineWidth(2);
         gc1.setFill(Color.BLACK);
         for (NodeObj n : Main.getNodeMap().getFilteredNodes()) {
@@ -310,6 +359,9 @@ public class AdminController extends Controller {
 
     @FXML
     void changeMap(Event e) {
+        for(Animation a : diseasedAnimation){
+            a.stop();
+        }
         Main.controllers.updateAllMaps(e);
     }
 
@@ -368,6 +420,7 @@ public class AdminController extends Controller {
 
     @FXML
     void clickHandler(MouseEvent event) throws InvalidNodeException {
+        resetTimeoutCounter();
         SearchPath.setVisible(false);
         int mousex = (int) ((5000 * event.getX()) / single.getMapWidth());
         int mousey = (int) ((3400 * event.getY()) / single.getMapHeight());
@@ -386,7 +439,6 @@ public class AdminController extends Controller {
                     nodeInfoPane.setVisible(false);
                     selectEdge(event);
                     nodeA = null;
-
                 }
             }
         }
@@ -901,8 +953,7 @@ public class AdminController extends Controller {
         single.setMapHeight(currentMap.getFitHeight());
     }
 
-    int timeoutCounter = 0; // the number of seconds since the last mouse or key press
-    int timeoutLimit = 15; // the number in seconds of no activity before automatic logout
+
     // Called on any mouse or key press in the admin pane.
     // Resets the counter of seconds since the last interaction.
     // Used for the automatic admin logout feature
@@ -947,5 +998,119 @@ public class AdminController extends Controller {
     public void changePathSpeed(MouseEvent mouseEvent) {
         single.setPathAnimationSpeed((int)pathSpeed.getValue());
     }
+
+
+    //-----------------------------------------------------------------------------------------------------------------------------//
+    //                                          THIS IS FOR DRAWING MOST VISITED PATHS
+    //-----------------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+    //Functions required for animation fun times
+    private Path convertPath(ArrayList<NodeObj> list) {
+        Path path = new Path();
+        ArrayList<NodeObj> reverseList = list;
+        Collections.reverse(reverseList);
+        int x = 0;
+        for (int i = 0; i < (reverseList.size() - 1); i++) {
+            ArrayList<NodeObj> neighbors = reverseList.get(i).getListOfNeighbors();
+            if (neighbors.contains(reverseList.get(i + 1))) {
+                path.getElements().addAll(new MoveTo(reverseList.get(i).node.getxLoc(), reverseList.get(i).node.getyLoc()), new LineTo(reverseList.get(i + 1).node.getxLoc(), reverseList.get(i + 1).node.getyLoc()));
+            }
+        }
+        try {
+            path.getElements().addAll(new MoveTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()), new LineTo(reverseList.get(reverseList.size() - 1).node.getxLoc(), reverseList.get(reverseList.size() - 1).node.getyLoc()));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("wat. somehow fixes the last floor selected showing as selected bug");
+        }
+        return path;
+    }
+
+
+    private Animation createPathAnimation(Path path, Duration duration, int frequency, boolean background) {
+        GraphicsContext gc = gc1;
+        Circle pen;
+        if(background) {
+            pen = new Circle(0, 0, 5 + frequency);
+        }else {
+            pen = new Circle(0, 0, 4 + frequency);
+        }
+
+        PathTransition pathTransition = new PathTransition(duration, path, pen);
+        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            PatientController.Location oldLocation = null;
+            PatientController.Location oldOldLocation = null;
+
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                if (oldValue == Duration.ZERO) {
+                    return;
+                }
+                double x = pen.getTranslateX();
+                double y = pen.getTranslateY();
+
+                if (oldLocation == null) {
+                    oldLocation = new PatientController.Location();
+                    oldLocation.x = x;
+                    oldLocation.y = y;
+                    return;
+                }
+
+                gc.setFill(Color.YELLOW);
+                if(background){
+                    gc.setStroke(new Color(0, .3, 0,1));
+                    gc.setLineWidth(5+frequency);
+                }else {
+                    gc.setStroke(new Color(.32,1,0,1));
+                    gc.setLineWidth(4 + frequency);
+                }
+                try {
+                    NodeObj a = Main.getNodeMap().getNearestNeighborFilter((int) oldLocation.x, (int) oldLocation.y);
+                    NodeObj b = Main.getNodeMap().getNearestNeighborFilter((int) x, (int) y);
+
+                    if (a.getListOfNeighbors().contains(b)) {
+                        gc.strokeLine(oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400, x * single.getMapWidth() / 5000, y * single.getMapHeight() / 3400);
+                        oldLocation.x = x;
+                        oldLocation.y = y;
+                        oldOldLocation = oldLocation;
+                    } else if (oldOldLocation != null && oldOldLocation.x - oldLocation.x < 10 && oldOldLocation.y - oldLocation.y < 10) {
+                        gc.strokeLine(oldOldLocation.x * single.getMapWidth() / 5000, oldOldLocation.y * single.getMapHeight() / 3400, oldLocation.x * single.getMapWidth() / 5000, oldLocation.y * single.getMapHeight() / 3400);
+                        oldLocation.x = x;
+                        oldLocation.y = y;
+                    }
+                } catch (InvalidNodeException e) {
+                    e.getMessage();
+                } catch (NullPointerException e) {
+                    e.getMessage();
+                }
+                oldLocation.x = x;
+                oldLocation.y = y;
+            }
+        });
+        return pathTransition;
+    }
+
+
+    ArrayList<NodeObj> pathFloorFilter(ArrayList<NodeObj> newPath) {
+        ArrayList<NodeObj> filteredPath = new ArrayList<>();
+        for (NodeObj n : newPath) {
+            if (n.getNode().getFloor().equals(Main.getNodeMap().currentFloor))
+                filteredPath.add(n);
+        }
+        return filteredPath;
+    }
+
+    public static class Location {
+        double x;
+        double y;
+    }
+
+
+    public int pathAnimationSpeed() {
+        speed = 35000 / single.getPathAnimationSpeed();
+        return speed;
+    }
+
 
 }
