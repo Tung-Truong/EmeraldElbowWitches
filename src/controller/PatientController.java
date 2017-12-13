@@ -388,17 +388,11 @@ public class PatientController extends Controller {
 
     void clearChosenFloor() {
         btn_mapL2.setOpacity(.5);
-        btn_mapL2.setStyle("-fx-background-color:   #4286f4");
         btn_mapL1.setOpacity(.5);
-        btn_mapL1.setStyle("-fx-background-color:   #4286f4");
         btn_mapG.setOpacity(.5);
-        btn_mapG.setStyle("-fx-background-color:   #4286f4");
         btn_map01.setOpacity(.5);
-        btn_map01.setStyle("-fx-background-color:   #4286f4");
         btn_map02.setOpacity(.5);
-        btn_map02.setStyle("-fx-background-color:   #4286f4");
         btn_map03.setOpacity(.5);
-        btn_map03.setStyle("-fx-background-color:   #4286f4");
         if (Floors != null) {
             /*for(int i = 0; i < Floors.size(); i++){
                 selectFloor(Floors.get(i), i+1);
@@ -483,31 +477,26 @@ public class PatientController extends Controller {
         switch (selectedFloor) {
             case "L2":
                 btn_mapL2.setOpacity(.7);
-                btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
+
                 break;
             case "L1":
                 btn_mapL1.setOpacity(.7);
-                btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "G":
                 btn_mapG.setOpacity(.7);
-                btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "1":
                 btn_map01.setOpacity(.7);
-                btn_map01.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "2":
                 btn_map02.setOpacity(.7);
-                btn_map02.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "3":
                 btn_map03.setOpacity(.7);
-                btn_map03.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
         }
@@ -1020,5 +1009,31 @@ public class PatientController extends Controller {
     public int pathAnimationSpeed() {
         speed = 35000 / single.getPathAnimationSpeed();
         return speed;
+    }
+
+    public void setStyle(String styleName) {
+        if(styleName == "contrast") {
+            Main.patientScene.getRoot().getStylesheets().clear();
+            Main.patientScene.getRoot().getStylesheets().add("view/stylesheets/UI2.css");
+        } else if(styleName == "normal") {
+            Main.patientScene.getRoot().getStylesheets().clear();
+            Main.patientScene.getRoot().getStylesheets().add("view/stylesheets/UI.css");
+        }
+        Image m1 = mapImage.getLoadedMap("btn_map01");
+        NodeObj n;
+        selectFloorWithPath("1");
+        currentMap.setImage(m1);
+        btn_map01.setOpacity(1);
+        single.getAlgorithm().setPathAlg(new astar());
+        single.setMapWidth(currentMap.getFitWidth());
+        single.setMapHeight(currentMap.getFitHeight());
+        setKioskLoc(2460, 910);
+        redraw();
+        for (String s : Main.getImportantNodes()) {
+            n = Main.nodeMap.getNodeObjByID(s);
+            SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
+        }
+        toolTipsInit();
+
     }
 }

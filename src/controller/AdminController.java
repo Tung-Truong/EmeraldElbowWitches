@@ -315,12 +315,7 @@ public class AdminController extends Controller {
 
 
     void getMap(Event e) {
-        btn_mapL2.setStyle("-fx-background-color:  #4286f4");
-        btn_mapL1.setStyle("-fx-background-color:  #4286f4");
-        btn_mapG.setStyle("-fx-background-color:  #4286f4");
-        btn_map01.setStyle("-fx-background-color:  #4286f4");
-        btn_map02.setStyle("-fx-background-color:  #4286f4");
-        btn_map03.setStyle("-fx-background-color:  #4286f4");
+
         String clickedID = null;
         try{
             clickedID = ((JFXButton)e.getSource()).getId();
@@ -330,32 +325,32 @@ public class AdminController extends Controller {
         switch (clickedID) {
             case "btn_mapL2":
                 Main.getNodeMap().setCurrentFloor("L2");
-                btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_mapL2.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "btn_mapL1":
                 Main.getNodeMap().setCurrentFloor("L1");
-                btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_mapL1.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "btn_mapG":
                 Main.getNodeMap().setCurrentFloor("G");
-                btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_mapG.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "btn_map01":
                 Main.getNodeMap().setCurrentFloor("1");
-                btn_map01.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_map01.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "btn_map02":
                 Main.getNodeMap().setCurrentFloor("2");
-                btn_map02.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_map02.setStyle("-fx-background-color:  #1b5cc4");
 
                 break;
             case "btn_map03":
                 Main.getNodeMap().setCurrentFloor("3");
-                btn_map03.setStyle("-fx-background-color:  #1b5cc4");
+                //btn_map03.setStyle("-fx-background-color:  #1b5cc4");
                 break;
 
         }

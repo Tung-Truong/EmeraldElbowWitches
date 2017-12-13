@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StyleController">
+   <children>
+      <Label layoutX="85.0" layoutY="12.0" prefHeight="35.0" prefWidth="250.0" text="Select Application Style" textAlignment="CENTER" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="5.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="normalStyle" layoutX="22.0" layoutY="58.0" mnemonicParsing="false" onAction="#setStyleNormal" prefHeight="57.0" prefWidth="350.0" text="Normal" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0" />
+      <Button fx:id="contrastStyle" layoutX="8.0" layoutY="124.0" mnemonicParsing="false" onAction="#setStyleContrast" prefHeight="57.0" prefWidth="350.0" text="Increased Contrast" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" />
+   </children>
+</AnchorPane>

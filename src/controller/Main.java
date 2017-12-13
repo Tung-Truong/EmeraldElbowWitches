@@ -45,6 +45,7 @@ public class Main extends Application {
     public static ControllerListener controllers;
     public static Employee currUser;
     public static AdminController adminCont;
+    public static PatientController patCont;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
@@ -227,10 +228,16 @@ public class Main extends Application {
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
 
+        FXMLLoader styleContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/StyleSelect.fxml"));
+        Scene Start = new Scene(styleContLoad.load(), 400, 200);
+        StyleController styleCont = styleContLoad.getController();
+
+        this.controllers.addObserver(styleCont);
+
         FXMLLoader patientContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Patient.fxml"));
-        Scene Start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
-        PatientController patCont = patientContLoad.getController();
-        patientScene = Start;
+        Scene start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
+        patCont = patientContLoad.getController();
+        patientScene = start;
 
         this.controllers.addObserver(patCont);
 
@@ -240,10 +247,11 @@ public class Main extends Application {
         adminScene = new Scene(new Group((Parent) adminContLoad.load()), sceneWidth, sceneHeight);
         adminCont = adminContLoad.getController();
         Group SceneRoot = (Group) adminScene.getRoot();
+
         SceneRoot.getChildren().addAll(adminCont.getActiveTable(), adminCont.getCompletedTable());
         this.controllers.addObserver(adminCont);
 
-        this.patientScene = Start;
+        this.patientScene = start;
         primaryStage.setScene(Start);
         primaryStage.show();
     }
