@@ -24,7 +24,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
       <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -111,7 +111,7 @@
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <JFXButton fx:id="SearchForNode" buttonType="RAISED" layoutX="416.0" layoutY="10.0" onAction="#setSearchNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" styleClass="buttontwo" stylesheets="@../stylesheets/UI.css" text="CONFIRM" textFill="WHITE">
+      <JFXButton fx:id="SearchForNode" buttonType="RAISED" layoutX="416.0" layoutY="11.0" onAction="#setSearchNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" styleClass="buttontwo" stylesheets="@../stylesheets/UI.css" text="Set End" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
@@ -173,6 +173,11 @@
          </image>
       </ImageView>
       <JFXToggleButton fx:id="reversePath" layoutX="607.0" layoutY="7.0" onMouseClicked="#redrawPath" text="Reverse Path" />
+      <JFXButton fx:id="SearchForStart" buttonType="RAISED" layoutX="246.0" layoutY="10.0" onAction="#setSearchStart" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" styleClass="buttontwo" stylesheets="@../stylesheets/UI.css" text="Set Start" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
 
    </children>
 </AnchorPane>

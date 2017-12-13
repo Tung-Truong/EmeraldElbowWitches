@@ -99,6 +99,9 @@ public class PatientController extends Controller {
     private JFXButton btn_map03;
 
     @FXML
+    private JFXButton SearchForStart;
+
+    @FXML
     private JFXButton btn_map02;
 
     @FXML
@@ -1120,9 +1123,15 @@ public class PatientController extends Controller {
     }
 
     @FXML
+    void setSearchStart(){
+        NodeObj newStartNode = Main.getNodeMap().getNodeObjByID(SearchOptions.getValue().split(":")[0].trim());
+        Main.setKiosk(newStartNode);
+        redraw();
+    }
+
+    @FXML
     void UpdateSearch() {
         SearchOptions.getItems().clear();
-
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
         if (search.length() > 2) {
@@ -1140,16 +1149,7 @@ public class PatientController extends Controller {
                 n = Main.nodeMap.getNodeObjByID(s);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
-        }
-
-        if (search.equals("closest bathroom") || search.equals("closest restroom")) {
-            findClosestRestroom();
-        }
-        if (search.equals("closest elevator")) {
-            findClosestElevator();
-        }
-        if (search.equals("closest exit")) {
-            findClosestExit();
+            SearchOptions.show();
         }
     }
 
@@ -1157,27 +1157,40 @@ public class PatientController extends Controller {
     void setSearchNode(Event e) {
         if (((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
             try {
-                String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
+                if(SearchNodeID.getText().toLowerCase().trim().split(" ")[0].trim().equals("closest")) {
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest bathroom") || SearchNodeID.getText().toLowerCase().trim().equals("closest restroom")) {
+                        findClosestRestroom();
+                    }
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest elevator")) {
+                        findClosestElevator();
+                    }
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest exit")) {
+                        findClosestExit();
+                    }
+                }
+                else {
+                    String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
 
-                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-                try {
-                    if (newSearchNode == null)
-                        throw new InvalidNodeException("no node with that ID");
-                    getMap(e);
-                    ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
-                    Main.controllers.updateAllMaps(e);
-                    ((JFXButton) e.getSource()).setId("SearchForNode");
-                    gc1.setFill(Color.DARKRED);
-                    gc1.fillOval(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5,
-                            newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
-                            10,
-                            10);
-                    SearchPath.setVisible(true);
-                    SearchPath.setText(searchNewNodeID);
-                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000);
-                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400);
-                } catch (InvalidNodeException exc) {
-                    exc.printStackTrace();
+                    NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                    try {
+                        if (newSearchNode == null)
+                            throw new InvalidNodeException("no node with that ID");
+                        getMap(e);
+                        ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                        Main.controllers.updateAllMaps(e);
+                        ((JFXButton) e.getSource()).setId("SearchForNode");
+                        gc1.setFill(Color.DARKRED);
+                        gc1.fillOval(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5,
+                                newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
+                                10,
+                                10);
+                        SearchPath.setVisible(true);
+                        SearchPath.setText(searchNewNodeID);
+                        SearchPath.setLayoutX(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000);
+                        SearchPath.setLayoutY(newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400);
+                    } catch (InvalidNodeException exc) {
+                        exc.printStackTrace();
+                    }
                 }
             } catch (NullPointerException exc) {
                 exc.getMessage();
