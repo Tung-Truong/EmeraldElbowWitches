@@ -1,14 +1,14 @@
 package controller;
 
-//import controllers.API.APIApp;
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
+import controllers.API.APIApp;
+import foodRequest.FoodRequest;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import foodRequest.FoodRequest;
-//import messenger.API;
+import messenger.API;
 import model.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -141,7 +141,7 @@ public class ServiceController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } /*else if (RequestServiceDropdown.getValue() != null && (RequestServiceDropdown.getValue().equals("Food"))){
+        } else if (RequestServiceDropdown.getValue() != null && (RequestServiceDropdown.getValue().equals("Food"))){
             FoodRequest foodRequest = new FoodRequest();
             try{
                 close();
@@ -167,7 +167,7 @@ public class ServiceController {
                 System.out.println("Failed to run API");
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 
     @FXML

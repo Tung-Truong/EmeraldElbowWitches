@@ -240,7 +240,7 @@ public class AdminController extends Controller {
     private GraphicsContext gc1 = null;
     private int speed;
     int timeoutCounter = 0; // the number of seconds since the last mouse or key press
-    int timeoutLimit = 9999999; // the number in seconds of no activity before automatic logout
+    int timeoutLimit = 360; // the number in seconds of no activity before automatic logout
     ArrayList<Animation> diseasedAnimation = new ArrayList<>();
 
     public void initialize(){

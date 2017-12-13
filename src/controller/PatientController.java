@@ -199,6 +199,8 @@ public class PatientController extends Controller {
 
 
     public void initialize() {
+        gc1 = gc.getGraphicsContext2D();
+        SearchPath.getStyleClass().add("buttonone");
         openclose.setVisible(false);
         openclose1.setVisible(false);
         start.setVisible(false);
@@ -362,10 +364,19 @@ public class PatientController extends Controller {
         if (gc1 == null)
             gc1 = gc.getGraphicsContext2D();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
+        try {
+            oldAnimation.stop();
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void changeMap(Event e) {
+        start.setVisible(false);
+        end.setVisible(false);
+        openclose.setVisible(false);
+        openclose1.setVisible(false);
         resetFloorButtons();
         if(oldAnimation != null) {
             oldAnimation.stop();
@@ -378,15 +389,12 @@ public class PatientController extends Controller {
                 redraw();
                 gc.getGraphicsContext2D().setStroke(Color.PURPLE);
             }
+           // gc1.setStroke(new Color(0,0,.45,1));
             Animation animation = createPathAnimation(convertPath(pathFloorFilter(currPath)), Duration.millis(pathAnimationSpeed()));
             animation.play();
             oldAnimation = animation;
             DrawCurrentFloorPath();
         }
-        start.setVisible(false);
-        end.setVisible(false);
-        openclose.setVisible(false);
-        openclose1.setVisible(false);
     }
 
     void getMap(Event e) {
@@ -921,17 +929,13 @@ public class PatientController extends Controller {
     @FXML
     public void redrawPath() {
         redraw();
-        start.setVisible(false);
-        end.setVisible(false);
-        openclose.setVisible(false);
-        openclose1.setVisible(false);
         clearChosenFloor();
         resetFloorButtons();
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
 
         gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
+        gc1.setFill(Color.DARKBLUE);
 
         resetAnimations(oldAnimation);
         directionsButton.setVisible(true);
@@ -943,7 +947,7 @@ public class PatientController extends Controller {
         gc1.clearRect(0, 0, currentMap.getFitWidth(), currentMap.getFitHeight());
         gc1.setLineWidth(2);
         gc1.setStroke(Color.BLUE);
-        gc1.setFill(Color.RED);
+        gc1.setFill(Color.DARKBLUE);
         NodeObj Kiosk = Main.getKiosk();
 
         if (!Kiosk.getNode().getNodeID().equals(goal.getNode().getNodeID())) {
@@ -1190,6 +1194,10 @@ public class PatientController extends Controller {
                         SearchPath.setText(searchNewNodeID);
                         SearchPath.setLayoutX(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000);
                         SearchPath.setLayoutY(newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400);
+                        openclose.setVisible(false);
+                        openclose1.setVisible(false);
+                        start.setVisible(false);
+                        end.setVisible(false);
                     } catch (InvalidNodeException exc) {
                         exc.printStackTrace();
                     }
