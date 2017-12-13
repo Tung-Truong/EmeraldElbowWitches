@@ -740,15 +740,14 @@ public class PatientController extends Controller {
             }
         }
 
-        System.out.println("before the if statement");
-
         if (search.equals("closest bathroom") || search.equals("closest restroom")) {
-            System.out.println("in the bathroom if statement");
             findClosestRestroom();
         }
         if (search.equals("closest elevator")) {
-            System.out.println("in the elevator if statement");
             findClosestElevator();
+        }
+        if (search.equals("closest exit")) {
+            findClosestExit();
         }
     }
 
@@ -829,15 +828,16 @@ public class PatientController extends Controller {
         }
     }
 
-   // @FXML // todo: create a button on the fxml that calls this function
     private void findClosestRestroom() {
-        System.out.println("in findClosestRestroom");
         findClosestFromCsv("src/model/docs/Restrooms.csv");
     }
 
-    //@FXML // todo: create a button on the fxml that calls this function
     private void findClosestElevator() {
         findClosestFromCsv("src/model/docs/Elevators.csv");
+    }
+
+    private void findClosestExit() {
+        findClosestFromCsv("src/model/docs/Exits.csv");
     }
 
     /*
@@ -848,7 +848,6 @@ public class PatientController extends Controller {
         ArrayList<String> nodeIDs = new ArrayList<>();
         ArrayList<NodeObj> nodes = new ArrayList<>();
         ArrayList<NodeObj> shortestSoFar = new ArrayList<>();
-        ArrayList<NodeObj> finalPath = new ArrayList<>();
         ArrayList<NodeObj> nextPath;
 
         try {
@@ -865,20 +864,18 @@ public class PatientController extends Controller {
             shortestSoFar = constructPath(Main.kiosk, nodes.get(0));
         }
 
-        System.out.println("got through the first constructPath");
-
         for(NodeObj end : nodes) {
             nextPath = constructPath(Main.kiosk, end);
             shortestSoFar = findShorterPath(shortestSoFar, nextPath);
         }
 
+        // the next two lines fix a bug where the path would bee-line to the previous goal, or other strange behavior
         goal = shortestSoFar.get(shortestSoFar.size()-1);
         Collections.reverse(shortestSoFar);
         currPath = shortestSoFar;
 
         redraw();
         DrawCurrentFloorPath();
-
     }
 
     /*
@@ -886,7 +883,6 @@ public class PatientController extends Controller {
      * produces an ArrayList<NodeObj> with the nodes the current algorithm chooses for the path
      */
     private ArrayList<NodeObj> constructPath(NodeObj start, NodeObj end) {
-        System.out.println("in constructPath");
         ArrayList<NodeObj> path = new ArrayList<>();
         if(single.getAlgorithm().getPathAlg().pathfind(start, end)) {
             path = single.getAlgorithm().getPathAlg().getGenPath();
@@ -894,31 +890,8 @@ public class PatientController extends Controller {
         return path;
     }
 
-    /*
-    // helper method for findClosestFromCsvFile
-    private ArrayList<NodeObj> arrayListToNodeObj(ArrayList<String> array) {
-        System.out.println("in arrayListToNodeObj");
-        ArrayList<NodeObj> nodes = new ArrayList<>();
-        for(String r : array) {
-            Main.getNodeMap().getNodeObjByID(r);
-        }
-        return nodes;
-    }
-
-    */
-
-    /*
-    private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> path1, ArrayList<NodeObj> path2) {
-        int length1 = 0, length2 = 0;
-
-        for(NodeObj node : path1) {
-            length1 +=
-        }
-    }*/
-
+    // returns the path with the lower total distance, used for findClosestFromCsv
     private ArrayList<NodeObj> findShorterPath(ArrayList<NodeObj> shortestSoFar, ArrayList<NodeObj> newPath) {
-
-        System.out.println("in findShorterPath");
         int pathleng = 0;
         int genleng = 0;
         NodeObj prevN = null;
