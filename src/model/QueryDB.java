@@ -57,27 +57,27 @@ public class QueryDB {
         return edgeList;
     }
 
-    public static ArrayList<Employee> getEmployees() throws SQLException{
+    public static ArrayList<Employee> getEmployees() throws SQLException {
         ArrayList<Employee> employeeList = new ArrayList<Employee>();
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(GET_EMPLOYEES);
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             String[] tempVals = new String[columnCount];
-            for(int colInd = 1; colInd < columnCount + 1; colInd++){
+            for (int colInd = 1; colInd < columnCount + 1; colInd++) {
                 tempVals[colInd - 1] = resultSet.getString(colInd);
             }
-            if(tempVals[0] != null){
-                employeeList.add(new Employee(tempVals[0], tempVals[1], tempVals[2],tempVals[3], tempVals[4],
+            if (tempVals[0] != null) {
+                employeeList.add(new Employee(tempVals[0], tempVals[1], tempVals[2], tempVals[3], tempVals[4],
                         tempVals[5], tempVals[6], tempVals[7]));
             }
         }
-        if(statement != null){
+        if (statement != null) {
             statement.close();
         }
-        if(connection != null){
+        if (connection != null) {
             connection.close();
         }
         return employeeList;
@@ -90,6 +90,7 @@ public class QueryDB {
         ResultSet resultSet = statement.executeQuery(GET_REQUESTS);
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
         int columnCount = resultSetMetaData.getColumnCount();
+        try {
         while(resultSet.next()){
             String[] tempVals = new String[columnCount];
             for(int colInd = 1; colInd < columnCount+1; colInd++){
@@ -107,6 +108,9 @@ public class QueryDB {
         }
         if(connection != null){
             connection.close();
+        }
+        } catch (NullPointerException e) {
+        e.printStackTrace();
         }
         return requestList;
     }

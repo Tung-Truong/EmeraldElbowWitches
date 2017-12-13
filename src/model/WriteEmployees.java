@@ -11,13 +11,14 @@ public class WriteEmployees {
 
     /*
      * runEmployees takes all rows from the EMPLOYEETABLE in our database and saves it to our edge csv file.
+     * runEmployees takes all rows from the EMPLOYEETABLE in our database and saves it to our employee csv file.
      */
-    public static void runEmployees() throws SQLException, IOException {
+    public static void runEmployeesFirst() throws SQLException, IOException {
 
         try {
             Connection conn = DriverManager.getConnection(JDBC_URL);
             String query = "select DISTINCT * from employeeTable";
-            String filename = "src/model/docs/Employees.csv";
+            String filename = "src/model/docs/EmployeesEncrypted.csv";
             File file = new File(filename);
             FileWriter fw = new FileWriter(file);
             Statement stmt = conn.createStatement();
@@ -38,13 +39,13 @@ public class WriteEmployees {
                 fw.append(',');
                 fw.append(rs.getString(7));
                 fw.append(',');
-                fw.append(rs.getString(8));
+                fw.append(BCrypt.hashpw(rs.getString(8), BCrypt.gensalt()));
                 fw.append('\n');
             }
             fw.flush();
             fw.close();
             conn.close();
-            System.out.println("CSV File is created successfully.");
+            System.out.println("CSV File Successfully Created: Employees");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,5 +89,45 @@ public class WriteEmployees {
             e.printStackTrace();
         }
     }*/
+    }
+
+    public static void runEmployees() throws SQLException, IOException {
+
+        try {
+            Connection conn = DriverManager.getConnection(JDBC_URL);
+            String query = "select * from employeeTable";
+            String filename = "src/model/docs/EmployeesEncrypted.csv";
+            File file = new File(filename);
+            FileWriter fw = new FileWriter(file);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            fw.append("email, firstName, lastName, department, language, availability, username, password\n");
+            while (rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
+                fw.append(',');
+                fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
+                fw.append('\n');
+            }
+            fw.flush();
+            fw.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

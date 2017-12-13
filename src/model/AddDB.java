@@ -1,5 +1,6 @@
 package model;
 
+import controller.Main;
 import model.CreateDB;
 import model.Node;
 import model.Edge;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class AddDB {
     public static final String JDBC_URL = "jdbc:derby:mapDB;create=true";
     public static int interpreters;
+    public static ArrayList<Employee> employeeInDB = new ArrayList<Employee>();
 
 
     // Generate Nodes from database using CSV files
@@ -52,14 +54,37 @@ public class AddDB {
 
         Connection connection = DriverManager.getConnection(CreateDB.JDBC_URL);
 
-        String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
-                addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "','" + addEmployee.getUsername() + "','" + addEmployee.getPassword() + "')"; //build the sql template
+        String SQL;
+        boolean isCopy = false;
 
-        String SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
+       try {
+             for (Employee emp : Main.employees) {
+                if (emp.getUsername() == addEmployee.getUsername() && emp.getPassword() == BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt())) {
+                    isCopy = true;
+                    DeleteDB.delEmployee(emp);
+                } else if (emp.getUsername() != addEmployee.getUsername()) {
+                    return;
+                }
+             }
 
-        PreparedStatement pState = connection.prepareStatement(SQL);
-        pState.executeUpdate();
-        pState.close();
+            Main.employees.add(addEmployee);
+
+            if (isCopy) {
+                SQL = "UPDATE employeeTable SET password='" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "' WHERE username='" + addEmployee.getUsername() + "' AND password='" + addEmployee.getPassword() + "'";
+
+            } else {
+                String buildSQLStr = " VALUES ('" + addEmployee.getEmail() + "','" +
+                        addEmployee.getFirstName() + "','" + addEmployee.getLastName() + "','" + addEmployee.getDepartment() + "','" + addEmployee.getLanguage() + "','" + addEmployee.getAvailability() + "','" + addEmployee.getUsername() + "','" + BCrypt.hashpw(addEmployee.getPassword(), BCrypt.gensalt()) + "')"; //build the sql template
+                SQL = "INSERT INTO EMPLOYEETABLE" + buildSQLStr; //insert row into database
+            }
+
+
+            PreparedStatement pState = connection.prepareStatement(SQL);
+            pState.executeUpdate();
+            pState.close();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addJanitorStatistic(JanitorStatistic addStatistic) throws SQLException {
