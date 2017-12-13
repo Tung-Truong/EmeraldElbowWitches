@@ -1164,7 +1164,7 @@ public class PatientController extends Controller {
                     if (SearchNodeID.getText().toLowerCase().trim().equals("closest elevator")) {
                         findClosestElevator();
                     }
-                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest exit")) {
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest exit")) { // nice
                         findClosestExit();
                     }
                 }
