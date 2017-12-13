@@ -99,6 +99,9 @@ public class PatientController extends Controller {
     private JFXButton btn_map03;
 
     @FXML
+    private JFXButton SearchForStart;
+
+    @FXML
     private JFXButton btn_map02;
 
     @FXML
@@ -175,12 +178,6 @@ public class PatientController extends Controller {
 
     @FXML
     private JFXToggleButton reversePath;
-
-    @FXML
-    private ImageView startImage;
-
-    @FXML
-    private ImageView endImage;
 
     public static TextDirections textDirections = new TextDirections();
     ArrayList<NodeObj> currPath = null;
@@ -379,6 +376,10 @@ public class PatientController extends Controller {
             oldAnimation = animation;
             DrawCurrentFloorPath();
         }
+        start.setVisible(false);
+        end.setVisible(false);
+        openclose.setVisible(false);
+        openclose1.setVisible(false);
     }
 
     void getMap(Event e) {
@@ -475,7 +476,7 @@ public class PatientController extends Controller {
             /*for(int i = 0; i < Floors.size(); i++){
                 selectFloor(Floors.get(i), i+1);
             }*/
-            selectFloorWithPath(Main.getNodeMap().currentFloor);
+            //selectFloorWithPath(Main.getNodeMap().currentFloor);
             for (int i = Floors.size(); i > 0; i--) {
                 selectFloor(Floors.get(i - 1), (Floors.size() + 1) - i);
             }
@@ -1117,9 +1118,15 @@ public class PatientController extends Controller {
     }
 
     @FXML
+    void setSearchStart(){
+        NodeObj newStartNode = Main.getNodeMap().getNodeObjByID(SearchOptions.getValue().split(":")[0].trim());
+        Main.setKiosk(newStartNode);
+        redraw();
+    }
+
+    @FXML
     void UpdateSearch() {
         SearchOptions.getItems().clear();
-
         ArrayList<NodeObj> SearchNodes = new ArrayList<>();
         String search = SearchNodeID.getText();
         if (search.length() > 2) {
@@ -1137,16 +1144,7 @@ public class PatientController extends Controller {
                 n = Main.nodeMap.getNodeObjByID(s);
                 SearchOptions.getItems().add(n.node.getNodeID() + " : " + n.node.getLongName());
             }
-        }
-
-        if (search.equals("closest bathroom") || search.equals("closest restroom")) {
-            findClosestRestroom();
-        }
-        if (search.equals("closest elevator")) {
-            findClosestElevator();
-        }
-        if (search.equals("closest exit")) {
-            findClosestExit();
+            SearchOptions.show();
         }
     }
 
@@ -1154,27 +1152,40 @@ public class PatientController extends Controller {
     void setSearchNode(Event e) {
         if (((JFXButton) e.getSource()).getId().equals("SearchForNode")) {
             try {
-                String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
+                if(SearchNodeID.getText().toLowerCase().trim().split(" ")[0].trim().equals("closest")) {
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest bathroom") || SearchNodeID.getText().toLowerCase().trim().equals("closest restroom")) {
+                        findClosestRestroom();
+                    }
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest elevator")) {
+                        findClosestElevator();
+                    }
+                    if (SearchNodeID.getText().toLowerCase().trim().equals("closest exit")) { // nice
+                        findClosestExit();
+                    }
+                }
+                else {
+                    String searchNewNodeID = SearchOptions.getValue().split(":")[0].trim();
 
-                NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
-                try {
-                    if (newSearchNode == null)
-                        throw new InvalidNodeException("no node with that ID");
-                    getMap(e);
-                    ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
-                    Main.controllers.updateAllMaps(e);
-                    ((JFXButton) e.getSource()).setId("SearchForNode");
-                    gc1.setFill(Color.DARKRED);
-                    gc1.fillOval(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5,
-                            newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
-                            10,
-                            10);
-                    SearchPath.setVisible(true);
-                    SearchPath.setText(searchNewNodeID);
-                    SearchPath.setLayoutX(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000);
-                    SearchPath.setLayoutY(newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400);
-                } catch (InvalidNodeException exc) {
-                    exc.printStackTrace();
+                    NodeObj newSearchNode = Main.getNodeMap().getNodeObjByID(searchNewNodeID);
+                    try {
+                        if (newSearchNode == null)
+                            throw new InvalidNodeException("no node with that ID");
+                        getMap(e);
+                        ((JFXButton) e.getSource()).setId("btn_map" + newSearchNode.node.getFloor());
+                        Main.controllers.updateAllMaps(e);
+                        ((JFXButton) e.getSource()).setId("SearchForNode");
+                        gc1.setFill(Color.DARKRED);
+                        gc1.fillOval(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000 - 5,
+                                newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400 - 5,
+                                10,
+                                10);
+                        SearchPath.setVisible(true);
+                        SearchPath.setText(searchNewNodeID);
+                        SearchPath.setLayoutX(newSearchNode.node.getxLoc() * currentMap.getFitWidth() / 5000);
+                        SearchPath.setLayoutY(newSearchNode.node.getyLoc() * currentMap.getFitHeight() / 3400);
+                    } catch (InvalidNodeException exc) {
+                        exc.printStackTrace();
+                    }
                 }
             } catch (NullPointerException exc) {
                 exc.getMessage();
@@ -1410,7 +1421,20 @@ public class PatientController extends Controller {
         opacHandler(.5, hoveredID);
     }
 
+    @FXML
+    void floorHoverStart(MouseEvent event){
+        String hoveredID = ((JFXButton) event.getSource()).getId();
+        opacHandler(.5, hoveredID);
+    }
+
+    @FXML
+    void floorHoverEnd(MouseEvent event){
+        String hoveredID = ((JFXButton) event.getSource()).getId();
+        opacHandler(-.5, hoveredID);
+    }
+
     void opacHandler(double opacity, String hoveredID) {
+
         switch (hoveredID) {
             case "Tup":
                 Tup.setOpacity(opacity);
@@ -1433,8 +1457,57 @@ public class PatientController extends Controller {
             case "toHTML":
                 toHTML.setOpacity(opacity);
                 break;
+            case "btn_map03":
+                if((opacity + btn_map03.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_map03.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_map03.setOpacity(btn_map03.getOpacity()+opacity);
+                break;
+            case "btn_map02":
+                if((opacity + btn_map02.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_map02.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_map02.setOpacity(btn_map02.getOpacity()+opacity);
+                break;
+            case "btn_map01":
+                if((opacity + btn_map01.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_map01.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_map01.setOpacity(btn_map01.getOpacity()+opacity);
+                break;
+            case "btn_mapG":
+                if((opacity + btn_mapG.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_mapG.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_mapG.setOpacity(btn_mapG.getOpacity()+opacity);
+                break;
+            case "btn_mapL1":
+                if((opacity + btn_mapL1.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_mapL1.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_mapL1.setOpacity(btn_mapL1.getOpacity()+opacity);
+                break;
+            case "btn_mapL2":
+                if((opacity + btn_mapL2.getOpacity()) > 1){
+                    opacity = 1;
+                }else if((opacity + btn_mapL2.getOpacity() < .5)){
+                    opacity = .5;
+                }
+                btn_mapL2.setOpacity(btn_mapL2.getOpacity()+opacity);
+                break;
         }
     }
+
 
 
     public void resize() {

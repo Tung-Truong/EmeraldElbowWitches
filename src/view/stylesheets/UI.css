@@ -23,7 +23,7 @@
     -fx-text-fill: white;
     -fx-background-radius: 10px;
 }
-.buttonone:hover {
+/*.buttonone:hover {
     -fx-opacity: 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
@@ -38,15 +38,17 @@
     -fx-text-fill: white;
     -fx-background-radius: 10px;
 }
+/*
 .buttontwo:hover {
     -fx-opacity: 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
-.buttontwo:pressed, .buttonone:default:hover:pressed {
+.buttontwo:pressed, .buttontwo:default:hover:pressed {
     -fx-opacity: 1;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);
 
 }
+*/
 .searchBox {
     -fx-background-color: #4286f4;
     -fx-text-fill: white;
