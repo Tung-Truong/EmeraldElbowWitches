@@ -1,5 +1,6 @@
 package controller;
 
+//import controllers.API.APIApp;
 import HealthAPI.HealthCareRun;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +67,7 @@ public class ServiceController {
 
 
     public void initialize(){
-        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare", "Food", "IT");//, "cafeteria");
+        RequestServiceDropdown.getItems().addAll("Janitor", "Interpreter", "Healthcare", "Food", "IT", "Transport");//, "cafeteria");
     }
 
 //    public String getServiceNeeded() {
@@ -154,6 +155,14 @@ public class ServiceController {
             try{
                 close();
                 itRequest.run(0,0,600,350,"src/view/stylesheets/default.css",null,null);
+            }catch (Exception e){
+                System.out.println("Failed to run API");
+                e.printStackTrace();
+            }
+        } else if (RequestServiceDropdown.getValue() != null && (RequestServiceDropdown.getValue().equals("Transport"))){
+            try{
+                close();
+                APIApp.run(0,0,600,350,"src/view/stylesheets/default.css",null,null);
             }catch (Exception e){
                 System.out.println("Failed to run API");
                 e.printStackTrace();
