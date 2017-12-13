@@ -25,17 +25,17 @@ public class BeamFirst extends PathingAlgorithm {
             LinkedList<NodeObj> queue2 = new LinkedList<NodeObj>();
             for (int i = 0; i < neighbours.size(); i++) {
                 NodeObj n = neighbours.get(i);
-                n.setHeuristic(n.getDistance(goal) + n.getgCost() + floorDifference(n,current));
+                n.setHeuristic(n.getDistance(goal) + n.getgCost() + floorDifference(n, current));
                 if (n != null && !explored.contains(n)) {
                     queue2.add(n);
                     n.setParent(current);
                 }
             }
             Collections.sort(queue2, new NodeObjComparator());
-            while(queue2.size() > beamWidth) {
+            while (queue2.size() > beamWidth) {
                 queue2.removeLast();
             }
-            for (int j = 0; j < queue2.size(); j ++){
+            for (int j = 0; j < queue2.size(); j++) {
                 explored.add(queue2.get(j));
                 queue.add(queue2.get(j));
             }

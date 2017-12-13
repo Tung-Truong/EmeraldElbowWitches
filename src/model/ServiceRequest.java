@@ -2,11 +2,13 @@ package model;
 
 import controller.Main;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 public class ServiceRequest implements IReport {
 
@@ -23,7 +25,10 @@ public class ServiceRequest implements IReport {
     protected String location;
     protected Date received;
     protected Date sent;
+    protected String sentString;
     protected Employee assigned;
+    protected String requestType;
+    protected String otherInfo;
     protected String classType;
 
     // Constructor
@@ -33,7 +38,8 @@ public class ServiceRequest implements IReport {
         Info Format:
         34567812345,class model.InterpreterService,true,Mon Dec 04 17:08:11 EST 2017
      */
-    public ServiceRequest(String id, String type, String active, String submitted){
+
+    public ServiceRequest(String id, String type, String active, String submitted, String loc, String items){
         isActive = Boolean.parseBoolean(active);
         for (Employee e : Main.employees){
             if(Long.parseLong(id) == e.getId()){
@@ -43,9 +49,11 @@ public class ServiceRequest implements IReport {
         sent = new Date(Date.parse(submitted));
         email = assigned.getEmail();
         messageHeader = type;
-
-
+        location = loc;
+        requestType = messageHeader.split(" ")[0].trim();
         properties = new Properties();
+        sentString = sent.toString();
+        otherInfo = items;
 
         // property attributes for replying to the email
         properties.put("mail.store.protocol", "imaps");
@@ -67,6 +75,7 @@ public class ServiceRequest implements IReport {
             }
         });
     }
+
     public ServiceRequest(){
         isActive = true;
 
@@ -93,6 +102,37 @@ public class ServiceRequest implements IReport {
         });
     }
 
+
+    public String getOtherInfo() {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo) {
+        this.otherInfo = otherInfo;
+    }
+
+    public void setUpdateSentString() {
+        this.sentString = sent.toString();
+    }
+
+    public void setUpdateRequestType() {
+        this.requestType = messageHeader.split(" ")[0].trim();
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public String getSentString() {
+        SimpleDateFormat formater = new SimpleDateFormat("MM/d/yy");
+        try {
+            sentString = formater.format(sent);
+        }catch (NullPointerException e){
+            return null;
+        }
+        return sentString;
+    }
+
     // Getters
     public boolean isActive() {
         return isActive;
@@ -110,6 +150,10 @@ public class ServiceRequest implements IReport {
     public void setAccountFrom(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public void setActive(boolean bool){
@@ -187,7 +231,7 @@ public class ServiceRequest implements IReport {
                 Folder folder = store.getFolder("inbox");
 
                 if(folder.exists()){
-                    folder.open(Folder.READ_ONLY);
+                    folder.open(Folder.READ_WRITE);
 
                     Message[] messages = folder.getMessages();
 
@@ -207,8 +251,6 @@ public class ServiceRequest implements IReport {
                                 }
 
                             System.out.println(email);
-
-
 
                             String to = InternetAddress.toString(message
                                     .getRecipients(Message.RecipientType.TO));
@@ -248,6 +290,7 @@ public class ServiceRequest implements IReport {
                             if (gates == 4){
                                 // replyInfo = message.getContent().toString();
                                 setActive(false);
+                                message.setFlag(Flags.Flag.DELETED, true);
                                 break;
                             }
                         }//end of for loop

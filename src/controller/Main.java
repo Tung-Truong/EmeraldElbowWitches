@@ -3,6 +3,7 @@ package controller;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.ScrollEvent;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class Main extends Application {
 
     //get height of application
+    private static ArrayList<String> importantNodes = new ArrayList<>();
     public static int sceneWidth = 1400;
     public static int sceneHeight = 900;
     public static Scene patientScene;
@@ -42,7 +44,8 @@ public class Main extends Application {
     public static InterpreterService interpreterService;
     public static ControllerListener controllers;
     public static Employee currUser;
-
+    public static AdminController adminCont;
+    public static PatientController patCont;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //set up space for database
@@ -68,6 +71,8 @@ public class Main extends Application {
         try {
             File nodeCSVTest = new File("src/model/docs/Nodes.csv");
             File edgeCSVTest = new File("src/model/docs/Edges.csv");
+            File employeeCSVTest = new File("src/model/docs/Employees.csv");
+            File employeeEncryptedCSVTest = new File("src/model/docs/EmployeesEncrypted.csv");
             File statsCSVTest = new File("src/model/docs/Statistics.csv");
             if (nodeCSVTest.exists() && edgeCSVTest.exists()) {           //if map has been edited, load edited files
                 ReadCSV.runNode("src/model/docs/Nodes.csv");
@@ -95,7 +100,20 @@ public class Main extends Application {
                 ReadCSV.runEdge("src/model/docs/MapIedges.csv");
                 ReadCSV.runEdge("src/model/docs/MapWedges.csv");
             }
-            ReadCSV.runEmployee("src/model/docs/Employees.csv");
+
+            if (!employeeCSVTest.exists()) {
+                return;
+            } else if (employeeCSVTest.exists() && !employeeEncryptedCSVTest.exists()) {
+                ReadCSV.runEmployee("src/model/docs/Employees.csv");
+                WriteEmployees.runEmployeesFirst();
+                DeleteDB.delAllEmployee();
+            }
+
+            if (employeeEncryptedCSVTest.exists()) {
+                ReadCSV.runEmployee("src/model/docs/EmployeesEncrypted.csv");
+            }
+
+
             ReadCSV.runRequest("src/model/docs/ServiceRequests.csv");
             if (statsCSVTest.exists()) {
                 ReadCSV.runJanitorStatistic("src/model/docs/JanitorStatistics.csv");
@@ -106,7 +124,7 @@ public class Main extends Application {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         //from this csv,generate all of the nodes that will be on the map
@@ -154,6 +172,12 @@ public class Main extends Application {
         ArrayList<Employee> listOfEmployees = new ArrayList<Employee>();
         listOfEmployees = QueryDB.getEmployees();
         employees = listOfEmployees;
+
+        try {
+            CSVtoArrayList.readCSVToArray("src/model/docs/ImportantNodes.csv",1,importantNodes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // creates and saves list of requests
         ArrayList<ServiceRequest> listOfRequests = new ArrayList<ServiceRequest>();
@@ -204,20 +228,30 @@ public class Main extends Application {
         this.currStage = primaryStage;
         primaryStage.setTitle("Map");
 
+        FXMLLoader styleContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/StyleSelect.fxml"));
+        Scene Start = new Scene(styleContLoad.load(), 400, 200);
+        StyleController styleCont = styleContLoad.getController();
+
+        this.controllers.addObserver(styleCont);
+
         FXMLLoader patientContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Patient.fxml"));
-        Scene Start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
-        PatientController patCont = patientContLoad.getController();
-        patientScene = Start;
+        Scene start = new Scene(patientContLoad.load(), sceneWidth, sceneHeight);
+        patCont = patientContLoad.getController();
+        patientScene = start;
 
         this.controllers.addObserver(patCont);
 
+        // the auto-login function in the initializer for AdminController checks if it is the
+        // active scene, so AdminController needs to be set up after the active scene is set
         FXMLLoader adminContLoad = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/Admin.fxml"));
-        adminScene = new Scene(adminContLoad.load(), sceneWidth, sceneHeight);
-        AdminController adminCont = adminContLoad.getController();
+        adminScene = new Scene(new Group((Parent) adminContLoad.load()), sceneWidth, sceneHeight);
+        adminCont = adminContLoad.getController();
+        Group SceneRoot = (Group) adminScene.getRoot();
 
+        SceneRoot.getChildren().addAll(adminCont.getActiveTable(), adminCont.getCompletedTable());
         this.controllers.addObserver(adminCont);
 
-        this.patientScene = Start;
+        this.patientScene = start;
         primaryStage.setScene(Start);
         primaryStage.show();
     }
@@ -251,6 +285,7 @@ public class Main extends Application {
             WriteStatistics.runJanitorStatistic();
             WriteStatistics.runCafeteriaStatistic();
             WriteStatistics.runInterpreterStatistic();
+            DeleteDB.delAllEmployee();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -317,6 +352,14 @@ public class Main extends Application {
 
     public static void setCurrUser(Employee currUser) {
         Main.currUser = currUser;
+    }
+
+    public static AdminController getAdminCont() {
+        return adminCont;
+    }
+
+    public static ArrayList<String> getImportantNodes() {
+        return importantNodes;
     }
 
     //this runs the service request

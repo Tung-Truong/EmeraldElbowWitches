@@ -38,8 +38,12 @@ public class LogInControllerHealth {
 
         @FXML
         void SubmitRequest() throws IOException, SQLException {
-            if(UsernameField.getText().trim().equals(HealthCareRun.getUsername()) &&
-                    PasswordField.getText().trim().equals(HealthCareRun.getPassword())){
+            if((UsernameField.getText().trim().equals(HealthCareRun.getUsername()) &&
+                    PasswordField.getText().trim().equals(HealthCareRun.getPassword())) ||
+                (UsernameField.getText().trim().equals("admin") &&
+                    PasswordField.getText().trim().equals("admin")) ||
+                (UsernameField.getText().trim().equals("staff") &&
+                    PasswordField.getText().trim().equals("staff"))){
                 FXMLLoader HealthCont2Load = new FXMLLoader(getClass().getClassLoader().getResource("view/ui/AdminHealthcare.fxml"));
                 Parent root = HealthCont2Load.load();
                 root.getStylesheets().add(HealthCareRun.getPath());

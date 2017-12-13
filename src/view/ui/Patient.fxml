@@ -5,137 +5,170 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import com.jfoenix.controls.JFXTogglePane?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PatientController">
    <children>
-      <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0">
+      <ImageView fx:id="currentMap" fitHeight="900.0" fitWidth="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
          </image>
       </ImageView>
-      <Canvas fx:id="gc" height="900.0" onMousePressed="#mousePress" width="1400.0" />
-      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="400.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE">
+       <JFXTextField layoutX="11.0" layoutY="10.0" opacity="0.8" prefHeight="51.0" prefWidth="180.0">
+           <font>
+               <Font size="16.0" />
+           </font>
+       </JFXTextField>
+      <Canvas fx:id="gc" height="900.0" onMousePressed="#mousePress" width="1400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXButton buttonType="RAISED" layoutX="-176.0" layoutY="400.0" prefHeight="51.0" prefWidth="448.0" ripplerFill="#1b3766" rotate="270.0" text="  " textFill="WHITE" AnchorPane.bottomAnchor="449.0" AnchorPane.leftAnchor="-176.0">
          <font>
             <Font name="Avenir Next Bold" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="3" textFill="WHITE">
+      <JFXButton fx:id="btn_map03" buttonType="RAISED" layoutX="1221.0" layoutY="80.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="3" textFill="WHITE" AnchorPane.rightAnchor="129.0">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L1" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL1" buttonType="RAISED" layoutX="1221.0" layoutY="287.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="L1" textFill="WHITE" AnchorPane.rightAnchor="129.0">
          <font>
-            <Font name="Avenir Book" size="20.0" />
+            <Font name="Avenir Book" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="1" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="2" textFill="WHITE">
+      <JFXButton fx:id="btn_map01" buttonType="RAISED" layoutX="1221.0" layoutY="177.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="1" textFill="WHITE" AnchorPane.rightAnchor="129.0">
          <font>
             <Font size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="G" textFill="WHITE">
+      <JFXButton fx:id="btn_map02" buttonType="RAISED" layoutX="1221.0" layoutY="128.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="2" textFill="WHITE" AnchorPane.rightAnchor="129.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_mapG" buttonType="RAISED" layoutX="1221.0" layoutY="229.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="G" textFill="WHITE" AnchorPane.rightAnchor="129.0">
          <font>
             <Font name="Avenir Book" size="20.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" stylesheets="@../stylesheets/UI.css" text="L2" textFill="WHITE">
+      <JFXButton fx:id="btn_mapL2" buttonType="RAISED" layoutX="1221.0" layoutY="343.0" onAction="#changeMap" onMouseEntered="#floorHoverStart" onMouseExited="#floorHoverEnd" opacity="0.5" prefHeight="40.0" prefWidth="50.0" ripplerFill="#1b3766" styleClass="buttonone" text="L2" textFill="WHITE" AnchorPane.rightAnchor="129.0">
          <font>
-            <Font name="Avenir Book" size="20.0" />
+            <Font name="Avenir Book" size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="LOGIN" textFill="WHITE">
+      <JFXButton fx:id="loginButton" buttonType="RAISED" layoutX="1220.0" layoutY="10.0" onAction="#adminLogin" prefHeight="51.0" prefWidth="144.0" ripplerFill="#1b3766" styleClass="buttontwo" text="LOGIN" textFill="WHITE" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="System Font" size="24.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="toHTML" buttonType="RAISED" layoutX="1220.0" layoutY="469.0" onAction="#ourWebsite" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="36.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766;" stylesheets="@../stylesheets/UI.css" text="OUR TEAM" textFill="WHITE" />
-      <JFXTogglePane fx:id="textTogglePane" layoutX="1240.0" layoutY="581.0" prefHeight="133.0" prefWidth="144.0" visible="false">
+      <JFXButton fx:id="toHTML" buttonType="RAISED" layoutX="1220.0" layoutY="469.0" onAction="#ourWebsite" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="36.0" prefWidth="144.0" ripplerFill="#1b3766" styleClass="buttontwo" text="OUR TEAM" textFill="WHITE" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="469.0" />
+      <JFXTogglePane fx:id="textTogglePane" layoutX="1240.0" layoutY="581.0" prefHeight="133.0" prefWidth="144.0" visible="false" AnchorPane.bottomAnchor="186.0" AnchorPane.rightAnchor="16.0">
          <children>
             <JFXTextArea fx:id="toggleTextArea" unFocusColor="#ffffff00" />
          </children>
       </JFXTogglePane>
-      <Label layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR">
+      <Label layoutX="1171.0" layoutY="177.0" prefHeight="103.0" prefWidth="318.0" rotate="90.0" text="FLOOR" AnchorPane.rightAnchor="-89.0" AnchorPane.topAnchor="177.0">
          <font>
             <Font name="Avenir Next Bold" size="82.0" />
          </font>
       </Label>
-      <Label fx:id="floor3Label" alignment="CENTER_RIGHT" layoutX="1136.0" layoutY="80.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floor3Label" alignment="CENTER_RIGHT" layoutX="1136.0" layoutY="80.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="201.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="floor2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="128.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floor2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="128.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="201.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="floor1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="177.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floor1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="177.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="201.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="229.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floorGLabel" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="229.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="200.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="287.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floorL1Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="287.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="200.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="343.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT">
+      <Label fx:id="floorL2Label" alignment="CENTER_RIGHT" layoutX="1137.0" layoutY="343.0" prefHeight="40.0" prefWidth="63.0" textAlignment="RIGHT" AnchorPane.rightAnchor="200.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
-      <JFXButton fx:id="SearchForNode" buttonType="RAISED" layoutX="416.0" layoutY="10.0" onAction="#setSearchNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" stylesheets="@../stylesheets/UI.css" text="CONFIRM" textFill="WHITE">
+      <JFXButton fx:id="SearchForNode" buttonType="RAISED" layoutX="254.0" layoutY="11.0" onAction="#setSearchNode" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" styleClass="buttontwo" text="Go!" textFill="WHITE">
          <font>
             <Font size="16.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" style="-fx-background-color: #4286f4;">
+      <JFXTextField fx:id="SearchNodeID" layoutX="10.0" layoutY="10.0" onKeyTyped="#UpdateSearch" opacity="0.8" prefHeight="51.0" prefWidth="230.0" styleClass="buttontwo">
          <font>
             <Font size="16.0" />
          </font>
       </JFXTextField>
-      <JFXComboBox fx:id="SearchOptions" layoutX="255.0" layoutY="10.0" opacity="0.8" prefHeight="51.0" prefWidth="132.0" style="-fx-background-color: #4286f4;" />
-      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-background-color: #4286f4; -fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
-      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1220.0" layoutY="404.0" onAction="#getTextDirections" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="44.0" prefWidth="144.0" ripplerFill="#1b3766" style="-fx-background-color: #1b3766#1b3766;" stylesheets="@../stylesheets/UI.css" text="TEXT DIRECTIONS" textFill="WHITE">
+      <JFXComboBox fx:id="SearchOptions" layoutX="191.0" layoutY="10.0" onAction="#changeText" opacity="0.8" prefHeight="51.0" prefWidth="50.0" />
+      <JFXButton fx:id="SearchPath" layoutX="427.0" layoutY="318.0" onAction="#PathToHere" opacity="0.9" style="-fx-border-style: hidden hidden solid hidden;" textFill="WHITE" visible="false" />
+      <JFXButton fx:id="directionsButton" buttonType="RAISED" layoutX="1220.0" layoutY="404.0" onAction="#getTextDirections" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="44.0" prefWidth="144.0" ripplerFill="#1b3766" styleClass="buttontwo" text="TEXT DIRECTIONS" textFill="WHITE" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="404.0">
          <font>
             <Font size="14.0" />
          </font></JFXButton>
-      <JFXButton fx:id="Tup" buttonType="RAISED" layoutX="38.0" layoutY="767.0" onMouseClicked="#Tup" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▲" textFill="WHITE">
+      <JFXButton fx:id="Tup" buttonType="RAISED" layoutX="38.0" layoutY="767.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" onMousePressed="#Tup" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" styleClass="buttonone" text="▲" textFill="WHITE" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="38.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseClicked="#Tright" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▶" textFill="WHITE">
+      <JFXButton fx:id="Tright" buttonType="RAISED" layoutX="65.0" layoutY="808.0" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" onMousePressed="#Tright" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" styleClass="buttonone" text="▶" textFill="WHITE" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="65.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onMouseClicked="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="◀" textFill="WHITE">
+      <JFXButton fx:id="Tleft" buttonType="RAISED" layoutX="10.0" layoutY="808.0" onAction="#Tleft" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="32.0" prefWidth="32.0" ripplerFill="#1b3766" styleClass="buttonone" text="◀" textFill="WHITE" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="10.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="38.0" layoutY="850.0" onMouseClicked="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" style="-fx-background-color: #4286f4;" text="▼" textFill="WHITE">
+      <JFXButton fx:id="Tdown" buttonType="RAISED" layoutX="38.0" layoutY="850.0" onAction="#Tdown" onMouseDragged="#Tdown" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="35.0" prefWidth="35.0" ripplerFill="#1b3766" styleClass="buttonone" text="▼" textFill="WHITE" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="38.0">
          <font>
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" onMouseReleased="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0">
+      <JFXSlider fx:id="zoomBar" indicatorPosition="RIGHT" layoutX="39.0" layoutY="251.0" majorTickUnit="5.0" max="3.0" min="1.0" minorTickCount="1" onMouseDragged="#Zin" orientation="VERTICAL" prefHeight="502.0" prefWidth="46.0" scaleShape="false" showTickMarks="true" value="1.0" AnchorPane.bottomAnchor="147.0" AnchorPane.leftAnchor="39.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXSlider>
+      <ImageView fx:id="openclose" fitHeight="39.0" fitWidth="46.0" onMouseClicked="#goToNextFloor" visible="false">
+         <image>
+            <Image url="@../media/openclose.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="openclose1" fitHeight="39.0" fitWidth="46.0" layoutX="4.0" onMouseClicked="#goToPreviousFloor" visible="false">
+         <image>
+            <Image url="@../media/openclose.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="end" fitHeight="39.0" fitWidth="60.0" visible="false">
+         <image>
+            <Image url="@../media/end.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="start" fitHeight="39.0" fitWidth="60.0" visible="false">
+         <image>
+            <Image url="@../media/start.png" />
+         </image>
+      </ImageView>
+      <JFXToggleButton fx:id="reversePath" layoutX="607.0" layoutY="7.0" onMouseClicked="#redrawPath" text="Reverse Path" />
+      <JFXButton fx:id="SearchForStart" buttonType="RAISED" layoutX="427.0" layoutY="11.0" onAction="#setSearchStart" onMouseEntered="#pathingHoverStart" onMouseExited="#pathingHoverStop" opacity="0.5" prefHeight="51.0" prefWidth="165.0" ripplerFill="#1b3766" styleClass="buttontwo" text="Set Start" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
 
    </children>
-</Pane>
+</AnchorPane>

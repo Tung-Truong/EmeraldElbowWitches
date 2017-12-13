@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class JanitorService extends ServiceRequest{
+public class JanitorService extends ServiceRequest {
 
     // Attributes
     private ArrayList<String> suppliesNeeded;
@@ -12,12 +12,12 @@ public class JanitorService extends ServiceRequest{
     public JanitorStatistic soap = JanitorStatistic.getSoap();
 
     // Constructors
-    public JanitorService (){
+    public JanitorService() {
         this.setAccountTo(janitorEmail);
     }
 
     // Getters
-    public ArrayList<String> getSuppliesNeeded(){
+    public ArrayList<String> getSuppliesNeeded() {
         return this.suppliesNeeded;
     }
 
@@ -26,11 +26,11 @@ public class JanitorService extends ServiceRequest{
     }
 
     // Setters
-    public void setSuppliesNeeded (ArrayList<String> supplies){
+    public void setSuppliesNeeded(ArrayList<String> supplies) {
         this.suppliesNeeded = supplies;
     }
 
-    public void setJanitorEmail (String mail){
+    public void setJanitorEmail(String mail) {
         this.janitorEmail = mail;
     }
 
